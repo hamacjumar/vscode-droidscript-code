@@ -1,0 +1,6 @@
+
+MAJOR
+
+- Clear Debug output when running sample program.
+
+- Refactor code by moving the `getLocalData` and `setLocalData` into the extension util class.

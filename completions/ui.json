@@ -1,0 +1,326 @@
+{   "methods": [
+    {
+        "name": "addAccordion",
+        "kind": "Method",
+        "detail": "addAccordion: (parent: object, titles: object, options: string, width: number, height: number)",
+        "doc": "Adds an accordion or expansion panel into your app. This is very useful to display controls that are grouped together",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the text.\n\n*@param* {object} `titles` - An array of accordion titles.\n\n*@param* {string} `options` - A comma separated options.<br>Style: `Square`<br>Layout type: `Linear` `Absolute`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the text.","type":"object"},{"name":"titles: object","desc":"An array of accordion titles.","type":"object"},{"name":"options: string","desc":"A comma separated options.<br>Style: `Square`<br>Layout type: `Linear` `Absolute`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addAccordion(parent: object, titles: object, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addAppBar",
+        "kind": "Method",
+        "detail": "addAppBar: (parent: object, title: string, options: string, width: number, height: number)",
+        "doc": "Adds an AppBar on your app",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the AppBar\n\n*@param* {string} `title` - The title text of the appbar\n\n*@param* {string} `options` - A comma separated options.<br>Menu icon: `Menu` <br>Theme Color: `Primary` `Secondary` `Transparent` `Inherit` `Default`<br>Position: `Absolute` `Static` `Fixed` `Relative`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the AppBar","type":"object"},{"name":"title: string","desc":"The title text of the appbar","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Menu icon: `Menu` <br>Theme Color: `Primary` `Secondary` `Transparent` `Inherit` `Default`<br>Position: `Absolute` `Static` `Fixed` `Relative`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addAppBar(parent: object, title: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addBottomNavbar",
+        "kind": "Method",
+        "detail": "addBottomNavbar: (parent: object, navs: list, options: string, width: number, height: number)",
+        "doc": "Adds a bottom navigation bar to your app",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the BottomNavbar\n\n*@param* {list} `navs` - An array whose elements are of the form `[ \"Title\" \"Icon\" ]`\n\n*@param* {string} `options` - A comma separated options.<br>Label: `Hidelabels`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the BottomNavbar","type":"object"},{"name":"navs: list","desc":"An array whose elements are of the form `[ \\\"Title\\\" \\\"Icon\\\" ]`","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Label: `Hidelabels`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addBottomNavbar(parent: object, navs: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addButton",
+        "kind": "Method",
+        "detail": "addButton: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Adds a button control into your app",
+        "param": "\n*@param* {object} `parent` - The layout where to add the button.\n\n*@param* {string} `text` - The button text or the material icon text.\n\n*@param* {string} `options` - A comma separated options.<br>Variant: `Contained` `Outlined` `Text` `Default`<br>Theme Color: `Primary` `Secondary` `Default`<br>Sizes: `Small` `Medium` `Large`<br>Utils: `Icon` `NoRipple` `Upload` `Multiple`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the button.","type":"object"},{"name":"text: string","desc":"The button text or the material icon text.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Variant: `Contained` `Outlined` `Text` `Default`<br>Theme Color: `Primary` `Secondary` `Default`<br>Sizes: `Small` `Medium` `Large`<br>Utils: `Icon` `NoRipple` `Upload` `Multiple`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addButton(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addButtonGroup",
+        "kind": "Method",
+        "detail": "addButtonGroup: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a button group into your app",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the ButtonGroup\n\n*@param* {list} `list` - The item to be displayed on the buttn group.\n\n*@param* {string} `options` - A comma separated options.<br>Variant: `Contained` `Outlined` `Text` `Default`<br>Theme Color: `Primary` `Secondary` `Default`<br>Sizes: `Small` `Medium` `Large`<br>Orientation: `Horizontal` `Vertical`<br>Utils: `Icon` `NoElevation`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the ButtonGroup","type":"object"},{"name":"list: list","desc":"The item to be displayed on the buttn group.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Variant: `Contained` `Outlined` `Text` `Default`<br>Theme Color: `Primary` `Secondary` `Default`<br>Sizes: `Small` `Medium` `Large`<br>Orientation: `Horizontal` `Vertical`<br>Utils: `Icon` `NoElevation`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addButtonGroup(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addCheckbox",
+        "kind": "Method",
+        "detail": "addCheckbox: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Adds a checkbox control to the given layout",
+        "param": "\n*@param* {object} `parent` - The layout where to add the checkbox\n\n*@param* {string} `text` - The label for the checkbox\n\n*@param* {string} `options` - A comma separated options.<br>Theme Colors: `Primary` `Secondary`<br>Sizes: `Medium` `Small`<br>Icon position: `Left` `Top` `Right` `Bottom`<br>Variant: `Indeterminate` `Determinate`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the checkbox","type":"object"},{"name":"text: string","desc":"The label for the checkbox","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Theme Colors: `Primary` `Secondary`<br>Sizes: `Medium` `Small`<br>Icon position: `Left` `Top` `Right` `Bottom`<br>Variant: `Indeterminate` `Determinate`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addCheckbox(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addCheckboxGroup",
+        "kind": "Method",
+        "detail": "addCheckboxGroup: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a CheckboxGroup to a given layout",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the CheckboxGroup.\n\n*@param* {list} `list` - The items to be displayed.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Default` `Primary` `Secondary`<br>Sizes: `Small` `Medium`<br>Icon Position: `Left` `Right`<br>Container: `Elevated` `Outlined`<br>Corners : `Square`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`.\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`.\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the CheckboxGroup.","type":"object"},{"name":"list: list","desc":"The items to be displayed.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Default` `Primary` `Secondary`<br>Sizes: `Small` `Medium`<br>Icon Position: `Left` `Right`<br>Container: `Elevated` `Outlined`<br>Corners : `Square`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`.","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`.","type":"number"}],
+        "call": "ui.addCheckboxGroup(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addChip",
+        "kind": "Method",
+        "detail": "addChip: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Adds a chip into your app",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the Chip.\n\n*@param* {string} `text` - The text on the chip.\n\n*@param* {string} `options` - A comma separated option.<br>Theme Color: `Primary` `Secondary` `Default`<br>Size: `Small` `Medium`<br>Variant: `Outlined` `Default`<br>Util: `Touchable`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the Chip.","type":"object"},{"name":"text: string","desc":"The text on the chip.","type":"string"},{"name":"options: string","desc":"A comma separated option.<br>Theme Color: `Primary` `Secondary` `Default`<br>Size: `Small` `Medium`<br>Variant: `Outlined` `Default`<br>Util: `Touchable`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addChip(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "showColorPicker",
+        "kind": "Method",
+        "detail": "showColorPicker: (value: string, options: string, onSelect: function)",
+        "doc": "Shows a color picker. Customize a color or choose from the presets of color carefully selected from Material Design Color Pallette",
+        "param": "\n*@param* {string} `value` - A hexadecimal default value for the color picker.\n\n*@param* {string} `options` - A comma separated options.<br>Includes alpha: `Alpha`\n\n*@param* {function} `onSelect` - A comma separated options.<br>Includes alpha: `Alpha`\n",
+        "params": [{"name":"value: string","desc":"A hexadecimal default value for the color picker.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Includes alpha: `Alpha`","type":"string"},{"name":"onSelect: function","desc":"A comma separated options.<br>Includes alpha: `Alpha`","type":"function"}],
+        "call": "ui.showColorPicker(value: string, options: string, onSelect: function)"
+    },
+    {
+        "name": "addDatePicker",
+        "kind": "Method",
+        "detail": "addDatePicker: (date: string, options: string)",
+        "doc": "Adds a date picker component to the app",
+        "param": "\n*@param* {string} `date` - A default date value to which the datepicker begins. Format `YYYY-MM-DD`\n\n*@param* {string} `options` - A comma separated options.<br>Orientation: `Portrait` `Landscape`\n",
+        "params": [{"name":"date: string","desc":"A default date value to which the datepicker begins. Format `YYYY-MM-DD`","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Orientation: `Portrait` `Landscape`","type":"string"}],
+        "call": "ui.addDatePicker(date: string, options: string)"
+    },
+    {
+        "name": "showDateTimePicker",
+        "kind": "Method",
+        "detail": "showDateTimePicker: (callback: function, date: string, time: string, format: string)",
+        "doc": "Show a DateTimePicker where the user can select a date and time",
+        "param": "\n*@param* {function} `callback` - \n\n*@param* {string} `date` - Default value for date of the form \"MM/DD/YYYY\"\n\n*@param* {string} `time` - Default value for time of the form \"HH/MM/SS\"\n\n*@param* {string} `format` - The format value that will be pass to callback. Formats can be of the form <br> `MM/DD/YYYY HH:MM:SS` `MM:DD:YYYY HH:MM:SS`\n",
+        "params": [{"name":"callback: function","desc":"","type":"function"},{"name":"date: string","desc":"Default value for date of the form \\\"MM/DD/YYYY\\\"","type":"string"},{"name":"time: string","desc":"Default value for time of the form \\\"HH/MM/SS\\\"","type":"string"},{"name":"format: string","desc":"The format value that will be pass to callback. Formats can be of the form <br> `MM/DD/YYYY HH:MM:SS` `MM:DD:YYYY HH:MM:SS`","type":"string"}],
+        "call": "ui.showDateTimePicker(callback: function, date: string, time: string, format: string)"
+    },
+    {
+        "name": "addDialog",
+        "kind": "Method",
+        "detail": "addDialog: (title: string, body: string, actions: string, options: string)",
+        "doc": "Adds a dialog into your app",
+        "param": "\n*@param* {string} `title` - The dialog title text.\n\n*@param* {string} `body` - The dialog message to be shown.\n\n*@param* {string} `actions` - A comma separated text for action buttons.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Colors: `Primary` `Secondary`<br>Util: `NoCancel` prevents the dialog from closing on action.\n",
+        "params": [{"name":"title: string","desc":"The dialog title text.","type":"string"},{"name":"body: string","desc":"The dialog message to be shown.","type":"string"},{"name":"actions: string","desc":"A comma separated text for action buttons.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Theme Colors: `Primary` `Secondary`<br>Util: `NoCancel` prevents the dialog from closing on action.","type":"string"}],
+        "call": "ui.addDialog(title: string, body: string, actions: string, options: string)"
+    },
+    {
+        "name": "addDivider",
+        "kind": "Method",
+        "detail": "addDivider: (parent: object, width: number, options: string)",
+        "doc": "Adds a hairline divider into your layout",
+        "param": "\n*@param* {object} `parent` - The layout where to add the divider.\n\n*@param* {number} `width` - Fraction of the screen width. Default is 1.\n\n*@param* {string} `options` - A comma separated options.<br>`Inset` to add some padding.\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the divider.","type":"object"},{"name":"width: number","desc":"Fraction of the screen width. Default is 1.","type":"number"},{"name":"options: string","desc":"A comma separated options.<br>`Inset` to add some padding.","type":"string"}],
+        "call": "ui.addDivider(parent: object, width: number, options: string)"
+    },
+    {
+        "name": "addDrawer",
+        "kind": "Method",
+        "detail": "addDrawer: (layout: object, options: string, width: number)",
+        "doc": "Adds a drawer into your app",
+        "param": "\n*@param* {object} `layout` - The drawer layout where to add controls.\n\n*@param* {string} `options` - A comma separated options.nVariant: `Permanent` `Persistent` `Temporary`<br>Anchor: `Left` `Right` `Top` `Bottom`\n\n*@param* {number} `width` - Distance from the anchor position `[0-1]`\n",
+        "params": [{"name":"layout: object","desc":"The drawer layout where to add controls.","type":"object"},{"name":"options: string","desc":"A comma separated options.nVariant: `Permanent` `Persistent` `Temporary`<br>Anchor: `Left` `Right` `Top` `Bottom`","type":"string"},{"name":"width: number","desc":"Distance from the anchor position `[0-1]`","type":"number"}],
+        "call": "ui.addDrawer(layout: object, options: string, width: number)"
+    },
+    {
+        "name": "addDropdown",
+        "kind": "Method",
+        "detail": "addDropdown: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a dropdown component into your layout",
+        "param": "\n*@param* {object} `parent` - The layout where to add the dropdown.\n\n*@param* {list} `list` - The list items to show.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Colors: `Primary` `Secondary` `Default`<br>Variants: `Contained` `Outlined` `Text`<br>Sizes: `Small` `Medium` `Large`<br>Orientation: `Horizontal` `Vertical`<br>Util: `NoElevation`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`.\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`.\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the dropdown.","type":"object"},{"name":"list: list","desc":"The list items to show.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Theme Colors: `Primary` `Secondary` `Default`<br>Variants: `Contained` `Outlined` `Text`<br>Sizes: `Small` `Medium` `Large`<br>Orientation: `Horizontal` `Vertical`<br>Util: `NoElevation`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`.","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`.","type":"number"}],
+        "call": "ui.addDropdown(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addFAB",
+        "kind": "Method",
+        "detail": "addFAB: (parent: object, icon: string, options: string, text: string)",
+        "doc": "Adds a floating action button on your layout. FAB usually float at the bottom right of your screen by default",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the fab\n\n*@param* {string} `icon` - The string icon of the FAB\n\n*@param* {string} `options` - A comma separated option.<br>Position: `Fixed` `Static`<br>Style: `Rounded` `Extended`<br>Anchor: `Left` `Right`\n\n*@param* {string} `text` - Text to show for extended FABs\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the fab","type":"object"},{"name":"icon: string","desc":"The string icon of the FAB","type":"string"},{"name":"options: string","desc":"A comma separated option.<br>Position: `Fixed` `Static`<br>Style: `Rounded` `Extended`<br>Anchor: `Left` `Right`","type":"string"},{"name":"text: string","desc":"Text to show for extended FABs","type":"string"}],
+        "call": "ui.addFAB(parent: object, icon: string, options: string, text: string)"
+    },
+    {
+        "name": "addImage",
+        "kind": "Method",
+        "detail": "addImage: (parent: object, file: string, options: string, width: number, height: number)",
+        "doc": "Adds an image into your layout",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the image.\n\n*@param* {string} `file` - The path to the image.\n\n*@param* {string} `options` - A comma seprated options.<br>`Canvas` `Button` `Avatar`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`.\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`.\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the image.","type":"object"},{"name":"file: string","desc":"The path to the image.","type":"string"},{"name":"options: string","desc":"A comma seprated options.<br>`Canvas` `Button` `Avatar`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`.","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`.","type":"number"}],
+        "call": "ui.addImage(parent: object, file: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addLayout",
+        "kind": "Method",
+        "detail": "addLayout: (parent: object, type: string, options: string, width: number, height: object)",
+        "doc": "Adds a layout into your app. A layout is the basic ui component of an app. It is where you add other ui components such as buttons, textfields, checkboxes, list, images and many more",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add this component. Pass a string `main` for the main layout of your app.\n\n*@param* {string} `type` - The layout type. Values can be `Linear` `Absolute` `Frame` and `Slide`\n\n*@param* {string} `options` - A comma separated options.<br>Orientation: `Horizontal` `Vertical`<br>Horizontal Alignment: `Left` `Center` `Right`<br>Vertical Alignment: `Top` `VCenter` `Bottom`<br>Dimensions: `FillXY` `FillX` `FillY`<br>Scroll: `ScrollX` `ScrollY` `ScrollXY` `NoScrollBar`<br>Utils:<br>`BackColor` to apply theme background color rather than transparent.<br>`NoScrollBar` to remove scrollbar when scroll options is passed.<br>`TouchThrough` to enable touch events to propagate behind the layers in frame layouts.\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {object} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add this component. Pass a string `main` for the main layout of your app.","type":"object"},{"name":"type: string","desc":"The layout type. Values can be `Linear` `Absolute` `Frame` and `Slide`","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Orientation: `Horizontal` `Vertical`<br>Horizontal Alignment: `Left` `Center` `Right`<br>Vertical Alignment: `Top` `VCenter` `Bottom`<br>Dimensions: `FillXY` `FillX` `FillY`<br>Scroll: `ScrollX` `ScrollY` `ScrollXY` `NoScrollBar`<br>Utils:<br>`BackColor` to apply theme background color rather than transparent.<br>`NoScrollBar` to remove scrollbar when scroll options is passed.<br>`TouchThrough` to enable touch events to propagate behind the layers in frame layouts.","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: object","desc":"Fraction of the screen height `[0-1]`","type":"object"}],
+        "call": "ui.addLayout(parent: object, type: string, options: string, width: number, height: object)"
+    },
+    {
+        "name": "addList",
+        "kind": "Method",
+        "detail": "addList: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Lists are continuous, vertical indexes of text or images",
+        "param": "\n*@param* {object} `parent` - The parent layout\n\n*@param* {list} `list` - An array of arrays. Each element is of the form `[icon title body secondary]`\n\n*@param* {string} `options` - A comma separated options.<br>Media: `Icon` `Avatar`<br>Styling: `Dense` `Inset`<br>Utils: `Selectable` `Divider` `SecondaryText` `NoRipple` `NoScrollBar`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout","type":"object"},{"name":"list: list","desc":"An array of arrays. Each element is of the form `[icon title body secondary]`","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Media: `Icon` `Avatar`<br>Styling: `Dense` `Inset`<br>Utils: `Selectable` `Divider` `SecondaryText` `NoRipple` `NoScrollBar`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addList(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addMenu",
+        "kind": "Method",
+        "detail": "addMenu: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a pop-up menu into your components",
+        "param": "\n*@param* {object} `parent` - The component where to anchor the Menu.\n\n*@param* {list} `list` - A list of items to be shown in the pop-up menu. You can also pass a comma separated string. For menu with icon the format is `icon:title` <br> Add a `colon` before an item to display it as the label text.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Primary` `Secondary` `Error`<br>Utils: `Dense` `Icon`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The component where to anchor the Menu.","type":"object"},{"name":"list: list","desc":"A list of items to be shown in the pop-up menu. You can also pass a comma separated string. For menu with icon the format is `icon:title` <br> Add a `colon` before an item to display it as the label text.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Primary` `Secondary` `Error`<br>Utils: `Dense` `Icon`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addMenu(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "showPopover",
+        "kind": "Method",
+        "detail": "showPopover: (parent: object, text: string, position: string, width: number, height: number)",
+        "doc": "Show a popover on any <span style=\"color:#4c4; font-family:Courier, monospace; font-size:100%; padding:0px 2px;\">UI Components</span> except Dialogs and Popups. Popover is very useful on showing additional info or displaying instructions especially when the control is click or hovered",
+        "param": "\n*@param* {object} `parent` - UI component. Can be a `Layout` `Button` `Image` `Text` or any UI component except dialogs.\n\n*@param* {string} `text` - The text to de displayed. For displaying more data pass a `Layout`\n\n*@param* {string} `position` - A comma separated values representing the<br>`\"anchorOrigintransformOrigin\"`<br>`anchorOrigin` Position of the popover on its parent.<br>`transformOrigin` Origin on the popover itselt.<br>Available values for both `anchorOrigin` and `transformOrigin`  are<br>`tl` for top-left `tc` for top-center `tr` `cl` `cc` `cr` `bl` `bc` and `br` for bottom-right.\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"UI component. Can be a `Layout` `Button` `Image` `Text` or any UI component except dialogs.","type":"object"},{"name":"text: string","desc":"The text to de displayed. For displaying more data pass a `Layout`","type":"string"},{"name":"position: string","desc":"A comma separated values representing the<br>`\\\"anchorOrigintransformOrigin\\\"`<br>`anchorOrigin` Position of the popover on its parent.<br>`transformOrigin` Origin on the popover itselt.<br>Available values for both `anchorOrigin` and `transformOrigin`  are<br>`tl` for top-left `tc` for top-center `tr` `cl` `cc` `cr` `bl` `bc` and `br` for bottom-right.","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.showPopover(parent: object, text: string, position: string, width: number, height: number)"
+    },
+    {
+        "name": "showPopup",
+        "kind": "Method",
+        "detail": "showPopup: (msg: string, options: string, duration: number, action: string)",
+        "doc": "Shows a popup into your app",
+        "param": "\n*@param* {string} `msg` - The message to display on the pop-up.\n\n*@param* {string} `options` - A comma separated options.<br>Duration: `Short` `Long`<br>Vertical Alignment: `Top` `Bottom`<br>Horizontal Alignment: `Left` `Center` `Right`<br>Action options: `Icon` `HideOnAction`<br>Transition: `Grow` `Fade` `Slide` `Collapse` `Zoom`\n\n*@param* {number} `duration` - Time in milliseconds. Pass this if you don't want the default auto hide duration.\n\n*@param* {string} `action` - Action button text.\n",
+        "params": [{"name":"msg: string","desc":"The message to display on the pop-up.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Duration: `Short` `Long`<br>Vertical Alignment: `Top` `Bottom`<br>Horizontal Alignment: `Left` `Center` `Right`<br>Action options: `Icon` `HideOnAction`<br>Transition: `Grow` `Fade` `Slide` `Collapse` `Zoom`","type":"string"},{"name":"duration: number","desc":"Time in milliseconds. Pass this if you don't want the default auto hide duration.","type":"number"},{"name":"action: string","desc":"Action button text.","type":"string"}],
+        "call": "ui.showPopup(msg: string, options: string, duration: number, action: string)"
+    },
+    {
+        "name": "addProgress",
+        "kind": "Method",
+        "detail": "addProgress: (parent: object, value: number, options: string, width: number, height: number)",
+        "doc": "Adds a progress component into your app",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the prgress component.\n\n*@param* {number} `value` - the initial value of the progress component.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Type: `Circular` `Linear`<br>Variant: `Determinate` `Indeterminate`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction fo the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the prgress component.","type":"object"},{"name":"value: number","desc":"the initial value of the progress component.","type":"number"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Type: `Circular` `Linear`<br>Variant: `Determinate` `Indeterminate`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction fo the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addProgress(parent: object, value: number, options: string, width: number, height: number)"
+    },
+    {
+        "name": "showProgressDialog",
+        "kind": "Method",
+        "detail": "showProgressDialog: (text: string, options: string)",
+        "doc": "Shows a progress dialog component into your app",
+        "param": "\n*@param* {string} `text` - The text message of the progress dialog.\n\n*@param* {string} `options` - A comma separated options.<br>`AutoCancel` to close the dialog when backdrop is click.\n",
+        "params": [{"name":"text: string","desc":"The text message of the progress dialog.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>`AutoCancel` to close the dialog when backdrop is click.","type":"string"}],
+        "call": "ui.showProgressDialog(text: string, options: string)"
+    },
+    {
+        "name": "addRadioGroup",
+        "kind": "Method",
+        "detail": "addRadioGroup: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a radiogroup component into your app. A radiogroup is a type of select list that can only have a single value being checked at a time",
+        "param": "\n*@param* {object} `parent` - The parent where to add the RadioGroup component.\n\n*@param* {list} `list` - The list items array.\n\n*@param* {string} `options` - A comma separated options.<br>Radio Sizes: `Small` `Medium`<br>Theme Colors: `Primary` `Secondary` Default<br>Icon Position: `Left` `Right`<br>Container: `Elevated` `Outlined`<br>Corner: `Square`<br>Utils: `Required`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent where to add the RadioGroup component.","type":"object"},{"name":"list: list","desc":"The list items array.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Radio Sizes: `Small` `Medium`<br>Theme Colors: `Primary` `Secondary` Default<br>Icon Position: `Left` `Right`<br>Container: `Elevated` `Outlined`<br>Corner: `Square`<br>Utils: `Required`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addRadioGroup(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addSelect",
+        "kind": "Method",
+        "detail": "addSelect: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a Select Component to a given layout",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the control\n\n*@param* {list} `list` - The list of items for the Select options\n\n*@param* {string} `options` - A comma separated options.<br>Sizes: `Small` `Medium`<br>Variant: `Filled` `Outlined` `Standard`<br>Margin: `Dense` `Normal`<br>Utils: `Required` `Multiple` `Radio` `Disabled` `AutoFocus` `FullWidth`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the control","type":"object"},{"name":"list: list","desc":"The list of items for the Select options","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Sizes: `Small` `Medium`<br>Variant: `Filled` `Outlined` `Standard`<br>Margin: `Dense` `Normal`<br>Utils: `Required` `Multiple` `Radio` `Disabled` `AutoFocus` `FullWidth`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addSelect(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addSlider",
+        "kind": "Method",
+        "detail": "addSlider: (parent: object, value: number, options: string, width: number, height: number)",
+        "doc": "Adds a Slider Component into your App",
+        "param": "\n*@param* {object} `parent` - The layout where to add the Slider Component.\n\n*@param* {number} `value` - The initial value of the Slider. Value must be between `0-100` the default min and max values.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Orientation: `Horizontal` `Vertical`<br>Track: `Normal` `Inverted` `False`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the Slider Component.","type":"object"},{"name":"value: number","desc":"The initial value of the Slider. Value must be between `0-100` the default min and max values.","type":"number"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Orientation: `Horizontal` `Vertical`<br>Track: `Normal` `Inverted` `False`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addSlider(parent: object, value: number, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addStepper",
+        "kind": "Method",
+        "detail": "addStepper: (parent: object, steps: list, options: string, width: number, height: number)",
+        "doc": "Adds a Stepper to a given layout. A stepper can display a series of steps or information that a user can navigate forward or backward",
+        "param": "\n*@param* {object} `parent` - The parent layout of the Stepper\n\n*@param* {list} `steps` - An array of titles.\n\n*@param* {string} `options` - A comma separated options.<br>`Vertical` `Horizontal` `Loop` `Mobile` `AlternativeLabel`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout of the Stepper","type":"object"},{"name":"steps: list","desc":"An array of titles.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>`Vertical` `Horizontal` `Loop` `Mobile` `AlternativeLabel`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addStepper(parent: object, steps: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addSwitch",
+        "kind": "Method",
+        "detail": "addSwitch: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Adds a Switch Component into your layout. A switch is a control whose values can be toggled between <span style=\"color:#4c4; font-family:Courier, monospace; font-size:100%; padding:0px 2px;\">on</span> and <span style=\"color:#4c4; font-family:Courier, monospace; font-size:100%; padding:0px 2px;\">off</span>",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the Switch Component.\n\n*@param* {string} `text` - The label text.\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Primary` `Secondary` `Default`<br>Icon Position: `Left` `Top` `Right` `Bottom`<br>Sizes: `Small` `Medium`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the Switch Component.","type":"object"},{"name":"text: string","desc":"The label text.","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Primary` `Secondary` `Default`<br>Icon Position: `Left` `Top` `Right` `Bottom`<br>Sizes: `Small` `Medium`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addSwitch(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addSwitchGroup",
+        "kind": "Method",
+        "detail": "addSwitchGroup: (parent: object, list: object, options: string, width: number, height: number)",
+        "doc": "Adds a SwitchGroup Component into your layout. A switchgroup is a list whose items can be toggled between <span style=\"color:#4c4; font-family:Courier, monospace; font-size:100%; padding:0px 2px;\">on</span> and <span style=\"color:#4c4; font-family:Courier, monospace; font-size:100%; padding:0px 2px;\">off</span>",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the SwitchGroup Component.\n\n*@param* {object} `list` - The list items array whose elements can be `String` if items is text only or `Array` of the form `[ \"icon\" \"label\" ]` if items is icon and text.\n\n*@param* {string} `options` - A comma separated options.<br>Icon: `Icon`<br>Color: `Primary` `Secondary`<br>Container: `Elevated` `Outlined`<br>Corner: `Square`<br>List divider: `Divider`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the SwitchGroup Component.","type":"object"},{"name":"list: object","desc":"The list items array whose elements can be `String` if items is text only or `Array` of the form `[ \\\"icon\\\" \\\"label\\\" ]` if items is icon and text.","type":"object"},{"name":"options: string","desc":"A comma separated options.<br>Icon: `Icon`<br>Color: `Primary` `Secondary`<br>Container: `Elevated` `Outlined`<br>Corner: `Square`<br>List divider: `Divider`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addSwitchGroup(parent: object, list: object, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addTabs",
+        "kind": "Method",
+        "detail": "addTabs: (parent: object, list: list, options: string, width: number, height: number)",
+        "doc": "Adds a Tabs Component into your layout",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the Tabs Component.\n\n*@param* {list} `list` - An array of tab names.\n\n*@param* {string} `options` - A comma separated options.<br>Swipe: `Swipeable`<br>Theme Colors: `Primary` `Secondary` `Inherit` `Transparent` `Default`<br>Variant: `Standard` `Scrollable` `FullWidth`<br>Layout: `Linear` `Absolute`<br>Utils: `Icon` `Center` `Paper`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the Tabs Component.","type":"object"},{"name":"list: list","desc":"An array of tab names.","type":"list"},{"name":"options: string","desc":"A comma separated options.<br>Swipe: `Swipeable`<br>Theme Colors: `Primary` `Secondary` `Inherit` `Transparent` `Default`<br>Variant: `Standard` `Scrollable` `FullWidth`<br>Layout: `Linear` `Absolute`<br>Utils: `Icon` `Center` `Paper`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addTabs(parent: object, list: list, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addText",
+        "kind": "Method",
+        "detail": "addText: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Adds a text to your app",
+        "param": "\n*@param* {object} `parent` - The layout control where to add the text control\n\n*@param* {string} `text` - The text to be displayed on the text control\n\n*@param* {string} `options` - A comma separated options.<br>Variants: `H1` `H2` `H3` `H4` `H5` `H6` `body1` `body2` `overline` `subtitle1` `subtitle2` `button` `caption`<br>Lines: `Singleline` `Multiline`<br>Alignment: `Left` `Center` `Right` `Justify`<br>Theme Color: `Primary` `Secondary` `TextPrimary` `TextSecondary` `Error`<br>Format: `Html` `Icon` `Italize` `Monospace` `Bold` `Underline`<br>Utils: `Touchable`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The layout control where to add the text control","type":"object"},{"name":"text: string","desc":"The text to be displayed on the text control","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Variants: `H1` `H2` `H3` `H4` `H5` `H6` `body1` `body2` `overline` `subtitle1` `subtitle2` `button` `caption`<br>Lines: `Singleline` `Multiline`<br>Alignment: `Left` `Center` `Right` `Justify`<br>Theme Color: `Primary` `Secondary` `TextPrimary` `TextSecondary` `Error`<br>Format: `Html` `Icon` `Italize` `Monospace` `Bold` `Underline`<br>Utils: `Touchable`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addText(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addTextField",
+        "kind": "Method",
+        "detail": "addTextField: (parent: object, text: string, options: string, width: number, height: number)",
+        "doc": "Add a textfield component into your app. Collect inputs from users. Inputs can be a number, text, emails, passwords and more. Just pass the corresponding type int",
+        "param": "\n*@param* {object} `parent` - The layout where to add the TextField Component.\n\n*@param* {string} `text` - The initial value of the TextField\n\n*@param* {string} `options` - A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Sizes: `Small` `Medium`<br>Type: `Text` `Password` `Email` `Search` `Number` `Date` `Time` `DateTime`<br>Variant: `Standard` `Filled` `Outlined`<br>Utils: `Autofocus`\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The layout where to add the TextField Component.","type":"object"},{"name":"text: string","desc":"The initial value of the TextField","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Theme Color: `Primary` `Secondary`<br>Sizes: `Small` `Medium`<br>Type: `Text` `Password` `Email` `Search` `Number` `Date` `Time` `DateTime`<br>Variant: `Standard` `Filled` `Outlined`<br>Utils: `Autofocus`","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addTextField(parent: object, text: string, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addTimePicker",
+        "kind": "Method",
+        "detail": "addTimePicker: (time: string, options: string)",
+        "doc": "Adds a time picker component to the app",
+        "param": "\n*@param* {string} `time` - A default time value to which the timepicker begins. Value is of the form `HH:mm`\n\n*@param* {string} `options` - A comma separated options.<br>Orientation: `Portrait` `Landscape`<br>Format: `24H` `12H`\n",
+        "params": [{"name":"time: string","desc":"A default time value to which the timepicker begins. Value is of the form `HH:mm`","type":"string"},{"name":"options: string","desc":"A comma separated options.<br>Orientation: `Portrait` `Landscape`<br>Format: `24H` `12H`","type":"string"}],
+        "call": "ui.addTimePicker(time: string, options: string)"
+    },
+    {
+        "name": "addTreeView",
+        "kind": "Method",
+        "detail": "addTreeView: (parent: object, list: object, options: string, width: number, height: number)",
+        "doc": "Adds a TreeView component into your app. A tree view is best use in file system navigation",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the TreeView component.\n\n*@param* {object} `list` - An object of the treeview items. See example below.\n\n*@param* {string} `options` - A comma separated options. Values can be `MultiSelect`.\n\n*@param* {number} `width` - Fraction of the screen width `[0-1]`\n\n*@param* {number} `height` - Fraction of the screen height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the TreeView component.","type":"object"},{"name":"list: object","desc":"An object of the treeview items. See example below.","type":"object"},{"name":"options: string","desc":"A comma separated options. Values can be `MultiSelect`.","type":"string"},{"name":"width: number","desc":"Fraction of the screen width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the screen height `[0-1]`","type":"number"}],
+        "call": "ui.addTreeView(parent: object, list: object, options: string, width: number, height: number)"
+    },
+    {
+        "name": "addWebView",
+        "kind": "Method",
+        "detail": "addWebView: (parent: object, url: string, options: string, width: number, height: number)",
+        "doc": "Adds a webview into your app. A webview is a component where you can display a website into your app layout",
+        "param": "\n*@param* {object} `parent` - The parent layout where to add the WebView component.\n\n*@param* {string} `url` - The url of the website.\n\n*@param* {string} `options` - A comma separated options for WebView. Values can be `NoScrollBar`\n\n*@param* {number} `width` - Fraction of the parent width `[0-1]`\n\n*@param* {number} `height` - Fraction of the parent height `[0-1]`\n",
+        "params": [{"name":"parent: object","desc":"The parent layout where to add the WebView component.","type":"object"},{"name":"url: string","desc":"The url of the website.","type":"string"},{"name":"options: string","desc":"A comma separated options for WebView. Values can be `NoScrollBar`","type":"string"},{"name":"width: number","desc":"Fraction of the parent width `[0-1]`","type":"number"},{"name":"height: number","desc":"Fraction of the parent height `[0-1]`","type":"number"}],
+        "call": "ui.addWebView(parent: object, url: string, options: string, width: number, height: number)"
+    }
+]}

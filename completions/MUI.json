@@ -1,0 +1,1307 @@
+{   "methods": [
+    {
+        "name": "colors",
+        "kind": "Method",
+        "detail": "colors: ()",
+        "doc": "MUI colors are accessible through the **colors** property of the MUI object",
+        "param": "",
+        "params": [],
+        "call": "MUI.colors()"
+    },
+    {
+        "name": "AddAlert",
+        "kind": "Method",
+        "detail": "AddAlert: (text: string, icon: string, color: string)",
+        "doc": "Adds a nice pop-up at the top. See @CreateAlert for a full documentation",
+        "param": "\n*@param* {string} `text` - Popup text\n\n*@param* {string} `icon` - Material icon\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"Popup text","type":"string"},{"name":"icon: string","desc":"Material icon","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddAlert(text: string, icon: string, color: string)"
+    },
+    {
+        "name": "AddAlertSimple",
+        "kind": "Method",
+        "detail": "AddAlertSimple: (text: string, btnText: string, color: string)",
+        "doc": "Adds a simple alert with a single button. See @CreateAlertSimple for a full documentation",
+        "param": "\n*@param* {string} `text` - Text of the alert\n\n*@param* {string} `btnText` - Button text. Default is OKAY\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"Text of the alert","type":"string"},{"name":"btnText: string","desc":"Button text. Default is OKAY","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddAlertSimple(text: string, btnText: string, color: string)"
+    },
+    {
+        "name": "AddAppBar",
+        "kind": "Method",
+        "detail": "AddAppBar: (parent: object, p1: string, p2: string, p3: string, options: string)",
+        "doc": "Adds an appbar on a given layout. See @CreateAppBar, @CreateAppBarElegant and @CreateAppBarModern for a full documentation. The parameters p1, p2 and p3 depends on the type of appbar. Refer to each type for more info. Example for @CreateAppBar and @CreateAppBarElegant 'ps' is 'title', 'p2' is 'logoIcon' and 'p3' is 'controls'. For @CreateAppBarModern 'p1' is 'hint','p2' is 'controlIcon' and 'p3' is 'color'",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `p1` - Title text|Hint\n\n*@param* {string} `p2` - Material Icon\n\n*@param* {string} `p3` - controls|color\n\n*@param* {string} `options` - String comma “,” separated Elegant|Modern|Default and Round|Rectangle for Modern Appbar\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"p1: string","desc":"Title text|Hint","type":"string"},{"name":"p2: string","desc":"Material Icon","type":"string"},{"name":"p3: string","desc":"controls|color","type":"string"},{"name":"options: string","desc":"String comma “,” separated Elegant|Modern|Default and Round|Rectangle for Modern Appbar","type":"string"}],
+        "call": "MUI.AddAppBar(parent: object, p1: string, p2: string, p3: string, options: string)"
+    },
+    {
+        "name": "AddAppBarElegant",
+        "kind": "Method",
+        "detail": "AddAppBarElegant: (parent: object, title: string, leadingIcon: string, options: string)",
+        "doc": "Adds an elegant appbar on a given layout. See @CreateAppBarElegant for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `title` - Title text\n\n*@param* {string} `leadingIcon` - Material icon font\n\n*@param* {string} `options` - String comma “,” separated material icon font for the right controls\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"title: string","desc":"Title text","type":"string"},{"name":"leadingIcon: string","desc":"Material icon font","type":"string"},{"name":"options: string","desc":"String comma “,” separated material icon font for the right controls","type":"string"}],
+        "call": "MUI.AddAppBarElegant(parent: object, title: string, leadingIcon: string, options: string)"
+    },
+    {
+        "name": "AddAppBarModern",
+        "kind": "Method",
+        "detail": "AddAppBarModern: (parent: object, hint: string, controlIcon: string, options: string, color: string)",
+        "doc": "Adds a modern appbar on a given layout. See @CreateAppBarModern for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint text for the search input\n\n*@param* {string} `controlIcon` - Material font for the control icon\n\n*@param* {string} `options` - Can be Round|Rectangle\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"hint: string","desc":"Hint text for the search input","type":"string"},{"name":"controlIcon: string","desc":"Material font for the control icon","type":"string"},{"name":"options: string","desc":"Can be Round|Rectangle","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddAppBarModern(parent: object, hint: string, controlIcon: string, options: string, color: string)"
+    },
+    {
+        "name": "AddBanner",
+        "kind": "Method",
+        "detail": "AddBanner: (text: string, okText: string, cancelText: string)",
+        "doc": "Adds a banner dialog. See @CreateBanner for a full documentation",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {string} `okText` - Truthy button text\n\n*@param* {string} `cancelText` - Falsey button text\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"okText: string","desc":"Truthy button text","type":"string"},{"name":"cancelText: string","desc":"Falsey button text","type":"string"}],
+        "call": "MUI.AddBanner(text: string, okText: string, cancelText: string)"
+    },
+    {
+        "name": "AddButton",
+        "kind": "Method",
+        "detail": "AddButton: (parent: object, text: string, width: number, height: number, options: string)",
+        "doc": "Adds a MUI button to a given layout. See @CreateButtonElegant, @CreateButtonFlat, @CreateButtonRaised, @CreateButtonRaisedO, @CreateButtonRound, and @CreateButtonRoundO for full documentatio",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `options` - raised|raisedo|roundo|round|elegant|outlined|contained|text|flat\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"options: string","desc":"raised|raisedo|roundo|round|elegant|outlined|contained|text|flat","type":"string"}],
+        "call": "MUI.AddButton(parent: object, text: string, width: number, height: number, options: string)"
+    },
+    {
+        "name": "AddButtonElegant",
+        "kind": "Method",
+        "detail": "AddButtonElegant: (parent: object, text: string, width: number, height: number, color: string)",
+        "doc": "Add an elegant button on a given layout. See @CreateButtonElegant for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonElegant(parent: object, text: string, width: number, height: number, color: string)"
+    },
+    {
+        "name": "AddButtonFlat",
+        "kind": "Method",
+        "detail": "AddButtonFlat: (parent: object, text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "Adds a flat button on given layout. See @CreateButtonFlat for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonFlat(parent: object, text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "AddButtonRaised",
+        "kind": "Method",
+        "detail": "AddButtonRaised: (parent: object, text: string, width: number, height: number, color: string, txtcolor: string)",
+        "doc": "Adds a raised material button on a given layout. See @CreateButtonRaised for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `txtcolor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"txtcolor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonRaised(parent: object, text: string, width: number, height: number, color: string, txtcolor: string)"
+    },
+    {
+        "name": "AddButtonRaisedO",
+        "kind": "Method",
+        "detail": "AddButtonRaisedO: (parent: object, text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "Adds an outlined material raised button on a given layout. See @CreateButtonRaisedO for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonRaisedO(parent: object, text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "AddButtonRound",
+        "kind": "Method",
+        "detail": "AddButtonRound: (parent: object, text: string, width: number, height: number, color: string, txtcolor: string)",
+        "doc": "Adds a round material button on a given layout. See @CreateButtonRound for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `txtcolor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"txtcolor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonRound(parent: object, text: string, width: number, height: number, color: string, txtcolor: string)"
+    },
+    {
+        "name": "AddButtonRoundO",
+        "kind": "Method",
+        "detail": "AddButtonRoundO: (parent: object, text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "Adds an outlined material round button on a given layout. See @CreateButtonRoundO for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddButtonRoundO(parent: object, text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "AddButtonOutlined",
+        "kind": "Method",
+        "detail": "AddButtonOutlined: (parent: object, text: string, width: number, height: number)",
+        "doc": "An outlined material button. See @CreateButtonOutlined for full documentatio",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.AddButtonOutlined(parent: object, text: string, width: number, height: number)"
+    },
+    {
+        "name": "AddButtonContained",
+        "kind": "Method",
+        "detail": "AddButtonContained: (parent: object, text: string, width: number, height: number)",
+        "doc": "Adds a contained material button on a given layout. See @CreateButtonContained for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.AddButtonContained(parent: object, text: string, width: number, height: number)"
+    },
+    {
+        "name": "AddButtonText",
+        "kind": "Method",
+        "detail": "AddButtonText: (parent: object, text: string, width: number, height: number)",
+        "doc": "Adds a text button on a given layout. See @CreateButtonFlat for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.AddButtonText(parent: object, text: string, width: number, height: number)"
+    },
+    {
+        "name": "AddButtonToggle",
+        "kind": "Method",
+        "detail": "AddButtonToggle: (parent: object, text: string, width: number, height: number, value: boolean, callback: function)",
+        "doc": "Adds a toggleable button on a given layout. See @CreateButtonToggle for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - Button text\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {boolean} `value` - Number fraction (0..1)\n\n*@param* {function} `callback` - Number fraction (0..1)\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"Button text","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"value: boolean","desc":"Number fraction (0..1)","type":"boolean"},{"name":"callback: function","desc":"Number fraction (0..1)","type":"function"}],
+        "call": "MUI.AddButtonToggle(parent: object, text: string, width: number, height: number, value: boolean, callback: function)"
+    },
+    {
+        "name": "AddCard",
+        "kind": "Method",
+        "detail": "AddCard: (parent: object, options: object)",
+        "doc": "Adds a card on a given layout. See @CreateCard for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {object} `options` - {title:str, body:str, image:str_ptf, buttonText:str_com, color:str, width:num_frc, dividerAvatar:bin, dividerBody:bin, avatar:str_pth, avatarOnTop:bin, buttonType:str-\"raised|raisedoutline|round|roundoutline|flat\"}\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"options: object","desc":"{title:str, body:str, image:str_ptf, buttonText:str_com, color:str, width:num_frc, dividerAvatar:bin, dividerBody:bin, avatar:str_pth, avatarOnTop:bin, buttonType:str-\\\"raised|raisedoutline|round|roundoutline|flat\\\"}","type":"object"}],
+        "call": "MUI.AddCard(parent: object, options: object)"
+    },
+    {
+        "name": "AddColorPicker",
+        "kind": "Method",
+        "detail": "AddColorPicker: (textEdit: object, title: string)",
+        "doc": "Adds a color picker. See @CreateColorPicker for a full documentation",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit or DS TextEdit control\n\n*@param* {string} `title` - Title\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit or DS TextEdit control","type":"object"},{"name":"title: string","desc":"Title","type":"string"}],
+        "call": "MUI.AddColorPicker(textEdit: object, title: string)"
+    },
+    {
+        "name": "AddCheckbox",
+        "kind": "Method",
+        "detail": "AddCheckbox: (parent: object, list: list, width: number, height: number, color: string)",
+        "doc": "Adds an MUI Checkbox on a given layout. See @CreateCheckbox for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `list` - A comma separated string\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: list","desc":"A comma separated string","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddCheckbox(parent: object, list: list, width: number, height: number, color: string)"
+    },
+    {
+        "name": "AddCheckList",
+        "kind": "Method",
+        "detail": "AddCheckList: (textEdit: object, title: string, list: list, color: string, bottom: boolean)",
+        "doc": "Adds an MUI checklist dialog. See @CreateCheckList for a full documentation",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit control or DS TextEdit control\n\n*@param* {string} `title` - MUI TextEdit control or DS TextEdit control\n\n*@param* {list} `list` - An array of objects of the form {name: string, check: boolean}\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {boolean} `bottom` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit control or DS TextEdit control","type":"object"},{"name":"title: string","desc":"MUI TextEdit control or DS TextEdit control","type":"string"},{"name":"list: list","desc":"An array of objects of the form {name: string, check: boolean}","type":"list"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"bottom: boolean","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"boolean"}],
+        "call": "MUI.AddCheckList(textEdit: object, title: string, list: list, color: string, bottom: boolean)"
+    },
+    {
+        "name": "AddDataTable",
+        "kind": "Method",
+        "detail": "AddDataTable: (parent: object, columns: list, values: list, width: number, height: number, options: string)",
+        "doc": "Adds a table control on a given layout. See @CreateDataTable for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `columns` - An array of strings of the form Name:Type for column header. Where 'Name' is the column name and 'Type is the column type [Can be Sortable or Numeric]'\n\n*@param* {list} `values` - An array of strings of the form Val1:Val2:Val3...\n\n*@param* {number} `width` - Fraction of the screen width\n\n*@param* {number} `height` - Fraction of the screen height\n\n*@param* {string} `options` - A comma separated options. Can be Selectable\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"columns: list","desc":"An array of strings of the form Name:Type for column header. Where 'Name' is the column name and 'Type is the column type [Can be Sortable or Numeric]'","type":"list"},{"name":"values: list","desc":"An array of strings of the form Val1:Val2:Val3...","type":"list"},{"name":"width: number","desc":"Fraction of the screen width","type":"number"},{"name":"height: number","desc":"Fraction of the screen height","type":"number"},{"name":"options: string","desc":"A comma separated options. Can be Selectable","type":"string"}],
+        "call": "MUI.AddDataTable(parent: object, columns: list, values: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "AddPicker",
+        "kind": "Method",
+        "detail": "AddPicker: (textEdit: object, options: string)",
+        "doc": "Adds a picker dialog such as time, date or color. See @CreateDatePicker, @CreateTimePicker and @CreateColorPicker for a full documentation",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit or DS TextEdit control\n\n*@param* {string} `options` - Date|Color|Time\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit or DS TextEdit control","type":"object"},{"name":"options: string","desc":"Date|Color|Time","type":"string"}],
+        "call": "MUI.AddPicker(textEdit: object, options: string)"
+    },
+    {
+        "name": "AddDatePicker",
+        "kind": "Method",
+        "detail": "AddDatePicker: (textEdit: object, yyyy: number, mm: number, dd: number, color: string)",
+        "doc": "Adds a date picker dialog. See @CreateDatePicker for a full documentation",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit or DS TextEdit control\n\n*@param* {number} `yyyy` - Number integer Full year\n\n*@param* {number} `mm` - Number integer [0-11]\n\n*@param* {number} `dd` - Number integer [1-31]\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit or DS TextEdit control","type":"object"},{"name":"yyyy: number","desc":"Number integer Full year","type":"number"},{"name":"mm: number","desc":"Number integer [0-11]","type":"number"},{"name":"dd: number","desc":"Number integer [1-31]","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddDatePicker(textEdit: object, yyyy: number, mm: number, dd: number, color: string)"
+    },
+    {
+        "name": "AddDialog",
+        "kind": "Method",
+        "detail": "AddDialog: (title: string, body: string, okText: string, cancelText: string, divider: boolean)",
+        "doc": "Adds a customizable materialize dialog. See @CreateDialog for a full documentation",
+        "param": "\n*@param* {string} `title` - Title\n\n*@param* {string} `body` - Body text\n\n*@param* {string} `okText` - Truthy button text\n\n*@param* {string} `cancelText` - Falsey button text\n\n*@param* {boolean} `divider` - Show divider or hide\n",
+        "params": [{"name":"title: string","desc":"Title","type":"string"},{"name":"body: string","desc":"Body text","type":"string"},{"name":"okText: string","desc":"Truthy button text","type":"string"},{"name":"cancelText: string","desc":"Falsey button text","type":"string"},{"name":"divider: boolean","desc":"Show divider or hide","type":"boolean"}],
+        "call": "MUI.AddDialog(title: string, body: string, okText: string, cancelText: string, divider: boolean)"
+    },
+    {
+        "name": "AddDivider",
+        "kind": "Method",
+        "detail": "AddDivider: (parent: object, height: )",
+        "doc": "Adds a divider to a given layout. See @CreateDivider for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout contorl\n\n*@param* {} `height` - Optional\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout contorl","type":"object"},{"name":"height: ","desc":"Optional","type":""}],
+        "call": "MUI.AddDivider(parent: object, height: )"
+    },
+    {
+        "name": "AddFAB",
+        "kind": "Method",
+        "detail": "AddFAB: (parent: object, icon: string, color: string, options: string)",
+        "doc": "Adds a floating action button. See @CreateFAB, @CreateFABElegant and @CreateFABOutline for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout contorl\n\n*@param* {string} `icon` - Material icon fonts\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `options` - String comma “,” separated outline|elegant|default\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout contorl","type":"object"},{"name":"icon: string","desc":"Material icon fonts","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"options: string","desc":"String comma “,” separated outline|elegant|default","type":"string"}],
+        "call": "MUI.AddFAB(parent: object, icon: string, color: string, options: string)"
+    },
+    {
+        "name": "AddFABElegant",
+        "kind": "Method",
+        "detail": "AddFABElegant: (parent: object, icon: string, color: string)",
+        "doc": "Adds an elegant floating action button. See @CreateFABElegant for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout contorl\n\n*@param* {string} `icon` - Material icon fonts\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout contorl","type":"object"},{"name":"icon: string","desc":"Material icon fonts","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddFABElegant(parent: object, icon: string, color: string)"
+    },
+    {
+        "name": "AddFABOutline",
+        "kind": "Method",
+        "detail": "AddFABOutline: (parent: object, icon: string, color: string, backColor: string)",
+        "doc": "Adds an outlined floating action button on a given layout. See @CreateFABOutline for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout contorl\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout contorl","type":"object"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddFABOutline(parent: object, icon: string, color: string, backColor: string)"
+    },
+    {
+        "name": "AddLayout",
+        "kind": "Method",
+        "detail": "AddLayout: (parent: object, type: string, options: string)",
+        "doc": "Adds a layout. See @CreateLayout for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout contorl\n\n*@param* {string} `type` - Linear|Absolute|Frame|Card\n\n*@param* {string} `options` - Comma separated DroidScript layout options\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout contorl","type":"object"},{"name":"type: string","desc":"Linear|Absolute|Frame|Card","type":"string"},{"name":"options: string","desc":"Comma separated DroidScript layout options","type":"string"}],
+        "call": "MUI.AddLayout(parent: object, type: string, options: string)"
+    },
+    {
+        "name": "AddList",
+        "kind": "Method",
+        "detail": "AddList: (parent: object, list: string, width: number, height: number, options: string)",
+        "doc": "Adds an MUI control on a given layout. See @CreateList, @CreateListModern and @CreateListSimple for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `list` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated simple|modern|default|divider\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated simple|modern|default|divider","type":"string"}],
+        "call": "MUI.AddList(parent: object, list: string, width: number, height: number, options: string)"
+    },
+    {
+        "name": "AddListDialog",
+        "kind": "Method",
+        "detail": "AddListDialog: (textEdit: object, title: string, list: list, color: string, options: string)",
+        "doc": "Adds a more customizable list dialog or checklist dialog. See @CreateListDialog and @CreateCheckList for a full documentation on each type",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit control or DS TextEdit control\n\n*@param* {string} `title` - MUI TextEdit control or DS TextEdit control\n\n*@param* {list} `list` - An array of objects\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `options` - String comma “,” separated CheckList|ListDialog|Bottom\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit control or DS TextEdit control","type":"object"},{"name":"title: string","desc":"MUI TextEdit control or DS TextEdit control","type":"string"},{"name":"list: list","desc":"An array of objects","type":"list"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"options: string","desc":"String comma “,” separated CheckList|ListDialog|Bottom","type":"string"}],
+        "call": "MUI.AddListDialog(textEdit: object, title: string, list: list, color: string, options: string)"
+    },
+    {
+        "name": "AddListModern",
+        "kind": "Method",
+        "detail": "AddListModern: (parent: object, list: list, width: number, height: number, options: string)",
+        "doc": "Adds a ListModern control on a given layout. See @CreateListModern for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `list` - An array of object elements. See list example\n\n*@param* {number} `width` - An array of object elements. See list example\n\n*@param* {number} `height` - An array of object elements. See list example\n\n*@param* {string} `options` - Initial|Material|Avatar, RightIcon|RightNote, Selectable\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: list","desc":"An array of object elements. See list example","type":"list"},{"name":"width: number","desc":"An array of object elements. See list example","type":"number"},{"name":"height: number","desc":"An array of object elements. See list example","type":"number"},{"name":"options: string","desc":"Initial|Material|Avatar, RightIcon|RightNote, Selectable","type":"string"}],
+        "call": "MUI.AddListModern(parent: object, list: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "AddListSimple",
+        "kind": "Method",
+        "detail": "AddListSimple: (parent: object, list: list, width: number, height: number, options: string)",
+        "doc": "Adds a simple list for navigation purposes. See @CreateListSimple for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `list` - {title:str|icon:str-Material icon|color:str_col|badge:num}\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `options` - Divider\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: list","desc":"{title:str|icon:str-Material icon|color:str_col|badge:num}","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"options: string","desc":"Divider","type":"string"}],
+        "call": "MUI.AddListSimple(parent: object, list: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "AddMenu",
+        "kind": "Method",
+        "detail": "AddMenu: (list: string, width: number, height: number, position: string)",
+        "doc": "Adds a simple MUI menu. See @CreateMenu for a full documentation",
+        "param": "\n*@param* {string} `list` - String comma “,” separated list\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `position` - Top,Left|Top,Right|Bottom,Left|Bottom,Right\n",
+        "params": [{"name":"list: string","desc":"String comma “,” separated list","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"position: string","desc":"Top,Left|Top,Right|Bottom,Left|Bottom,Right","type":"string"}],
+        "call": "MUI.AddMenu(list: string, width: number, height: number, position: string)"
+    },
+    {
+        "name": "AddMenuWithIcon",
+        "kind": "Method",
+        "detail": "AddMenuWithIcon: (list: list, width: number, height: number, position: string)",
+        "doc": "MUI menu with material icon font. See @CreateMenuWithIcon for a full documentation",
+        "param": "\n*@param* {list} `list` - str\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `position` - Top,Left|Top,Right|Bottom,Left|Bottom,Right\n",
+        "params": [{"name":"list: list","desc":"str","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"position: string","desc":"Top,Left|Top,Right|Bottom,Left|Bottom,Right","type":"string"}],
+        "call": "MUI.AddMenuWithIcon(list: list, width: number, height: number, position: string)"
+    },
+    {
+        "name": "AddModal",
+        "kind": "Method",
+        "detail": "AddModal: (title: string, body: string, okTxt: string, cancelTxt: string, options: string)",
+        "doc": "Adds a modal. See @CreateModal for a full documentation",
+        "param": "\n*@param* {string} `title` - \n\n*@param* {string} `body` - Body text. If you want to customize the modal layout pass an empty string.\n\n*@param* {string} `okTxt` - Truthy button text\n\n*@param* {string} `cancelTxt` - Falsy button text\n\n*@param* {string} `options` - Dialog options with additional Full option\n",
+        "params": [{"name":"title: string","desc":"","type":"string"},{"name":"body: string","desc":"Body text. If you want to customize the modal layout pass an empty string.","type":"string"},{"name":"okTxt: string","desc":"Truthy button text","type":"string"},{"name":"cancelTxt: string","desc":"Falsy button text","type":"string"},{"name":"options: string","desc":"Dialog options with additional Full option","type":"string"}],
+        "call": "MUI.AddModal(title: string, body: string, okTxt: string, cancelTxt: string, options: string)"
+    },
+    {
+        "name": "AddRadio",
+        "kind": "Method",
+        "detail": "AddRadio: (parent: object, list: string, width: number, height: number, options: string, p1: string, color: string, backColor: string)",
+        "doc": "Adds a radio material input. See @CreateRadio, @CreateRadioButtons and @CreateRadioMaterial for a full documentation. The param p1 depends on the type of an MUI button. It can be a color for normal radio or orientation 'vertical or horizontal' for material and button type",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `list` - String comma “,” separated strings\n\n*@param* {number} `width` - String comma “,” separated strings\n\n*@param* {number} `height` - String comma “,” separated strings\n\n*@param* {string} `options` - String comma “,” separated Buttons|Material|Normal\n\n*@param* {string} `p1` - color|orientation\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: string","desc":"String comma “,” separated strings","type":"string"},{"name":"width: number","desc":"String comma “,” separated strings","type":"number"},{"name":"height: number","desc":"String comma “,” separated strings","type":"number"},{"name":"options: string","desc":"String comma “,” separated Buttons|Material|Normal","type":"string"},{"name":"p1: string","desc":"color|orientation","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddRadio(parent: object, list: string, width: number, height: number, options: string, p1: string, color: string, backColor: string)"
+    },
+    {
+        "name": "AddRadioButtons",
+        "kind": "Method",
+        "detail": "AddRadioButtons: (parent: object, list: list, width: number, height: number, orientation: string, color: string, backColor: string)",
+        "doc": "Adds an MUI radio button control. See @CreateRadioButtons for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `list` - A comma separated strings\n\n*@param* {number} `width` - A comma separated strings\n\n*@param* {number} `height` - A comma separated strings\n\n*@param* {string} `orientation` - Vertical|Horizontal\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: list","desc":"A comma separated strings","type":"list"},{"name":"width: number","desc":"A comma separated strings","type":"number"},{"name":"height: number","desc":"A comma separated strings","type":"number"},{"name":"orientation: string","desc":"Vertical|Horizontal","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddRadioButtons(parent: object, list: list, width: number, height: number, orientation: string, color: string, backColor: string)"
+    },
+    {
+        "name": "AddRadioMaterial",
+        "kind": "Method",
+        "detail": "AddRadioMaterial: (parent: object, list: list, width: number, height: number, orientation: string, color: string, backColor: string)",
+        "doc": "Adds an MUI RadioMaterial input. See @CreateRadioMaterial for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {list} `list` - A comma separated strings\n\n*@param* {number} `width` - A comma separated strings\n\n*@param* {number} `height` - A comma separated strings\n\n*@param* {string} `orientation` - Vertical|Horizontal\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"list: list","desc":"A comma separated strings","type":"list"},{"name":"width: number","desc":"A comma separated strings","type":"number"},{"name":"height: number","desc":"A comma separated strings","type":"number"},{"name":"orientation: string","desc":"Vertical|Horizontal","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddRadioMaterial(parent: object, list: list, width: number, height: number, orientation: string, color: string, backColor: string)"
+    },
+    {
+        "name": "AddSeekBar",
+        "kind": "Method",
+        "detail": "AddSeekBar: (parent: object, value: number, range: number, width: number, color: string)",
+        "doc": "Adds an MUI seekbar on a given layout. See @CreateSeekBar for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `value` - Must be between 0 and range\n\n*@param* {number} `range` - The maximum value of your seekbar\n\n*@param* {number} `width` - The maximum value of your seekbar\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"value: number","desc":"Must be between 0 and range","type":"number"},{"name":"range: number","desc":"The maximum value of your seekbar","type":"number"},{"name":"width: number","desc":"The maximum value of your seekbar","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddSeekBar(parent: object, value: number, range: number, width: number, color: string)"
+    },
+    {
+        "name": "AddSwitch",
+        "kind": "Method",
+        "detail": "AddSwitch: (parent: object, value: boolean, color: string)",
+        "doc": "Adds an MUI Switch to a given control. See @CreateSwitch for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {boolean} `value` - MUI Layout or DS Layout control\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"value: boolean","desc":"MUI Layout or DS Layout control","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddSwitch(parent: object, value: boolean, color: string)"
+    },
+    {
+        "name": "AddSwitchSettings",
+        "kind": "Method",
+        "detail": "AddSwitchSettings: (parent: object, text: string, width: number, height: number, value: boolean, color: string, backColor: string)",
+        "doc": "Adds an MUI SwitchSettings to a given layout. See @CreateSwitchSettings for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `text` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {boolean} `value` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS Layout control","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"value: boolean","desc":"Number fraction (0..1)","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddSwitchSettings(parent: object, text: string, width: number, height: number, value: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTabs",
+        "kind": "Method",
+        "detail": "AddTabs: (parent: object, title: string, width: number, height: number, options: string, color: string, animation: boolean)",
+        "doc": "Adds an MUI tab on a given layout. See @CreateTabFixed for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {string} `title` - String comma “,” separated titles\n\n*@param* {number} `width` - String comma “,” separated titles\n\n*@param* {number} `height` - String comma “,” separated titles\n\n*@param* {string} `options` - String comma “,” separated DS layout options|Fix\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {boolean} `animation` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"title: string","desc":"String comma “,” separated titles","type":"string"},{"name":"width: number","desc":"String comma “,” separated titles","type":"number"},{"name":"height: number","desc":"String comma “,” separated titles","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS layout options|Fix","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"animation: boolean","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"boolean"}],
+        "call": "MUI.AddTabs(parent: object, title: string, width: number, height: number, options: string, color: string, animation: boolean)"
+    },
+    {
+        "name": "AddTextEdit",
+        "kind": "Method",
+        "detail": "AddTextEdit: (parent: object, width: number, options: string, p1: string, p2: string, p3: string, p4: string, p5: string)",
+        "doc": "Adds a TextEdit control to a given layout. See @CreateTextEditFilled, @CreateTextEditFilledA, @CreateTextEditOutline, @CreateTextEditOutlineA, @CreateTEFilledIconLeft, @CreateTEFilledIconRight, @CreateTEOutlineIconLeft, @CreateTEOutlineIconRight, @CreateTESearchElegant, @CreateTESearchUnique, @CreateTextEditSearch and @CreateTextEditUnique for full documentation on each type of MUI TextEdit. For p1, p2, p3, p4 and p5 parameters, these are the params after the options. You can refer to the corresponding Create*** method to see what this parameters are. Example for @CreateTextEditFilled 'p1' is 'hint', 'p2' is 'label' and 'p3' is 'color'. For @CreateTextEditOutline 'p1' is 'hint', 'p2' is 'label', 'p3' is 'color' and 'p4' is 'backColor'",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - outline|filled|unique|search|active|icon and for icon can be  left|right\n\n*@param* {string} `p1` - See corresponding MUI TextEdit\n\n*@param* {string} `p2` - See corresponding MUI TextEdit\n\n*@param* {string} `p3` - See corresponding MUI TextEdit\n\n*@param* {string} `p4` - See corresponding MUI TextEdit\n\n*@param* {string} `p5` - See corresponding MUI TextEdit\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"outline|filled|unique|search|active|icon and for icon can be  left|right","type":"string"},{"name":"p1: string","desc":"See corresponding MUI TextEdit","type":"string"},{"name":"p2: string","desc":"See corresponding MUI TextEdit","type":"string"},{"name":"p3: string","desc":"See corresponding MUI TextEdit","type":"string"},{"name":"p4: string","desc":"See corresponding MUI TextEdit","type":"string"},{"name":"p5: string","desc":"See corresponding MUI TextEdit","type":"string"}],
+        "call": "MUI.AddTextEdit(parent: object, width: number, options: string, p1: string, p2: string, p3: string, p4: string, p5: string)"
+    },
+    {
+        "name": "AddTEFilledIconLeft",
+        "kind": "Method",
+        "detail": "AddTEFilledIconLeft: (parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string)",
+        "doc": "Adds a filled text input with icon on the left on the given layout. See @CreateTEFilledIconLeft for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint or label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint or label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTEFilledIconLeft(parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTEFilledIconRight",
+        "kind": "Method",
+        "detail": "AddTEFilledIconRight: (parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string)",
+        "doc": "Adds a filled text input with icon on the right on a given layout. See @CreateTEFilledIconRight for full documentaion",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint or label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint or label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTEFilledIconRight(parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTEOutlineIconLeft",
+        "kind": "Method",
+        "detail": "AddTEOutlineIconLeft: (parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Adds a material outlined text input with icon on the left on a given layout. See @CreateTEOutlineIconLeft for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTEOutlineIconLeft(parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTEOutlineIconRight",
+        "kind": "Method",
+        "detail": "AddTEOutlineIconRight: (parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Adds a material outlined text input with icon on the right on a given layout. See @CreateTEOutlineIconRight for full documenation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTEOutlineIconRight(parent: object, width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTESearchElegant",
+        "kind": "Method",
+        "detail": "AddTESearchElegant: (parent: object, width: number, hint: string, icon: string, iconPos: string, color: string, option: string)",
+        "doc": "Adds an elegant search textedit on a given layout. See @CreateTESearchElegant for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconPos` - Right|Left\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `option` - Small|Normal|Border\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconPos: string","desc":"Right|Left","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"option: string","desc":"Small|Normal|Border","type":"string"}],
+        "call": "MUI.AddTESearchElegant(parent: object, width: number, hint: string, icon: string, iconPos: string, color: string, option: string)"
+    },
+    {
+        "name": "AddTESearchUnique",
+        "kind": "Method",
+        "detail": "AddTESearchUnique: (parent: object, width: number, hint: string, icon: string, iconColor: string)",
+        "doc": "Adds a unique text input on a given layout. See @CreateTESearchUnique for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTESearchUnique(parent: object, width: number, hint: string, icon: string, iconColor: string)"
+    },
+    {
+        "name": "AddTextArea",
+        "kind": "Method",
+        "detail": "AddTextArea: (parent: object, width: number, height: number, options: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Adds a material textarea on a given layout. See @CreateTextAreaFilled, @CreateTextAreaFilledA, @CreateTextAreaOutline and @CreateTextAreaOutlineA for a full documentation on each corresponding type",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - String comma “,” separated filled|outline|active\n\n*@param* {string} `hint` - Hint text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"String comma “,” separated filled|outline|active","type":"string"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextArea(parent: object, width: number, height: number, options: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTextAreaFilled",
+        "kind": "Method",
+        "detail": "AddTextAreaFilled: (parent: object, width: number, height: number, hint: string, label: boolean, color: string)",
+        "doc": "Add a material filled textarea on a given layout. See @CreateTextAreaFilled for  a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextAreaFilled(parent: object, width: number, height: number, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTextAreaFilledA",
+        "kind": "Method",
+        "detail": "AddTextAreaFilledA: (parent: object, width: number, height: number, hint: string, label: boolean, color: string)",
+        "doc": "Adds an active filled textarea on a given layout. See @CreateTextAreaFilledA for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Hides or show label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Hides or show label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextAreaFilledA(parent: object, width: number, height: number, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTextAreaOutline",
+        "kind": "Method",
+        "detail": "AddTextAreaOutline: (parent: object, width: number, height: number, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Add an outlined material textarea on a given layout. See @CreateTextAreaOutline for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextAreaOutline(parent: object, width: number, height: number, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTextAreaOutlineA",
+        "kind": "Method",
+        "detail": "AddTextAreaOutlineA: (parent: object, width: number, height: number, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Add an active outlined material textarea on a given layout. See @CreateTextAreaOutlineA for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {number} `height` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextAreaOutlineA(parent: object, width: number, height: number, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTextEditFilled",
+        "kind": "Method",
+        "detail": "AddTextEditFilled: (parent: object, width: number, options: string, hint: string, label: boolean, color: string)",
+        "doc": "Adds the most common type of material text input on a given layout. See @CreateTextEditFilled for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextEditFilled(parent: object, width: number, options: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTextEditFilledA",
+        "kind": "Method",
+        "detail": "AddTextEditFilledA: (parent: object, width: number, options: string, hint: string, label: boolean, color: string)",
+        "doc": "Add an active filled material text input on a given layout. See @CreateTextEditFilledA for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextEditFilledA(parent: object, width: number, options: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "AddTextEditOutline",
+        "kind": "Method",
+        "detail": "AddTextEditOutline: (parent: object, width: number, options: string, hint: string, label: boolean)",
+        "doc": "Adds an outlined material text input on a given layout. See @CreateTextEditOutline for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - Comma separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"}],
+        "call": "MUI.AddTextEditOutline(parent: object, width: number, options: string, hint: string, label: boolean)"
+    },
+    {
+        "name": "AddTextEditOutlineA",
+        "kind": "Method",
+        "detail": "AddTextEditOutlineA: (parent: object, width: number, options: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Adds an active outlined material text input on a given layout. See @CreateTextEditOutlineA for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - Comma separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextEditOutlineA(parent: object, width: number, options: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTextEditSearch",
+        "kind": "Method",
+        "detail": "AddTextEditSearch: (parent: object, width: number, options: string, hint: string, color: string, backColor: string)",
+        "doc": "Adds a customize search style text input on given layout. See @CreateTextEditSearch for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextEditSearch(parent: object, width: number, options: string, hint: string, color: string, backColor: string)"
+    },
+    {
+        "name": "AddTextEditUnique",
+        "kind": "Method",
+        "detail": "AddTextEditUnique: (parent: object, width: number, hint: string, icon: string, iconCOlor: string)",
+        "doc": "Adds a unique textedit customization on a given layout. See @CreateTextEditUnique for a full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS Layout control\n\n*@param* {number} `width` - MUI Layout or DS Layout control\n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconCOlor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... Icon color\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS Layout control","type":"object"},{"name":"width: number","desc":"MUI Layout or DS Layout control","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconCOlor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... Icon color","type":"string"}],
+        "call": "MUI.AddTextEditUnique(parent: object, width: number, hint: string, icon: string, iconCOlor: string)"
+    },
+    {
+        "name": "AddText",
+        "kind": "Method",
+        "detail": "AddText: (parent: object, text: string, width: number, height: number, options: string, color: string)",
+        "doc": "Adds a mui text control to the layout. See @CreateTextH1, @CreateTextH2, @CreateTextH3, @CreateTextH4, @CreateTextH5, @CreateTextH6, @CreateTextJumbo, @CreateTextParagraph and @CreateTextSecondary for full documentation on each type of mui typhography",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options with addition Thin|Light|Regular|Medium|Bold,h1|h2|h3|h4|h5|h6|secondary|jumbo|paragraph\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options with addition Thin|Light|Regular|Medium|Bold,h1|h2|h3|h4|h5|h6|secondary|jumbo|paragraph","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddText(parent: object, text: string, width: number, height: number, options: string, color: string)"
+    },
+    {
+        "name": "AddTextH1",
+        "kind": "Method",
+        "detail": "AddTextH1: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H1 text to a layout. See @CreateTextH1 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH1(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextH2",
+        "kind": "Method",
+        "detail": "AddTextH2: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H2 text to a layout. See @CreateTextH2 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH2(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextH3",
+        "kind": "Method",
+        "detail": "AddTextH3: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H3 text to a layout. See @CreateTextH3 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH3(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextH4",
+        "kind": "Method",
+        "detail": "AddTextH4: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H4 text to a layout. See @CreateTextH4 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH4(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextH5",
+        "kind": "Method",
+        "detail": "AddTextH5: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H5 text to a layout. See @CreateTextH5 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH5(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextH6",
+        "kind": "Method",
+        "detail": "AddTextH6: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds an H6 text to a layout. See @CreateTextH6 for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextH6(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextJumbo",
+        "kind": "Method",
+        "detail": "AddTextJumbo: (parent: object, text: string, width: number, height: number, options: string, color: string)",
+        "doc": "Adds an extra large text to a layout. See @CreateTextJumbo for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTextJumbo(parent: object, text: string, width: number, height: number, options: string, color: string)"
+    },
+    {
+        "name": "AddTextParagraph",
+        "kind": "Method",
+        "detail": "AddTextParagraph: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds a paragraph text to a layout. See @CreateTextParagraph for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextParagraph(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTextSecondary",
+        "kind": "Method",
+        "detail": "AddTextSecondary: (parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Adds a secondary text to a layout. See @CreateTextSecondary for full documentation",
+        "param": "\n*@param* {object} `parent` - MUI Layout or DS layout control\n\n*@param* {string} `text` - MUI Layout or DS layout control\n\n*@param* {number} `width` - MUI Layout or DS layout control\n\n*@param* {number} `height` - MUI Layout or DS layout control\n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"parent: object","desc":"MUI Layout or DS layout control","type":"object"},{"name":"text: string","desc":"MUI Layout or DS layout control","type":"string"},{"name":"width: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"height: number","desc":"MUI Layout or DS layout control","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.AddTextSecondary(parent: object, text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "AddTimePicker",
+        "kind": "Method",
+        "detail": "AddTimePicker: (textEdit: object, hour: number, minute: number, color: string)",
+        "doc": "Adds a timepicker dialog. See @CreateTimePicker for a full documentation",
+        "param": "\n*@param* {object} `textEdit` - MUI TextEdit or DS TextEdit control\n\n*@param* {number} `hour` - [0-24]\n\n*@param* {number} `minute` - 0-59\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"textEdit: object","desc":"MUI TextEdit or DS TextEdit control","type":"object"},{"name":"hour: number","desc":"[0-24]","type":"number"},{"name":"minute: number","desc":"0-59","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.AddTimePicker(textEdit: object, hour: number, minute: number, color: string)"
+    },
+    {
+        "name": "CreateAlert",
+        "kind": "Method",
+        "detail": "CreateAlert: (text: string, icon: string, color: string)",
+        "doc": "A nice pop-up at the top of your current layou",
+        "param": "\n*@param* {string} `text` - Popup text\n\n*@param* {string} `icon` - Material icon\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"Popup text","type":"string"},{"name":"icon: string","desc":"Material icon","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateAlert(text: string, icon: string, color: string)"
+    },
+    {
+        "name": "CreateAlertSimple",
+        "kind": "Method",
+        "detail": "CreateAlertSimple: (text: string, btnText: string, color: string)",
+        "doc": "Create a simple alert with a single button",
+        "param": "\n*@param* {string} `text` - Text of the alert\n\n*@param* {string} `btnText` - Button text. Default is OKAY\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"Text of the alert","type":"string"},{"name":"btnText: string","desc":"Button text. Default is OKAY","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateAlertSimple(text: string, btnText: string, color: string)"
+    },
+    {
+        "name": "CreateAppBar",
+        "kind": "Method",
+        "detail": "CreateAppBar: (title: string, leadingIcon: string, controls: string)",
+        "doc": "The most common type of material design app bar",
+        "param": "\n*@param* {string} `title` - Title text\n\n*@param* {string} `leadingIcon` - A material font icon for the leading control\n\n*@param* {string} `controls` - String comma “,” separated material icon font for the right controls\n",
+        "params": [{"name":"title: string","desc":"Title text","type":"string"},{"name":"leadingIcon: string","desc":"A material font icon for the leading control","type":"string"},{"name":"controls: string","desc":"String comma “,” separated material icon font for the right controls","type":"string"}],
+        "call": "MUI.CreateAppBar(title: string, leadingIcon: string, controls: string)"
+    },
+    {
+        "name": "CreateAppBarElegant",
+        "kind": "Method",
+        "detail": "CreateAppBarElegant: (title: string, leadingIcon: string, options: string)",
+        "doc": "A more elegant appbar implementatio",
+        "param": "\n*@param* {string} `title` - Title text\n\n*@param* {string} `leadingIcon` - Material icon font\n\n*@param* {string} `options` - String comma “,” separated material icon font for the right controls\n",
+        "params": [{"name":"title: string","desc":"Title text","type":"string"},{"name":"leadingIcon: string","desc":"Material icon font","type":"string"},{"name":"options: string","desc":"String comma “,” separated material icon font for the right controls","type":"string"}],
+        "call": "MUI.CreateAppBarElegant(title: string, leadingIcon: string, options: string)"
+    },
+    {
+        "name": "CreateAppBarModern",
+        "kind": "Method",
+        "detail": "CreateAppBarModern: (hint: string, controlIcon: string, options: string, color: string)",
+        "doc": "A modern appbar with a search input, leading icon and trailing ico",
+        "param": "\n*@param* {string} `hint` - Hint text for the search input\n\n*@param* {string} `controlIcon` - Material font for the control icon\n\n*@param* {string} `options` - Can be Round|Rectangle\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"hint: string","desc":"Hint text for the search input","type":"string"},{"name":"controlIcon: string","desc":"Material font for the control icon","type":"string"},{"name":"options: string","desc":"Can be Round|Rectangle","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateAppBarModern(hint: string, controlIcon: string, options: string, color: string)"
+    },
+    {
+        "name": "CreateBanner",
+        "kind": "Method",
+        "detail": "CreateBanner: (text: string, okText: string, cancelText: string)",
+        "doc": "A banner dialog is a nice popup that slides from the top of your current pag",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {string} `okText` - Truthy button text\n\n*@param* {string} `cancelText` - Falsey button text\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"okText: string","desc":"Truthy button text","type":"string"},{"name":"cancelText: string","desc":"Falsey button text","type":"string"}],
+        "call": "MUI.CreateBanner(text: string, okText: string, cancelText: string)"
+    },
+    {
+        "name": "CreateButtonElegant",
+        "kind": "Method",
+        "detail": "CreateButtonElegant: (text: string, width: number, height: number, color: string)",
+        "doc": "An elegant butto",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonElegant(text: string, width: number, height: number, color: string)"
+    },
+    {
+        "name": "CreateButtonFlat",
+        "kind": "Method",
+        "detail": "CreateButtonFlat: (text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "Just a flat button",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonFlat(text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateButtonRaised",
+        "kind": "Method",
+        "detail": "CreateButtonRaised: (text: string, width: number, height: number, color: string, txtcolor: string)",
+        "doc": "The basic type of material butto",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `txtcolor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"txtcolor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonRaised(text: string, width: number, height: number, color: string, txtcolor: string)"
+    },
+    {
+        "name": "CreateButtonRaisedO",
+        "kind": "Method",
+        "detail": "CreateButtonRaisedO: (text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "An outlined material raised button",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonRaisedO(text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateButtonRound",
+        "kind": "Method",
+        "detail": "CreateButtonRound: (text: string, width: number, height: number, color: string, txtcolor: string)",
+        "doc": "A round material butto",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `txtcolor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"txtcolor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonRound(text: string, width: number, height: number, color: string, txtcolor: string)"
+    },
+    {
+        "name": "CreateButtonRoundO",
+        "kind": "Method",
+        "detail": "CreateButtonRoundO: (text: string, width: number, height: number, color: string, backColor: string)",
+        "doc": "An outlined material round butto",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonRoundO(text: string, width: number, height: number, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateButtonOutlined",
+        "kind": "Method",
+        "detail": "CreateButtonOutlined: (text: string, width: number, height: number)",
+        "doc": "An outlined material butto",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.CreateButtonOutlined(text: string, width: number, height: number)"
+    },
+    {
+        "name": "CreateButtonContained",
+        "kind": "Method",
+        "detail": "CreateButtonContained: (text: string, width: number, height: number)",
+        "doc": "An contained material button",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.CreateButtonContained(text: string, width: number, height: number)"
+    },
+    {
+        "name": "CreateButtonText",
+        "kind": "Method",
+        "detail": "CreateButtonText: (text: string, width: number, height: number)",
+        "doc": "Adds a text button. See @CreateButtonFlat for full documentation",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.CreateButtonText(text: string, width: number, height: number)"
+    },
+    {
+        "name": "CreateButtonToggle",
+        "kind": "Method",
+        "detail": "CreateButtonToggle: (text: string, width: number, height: number, value: boolean, callback: function, color: string, backColor: string)",
+        "doc": "",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {boolean} `value` - Number fraction (0..1)\n\n*@param* {function} `callback` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"value: boolean","desc":"Number fraction (0..1)","type":"boolean"},{"name":"callback: function","desc":"Number fraction (0..1)","type":"function"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateButtonToggle(text: string, width: number, height: number, value: boolean, callback: function, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateCard",
+        "kind": "Method",
+        "detail": "CreateCard: (options: object)",
+        "doc": "A material implementation of a card. It is fully customizable to suit your likings.<h5>options properties<i style='font-size: 75%;'>definitions</i></h5><p> <b>title</b><i style='font-size: 75%;'>String</i> Title text</p><p> <b>body</b><i style='font-size: 75%;'>String</i> Body text</p><p> <b>image</b><i style='font-size: 75%;'>String</i> Path to the image</p><p> <b>buttonText</b><i style='font-size: 75%;'>String</i> Comma separated string for button text</p><p> <b>color</b><i style='font-size: 75%;'>String</i> Color string</p><p> <b>width</b><i style='font-size: 75%;'>Number</i> Fraction of the screen width</p><p> <b>divider1</b><i style='font-size: 75%;'>Boolean</i> Divider below the avatar</p><p> <b>divider2</b><i style='font-size: 75%;'>Boolean</i> Divider below the body</p><p> <b>avatar</b><i style='font-size: 75%;'>String</i> Path to the avatar image</p><p> <b>avatarOnTop</b><i style='font-size: 75%;'>Boolean</i> Is the avatar on top of the image </p><p> <b>buttonType</b><i style='font-size: 75%;'>String</i> Can be 'raised', 'raisedoutline', 'round', 'roundoutline' or 'flat'</p><p> <b>name</b><i style='font-size: 75%;'>String</i> Name of the card</p",
+        "param": "\n*@param* {object} `options` - {title:str, body:str, image:str_ptf, buttonText:str_com, color:str, width:num_frc, dividerAvatar:bin, dividerBody:bin, avatar:str_pth, avatarOnTop:bin, buttonType:str-\"raised|raisedoutline|round|roundoutline|flat\"}\n",
+        "params": [{"name":"options: object","desc":"{title:str, body:str, image:str_ptf, buttonText:str_com, color:str, width:num_frc, dividerAvatar:bin, dividerBody:bin, avatar:str_pth, avatarOnTop:bin, buttonType:str-\\\"raised|raisedoutline|round|roundoutline|flat\\\"}","type":"object"}],
+        "call": "MUI.CreateCard(options: object)"
+    },
+    {
+        "name": "CreateColorPicker",
+        "kind": "Method",
+        "detail": "CreateColorPicker: (title: string)",
+        "doc": "Creates a color picker dialog where you can select a range of MUI predefined colors",
+        "param": "\n*@param* {string} `title` - \n",
+        "params": [{"name":"title: string","desc":"","type":"string"}],
+        "call": "MUI.CreateColorPicker(title: string)"
+    },
+    {
+        "name": "CreateCheckbox",
+        "kind": "Method",
+        "detail": "CreateCheckbox: (list: list, width: number, height: number, color: string)",
+        "doc": "Checkbox is a powerful control when you want the user to select multiple items in a grou",
+        "param": "\n*@param* {list} `list` - A comma separated string\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"list: list","desc":"A comma separated string","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateCheckbox(list: list, width: number, height: number, color: string)"
+    },
+    {
+        "name": "CreateCheckList",
+        "kind": "Method",
+        "detail": "CreateCheckList: (title: string, list: list, color: string, bottom: boolean)",
+        "doc": "Check list is a dialog type checkbox list. Let the user select items in a nice popu",
+        "param": "\n*@param* {string} `title` - \n\n*@param* {list} `list` - An array of objects of the form {name: string, check: boolean}\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {boolean} `bottom` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"title: string","desc":"","type":"string"},{"name":"list: list","desc":"An array of objects of the form {name: string, check: boolean}","type":"list"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"bottom: boolean","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"boolean"}],
+        "call": "MUI.CreateCheckList(title: string, list: list, color: string, bottom: boolean)"
+    },
+    {
+        "name": "CreateDataTable",
+        "kind": "Method",
+        "detail": "CreateDataTable: (columns: list, values: list, width: number, height: number, options: string)",
+        "doc": "Data tables display sets of data across rows and columns. You can pass options and and configure your header and rows to add specific functionality",
+        "param": "\n*@param* {list} `columns` - An array of strings of the form Name:Type for column header. Where 'Name' is the column name and 'Type is the column type [Can be Sortable or Numeric]'\n\n*@param* {list} `values` - An array of strings of the form Val1:Val2:Val3...\n\n*@param* {number} `width` - Fraction of the screen width\n\n*@param* {number} `height` - Fraction of the screen height\n\n*@param* {string} `options` - A comma separated options. Can be Selectable\n",
+        "params": [{"name":"columns: list","desc":"An array of strings of the form Name:Type for column header. Where 'Name' is the column name and 'Type is the column type [Can be Sortable or Numeric]'","type":"list"},{"name":"values: list","desc":"An array of strings of the form Val1:Val2:Val3...","type":"list"},{"name":"width: number","desc":"Fraction of the screen width","type":"number"},{"name":"height: number","desc":"Fraction of the screen height","type":"number"},{"name":"options: string","desc":"A comma separated options. Can be Selectable","type":"string"}],
+        "call": "MUI.CreateDataTable(columns: list, values: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "CreateDatePicker",
+        "kind": "Method",
+        "detail": "CreateDatePicker: (yyyy: number, mm: number, dd: number, color: string)",
+        "doc": "Creates a materialize date picker dialog",
+        "param": "\n*@param* {number} `yyyy` - Number integer Full year\n\n*@param* {number} `mm` - Number integer [0-11]\n\n*@param* {number} `dd` - Number integer [1-31]\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"yyyy: number","desc":"Number integer Full year","type":"number"},{"name":"mm: number","desc":"Number integer [0-11]","type":"number"},{"name":"dd: number","desc":"Number integer [1-31]","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateDatePicker(yyyy: number, mm: number, dd: number, color: string)"
+    },
+    {
+        "name": "CreateDialog",
+        "kind": "Method",
+        "detail": "CreateDialog: (title: string, body: string, okText: string, cancelText: string, divider: boolean)",
+        "doc": "Creates a customizable materialize dialog",
+        "param": "\n*@param* {string} `title` - Title\n\n*@param* {string} `body` - Body text\n\n*@param* {string} `okText` - Truthy button text\n\n*@param* {string} `cancelText` - Falsey button text\n\n*@param* {boolean} `divider` - Show divider or hide\n",
+        "params": [{"name":"title: string","desc":"Title","type":"string"},{"name":"body: string","desc":"Body text","type":"string"},{"name":"okText: string","desc":"Truthy button text","type":"string"},{"name":"cancelText: string","desc":"Falsey button text","type":"string"},{"name":"divider: boolean","desc":"Show divider or hide","type":"boolean"}],
+        "call": "MUI.CreateDialog(title: string, body: string, okText: string, cancelText: string, divider: boolean)"
+    },
+    {
+        "name": "CreateDivider",
+        "kind": "Method",
+        "detail": "CreateDivider: (height: )",
+        "doc": "Creates a divider which you can add to your layou",
+        "param": "\n*@param* {} `height` - Optional\n",
+        "params": [{"name":"height: ","desc":"Optional","type":""}],
+        "call": "MUI.CreateDivider(height: )"
+    },
+    {
+        "name": "CreateFAB",
+        "kind": "Method",
+        "detail": "CreateFAB: (icon: string, color: string)",
+        "doc": "Creates a floating action butto",
+        "param": "\n*@param* {string} `icon` - Material icon fonts\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"icon: string","desc":"Material icon fonts","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateFAB(icon: string, color: string)"
+    },
+    {
+        "name": "CreateFABElegant",
+        "kind": "Method",
+        "detail": "CreateFABElegant: (icon: string, color: string)",
+        "doc": "An elegant floating action butto",
+        "param": "\n*@param* {string} `icon` - Material icon fonts\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"icon: string","desc":"Material icon fonts","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateFABElegant(icon: string, color: string)"
+    },
+    {
+        "name": "CreateFABOutline",
+        "kind": "Method",
+        "detail": "CreateFABOutline: (icon: string, color: string, backColor: string)",
+        "doc": "Creates an outlined floating action butto",
+        "param": "\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateFABOutline(icon: string, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateLayout",
+        "kind": "Method",
+        "detail": "CreateLayout: (type: string, options: string)",
+        "doc": "It is just the **CreateLayout** method of DroidScript with predefined values on background color just to be consistent on MUI theming",
+        "param": "\n*@param* {string} `type` - Linear|Absolute|Frame|Card\n\n*@param* {string} `options` - Comma separated DroidScript layout options\n",
+        "params": [{"name":"type: string","desc":"Linear|Absolute|Frame|Card","type":"string"},{"name":"options: string","desc":"Comma separated DroidScript layout options","type":"string"}],
+        "call": "MUI.CreateLayout(type: string, options: string)"
+    },
+    {
+        "name": "CreateList",
+        "kind": "Method",
+        "detail": "CreateList: (list: string, width: number, height: number, options: string)",
+        "doc": "A manipulation of the DroidScript list object",
+        "param": "\n*@param* {string} `list` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - \n",
+        "params": [{"name":"list: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"","type":"string"}],
+        "call": "MUI.CreateList(list: string, width: number, height: number, options: string)"
+    },
+    {
+        "name": "CreateListDialog",
+        "kind": "Method",
+        "detail": "CreateListDialog: (title: string, list: list, color: string, bottom: boolean)",
+        "doc": "Creates a more customizable list dialo",
+        "param": "\n*@param* {string} `title` - \n\n*@param* {list} `list` - An array of objects of the form {name: 'string', icon: 'material-icon', color: 'string'}\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {boolean} `bottom` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"title: string","desc":"","type":"string"},{"name":"list: list","desc":"An array of objects of the form {name: 'string', icon: 'material-icon', color: 'string'}","type":"list"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"bottom: boolean","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"boolean"}],
+        "call": "MUI.CreateListDialog(title: string, list: list, color: string, bottom: boolean)"
+    },
+    {
+        "name": "CreateListModern",
+        "kind": "Method",
+        "detail": "CreateListModern: (list: list, width: number, height: number, options: string)",
+        "doc": "A modern implementation of list using the available controls of DroidScript",
+        "param": "\n*@param* {list} `list` - An array of object elements. See list example\n\n*@param* {number} `width` - An array of object elements. See list example\n\n*@param* {number} `height` - An array of object elements. See list example\n\n*@param* {string} `options` - Initial|Material|Avatar, RightIcon|RightNote, Selectable\n",
+        "params": [{"name":"list: list","desc":"An array of object elements. See list example","type":"list"},{"name":"width: number","desc":"An array of object elements. See list example","type":"number"},{"name":"height: number","desc":"An array of object elements. See list example","type":"number"},{"name":"options: string","desc":"Initial|Material|Avatar, RightIcon|RightNote, Selectable","type":"string"}],
+        "call": "MUI.CreateListModern(list: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "CreateSpinner",
+        "kind": "Method",
+        "detail": "CreateSpinner: (list: list, width: number, height: number)",
+        "doc": "Creates a material designed dropdown. Let the user select from a predefined options",
+        "param": "\n*@param* {list} `list` - String. A comma separated options\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n",
+        "params": [{"name":"list: list","desc":"String. A comma separated options","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.CreateSpinner(list: list, width: number, height: number)"
+    },
+    {
+        "name": "CreateListSimple",
+        "kind": "Method",
+        "detail": "CreateListSimple: (list: list, width: number, height: number, options: string)",
+        "doc": "Creates a simple list that has an optional badge and icon with no body text",
+        "param": "\n*@param* {list} `list` - {title:str|icon:str-Material icon|color:str_col|badge:num}\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `options` - Divider\n",
+        "params": [{"name":"list: list","desc":"{title:str|icon:str-Material icon|color:str_col|badge:num}","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"options: string","desc":"Divider","type":"string"}],
+        "call": "MUI.CreateListSimple(list: list, width: number, height: number, options: string)"
+    },
+    {
+        "name": "CreateMenu",
+        "kind": "Method",
+        "detail": "CreateMenu: (list: string, width: number, height: number, position: string)",
+        "doc": "A simple MUI implementation of material design menu",
+        "param": "\n*@param* {string} `list` - String comma “,” separated list\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `position` - Top,Left|Top,Right|Bottom,Left|Bottom,Right\n",
+        "params": [{"name":"list: string","desc":"String comma “,” separated list","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"position: string","desc":"Top,Left|Top,Right|Bottom,Left|Bottom,Right","type":"string"}],
+        "call": "MUI.CreateMenu(list: string, width: number, height: number, position: string)"
+    },
+    {
+        "name": "CreateMenuWithIcon",
+        "kind": "Method",
+        "detail": "CreateMenuWithIcon: (list: list, width: number, height: number, position: string)",
+        "doc": "Advance MUI implementation of material design menu with additional icon using material icon font",
+        "param": "\n*@param* {list} `list` - str\n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {string} `position` - Top,Left|Top,Right|Bottom,Left|Bottom,Right\n",
+        "params": [{"name":"list: list","desc":"str","type":"list"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"position: string","desc":"Top,Left|Top,Right|Bottom,Left|Bottom,Right","type":"string"}],
+        "call": "MUI.CreateMenuWithIcon(list: list, width: number, height: number, position: string)"
+    },
+    {
+        "name": "CreateModal",
+        "kind": "Method",
+        "detail": "CreateModal: (title: string, body: string, okTxt: string, cancelTxt: string, show: boolean, options: string)",
+        "doc": "A modal is a popup with more controls that can be added",
+        "param": "\n*@param* {string} `title` - \n\n*@param* {string} `body` - Body text. If you want to customize the modal layout pass an empty string.\n\n*@param* {string} `okTxt` - Truthy button text\n\n*@param* {string} `cancelTxt` - Falsy button text\n\n*@param* {boolean} `show` - Falsy button text\n\n*@param* {string} `options` - Dialog options with additional Full option\n",
+        "params": [{"name":"title: string","desc":"","type":"string"},{"name":"body: string","desc":"Body text. If you want to customize the modal layout pass an empty string.","type":"string"},{"name":"okTxt: string","desc":"Truthy button text","type":"string"},{"name":"cancelTxt: string","desc":"Falsy button text","type":"string"},{"name":"show: boolean","desc":"Falsy button text","type":"boolean"},{"name":"options: string","desc":"Dialog options with additional Full option","type":"string"}],
+        "call": "MUI.CreateModal(title: string, body: string, okTxt: string, cancelTxt: string, show: boolean, options: string)"
+    },
+    {
+        "name": "CreateRadio",
+        "kind": "Method",
+        "detail": "CreateRadio: (list: string, width: number, height: number, color: string)",
+        "doc": "Creates a radio control by manipulation of the DroidScript's list control. A radio control allows the user to select only one item in a list. For selecting multiple items in a list, use checkbox",
+        "param": "\n*@param* {string} `list` - String comma “,” separated strings\n\n*@param* {number} `width` - String comma “,” separated strings\n\n*@param* {number} `height` - String comma “,” separated strings\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"list: string","desc":"String comma “,” separated strings","type":"string"},{"name":"width: number","desc":"String comma “,” separated strings","type":"number"},{"name":"height: number","desc":"String comma “,” separated strings","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateRadio(list: string, width: number, height: number, color: string)"
+    },
+    {
+        "name": "CreateRadioButtons",
+        "kind": "Method",
+        "detail": "CreateRadioButtons: (list: list, width: number, height: number, orientation: string, color: string, backColor: string)",
+        "doc": "Creates a radio button control. A radio control allows the user to select only one item in a list. For selecting multiple items in a list, use checkbox",
+        "param": "\n*@param* {list} `list` - A comma separated strings\n\n*@param* {number} `width` - A comma separated strings\n\n*@param* {number} `height` - A comma separated strings\n\n*@param* {string} `orientation` - Vertical|Horizontal\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"list: list","desc":"A comma separated strings","type":"list"},{"name":"width: number","desc":"A comma separated strings","type":"number"},{"name":"height: number","desc":"A comma separated strings","type":"number"},{"name":"orientation: string","desc":"Vertical|Horizontal","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateRadioButtons(list: list, width: number, height: number, orientation: string, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateRadioMaterial",
+        "kind": "Method",
+        "detail": "CreateRadioMaterial: (list: list, width: number, height: number, orientation: string, color: string, backColor: string)",
+        "doc": "Creates a material radio control. A radio control allows the user to select only one item in a list. For selecting multiple items in a list, use checkbox",
+        "param": "\n*@param* {list} `list` - A comma separated strings\n\n*@param* {number} `width` - A comma separated strings\n\n*@param* {number} `height` - A comma separated strings\n\n*@param* {string} `orientation` - Vertical|Horizontal\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"list: list","desc":"A comma separated strings","type":"list"},{"name":"width: number","desc":"A comma separated strings","type":"number"},{"name":"height: number","desc":"A comma separated strings","type":"number"},{"name":"orientation: string","desc":"Vertical|Horizontal","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateRadioMaterial(list: list, width: number, height: number, orientation: string, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateSeekBar",
+        "kind": "Method",
+        "detail": "CreateSeekBar: (value: number, range: number, width: number, color: string)",
+        "doc": "An MUI implementation of a basic seekbar",
+        "param": "\n*@param* {number} `value` - Must be between 0 and range\n\n*@param* {number} `range` - The maximum value of your seekbar\n\n*@param* {number} `width` - The maximum value of your seekbar\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"value: number","desc":"Must be between 0 and range","type":"number"},{"name":"range: number","desc":"The maximum value of your seekbar","type":"number"},{"name":"width: number","desc":"The maximum value of your seekbar","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateSeekBar(value: number, range: number, width: number, color: string)"
+    },
+    {
+        "name": "CreateSwitch",
+        "kind": "Method",
+        "detail": "CreateSwitch: (value: boolean, color: string)",
+        "doc": "Creates a switch that can be toggled on and off",
+        "param": "\n*@param* {boolean} `value` - \n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"value: boolean","desc":"","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateSwitch(value: boolean, color: string)"
+    },
+    {
+        "name": "CreateSwitchSettings",
+        "kind": "Method",
+        "detail": "CreateSwitchSettings: (text: string, width: number, height: number, value: boolean, color: string, backColor: string)",
+        "doc": "Creates a switchable settings that can be toggled on and off",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - Number fraction (0..1)\n\n*@param* {number} `height` - Number fraction (0..1)\n\n*@param* {boolean} `value` - Number fraction (0..1)\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"},{"name":"height: number","desc":"Number fraction (0..1)","type":"number"},{"name":"value: boolean","desc":"Number fraction (0..1)","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateSwitchSettings(text: string, width: number, height: number, value: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTabFixed",
+        "kind": "Method",
+        "detail": "CreateTabFixed: (title: string, width: number, height: number, options: string, color: string, animation: boolean)",
+        "doc": "Creates a simple fixed tab",
+        "param": "\n*@param* {string} `title` - String comma “,” separated titles\n\n*@param* {number} `width` - String comma “,” separated titles\n\n*@param* {number} `height` - String comma “,” separated titles\n\n*@param* {string} `options` - String comma “,” separated DS layout options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {boolean} `animation` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"title: string","desc":"String comma “,” separated titles","type":"string"},{"name":"width: number","desc":"String comma “,” separated titles","type":"number"},{"name":"height: number","desc":"String comma “,” separated titles","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS layout options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"animation: boolean","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"boolean"}],
+        "call": "MUI.CreateTabFixed(title: string, width: number, height: number, options: string, color: string, animation: boolean)"
+    },
+    {
+        "name": "CreateTEFilledIconLeft",
+        "kind": "Method",
+        "detail": "CreateTEFilledIconLeft: (width: number, options: string, icon: string, hint: string, label: boolean, color: string)",
+        "doc": "Creates a filled text input with icon on the lef",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint or label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint or label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTEFilledIconLeft(width: number, options: string, icon: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTEFilledIconRight",
+        "kind": "Method",
+        "detail": "CreateTEFilledIconRight: (width: number, options: string, icon: string, hint: string, label: boolean, color: string)",
+        "doc": "Creates a filled text input with icon on the righ",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint or label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint or label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTEFilledIconRight(width: number, options: string, icon: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTEOutlineIconLeft",
+        "kind": "Method",
+        "detail": "CreateTEOutlineIconLeft: (width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates a material outlined text input with icon on the left",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTEOutlineIconLeft(width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTEOutlineIconRight",
+        "kind": "Method",
+        "detail": "CreateTEOutlineIconRight: (width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates a material outlined text input with icon on the right",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - String comma “,” separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"String comma “,” separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTEOutlineIconRight(width: number, options: string, icon: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTESearchElegant",
+        "kind": "Method",
+        "detail": "CreateTESearchElegant: (width: number, hint: string, icon: string, iconPos: string, color: string, option: string)",
+        "doc": "Creates a customizable elegant text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconPos` - Right|Left\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `option` - Small|Normal|Border\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconPos: string","desc":"Right|Left","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"option: string","desc":"Small|Normal|Border","type":"string"}],
+        "call": "MUI.CreateTESearchElegant(width: number, hint: string, icon: string, iconPos: string, color: string, option: string)"
+    },
+    {
+        "name": "CreateTESearchUnique",
+        "kind": "Method",
+        "detail": "CreateTESearchUnique: (width: number, hint: string, icon: string, iconColor: string)",
+        "doc": "Creates a unique text inpu",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTESearchUnique(width: number, hint: string, icon: string, iconColor: string)"
+    },
+    {
+        "name": "CreateTextAreaFilled",
+        "kind": "Method",
+        "detail": "CreateTextAreaFilled: (width: number, height: number, hint: string, label: boolean, color: string)",
+        "doc": "Creates a material filled textare",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `hint` - Hint text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextAreaFilled(width: number, height: number, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTextAreaFilledA",
+        "kind": "Method",
+        "detail": "CreateTextAreaFilledA: (width: number, height: number, hint: string, label: boolean, color: string)",
+        "doc": "Creates an active filled textarea",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Hides or show label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Hides or show label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextAreaFilledA(width: number, height: number, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTextAreaOutline",
+        "kind": "Method",
+        "detail": "CreateTextAreaOutline: (width: number, height: number, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates an outlined material textarea",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextAreaOutline(width: number, height: number, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTextAreaOutlineA",
+        "kind": "Method",
+        "detail": "CreateTextAreaOutlineA: (width: number, height: number, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates an active outlined material textarea",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextAreaOutlineA(width: number, height: number, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTextEditFilled",
+        "kind": "Method",
+        "detail": "CreateTextEditFilled: (width: number, options: string, hint: string, label: boolean, color: string)",
+        "doc": "Creates the most common type of material text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextEditFilled(width: number, options: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTextEditFilledA",
+        "kind": "Method",
+        "detail": "CreateTextEditFilledA: (width: number, options: string, hint: string, label: boolean, color: string)",
+        "doc": "Creates an active filled material text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextEditFilledA(width: number, options: string, hint: string, label: boolean, color: string)"
+    },
+    {
+        "name": "CreateTextEditOutline",
+        "kind": "Method",
+        "detail": "CreateTextEditOutline: (width: number, options: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates an outlined material text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - Comma separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextEditOutline(width: number, options: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTextEditOutlineA",
+        "kind": "Method",
+        "detail": "CreateTextEditOutlineA: (width: number, options: string, hint: string, label: boolean, color: string, backColor: string)",
+        "doc": "Creates an active outlined material text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - Comma separated DS TextEdit options with additional 'Round' option.\n\n*@param* {string} `hint` - Hint|Label text\n\n*@param* {boolean} `label` - Show or hide label\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options with additional 'Round' option.","type":"string"},{"name":"hint: string","desc":"Hint|Label text","type":"string"},{"name":"label: boolean","desc":"Show or hide label","type":"boolean"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextEditOutlineA(width: number, options: string, hint: string, label: boolean, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTextEditSearch",
+        "kind": "Method",
+        "detail": "CreateTextEditSearch: (width: number, options: string, hint: string, color: string, backColor: string)",
+        "doc": "Creates a customize search style text input",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `options` - Comma separated DS TextEdit options\n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `backColor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"options: string","desc":"Comma separated DS TextEdit options","type":"string"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"backColor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextEditSearch(width: number, options: string, hint: string, color: string, backColor: string)"
+    },
+    {
+        "name": "CreateTextEditUnique",
+        "kind": "Method",
+        "detail": "CreateTextEditUnique: (width: number, hint: string, icon: string, iconCOlor: string)",
+        "doc": "Creates a unique textedit customization",
+        "param": "\n*@param* {number} `width` - \n\n*@param* {string} `hint` - Hint text\n\n*@param* {string} `icon` - Material icon font\n\n*@param* {string} `iconCOlor` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... Icon color\n",
+        "params": [{"name":"width: number","desc":"","type":"number"},{"name":"hint: string","desc":"Hint text","type":"string"},{"name":"icon: string","desc":"Material icon font","type":"string"},{"name":"iconCOlor: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... Icon color","type":"string"}],
+        "call": "MUI.CreateTextEditUnique(width: number, hint: string, icon: string, iconCOlor: string)"
+    },
+    {
+        "name": "CreateTextH1",
+        "kind": "Method",
+        "detail": "CreateTextH1: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text ",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH1(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextH2",
+        "kind": "Method",
+        "detail": "CreateTextH2: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH2(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextH3",
+        "kind": "Method",
+        "detail": "CreateTextH3: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text ",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH3(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextH4",
+        "kind": "Method",
+        "detail": "CreateTextH4: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text ",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH4(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextH5",
+        "kind": "Method",
+        "detail": "CreateTextH5: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text ",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH5(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextH6",
+        "kind": "Method",
+        "detail": "CreateTextH6: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a heading text ",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextH6(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextJumbo",
+        "kind": "Method",
+        "detail": "CreateTextJumbo: (text: string, width: number, height: number, options: string, color: string)",
+        "doc": "Creates an extra large tex",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTextJumbo(text: string, width: number, height: number, options: string, color: string)"
+    },
+    {
+        "name": "CreateTextParagraph",
+        "kind": "Method",
+        "detail": "CreateTextParagraph: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a paragraph tex",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextParagraph(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTextSecondary",
+        "kind": "Method",
+        "detail": "CreateTextSecondary: (text: string, width: number, height: number, options: string, color: string, fontWeight: string)",
+        "doc": "Creates a secondary tex",
+        "param": "\n*@param* {string} `text` - \n\n*@param* {number} `width` - \n\n*@param* {number} `height` - \n\n*@param* {string} `options` - DS text options\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n\n*@param* {string} `fontWeight` - Can be Thin|Light|Regular|Medium|Bold\n",
+        "params": [{"name":"text: string","desc":"","type":"string"},{"name":"width: number","desc":"","type":"number"},{"name":"height: number","desc":"","type":"number"},{"name":"options: string","desc":"DS text options","type":"string"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"},{"name":"fontWeight: string","desc":"Can be Thin|Light|Regular|Medium|Bold","type":"string"}],
+        "call": "MUI.CreateTextSecondary(text: string, width: number, height: number, options: string, color: string, fontWeight: string)"
+    },
+    {
+        "name": "CreateTimePicker",
+        "kind": "Method",
+        "detail": "CreateTimePicker: (hour: number, minute: number, color: string)",
+        "doc": "Creates a material design time picker",
+        "param": "\n*@param* {number} `hour` - [0-24]\n\n*@param* {number} `minute` - 0-59\n\n*@param* {string} `color` - String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...\n",
+        "params": [{"name":"hour: number","desc":"[0-24]","type":"number"},{"name":"minute: number","desc":"0-59","type":"number"},{"name":"color: string","desc":"String <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ...","type":"string"}],
+        "call": "MUI.CreateTimePicker(hour: number, minute: number, color: string)"
+    },
+    {
+        "name": "fonts",
+        "kind": "Method",
+        "detail": "fonts: ()",
+        "doc": "MUI uses the free Roboto font family downloaded from <a href='www.fonts.google.com'>Google Fonts</a> as its main font for all of the controls. To use your own font family just put your .ttf font file into the Fonts/ directory of your app with the corresponding variation names.<br>For the icons, MUI uses the Google's Material Icon Font",
+        "param": "",
+        "params": [],
+        "call": "MUI.fonts()"
+    },
+    {
+        "name": "ShowMenu",
+        "kind": "Method",
+        "detail": "ShowMenu: (control: appobject, list: string, width: number)",
+        "doc": "Show a menu on a given control",
+        "param": "\n*@param* {appobject} `control` - \n\n*@param* {string} `list` - String separated\n\n*@param* {number} `width` - Number fraction (0..1)\n",
+        "params": [{"name":"control: appobject","desc":"","type":"appobject"},{"name":"list: string","desc":"String separated","type":"string"},{"name":"width: number","desc":"Number fraction (0..1)","type":"number"}],
+        "call": "MUI.ShowMenu(control: appobject, list: string, width: number)"
+    }
+]}

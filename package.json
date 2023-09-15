@@ -1,0 +1,158 @@
+{
+  "name": "droidscript-code",
+  "displayName": "DroidScript - Create Android Apps Using JavaScript",
+  "description": "Create android apps using your favourite web libraries. Start android development straight from your device in seconds.",
+  "version": "0.2.7",
+  "publisher": "droidscript",
+  "homepage": "https://droidscript.org",
+  "icon": "./images/logo.png",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "repository": "https://github.com/hamacjumar/droidscript-code.git",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "droidscript",
+          "title": "DroidScript",
+          "icon": "images/droidscript-logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "droidscript": [
+        {
+          "id": "droidscript-projects",
+          "name": "Projects",
+          "contextualTitle": "DroidScript Projects"
+        },
+        {
+          "id": "droidscript-docs",
+          "name": "Docs",
+          "contextualTitle": "DroidScript Docs"
+        },
+        {
+          "id": "droidscript-samples",
+          "name": "Samples",
+          "contextualTitle": "DroidScript Samples"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "droidscript-projects",
+        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.initDS)"
+      },
+      {
+        "view": "droidscript-samples",
+        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.initDS)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "droidscript-code.loadFiles",
+        "title": "DroidScript: Reload"
+      },
+      {
+        "command": "droidscript-code.runApp",
+        "title": "DroidScript: Run"
+      },
+      {
+        "command": "droidscript-code.initDS",
+        "title": "DroidScript: Initialize"
+      },
+      {
+        "command": "droidscript-code.stopApp",
+        "title": "DroidScript: Stop"
+      },
+      {
+        "command": "droidscript-code.addNewApp",
+        "title": "DroidScript: Create new app",
+        "icon": {
+          "light": "./images/plus-dark.svg",
+          "dark": "./images/plus-light.svg"
+        }
+      },
+      {
+        "command": "droidscript-code.deleteApp",
+        "title": "DroidScript: Delete app",
+        "icon": {
+          "light": "./images/trash-dark.svg",
+          "dark": "./images/trash-light.svg"
+        }
+      },
+      {
+        "command": "droidscript-code.renameApp",
+        "title": "DroidScript: Rename app",
+        "icon": {
+          "light": "./images/pencil-dark.svg",
+          "dark": "./images/pencil-light.svg"
+        }
+      },
+      {
+        "command": "droidscript-code.runSample",
+        "title": "DroidScript: Run sample",
+        "icon": {
+          "light": "./images/play-dark.svg",
+          "dark": "./images/play-light.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "droidscript-code.addNewApp",
+          "when": "view == droidscript-projects",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "droidscript-code.deleteApp",
+          "when": "view == droidscript-projects",
+          "group": "inline"
+        },
+        {
+          "command": "droidscript-code.renameApp",
+          "when": "view == droidscript-projects",
+          "group": "inline"
+        },
+        {
+          "command": "droidscript-code.runSample",
+          "when": "view == droidscript-samples",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "axios": "^1.3.4",
+    "fs-extra": "^11.1.1",
+    "querystring": "^0.2.1",
+    "ws": "^8.13.0"
+  }
+}

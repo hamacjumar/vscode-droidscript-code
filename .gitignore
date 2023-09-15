@@ -1,0 +1,11 @@
+# ignore these folders
+docs/
+node_modules/
+vsix/
+
+# ignore files of these type
+*.vsix
+
+# ignore these files
+vsc-extension-quickstart.md
+test.js

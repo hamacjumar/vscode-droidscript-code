@@ -9,7 +9,7 @@
   "engines": {
     "vscode": "^1.76.0"
   },
-  "repository": "https://github.com/hamacjumar/droidscript-code.git",
+  "repository": "https://github.com/hamacjumar/vscode-droidscript-code.git",
   "categories": [
     "Other"
   ],

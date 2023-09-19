@@ -14,7 +14,7 @@ module.exports = function(args, treeView) {
     if( !connected ) {
         vscode.window.showWarningMessage("You are not connected to DroidScript!", "Connect", "Cancel")
             .then( selection => {
-                if(selection == "Connect") vscode.commands.executeCommand("droidscript-code.loadFiles");
+                if(selection == "Connect") vscode.commands.executeCommand("droidscript-code.connect");
             });
         return;
     }

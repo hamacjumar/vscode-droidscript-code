@@ -10,6 +10,7 @@ const querystring = require('querystring');
 const FormData = require('form-data');
 const WebSocket = require('ws');
 const fs = require('fs');
+const { reporters } = require('mocha');
 
 let connected = false;
 let CONFIG = {
@@ -20,8 +21,8 @@ const excludedFoldersAndFiles = ["AABs", "APKs", "SPKs", "PPKs", "Plugins", "Ext
 const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1';
 const dataFileExtensions = '.mp4, .mp3, .ppk, .apk, .spk, .png, .jpg, .jpeg, .pdf, .docx, .xlsx, .pptx, .zip';
 
-const getServerInfo = async function() {
-    const url = `${CONFIG.serverIP}/ide?cmd=getinfo`;
+const getServerInfo = async function( IP ) {
+    const url = `${(IP || CONFIG.serverIP)}/ide?cmd=getinfo`;
     try {
         let response = await axios.get(url, {timeout: 5000});
         if(response.status == 200 && response.data && response.data.status=="ok") {
@@ -38,6 +39,17 @@ const listFolder = async function( folder ) {
     const url = `${CONFIG.serverIP}/ide?cmd=list&dir=${querystring.escape(folder)}`;
     try {
         const response = await axios.get(url);
+        return response.data;
+    }
+    catch (error) {
+        return { status: "bad", error: error }
+    }
+}
+
+const createApp = async function(name, type, template) {
+    const url = `${CONFIG.serverIP}/ide?cmd=add&prog=${querystring.escape(name)}&type=${type}&template=${querystring.escape(template)}`;
+    try {
+        const response = await axios.get(url);   
         return response.data;
     }
     catch (error) {
@@ -238,6 +250,7 @@ const execute = async function( mode, code ) {
 module.exports = {
     CONFIG,
     listFolder,
+    createApp,
     loadFile,
     updateFile,
     deleteFile,

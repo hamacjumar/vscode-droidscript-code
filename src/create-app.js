@@ -1,48 +1,44 @@
 const vscode = require('vscode');
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
 const ext = require('./extension');
 const templates = require("./templates");
+const getLocalData = require('./get-local-data');
 
+let DSCONFIG = {};
 let appType = "";
 let appName = "";
-let CONFIG = {};
+let appTemplate = "";
 let projectsTreeView = null;
 let openNewProject = null;
+const TYPES = [
+    {label: "Native", description: 'Build android app using native controls'},
+    {label: "Html", description: 'Build android app using Html, CSS and Javascript'},
+    {label: "Node", description: 'Use the power of NodeJS in your DroidScript app'},
+    {label: "Hybrid", description: 'Build a multiplatform application'},
+    {label: "Python", description: 'Build android app using python language.'}
+];
+const TEMPLATES = {
+    native: ["Simple", "Game", "Background Service ♦", "Background Job ♦", "Web Server ♦", "Multi-page ♦"],
+    node: ["Simple", "Node Server ♦"],
+    html: ["Simple"],
+    hybrid: ["Simple", "AppBar and Drawer ♦", "Web App ♦", "WYSIWYG ♦"],
+    python: ["Simple", "Hybrid"]
+};
 
 module.exports = function(args, treeView, openProject) {
-    let connected = ext.getConnected();
-    if( !connected ) {
-        vscode.window.showWarningMessage("You are not connected to DroidScript!", "Connect", "Cancel")
-            .then( selection => {
-                if(selection == "Connect") vscode.commands.executeCommand("droidscript-code.loadFiles");
-            });
-        return;
-    }
+    
     projectsTreeView = treeView;
     openNewProject = openProject;
 
-    CONFIG = getLocalData();
-    if( !CONFIG.localProjects ) CONFIG.localProjects = [];
+    DSCONFIG = getLocalData();
 
-    showAppTypes();
-}
-
-function showAppTypes() {
-    const appTypes = [
-        {label: "Native", description: 'Build android app using native controls'},
-        {label: "Html", description: 'Build android app using Html, CSS and Javascript'},
-        {label: "Node", description: 'Use the power of NodeJS in your DroidScript app'},
-        {label: "Hybrid", description: 'Build a multiplatform application'},
-        {label: "MUI", description: 'Build android app using native controls with material ui design'}
-    ];
     const options = {
         placeHolder: 'Select app type',
         ignoreFocusOut: false
     };
-    vscode.window.showQuickPick(appTypes, options).then(item => {
-        if (item !== undefined) {
+    vscode.window.showQuickPick(TYPES, options).then(item => {
+        if( item ) {
             appType = item.label.toLowerCase();
             enterAppName();
         }
@@ -61,139 +57,33 @@ function enterAppName() {
                 }
             }
             appName = input;
-            createApp();
+
+            const options = {
+                placeHolder: `Select ${appType} app template`,
+                ignoreFocusOut: false
+            };
+            const TEMPS = TEMPLATES[appType].map(m => {
+                return DSCONFIG.premium ? m.replace("♦", "").trim() : m;
+            });5
+            vscode.window.showQuickPick(TEMPS, options).then(item => {
+                if( item ) {
+                    appTemplate = item;
+                    createApp();
+                }
+            });
         }
     });
 }
 
-function createApp() {
-    // Just making this a bunch of if-else condition to have a correct type.
-    if(appType == "mui") createDSApp("mui");
-    else if(appType == "hybrid") createHybridApp();
-    else if(appType == "html") createDSApp("html", "html");
-    else if(appType == "node") createDSApp("node");
-    else createDSApp( "native" );
-}
-
-async function createDSApp( type, fileExt="js" ) {
-    const workspace = vscode.workspace.workspaceFolders[0];
-    const currDir = workspace.uri.fsPath;
-    const newAppDir = currDir.substring(0, currDir.lastIndexOf("/")+1) + appName;
-
-    const filePath = path.join(newAppDir, appName+"."+fileExt);
-
+async function createApp() {
     try {
-        // create the new folder associated with the new app
-        createFolder( newAppDir );
-
-        // write the code template for the corresponding apptype
-        fs.writeFileSync(filePath, templates[type]);
-
-        let response = await ext.updateFile(templates[type], appName, appName+"."+fileExt);
-        
+        let response = await ext.createApp(appName, appType, appTemplate);
         if(response.status == "ok") {
             if( projectsTreeView ) projectsTreeView.refresh();
-
             if( openNewProject ) openNewProject( {contextValue: appName} );
-
-            // CONFIG.localProjects.push({
-            //     path: newAppDir,
-            //     PROJECT: appName,
-            //     created: new Date().getTime(),
-            //     reload: true
-            // });
-            // await saveLocalData();
-
-            // vscode.window.showInformationMessage(`${appName} app is created successfully!`, `Open ${appName}`)
-            // .then( action => {
-            //     if( action.includes("Open") ) openNewAppInVSCode( newAppDir );
-            // });
         }
-        else {
-            vscode.window.showErrorMessage(`Error creating ${appName} app!`);
-        }
-    } catch (err) {
-        console.error('Error:', err);
-        vscode.window.showErrorMessage(`Error creating ${appName} app!`);
     }
-}
-
-async function createHybridApp() {
-    const workspace = vscode.workspace.workspaceFolders[0];
-    const currDir = workspace.uri.fsPath;
-    const dir = currDir.substring(0, currDir.lastIndexOf("/"));
-    let newAppDir = path.join(dir, appName);
-
-    try {
-
-        createFolder( newAppDir );
-
-        let filePath = "";
-        const files = templates.hybrid;
-        for(let i=0; i<files.length; i++) {
-            files[i].fileName = files[i].fileName.replace("<appname>", appName);
-            files[i].code = files[i].code.replace("<appname>", appName);
-            filePath = path.join(newAppDir, files[i].fileName);
-            if(files[i].fileName == appName+".js") fs.writeFileSync(filePath, files[i].code);
-            await ext.updateFile(files[i].code, appName, files[i].fileName);
-        }
-
-        if( projectsTreeView ) projectsTreeView.refresh();
-
-        if( openNewProject ) openNewProject( {contextValue: appName} );
-
-        // CONFIG.localProjects.push({
-        //     path: newAppDir,
-        //     PROJECT: appName,
-        //     created: new Date().getTime(),
-        //     reload: true
-        // });
-        // await saveLocalData();
-
-        // vscode.window.showInformationMessage(`${appName} app is created successfully!`, `Open ${appName}`)
-        // .then( action => {
-        //     if( action.includes("Open") )  openNewAppInVSCode( newAppDir );
-        // });
-    } catch ( err ) {
-        console.error('Error:', err);
-        vscode.window.showErrorMessage(`Error creating ${appName} app!`);
-    }
-}
-
-async function openNewAppInVSCode( folder ) {
-    try {
-        const folderUri = vscode.Uri.file( folder );
-        await vscode.commands.executeCommand('vscode.openFolder', folderUri);
-    }
-    catch( error ) {
-        console.log( error );
-    }
-}
-
-function createFolder( folder ) {
-    if( !fs.existsSync(folder) ) {
-        fs.mkdirSync( folder, { recursive: true } );
-    }
-}
-
-
-function getLocalData() {
-    var filePath = path.join(os.homedir(), "dsconfig.json");
-    if( fs.existsSync(filePath) ) {
-        const fileData = fs.readFileSync(filePath, 'utf8');
-        var DSCONFIG = JSON.parse( fileData );
-        return DSCONFIG;
-    }
-    return {};
-}
-
-async function saveLocalData() {
-    try {
-        const data = JSON.stringify(CONFIG, null, 2);
-        const filePath = path.join(os.homedir(), "dsconfig.json");
-        fs.writeFileSync(filePath, data);
-    }
-    catch( error ) {
-        console.log( error );
+    catch( err ) {
+        console.log( err );
     }
 }

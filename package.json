@@ -14,7 +14,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "*"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -49,30 +49,14 @@
     "viewsWelcome": [
       {
         "view": "droidscript-projects",
-        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.initDS)"
+        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
       },
       {
         "view": "droidscript-samples",
-        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.initDS)"
+        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
       }
     ],
     "commands": [
-      {
-        "command": "droidscript-code.loadFiles",
-        "title": "DroidScript: Reload"
-      },
-      {
-        "command": "droidscript-code.runApp",
-        "title": "DroidScript: Run"
-      },
-      {
-        "command": "droidscript-code.initDS",
-        "title": "DroidScript: Initialize"
-      },
-      {
-        "command": "droidscript-code.stopApp",
-        "title": "DroidScript: Stop"
-      },
       {
         "command": "droidscript-code.addNewApp",
         "title": "DroidScript: Create new app",

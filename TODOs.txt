@@ -1,6 +1,9 @@
 
 MAJOR
 
-- Clear Debug output when running sample program.
+- Add Plugins Section in DroidScript Panel and display plugin docs when click.
 
-- Refactor code by moving the `getLocalData` and `setLocalData` into the extension util class.
+
+Left
+    - Continue on "create-app". Remove `diamond` char if user is premium.
+    - Remove app path on DSCONFIG.localProjects if app is deleted.

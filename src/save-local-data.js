@@ -1,0 +1,12 @@
+// module to save the local droidscript json configuration
+
+const fs = require("fs-extra");
+const os = require("os");
+const path = require("path");
+const CONSTANTS = require("./CONSTANTS")
+
+module.exports = function( CONFIG ) {
+    const data = JSON.stringify(CONFIG, null, 2);
+    const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
+    fs.writeFileSync(filePath, data);
+}

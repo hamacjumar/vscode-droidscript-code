@@ -1,9 +1,4 @@
 
 MAJOR
 
-- Add Plugins Section in DroidScript Panel and display plugin docs when click.
-
-
-Left
-    - Continue on "create-app". Remove `diamond` char if user is premium.
-    - Remove app path on DSCONFIG.localProjects if app is deleted.
+- Do not display autocompletion dropdown when the token is a string

@@ -17,8 +17,8 @@ module.exports = function(args, treeView) {
 }
 
 function enterAppName() {
-    vscode.window.showInputBox({ prompt: 'Enter new app name for '+appName, placeHolder: 'e.g. MyNewApp' })
-    .then( async input => {
+    vscode.window.showInputBox({ prompt: "Enter new app name for '"+appName+"'.", placeHolder: 'e.g. MyNewApp' })
+    .then(async input => {
         if( input ) {
             const data = await ext.listFolder("");
             if(data && data.status == "ok" && data.list.length) {
@@ -36,7 +36,21 @@ function enterAppName() {
 async function renameApp() {
     try {
         await ext.renameFile(appName, newAppName);
-        await ext.renameFile(newAppName+"/"+appName+".js", newAppName+"/"+newAppName+".js");
+
+        let htmlAppFile = await ext.fileExist(newAppName + "/" + appName+".html");
+        let jsAppFile = await ext.fileExist(newAppName + "/" + appName+".js");
+        let pyAppFile = await ext.fileExist(newAppName + "/" + appName+".py");
+        
+        if( htmlAppFile ) {
+            await ext.renameFile(newAppName+"/"+appName+".html", newAppName+"/"+newAppName+".html");
+        }
+        else if( jsAppFile ) {
+            await ext.renameFile(newAppName+"/"+appName+".js", newAppName+"/"+newAppName+".js");
+        }
+        else if( pyAppFile ) {
+            await ext.renameFile(newAppName+"/"+appName+".py", newAppName+"/"+newAppName+".py");
+        }
+        
         projectsTreeView.refresh();
     }
     catch( error ) {

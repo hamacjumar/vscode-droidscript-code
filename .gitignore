@@ -9,3 +9,4 @@ vsix/
 # ignore these files
 vsc-extension-quickstart.md
 test.js
+test.html

@@ -6,6 +6,7 @@ const path = require("path");
 const CONSTANTS = require("./CONSTANTS")
 
 module.exports = function( CONFIG ) {
+    CONFIG.localProjects = CONFIG.localProjects.filter(m => (m && m.path));
     const data = JSON.stringify(CONFIG, null, 2);
     const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
     fs.writeFileSync(filePath, data);

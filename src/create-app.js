@@ -1,8 +1,5 @@
 const vscode = require('vscode');
-const fs = require("fs");
-const path = require("path");
 const ext = require('./extension');
-const templates = require("./templates");
 const getLocalData = require('./get-local-data');
 
 let DSCONFIG = {};
@@ -58,19 +55,27 @@ function enterAppName() {
             }
             appName = input;
 
-            const options = {
-                placeHolder: `Select ${appType} app template`,
-                ignoreFocusOut: false
-            };
-            const TEMPS = TEMPLATES[appType].map(m => {
-                return DSCONFIG.premium ? m.replace("♦", "").trim() : m;
-            });5
-            vscode.window.showQuickPick(TEMPS, options).then(item => {
-                if( item ) {
-                    appTemplate = item;
-                    createApp();
-                }
-            });
+            showTemplates();
+        }
+    });
+}
+
+function showTemplates() {
+    const options = {
+        placeHolder: `Select ${appType} app template`,
+        ignoreFocusOut: false
+    };
+    const TEMPS = TEMPLATES[appType].map(m => {
+        return DSCONFIG.premium ? m.replace("♦", "").trim() : m;
+    });
+    vscode.window.showQuickPick(TEMPS, options).then(item => {
+        if( item ) {
+            if( item.includes("♦") ) {
+                vscode.window.showWarningMessage(`${item} is a premium feature.`);
+                return showTemplates();
+            }
+            appTemplate = item;
+            createApp();
         }
     });
 }

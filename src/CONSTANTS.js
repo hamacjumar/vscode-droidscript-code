@@ -5,5 +5,7 @@ module.exports = {
     SAMPLES: ".droidscript/samples",
     SRC: ".droidscript/src",
     DOCS: ".droidscript/docs",
-    PORT: "8088"
+    DOCS_FILE: ".droidscript/docs/docs.html",
+    PORT: "8088",
+    SAMPLE_PORT: ""
 };

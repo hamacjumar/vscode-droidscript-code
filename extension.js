@@ -1,4 +1,4 @@
-
+// modules
 const vscode = require('vscode');
 const fs = require("fs-extra");
 const os = require("os");
@@ -18,10 +18,13 @@ const ProjectsTreeData = require("./src/ProjectsTreeView")
 const SamplesTreeData = require("./src/SamplesTreeView");
 const CONSTANTS = require("./src/CONSTANTS");
 
+// global constants
 const VERSION = 0.27;
 const DOCS_VERSION = "v257";
 const DEBUG = false;
+const scopes = ["app", "MUI", "ui"];
 
+// global variables
 let PROJECT = "";
 let FOLDER_NAME = "";
 let VSFOLDERS = [];
@@ -30,7 +33,6 @@ let DSCONFIG = {};
 let SELECTED_PROJECT = "";
 let RELOAD_PROJECT = false;
 let GlobalContext = null;
-let actionButtonShown = false;
 let webSocket = null;
 let lastActivity = "";
 let CONNECTED = false;
@@ -46,7 +48,6 @@ let isLivePreviewActive = false;
 let loadButton, playButton, stopButton;
 let folderPath = "";
 
-const scopes = ["app", "MUI", "ui"];
 const scopesJson = {};
 scopes.forEach(m => {
     scopesJson[m] = require("./completions/"+m+".json");
@@ -89,9 +90,11 @@ function initCompletion() {
 // subscriptions for registerCommands
 let subscribe = null;
 
+// This method is called to activate the extension
 function activate( context ) {
 
     DSCONFIG = getLocalData();
+    ext.setCONFIG( DSCONFIG );
 
     VSFOLDERS = vscode.workspace.workspaceFolders;
     if(VSFOLDERS && VSFOLDERS.length) {
@@ -109,7 +112,7 @@ function activate( context ) {
         if( CONNECTED ) createNewApp(args, projectsTreeDataProvider, openProject);
         else showReloadPopup();
     });
-    subscribe("deleteApp", args => { deleteApp(args, projectsTreeDataProvider); });
+    subscribe("deleteApp", args => { deleteApp(args, projectsTreeDataProvider, onDeleteApp); });
     subscribe("renameApp", args => { renameApp(args, projectsTreeDataProvider); });
     subscribe("runSample", args => { runSample(args, runSampleProgram); });
     subscribe("openDroidScriptDocs", openDocs);
@@ -234,7 +237,7 @@ function activate( context ) {
     });
 
     if(DSCONFIG.localProjects && DSCONFIG.localProjects.length && VSFOLDERS.length) {
-        let ndx = DSCONFIG.localProjects.findIndex(m => m.path == folderPath)
+        let ndx = DSCONFIG.localProjects.findIndex(m => (m && m.path == folderPath));
         if(ndx >= 0) {
 
             PROJECT = DSCONFIG.localProjects[ndx].PROJECT;
@@ -245,12 +248,15 @@ function activate( context ) {
             if( DSCONFIG.localProjects[ndx].reload ) {
                 RELOAD_PROJECT = true;
                 DSCONFIG.localProjects[ndx].reload = false;
+
+                ext.setCONFIG( DSCONFIG );
                 saveLocalData( DSCONFIG );
+
                 vscode.commands.executeCommand("droidscript-code.connect");
             }
             else {
-                vscode.window.showInformationMessage("DroidScript Project detected. Do you want to connect and reload?", "Connect & Reload").then( selection => {
-                    if(selection == "Connect & Reload")
+                vscode.window.showInformationMessage("This folder is a DroidScript app. Do you want to connect and reload?", "Proceed").then( selection => {
+                    if(selection == "Proceed")
                         vscode.commands.executeCommand("droidscript-code.connect");
                 });
             }
@@ -264,6 +270,7 @@ function activate( context ) {
         // set the version
         DSCONFIG.VERSION = VERSION;
 
+        ext.setCONFIG( DSCONFIG );
         saveLocalData( DSCONFIG );
     }
 
@@ -271,13 +278,11 @@ function activate( context ) {
     initSignatures();
     // initialize completions
     initCompletion();
-    // initialize window
-    initWindow();
 
     displayConnectionStatus()
 }
 
-// This method is called when your extension is deactivated
+// This method is called when extension is deactivated
 function deactivate() {
     webSocket = null;
     vscode.commands.executeCommand('livePreview.end');
@@ -287,17 +292,12 @@ function deactivate() {
 async function extractAssets() {
     try {
         // clear .droidscript folder first
-        await deleteAssetFolder();
+        fs.removeSync( path.join(os.homedir(), CONSTANTS.LOCALFOLDER) );
 
         await createAssetFolder( CONSTANTS.LOCALFOLDER );
         await createAssetFolder( CONSTANTS.SAMPLES );
         await createAssetFolder( CONSTANTS.SRC );
         await createAssetFolder( CONSTANTS.DOCS );
-
-        // copy docs folder
-        let srcDir = path.join(__dirname, "docs");
-        let destDir = path.join(os.homedir(), CONSTANTS.DOCS);
-        await fs.copySync(srcDir, destDir, {overwrite: true});
     } catch( err ) {
         console.log( err );
     }
@@ -306,37 +306,19 @@ async function extractAssets() {
 async function createAssetFolder( folder ) {
     try {
         const filePath = path.join(os.homedir(), folder);
-        await fs.mkdirSync(filePath, { recursive: true });
-    } catch( err ) {
-        console.log( err );
-    }
-}
-
-async function deleteAssetFolder() {
-    try {
-        const lca = path.join(os.homedir(), ".droidscript");
-        await fs.removeSync( lca );
+        fs.mkdirSync(filePath, { recursive: true });
     } catch( err ) {
         console.log( err );
     }
 }
 
 async function initWindow() {
-    let fp = folderPath, appName = "";
-    if(DSCONFIG.localProjects && DSCONFIG.localProjects.length) {
-        let idx = DSCONFIG.localProjects.findIndex(m => m.path == fp);
-        IS_DROIDSCRIPT = idx >= 0;
-        if( IS_DROIDSCRIPT ) appName = DSCONFIG.localProjects[idx].PROJECT;
-    }
-    else return;
-    if( !IS_DROIDSCRIPT ) return;
-    
     let hasFile = false;
     try {
         if(vscode.window.visibleTextEditors == 0) {
-            let rootFile1 = path.join(fp, appName+".js");
-            let rootFile2 = path.join(fp, appName+".html");
-            let rootFile3 = path.join(fp, appName+".py");
+            let rootFile1 = path.join(folderPath, PROJECT+".js");
+            let rootFile2 = path.join(folderPath, PROJECT+".html");
+            let rootFile3 = path.join(folderPath, PROJECT+".py");
             if( fs.existsSync(rootFile1) ) { await openFile( rootFile1 ); hasFile = true; }
             else if( fs.existsSync(rootFile2) ) { await openFile( rootFile2 ); hasFile = true; }
             else if( fs.existsSync(rootFile3) ) { await openFile( rootFile3 ); hasFile = true; }
@@ -379,7 +361,7 @@ async function loadFiles() {
         });
     }
     else {
-        vscode.window.showInformationMessage("This folder is not associated with any DroidScript project. Open a project in the DroidScript's Project is section.");
+        vscode.window.showInformationMessage("This folder is not associated with any DroidScript project. Open an app in the DroidScript's 'PROJECT' section.");
     }
 }
 
@@ -436,7 +418,7 @@ async function writeFile(fileName, content) {
 
     const fileUri = vscode.Uri.joinPath(VSFOLDERS[0].uri, fileName);
     try {
-        await fs.writeFileSync(fileUri.fsPath, content, { flag: 'w' });
+        fs.writeFileSync(fileUri.fsPath, content, {flag: 'w'});
     } catch( error ) {
         console.log("Error writing "+error.message);
     }
@@ -636,6 +618,7 @@ function displayControlButtons() {
     playButton.show();
     stopButton.show();
 }
+
 // connection status
 function displayConnectionStatus() {
     if( connectionStatusShown ) {
@@ -652,6 +635,7 @@ function displayConnectionStatus() {
         else connectionStatusBarItem.text = "$(circle-slash) Connect to Droidscript"; // Wi-Fi icon
     }
 }
+
 // display project name
 function displayProjectName() {
 
@@ -724,6 +708,23 @@ function stop() {
     ext.stop();
 }
 
+function onDeleteApp( appName ) {
+    if(appName == PROJECT) {
+        // stop the websocket the deleted app is the current project
+        if(webSocket && webSocket.close) webSocket.close();
+        if( projectName ) projectName.hide();
+    }
+
+    // remove the folder path in the localProjects array
+    let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath);
+    if(i >= 0) {
+        delete DSCONFIG.localProjects[i];
+
+        ext.setCONFIG( DSCONFIG );
+        saveLocalData( DSCONFIG );
+    }
+}
+
 function restartWebsocket() {
     if( !webSocket ) {
         startWebSocket();
@@ -740,6 +741,7 @@ let webSocketKeepAliveTimer = null;
 async function wsOnOpen() {
 
     DSCONFIG = getLocalData();
+    ext.setCONFIG( DSCONFIG );
 
     // get the project associated with DroidScript
     let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath);
@@ -748,7 +750,8 @@ async function wsOnOpen() {
     }
 
     CONNECTED = true;
-    ext.setConnected(true);
+    ext.setConnected( CONNECTED );
+
     showStatusBarItems();
     Logger("Connected: "+DSCONFIG.serverIP);
 
@@ -794,6 +797,7 @@ function wsOnClose() {
     }
     webSocket = null;
     hideStatusBarItems();
+    ext.setConnected( CONNECTED );
     // pluginsTreeDataProvider.refresh();
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
@@ -832,11 +836,12 @@ function highlightErrorLine( msg ) {
 // documentations
 async function openDocs( treeItem ) {
     if( isLivePreviewActive ) return;
-    const docsPath = path.join(os.homedir(), ".droidscript", "docs", "Docs.htm");
+    const docsPath = path.join(os.homedir(), CONSTANTS.DOCS_FILE);
     const fileUri = vscode.Uri.file(docsPath);
     try {
         await vscode.commands.executeCommand('livePreview.start.preview.atFile', fileUri);
         isLivePreviewActive = true;
+
     } catch( err ) {
         console.log( err );
     }
@@ -944,6 +949,8 @@ async function openProject( treeItem ) {
         if(n >= 0 && !fs.existsSync( DSCONFIG.localProjects[n].path )) {
             n = -1;
             delete DSCONFIG.localProjects[n];
+
+            ext.setCONFIG( DSCONFIG );
             saveLocalData( DSCONFIG );
         }
     }
@@ -953,6 +960,8 @@ async function openProject( treeItem ) {
             if(selection == "Open") {
                 // This will auto reload the folder when opened
                 DSCONFIG.localProjects[n].reload = true;
+
+                ext.setCONFIG( DSCONFIG );
                 saveLocalData( DSCONFIG );
 
                 folderUri = vscode.Uri.file( DSCONFIG.localProjects[n].path );
@@ -971,7 +980,10 @@ async function openProject( treeItem ) {
                         created: new Date().getTime(),
                         reload: false
                     });
+
+                    ext.setCONFIG( DSCONFIG );
                     saveLocalData( DSCONFIG );
+
                     PROJECT = SELECTED_PROJECT;
                     await loadFiles();
                     showStatusBarItems();
@@ -996,7 +1008,10 @@ async function openProject( treeItem ) {
                         created: new Date().getTime(),
                         reload: true
                     });
+
+                    ext.setCONFIG( DSCONFIG );
                     saveLocalData( DSCONFIG );
+
                     folderUri = vscode.Uri.file( newAppFolder );
                     await vscode.commands.executeCommand('vscode.openFolder', folderUri);
                 } catch( error ) {
@@ -1064,55 +1079,8 @@ async function openConnectTutorial() {
         }
     );
 
-    panel.webview.html = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Layout</title>
-            <style>
-                * {
-                    padding: 0;
-                    margin: 0;
-                    box-sizing: border-box;
-                }
-                body {
-                    padding: 2rem;
-                }
-                h4 {
-                    margin: 1.5rem 0;
-                }
-                li {
-                    margin-top: 1rem;
-                    padding: 0px 1rem;
-                }
-            </style>
-        </head>
-        <body>
-            
-            <h1>How to connect to DroidScript?</h1>
+    panel.webview.html = require("./src/learn-more");
 
-            <ol>
-                <li>Open DroidScript app on your phone and press the WiFi icon to start the DS WiFi IDE server. You should be able to see the IP Address on the popup message.</li>
-                <li>Click the <strong>"Connect"</strong> button in the Projects section or in the Samples section. You can also click the <strong>"Connect to DroidScript"</strong> button in the bottom right corner.</li>
-                <li>A popup will be displayed where to enter <strong>"IP Address"</strong> and <strong>"Password"</strong> if necessary.</li>
-            </ol>
-
-            <br>
-            <br>
-            <br>
-            
-            <h1>How to open an app?</h1>
-
-            <ol>
-                <li>If you are successfully connected, expand the <strong>"PROJECTS"</strong> section and select the project you want to open.</li>
-                <li>A popup message will open on the bottom right for confirmation.</li>
-            </ol>
-            
-        </body>
-        </html>
-    `;
     learnToConnectPanel = panel;
 
     panel.onDidDispose( () => {

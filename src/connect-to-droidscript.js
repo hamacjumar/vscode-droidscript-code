@@ -2,9 +2,11 @@
 
 const vscode = require('vscode');
 const ext = require("./extension");
+const fs = require("fs-extra");
 const getLocalData = require("./get-local-data");
 const saveLocalData = require("./save-local-data");
 const CONSTANTS = require("./CONSTANTS");
+const writeDocsHtmlContainer = require("./write-docs-html");
 
 let DSCONFIG = {};
 let CALLBACK = null;
@@ -18,6 +20,11 @@ module.exports = function(callback, reload) {
     RELOAD = reload; // use DSCONFIG password
 
     if( !DSCONFIG.localProjects ) DSCONFIG.localProjects = [];
+    else if(DSCONFIG.localProjects && DSCONFIG.localProjects.length) {
+        DSCONFIG.localProjects = DSCONFIG.localProjects.filter(m => {
+            return (m && m.path && fs.existsSync(m.path));
+        });
+    }
 
     ext.setCONFIG( DSCONFIG );
 
@@ -32,7 +39,7 @@ module.exports = function(callback, reload) {
 // display a popup dialog to enter ip address
 function showIpPopup() {
     const options = {
-        placeHolder: 'Enter IP Address: 192.168.254.112',
+        placeHolder: 'Enter IP Address: 192.168.254.112:8088',
         ignoreFocusOut: true
     };
     vscode.window.showInputBox(options).then(async value => {
@@ -105,8 +112,13 @@ async function login() {
             
             // to be use in DroidScript CLI
             DSCONFIG.password = PASSWORD;
-
+            DSCONFIG.PORT = DSCONFIG.serverIP.substring(DSCONFIG.serverIP.lastIndexOf(":") + 1);
+            
             saveLocalData( DSCONFIG );
+
+            // rewrite docs html container
+            writeDocsHtmlContainer();
+
             CALLBACK();
         }
         else if( data ) {

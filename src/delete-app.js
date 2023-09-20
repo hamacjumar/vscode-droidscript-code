@@ -2,22 +2,15 @@ const vscode = require('vscode');
 const ext = require('./extension');
 
 let appName = "";
+let CALLBACK = null;
 
-module.exports = function(args, treeView) {
+module.exports = function(args, treeView, callback) {
     if(!args || !args.label) {
-        return vscode.window.showWarningMessage("Delete an app in DroidScript section under Projects view!");
+        return vscode.window.showWarningMessage("Delete an app in DroidScript's PROJECTS section!");
     }
 
     appName = args.label;
-
-    let connected = ext.getConnected();
-    if( !connected ) {
-        vscode.window.showWarningMessage("You are not connected to DroidScript!", "Connect", "Cancel")
-            .then( selection => {
-                if(selection == "Connect") vscode.commands.executeCommand("droidscript-code.connect");
-            });
-        return;
-    }
+    CALLBACK = callback;
 
     vscode.window.showWarningMessage(`Do you want to remove ${appName} app?`, "Remove", "Cancel")
     .then( async selection => {
@@ -26,6 +19,7 @@ module.exports = function(args, treeView) {
                 let response = await ext.deleteFile( appName );
                 if(response.status == "ok") {
                     if( treeView ) treeView.refresh();
+                    if( CALLBACK ) CALLBACK( appName );
                 }
                 else {
                     vscode.window.showErrorMessage(`Error removing ${appName} app!`);

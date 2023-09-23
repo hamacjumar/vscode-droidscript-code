@@ -2,7 +2,7 @@
 
 Notable releases.
 
-### Version 0.2.7 - Not yet release!
+### Version 0.2.8 - Not yet release!
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for app scope.
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for ui scope.
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for MUI scope.
@@ -10,7 +10,19 @@ Notable releases.
 - Use Live Preview to open documentation.
 - Docs is now shipped to the extension.
 - Automatically open the root file for each droidscript project.
-- Update README file.
+- Added context menus to projects and samples.
+- Improved connection to wifi IDE.
+- Support for DS V3 samples with categories.
+- Added support for backward compatibility for old droidscript versions.
+- Improved creating an app process.
+- Added template quick pick step when creating an app.
+- Added support for creating python app.
+- Added support for running python samples.
+- Updated README file.
+- Learn more option will now open the README file.
+- Added opening of a project to a new window of vs code.
+- Fixed premium samples not showing on non-premium users.
+- Added a process to check for premium templates when creating an app in non-premium users.
 
 ### Version 0.2.6
 - Added Project Name at the bottom status bar.

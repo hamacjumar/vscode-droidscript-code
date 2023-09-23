@@ -22,61 +22,73 @@ Unlike other development tools which take hours to install and eat up gigabytes 
 ![Connect to DroidScript](./images/connect.gif)
 
 - Open DroidScript app on your phone and press the WiFi icon to start the DS WiFi IDE server. You should be able to see the IP Address on the popup message.
-- Click the **"Connect"** button in the Projects section or in the Samples section. You can also click the **"Connect to DroidScript"** button in the bottom right corner.
+- Click the **"Connect"** button in the Projects view or in the Samples view. You can also click the **"Connect to DroidScript"** button in the bottom right corner.
 - A popup will be displayed where to enter **"IP Address"** and **"Password"** if necessary.
 
 ## How to open an app?
 
-![Open an app](./images/open-app.gif)
+![Open an app](./images/opening-app.gif)
 
-- If you are successfully connected, go to **DroidScript** view.
-- Expand the **"PROJECTS"** section and select the project you want to open.
+- If you are successfully connected, go to **DroidScript** section.
+- Expand the **"PROJECTS"** view and right-click on the project you want to open.
 - A popup message will open on the bottom right for confirmation.
 
 ## How to create an app?
 
 ![Create an app](./images/create-app.gif)
 
-- Go to **DroidScript** view.
-- In the **"PROJECTS"** section title, click the **`"+"`** icon at the right.
+- Go to **DroidScript** section.
+- In the **"PROJECTS"** view title, click the **`"+"`** icon at the right.
 - A quick pick popup will be shown at the top. Select the type of app and follow the next step to "Enter app name" and "App type".
+> You can also right-click on any app and select the `"Create new app"` item in the context menu.
 
 ## How to rename an app?
 
-- Go to **DroidScript** view.
-- Expand the **"PROJECTS"** section.
-- Hover on the app you want to rename and click the **"Pencil"** icon.
-- A popup message will open on the bottom right for confirmation.
+- Go to **DroidScript** section.
+- Expand the **`"PROJECTS"`** view and right-click on the app you want to rename.
+- Select **`"Create new app"`** item in the context menu.
 
-## How to delete an app?
+## How to remove an app?
 
-- Go to **DroidScript** view.
-- Expand the **"PROJECTS"** section.
-- Hover on the app you want to remove and click the **"Trash Bin"** icon.
-- A popup message will open on the bottom right for confirmation.
+- Go to **DroidScript** section.
+- Expand the **`"PROJECTS"`** view and right-click on the app you want to remove.
+- Select **`"Remove"`** item in the context menu.
+- A popup message will be shown in the bottom right for confirmation.
 
-## Play, Stop and Reload Project
+## Running or stopping an app
 
 ![Control Actions](./images/run-stop.gif)
 
-At the bottom of VS Code, in the status bar you can see three icon buttons added, namely: **Reload**, **Play**, **Stop**.
+At the bottom of VS Code in the status bar, you can see the **`"Run"`** and **`"Stop"`** icon button.
 
-- **Reload** - This will reload the current project files. Before you start editing your code, it is best practice to reload first in order to retrieved the updated files in your DroidScript project.
-- **Play** - Run your DroidScript app.
+- **Play** - Run the currently opened DroidScript app.
 - **Stop** - Stop the currently running app.
 
-## Docs and Samples
+## Documentation
 
-![Control Actions](./images/samples-ss.png)
+![Control Actions](./images/documentation.gif)
 
-Navigate to DroidScript panel in the SideBar to open DroidScript docs and samples.
+- Go to **DroidScript** section.
+- Expand the **`"DOCS"`** view and select **`"Documentation"`** tree item.
+> A live preview window will be open in the right panel of VS Code.
 
+## Samples
+
+![Control Actions](./images/samples.gif)
+
+- Go to **DroidScript** section.
+- Expand the **`"SAMPLES"`** view and right-click on the sample you want to open or run.
+
+## Intellisense
+
+![Control Actions](./images/code-intellisense.gif)
+
+Completion items for `app`, `ui` and `MUI` scopes are provided in the extension. You can also hover to any `app`, `MUI` and `ui` methods to display a definition popup. Signature help is also provided so you can look at parameter names, types and descriptions while passing arguments to methods in each scope.
 
 ## Best Practices
 
-- Everytime you start editing your project, it is a good idea to reload the files to fetch any changes on the Project. Click the **Reload** button or run the `DroidScript: Reload` command.
+- Everytime you start editing your project, it is a good idea to reload the files to fetch any changes on the Project. Click the **Reload** button in the bottom of VS Code.
 - When you are working in VS Code, **DO NOT EDIT THE FILES IN THE WIFI IDE**.
-
 
 ## Known Issues
 

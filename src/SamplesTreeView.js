@@ -1,11 +1,14 @@
 const vscode = require('vscode');
 const ext = require("./extension");
+const { DSCONFIG } = require('./CONSTANTS');
 
 class TreeDataProvider {
 
     constructor() {
         this._onDidChangeTreeData = new vscode.EventEmitter();
         this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+
+        this.data = {};
     }
 
     getTreeItem(element) {
@@ -13,24 +16,37 @@ class TreeDataProvider {
     }
   
     async getChildren(element) {
+        let treeItems = [];
         if( !element ) {
-            let res = await ext.getSamples("js");
-            if(res && res.status == 200 && res.data.status=="ok") {
-                const files = res.data.samples.split("|");
-                const samples = files.map(m => {
-                    var line = m.split(":");
-                    var title = line[0].replace("&#9830;", "\u2666");
-                    return new TreeItem(title, vscode.TreeItemCollapsibleState.None, title);
+            this.data = await ext.getSamples();
+            if(this.data.type == "array") {
+                treeItems = this.data.samples.map(m => {
+                    let title = DSCONFIG.premium ? m.replace("♦", "") : m;
+                    return new TreeItem(title.trim(), vscode.TreeItemCollapsibleState.None, m.replace("♦", ""));
                 });
-                return Promise.resolve(samples);
             }
-            else {
-                return Promise.resolve([]);
+            else if(this.data.type == "json") {
+                let sampTypes = [];
+                for(let type in this.data.samples) {
+                    treeItems.push(new TreeItem(type.toUpperCase(), vscode.TreeItemCollapsibleState.Collapsed, type));
+                    sampTypes.push( type );
+                }
+                vscode.commands.executeCommand('setContext', 'droidscript-code.sampleTypes', sampTypes);
             }
         }
         else {
-            vscode.window.showInformationMessage(element.label);
+            if( this.data.samples[element.contextValue] ) {
+                treeItems = this.data.samples[element.contextValue].map(m => {
+                    let title = m.title;
+                    if( m.isPremium ) {
+                        title += " ♦";
+                        element.contextValue += " ♦";
+                    }
+                    return new TreeItem(title, vscode.TreeItemCollapsibleState.None, m.title, element.contextValue);
+                });
+            }
         }
+        return Promise.resolve( treeItems );
     }
 
     refresh() {
@@ -39,19 +55,20 @@ class TreeDataProvider {
 }
 
 class TreeItem extends vscode.TreeItem {
-    constructor(label, collapsibleState, contextValue) {
+    constructor(label, collapsibleState, contextValue, category) {
         super(label, collapsibleState);
         this.contextValue = contextValue;
+        this.category = category;
     }
 
     // Provide the command ID to execute when the tree item is selected
-    get command() {
-        return {
-            command: 'droidscript-code.openDroidScriptSample',
-            title: 'Open Sample',
-            arguments: [this],
-        };
-    }
+    // get command() {
+    //     return {
+    //         command: 'droidscript-code.openDroidScriptSample',
+    //         title: 'Open Sample',
+    //         arguments: [this],
+    //     };
+    // }
 }
 
 module.exports = {

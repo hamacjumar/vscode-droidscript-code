@@ -7,5 +7,5 @@ module.exports = {
     DOCS: ".droidscript/docs",
     DOCS_FILE: ".droidscript/docs/docs.html",
     PORT: "8088",
-    SAMPLE_PORT: ""
+    SAMPLE_PORT: "8018"
 };

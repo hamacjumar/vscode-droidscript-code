@@ -4,14 +4,16 @@ const ext = require('./extension');
 let appName = "";
 let newAppName = "";
 let projectsTreeView = null;
+let CALLBACK = null;
 
-module.exports = function(args, treeView) {
+module.exports = function(args, treeView, callback) {
     if(!args || !args.label) {
         return vscode.window.showWarningMessage("Rename an app in DroidScript section under Projects view!");
     }
 
     appName = args.label;
     projectsTreeView = treeView;
+    CALLBACK = callback;
 
     enterAppName();
 }
@@ -52,6 +54,10 @@ async function renameApp() {
         }
         
         projectsTreeView.refresh();
+
+        if( CALLBACK ) CALLBACK(appName, newAppName);
+
+        vscode.window.showInformationMessage(`${appName} successfully renamed to ${newAppName}.`);
     }
     catch( error ) {
         console.log( error );

@@ -40,9 +40,9 @@ module.exports = `
     <h1>How to open an app?</h1>
 
     <ol>
-        <li>If you are successfully connected, go to <strong>DroidScript</strong> view.</li>.
-        <li>Expand the <strong>"PROJECTS"</strong> section and select the project you want to open.</li>
-        <li>A popup message will open on the bottom right for confirmation.</li>
+        <li>If you are successfully connected, go to <strong>DroidScript</strong> view.</li>
+        <li>Expand the <strong>"PROJECTS"</strong> section and right-click on the name of the project you want to open.</li>
+        <li>In the context menu, select <strong>"Open"</strong>.</li>
     </ol>
 
     <br>

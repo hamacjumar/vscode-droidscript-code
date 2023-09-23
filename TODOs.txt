@@ -1,4 +1,9 @@
 
 MAJOR
 
+- LEFT 
+    - Continue working on Samples especially premium accoount and premium samples.
+
 - Do not display autocompletion dropdown when the token is a string
+
+- Fixed renaming of app when the folder is the renamed app.

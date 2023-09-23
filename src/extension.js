@@ -10,6 +10,7 @@ const querystring = require('querystring');
 const FormData = require('form-data');
 const WebSocket = require('ws');
 const fs = require('fs');
+const CONSTANTS = require("./CONSTANTS");
 
 let CONNECTED = false;
 let DSCONFIG = {};
@@ -124,35 +125,104 @@ const deleteFile = async function(file) {
 
 const getSamples = async function( type="js" ) {
     
-    if( !CONNECTED ) return;
+    let data = {};
 
-    const url = `${DSCONFIG.serverIP}/ide?cmd=getsamples&type=${type}`;
-    try {
-        const response = await axios.get(url);
-        return response;
+    if( !CONNECTED ) return data;
+
+    if(DSCONFIG.version < 3) {
+        const url = `${DSCONFIG.serverIP}/ide?cmd=getsamples&type=${type}`;
+        try {
+            const response = await axios.get(url);
+            if(response && response.status == 200 && response.data.status=="ok") {
+                const files = response.data.samples.split("|");
+                const samples = files.map(m => {
+                    var line = m.split(":");
+                    return line[0].replace("&#9830;", " ♦").trim();
+                });
+                data = {
+                    type: "array",
+                    samples
+                }
+            }
+        }
+        catch( error ) {
+            console.log( error );
+        }
     }
-    catch( error ) {
-        console.log( error );
+    else {
+        let serverIP = DSCONFIG.serverIP.replace(DSCONFIG.PORT, CONSTANTS.SAMPLE_PORT);
+        const url = `${serverIP}/getAllSamples`;
+        try {
+            const response = await axios.get(url);
+            if(response && response.status == 200 && response.data.status) {
+                data = {
+                    type: "json",
+                    samples: response.data.message
+                }
+            }
+        }
+        catch( error ) {
+            console.log( error );
+        }
     }
+
+    return data;
 }
 
-const getSampleFile = async function( name ) {
+const getSampleFile = async function(name, category) {
     // NetUtils.getServerUrl("ide?cmd=get&file=" + u + currentSampleFile)
 
-    const n = name.split(" ").join("_");
-    const url = `${DSCONFIG.serverIP}/ide?cmd=get&file=/assets/samples/${n}.js`;
-    try {
-        const res = await axios.get( url );
-        return res;
+    let code = "";
+    const title = name.split(" ").join("_");
+
+    if( category ) {
+        let serverIP = DSCONFIG.serverIP.replace(DSCONFIG.PORT, CONSTANTS.SAMPLE_PORT);
+        const url = `${serverIP}/getSample?category=${category}&title=${name}`;
+        try {
+            const res = await axios.get(url);
+            if(res && res.data && res.data.status) {
+                code = res.data.message;
+            }
+        }
+        catch( error ) {
+            console.log( error );
+        }
     }
-    catch( error ) {
-        console.log( error );
+    else {
+        const url = `${DSCONFIG.serverIP}/ide?cmd=get&file=/assets/samples/${title}.js`;
+        try {
+            const res = await axios.get( url );
+            if(typeof res.data == "string") {
+                res.data = res.data.replace(/\\\'/g, "");
+                res.data = JSON.parse(res.data);
+            }
+            if(res && res.data && res.data.file) {
+                code = res.data.file;
+            }
+        }
+        catch( error ) {
+            console.log( error );
+        }
     }
+
+    console.log( code );
+
+    return code;
 }
 
-const runSample = async function( name ) {
+const runSample = async function(name, category) {
+    
+    if( category ) {
+        let code = await getSampleFile(name, category);
+        const regex1 = /import\s*app/;
+        const regex2 = /import\s*ui/;
+        if(regex1.test(code) || regex2.test(code)) code = "python:"+code;
+        return execute("app", code);
+    }
+
     const n = name.split(" ").join("_");
-    const url = `${DSCONFIG.serverIP}/ide?cmd=sample&name=${n}`;
+    let url = `${DSCONFIG.serverIP}/ide?cmd=sample&name=${n}`;
+
     try {
         await axios.get( url );
     }
@@ -243,12 +313,24 @@ const getConnected = function() {
 //'app' mode runs as a stand-alone app.
 //'ide' mode runs inside ide.
 //'usr' mode runs inside current user app.
-const execute = async function( mode, code ) {
+const execute = async function(mode, code) {
     // xmlHttp = new XMLHttpRequest();
     // xmlHttp.open( "get", "/ide?cmd=execute&mode="+mode+"&code="+encodeURIComponent(btoa(code)), true );
     // xmlHttp.send();
     const encodedData = Buffer.from(code, 'utf8').toString('base64');
     const url = `${DSCONFIG.serverIP}/ide?cmd=execute&mode=${mode}&code=${querystring.escape(encodedData)}`;
+    try {
+        const response = await axios.get( url );
+        return response;
+    }
+    catch( error ) {
+        console.log( error );
+        return null;
+    }
+}
+
+const executeCommand = async function( cmd ) {
+    const url = `${DSCONFIG.serverIP}/ide?cmd=execute&code=${querystring.escape( cmd )}`;
     try {
         const response = await axios.get( url );
         return response;
@@ -284,5 +366,6 @@ module.exports = {
     uploadFile,
     setConnected,
     getConnected,
-    execute
+    execute,
+    executeCommand
 }

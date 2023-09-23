@@ -19,6 +19,8 @@ module.exports = function(callback, reload) {
     CALLBACK = callback;
     RELOAD = reload; // use DSCONFIG password
 
+    delete DSCONFIG.version;
+
     if( !DSCONFIG.localProjects ) DSCONFIG.localProjects = [];
     else if(DSCONFIG.localProjects && DSCONFIG.localProjects.length) {
         DSCONFIG.localProjects = DSCONFIG.localProjects.filter(m => {
@@ -90,9 +92,10 @@ function getServerInfo() {
 }
 
 // Display a popup dialog to enter password
-function showPasswordPopup( ) {
+function showPasswordPopup(msg, placeHolder) {
     const options = {
-        placeHolder: 'Enter Password',
+        prompt: msg,
+        placeHolder: placeHolder || "Enter Password",
         ignoreFocusOut: true
     };
     vscode.window.showInputBox(options).then(value => {
@@ -122,11 +125,7 @@ async function login() {
             CALLBACK();
         }
         else if( data ) {
-            vscode.window.showInformationMessage("Password is incorrect.", "Re-enter", "Close").then( selection => {
-                if(selection == "Re-enter") {
-                    showPasswordPopup();
-                }
-            });
+            return showPasswordPopup("Password is incorrect.", "Re-enter password");
         }
         else {
             vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address").then( selection => {

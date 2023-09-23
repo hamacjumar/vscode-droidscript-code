@@ -2,7 +2,7 @@
   "name": "droidscript-code",
   "displayName": "DroidScript - Create Android Apps Using JavaScript",
   "description": "Create android apps using your favourite web libraries. Start android development straight from your device in seconds.",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "publisher": "droidscript",
   "homepage": "https://droidscript.org",
   "icon": "./images/logo.png",
@@ -19,102 +19,134 @@
   "main": "./extension.js",
   "contributes": {
     "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "droidscript",
-          "title": "DroidScript",
-          "icon": "images/droidscript-logo.svg"
-        }
-      ]
+        "activitybar": [
+            {
+                "id": "droidscript",
+                "title": "DroidScript",
+                "icon": "images/droidscript-logo.svg"
+            }
+        ]
     },
     "views": {
       "droidscript": [
-        {
-          "id": "droidscript-projects",
-          "name": "Projects",
-          "contextualTitle": "DroidScript Projects"
-        },
-        {
-          "id": "droidscript-docs",
-          "name": "Docs",
-          "contextualTitle": "DroidScript Docs"
-        },
-        {
-          "id": "droidscript-samples",
-          "name": "Samples",
-          "contextualTitle": "DroidScript Samples"
-        }
-      ]
+            {
+                "type": "tree",
+                "id": "droidscript-projects",
+                "name": "Projects",
+                "contextualTitle": "DroidScript Projects"
+            },
+            {
+                "type": "tree",
+                "id": "droidscript-docs",
+                "name": "Docs",
+                "contextualTitle": "DroidScript Docs"
+            },
+            {
+                "type": "tree",
+                "id": "droidscript-samples",
+                "name": "Samples",
+                "contextualTitle": "DroidScript Samples"
+            }
+        ]
     },
     "viewsWelcome": [
-      {
-        "view": "droidscript-projects",
-        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
-      },
-      {
-        "view": "droidscript-samples",
-        "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
-      }
+        {
+            "view": "droidscript-projects",
+            "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
+        },
+        {
+            "view": "droidscript-samples",
+            "contents": "You are not connected to DroidScript [learn more](command:droidscript-code.learnToConnect).\n[Connect](command:droidscript-code.connect)"
+        }
     ],
     "commands": [
-      {
-        "command": "droidscript-code.addNewApp",
-        "title": "DroidScript: Create new app",
-        "icon": {
-          "light": "./images/plus-dark.svg",
-          "dark": "./images/plus-light.svg"
+        {
+            "command": "droidscript-code.addNewApp",
+            "title": "Create new app",
+            "icon": {
+                "light": "./images/plus-dark.svg",
+                "dark": "./images/plus-light.svg"
+            }
+        },
+        {
+            "command": "droidscript-code.deleteApp",
+            "title": "Remove"
+        },
+        {
+            "command": "droidscript-code.renameApp",
+            "title": "Rename"
+        },
+        {
+            "command": "droidscript-code.openSample",
+            "title": "Open"
+        },
+        {
+            "command": "droidscript-code.runSample",
+            "title": "Run"
+        },
+        {
+            "command": "droidscript-code.openApp",
+            "title": "Open"
+        },
+        {
+            "command": "droidscript-code.openAppInNewWindow",
+            "title": "Open in New Window"
+        },
+        {
+            "command": "droidscript-code.runApp",
+            "title": "Run"
         }
-      },
-      {
-        "command": "droidscript-code.deleteApp",
-        "title": "DroidScript: Delete app",
-        "icon": {
-          "light": "./images/trash-dark.svg",
-          "dark": "./images/trash-light.svg"
-        }
-      },
-      {
-        "command": "droidscript-code.renameApp",
-        "title": "DroidScript: Rename app",
-        "icon": {
-          "light": "./images/pencil-dark.svg",
-          "dark": "./images/pencil-light.svg"
-        }
-      },
-      {
-        "command": "droidscript-code.runSample",
-        "title": "DroidScript: Run sample",
-        "icon": {
-          "light": "./images/play-dark.svg",
-          "dark": "./images/play-light.svg"
-        }
-      }
     ],
     "menus": {
-      "view/title": [
-        {
-          "command": "droidscript-code.addNewApp",
-          "when": "view == droidscript-projects",
-          "group": "navigation"
-        }
-      ],
-      "view/item/context": [
-        {
-          "command": "droidscript-code.deleteApp",
-          "when": "view == droidscript-projects",
-          "group": "inline"
-        },
-        {
-          "command": "droidscript-code.renameApp",
-          "when": "view == droidscript-projects",
-          "group": "inline"
-        },
-        {
-          "command": "droidscript-code.runSample",
-          "when": "view == droidscript-samples",
-          "group": "inline"
-        }
-      ]
+        "view/title": [
+            {
+                "command": "droidscript-code.addNewApp",
+                "when": "view == droidscript-projects",
+                "group": "navigation"
+            }
+        ],
+        "view/item/context": [
+            {
+                "command": "droidscript-code.openSample",
+                "when": "view == droidscript-samples && viewItem not in droidscript-code.sampleTypes",
+                "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.runSample",
+                "when": "view == droidscript-samples && viewItem not in droidscript-code.sampleTypes",
+                "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.openApp",
+                "when": "view == droidscript-projects",
+                "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.openAppInNewWindow",
+                "when": "view == droidscript-projects",
+                "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.runApp",
+                "when": "view == droidscript-projects",
+                "group": "1_diff"
+            },
+            {
+                "command": "droidscript-code.renameApp",
+                "when": "view == droidscript-projects",
+                "group": "1_diff"
+            },
+            {
+                "command": "droidscript-code.addNewApp",
+                "when": "view == droidscript-projects",
+                "group": "3_open"
+            },
+            {
+                "command": "droidscript-code.deleteApp",
+                "when": "view == droidscript-projects",
+                "group": "5_close"
+            }
+        ]
     }
   },
   "scripts": {

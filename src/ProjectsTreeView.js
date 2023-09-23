@@ -53,13 +53,13 @@ class TreeItem extends vscode.TreeItem {
     }
 
     // Provide the command ID to execute when the tree item is selected
-    get command() {
-        return {
-            command: 'droidscript-code.openProject',
-            title: 'Open Project',
-            arguments: [this],
-        };
-    }
+    // get command() {
+    //     return {
+    //         command: 'droidscript-code.openProject',
+    //         title: 'Open Project',
+    //         arguments: [this],
+    //     };
+    // }
 }
 
 module.exports = {

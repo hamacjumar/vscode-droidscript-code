@@ -85,7 +85,7 @@ async function createApp() {
         let response = await ext.createApp(appName, appType, appTemplate);
         if(response.status == "ok") {
             if( projectsTreeView ) projectsTreeView.refresh();
-            if( openNewProject ) openNewProject( {contextValue: appName} );
+            if( openNewProject ) openNewProject( {contextValue: appName}, true);
         }
     }
     catch( err ) {

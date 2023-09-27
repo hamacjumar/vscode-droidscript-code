@@ -46,7 +46,7 @@ Unlike other development tools which take hours to install and eat up gigabytes 
 
 - Go to **DroidScript** section.
 - Expand the **`"PROJECTS"`** view and right-click on the app you want to rename.
-- Select **`"Create new app"`** item in the context menu.
+- Select **`"Rename"`** item in the context menu and enter the new name.
 
 ## How to remove an app?
 

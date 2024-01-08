@@ -2,19 +2,27 @@ const vscode = require('vscode');
 const ext = require('./extension');
 const getLocalData = require('./get-local-data');
 
+/** @type {DSCONFIG_T} */
 let DSCONFIG = {};
 let appType = "";
 let appName = "";
 let appTemplate = "";
-let projectsTreeView = null;
+/**
+ * @type {vscode.TreeView<string>}
+ */
+let projectsTreeView;
+/**
+ * @type {((arg0: { contextValue: string; }, arg1: boolean) => void) | null}
+ */
 let openNewProject = null;
 const TYPES = [
-    {label: "Native", description: 'Build android app using native controls'},
-    {label: "Html", description: 'Build android app using Html, CSS and Javascript'},
-    {label: "Node", description: 'Use the power of NodeJS in your DroidScript app'},
-    {label: "Hybrid", description: 'Build a multiplatform application'},
-    {label: "Python", description: 'Build android app using python language.'}
+    { label: "Native", description: 'Build android app using native controls' },
+    { label: "Html", description: 'Build android app using Html, CSS and Javascript' },
+    { label: "Node", description: 'Use the power of NodeJS in your DroidScript app' },
+    { label: "Hybrid", description: 'Build a multiplatform application' },
+    { label: "Python", description: 'Build android app using python language.' }
 ];
+/** @type {{[x:string]: string[]}} */
 const TEMPLATES = {
     native: ["Simple", "Game", "Background Service ♦", "Background Job ♦", "Web Server ♦", "Multi-page ♦"],
     node: ["Simple", "Node Server ♦"],
@@ -23,8 +31,8 @@ const TEMPLATES = {
     python: ["Simple", "Hybrid"]
 };
 
-module.exports = function(args, treeView, openProject) {
-    
+module.exports = function (/** @type {any} */ args, /** @type {vscode.TreeView<string>} */ treeView, /** @type {any} */ openProject) {
+
     projectsTreeView = treeView;
     openNewProject = openProject;
 
@@ -35,7 +43,7 @@ module.exports = function(args, treeView, openProject) {
         ignoreFocusOut: false
     };
     vscode.window.showQuickPick(TYPES, options).then(item => {
-        if( item ) {
+        if (item) {
             appType = item.label.toLowerCase();
             enterAppName();
         }
@@ -44,20 +52,20 @@ module.exports = function(args, treeView, openProject) {
 
 function enterAppName() {
     vscode.window.showInputBox({ prompt: 'Enter app name', placeHolder: 'e.g. MyNewApp' })
-    .then( async input => {
-        if( input ) {
-            const data = await ext.listFolder("");
-            if(data && data.status == "ok" && data.list.length) {
-                if( data.list.includes(input) ) {
-                    vscode.window.showWarningMessage(`${input} app already exist!`);
-                    return enterAppName();
+        .then(async input => {
+            if (input) {
+                const data = await ext.listFolder("");
+                if (data && data.status == "ok" && data.list.length) {
+                    if (data.list.includes(input)) {
+                        vscode.window.showWarningMessage(`${input} app already exist!`);
+                        return enterAppName();
+                    }
                 }
-            }
-            appName = input;
+                appName = input;
 
-            showTemplates();
-        }
-    });
+                showTemplates();
+            }
+        });
 }
 
 function showTemplates() {
@@ -65,12 +73,12 @@ function showTemplates() {
         placeHolder: `Select ${appType} app template`,
         ignoreFocusOut: false
     };
-    const TEMPS = TEMPLATES[appType].map(m => {
+    const TEMPS = TEMPLATES[appType].map((/** @type {string} */ m) => {
         return DSCONFIG.premium ? m.replace("♦", "").trim() : m;
     });
     vscode.window.showQuickPick(TEMPS, options).then(item => {
-        if( item ) {
-            if( item.includes("♦") ) {
+        if (item) {
+            if (item.includes("♦")) {
                 vscode.window.showWarningMessage(`${item} is a premium feature.`);
                 return showTemplates();
             }
@@ -83,12 +91,12 @@ function showTemplates() {
 async function createApp() {
     try {
         let response = await ext.createApp(appName, appType, appTemplate);
-        if(response.status == "ok") {
-            if( projectsTreeView ) projectsTreeView.refresh();
-            if( openNewProject ) openNewProject( {contextValue: appName}, true);
+        if (response.status == "ok") {
+            if (projectsTreeView) projectsTreeView.refresh();
+            if (openNewProject) openNewProject({ contextValue: appName }, true);
         }
     }
-    catch( err ) {
-        console.log( err );
+    catch (err) {
+        console.log(err);
     }
 }

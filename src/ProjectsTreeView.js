@@ -8,20 +8,22 @@ class TreeDataProvider {
         this.onDidChangeTreeData = this._onDidChangeTreeData.event;
     }
 
+    /** @param {TreeItem} element */
     getTreeItem(element) {
-      return element;
+        return element;
     }
-  
+
+    /** @param {TreeItem} element */
     async getChildren(element) {
-        if( !element ) {
+        if (!element) {
             let data = await ext.listFolder("");
-            if(data && data.status == "ok") {
+            if (data && data.status === "ok") {
                 var folders = data.list.filter(m => {
-                    if( ext.excludedFoldersAndFiles.includes(m) ) return false;
+                    if (ext.excludedFoldersAndFiles.includes(m)) return false;
                     var ftype = m.substring(m.lastIndexOf("."));
-                    if( ext.textFileExtensions.includes(ftype) ) return false;
-                    if( ext.dataFileExtensions.includes(ftype) ) return false;
-                    if( m.startsWith("~") ) return false;
+                    if (ext.textFileExtensions.includes(ftype)) return false;
+                    if (ext.dataFileExtensions.includes(ftype)) return false;
+                    if (m.startsWith("~")) return false;
                     return true;
                 });
                 const samples = folders.map(m => {
@@ -37,16 +39,21 @@ class TreeDataProvider {
             }
         }
         else {
-            vscode.window.showInformationMessage(element.label);
+            vscode.window.showInformationMessage(element.label + '');
         }
     }
 
     refresh() {
-        this._onDidChangeTreeData.fire();
+        this._onDidChangeTreeData.fire(null);
     }
 }
 
 class TreeItem extends vscode.TreeItem {
+    /**
+     * @param {string | vscode.TreeItemLabel} label
+     * @param {vscode.TreeItemCollapsibleState | undefined} collapsibleState
+     * @param {string} contextValue
+     */
     constructor(label, collapsibleState, contextValue) {
         super(label, collapsibleState);
         this.contextValue = contextValue;

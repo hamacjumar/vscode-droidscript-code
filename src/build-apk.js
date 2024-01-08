@@ -7,7 +7,7 @@ let packageName = "";
 let version = "1.0";
 let obfuscate = true;
 
-module.exports = function(treeItem, callback) {
+module.exports = function (treeItem, callback) {
 
     appName = treeItem.label;
     CALLBACK = callback;
@@ -21,7 +21,7 @@ async function enterPackageName() {
         prompt: 'Enter package name',
     });
 
-    if( !userInput ) return enterPackageName();
+    if (!userInput) return enterPackageName();
 
     packageName = userInput;
 
@@ -34,7 +34,7 @@ async function enterVersion() {
         prompt: 'Enter build version',
     });
 
-    if( !userInput ) return enterVersion();
+    if (!userInput) return enterVersion();
 
     version = userInput;
 

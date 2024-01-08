@@ -12,9 +12,10 @@ const path = require("path");
 const CONSTANTS = require("./CONSTANTS")
 const getLocalData = require("./get-local-data");
 
+/** @type {DSCONFIG_T} */
 let DSCONFIG = {};
 
-module.exports = function() {
+module.exports = function () {
 
     DSCONFIG = getLocalData();
 
@@ -47,9 +48,9 @@ module.exports = function() {
 </html>`;
 
     // write to local file
-    if( !fs.existsSync(path.join(os.homedir(), CONSTANTS.DOCS)) ) {
-        fs.mkdirSync( path.join(os.homedir(), CONSTANTS.DOCS) );
+    if (!fs.existsSync(path.join(os.homedir(), CONSTANTS.DOCS))) {
+        fs.mkdirSync(path.join(os.homedir(), CONSTANTS.DOCS));
     }
     const filePath = path.join(os.homedir(), CONSTANTS.DOCS_FILE);
-    fs.writeFileSync(filePath, html, {flag: "w"});
+    fs.writeFileSync(filePath, html, { flag: "w" });
 }

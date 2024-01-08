@@ -9,13 +9,13 @@ class TreeDataProvider {
     }
 
     getTreeItem(element) {
-      return element;
+        return element;
     }
-  
+
     async getChildren(element) {
-        if( !element ) {
+        if (!element) {
             let data = await ext.listFolder(".edit/docs/plugins");
-            if(data.status=="ok") {
+            if (data.status == "ok") {
                 const plugins = data.list.map(m => {
                     return new TreeItem(m, vscode.TreeItemCollapsibleState.None, m);
                 });

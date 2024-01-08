@@ -8,12 +8,14 @@ const saveLocalData = require("./save-local-data");
 const CONSTANTS = require("./CONSTANTS");
 const writeDocsHtmlContainer = require("./write-docs-html");
 
+/** @type {DSCONFIG_T} */
 let DSCONFIG = {};
-let CALLBACK = null;
+/** @type {() => void} */
+let CALLBACK;
 let PASSWORD = "";
 let RELOAD = false;
 
-module.exports = function(callback, reload) {
+module.exports = function (/** @type {() => void} */ callback, /** @type {boolean} */ reload) {
 
     DSCONFIG = getLocalData();
     CALLBACK = callback;
@@ -21,16 +23,16 @@ module.exports = function(callback, reload) {
 
     delete DSCONFIG.version;
 
-    if( !DSCONFIG.localProjects ) DSCONFIG.localProjects = [];
-    else if(DSCONFIG.localProjects && DSCONFIG.localProjects.length) {
+    if (!DSCONFIG.localProjects) DSCONFIG.localProjects = [];
+    else if (DSCONFIG.localProjects && DSCONFIG.localProjects.length) {
         DSCONFIG.localProjects = DSCONFIG.localProjects.filter(m => {
             return (m && m.path && fs.existsSync(m.path));
         });
     }
 
-    ext.setCONFIG( DSCONFIG );
+    ext.setCONFIG(DSCONFIG);
 
-    if( !DSCONFIG.serverIP ) {
+    if (!DSCONFIG.serverIP) {
         showIpPopup();
     }
     else {
@@ -45,13 +47,13 @@ function showIpPopup() {
         ignoreFocusOut: true
     };
     vscode.window.showInputBox(options).then(async value => {
-        if(value !== undefined && value !== "") {
+        if (value !== undefined && value !== "") {
             value = value.trim();
-            DSCONFIG.serverIP = "http://"+value;
-            if( !DSCONFIG.serverIP.endsWith(":"+CONSTANTS.PORT) ) DSCONFIG.serverIP += ":"+CONSTANTS.PORT;
+            DSCONFIG.serverIP = "http://" + value;
+            if (!DSCONFIG.serverIP.endsWith(":" + CONSTANTS.PORT)) DSCONFIG.serverIP += ":" + CONSTANTS.PORT;
             getServerInfo();
         }
-        else if(value == "") {
+        else if (value == "") {
             showIpPopup();
         }
     });
@@ -60,18 +62,18 @@ function showIpPopup() {
 function getServerInfo() {
     vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
-        title: `Connecting to DroidScript at ${DSCONFIG.serverIP.replace("http://", "")}`,
+        title: `Connecting to DroidScript at ${DSCONFIG.serverIP?.replace("http://", "")}`,
         cancellable: false
     }, async () => {
         try {
-            let info = await ext.getServerInfo( DSCONFIG.serverIP );
-            if(info && info.status=="ok") {
+            let info = await ext.getServerInfo(DSCONFIG.serverIP || '');
+            if (info && info.status == "ok") {
 
-                for(var key  in info) DSCONFIG[key] = info[key];
+                for (var key in info) DSCONFIG[key] = info[key];
 
-                if( info.usepass ) {
+                if (info.usepass) {
                     // use DSCONFIG password to auto reload
-                    if( RELOAD ) {
+                    if (RELOAD) {
                         PASSWORD = DSCONFIG.password;
                         login();
                     }
@@ -81,17 +83,21 @@ function getServerInfo() {
                 else CALLBACK();
             }
             else {
-                vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Re-enter IP Address").then( () => {
+                vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Re-enter IP Address").then(() => {
                     showIpPopup();
                 });
             }
-        } catch( error ) {
+        } catch (error) {
             console.log(error);
         }
     });
 }
 
 // Display a popup dialog to enter password
+/**
+ * @param {string} [msg]
+ * @param {string} [placeHolder]
+ */
 function showPasswordPopup(msg, placeHolder) {
     const options = {
         prompt: msg,
@@ -99,7 +105,7 @@ function showPasswordPopup(msg, placeHolder) {
         ignoreFocusOut: true
     };
     vscode.window.showInputBox(options).then(value => {
-        if(value == undefined || value == null) value = "";
+        if (value == undefined || value == null) value = "";
         PASSWORD = value;
         login();
     });
@@ -108,33 +114,33 @@ function showPasswordPopup(msg, placeHolder) {
 // Login
 async function login() {
     try {
-        let response = await ext.login( PASSWORD );
+        let response = await ext.login(PASSWORD);
         let data = response.data;
 
-        if(data && data.status == "ok") {
-            
+        if (data && data.status == "ok") {
+
             // to be use in DroidScript CLI
             DSCONFIG.password = PASSWORD;
-            DSCONFIG.PORT = DSCONFIG.serverIP.substring(DSCONFIG.serverIP.lastIndexOf(":") + 1);
-            
-            saveLocalData( DSCONFIG );
+            DSCONFIG.PORT = DSCONFIG.serverIP?.substring(DSCONFIG.serverIP.lastIndexOf(":") + 1) || '';
+
+            saveLocalData(DSCONFIG);
 
             // rewrite docs html container
             writeDocsHtmlContainer();
 
             CALLBACK();
         }
-        else if( data ) {
+        else if (data) {
             return showPasswordPopup("Password is incorrect.", "Re-enter password");
         }
         else {
-            vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address").then( selection => {
-                if(selection == "Re-enter IP Address") {
+            vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address").then(selection => {
+                if (selection == "Re-enter IP Address") {
                     showIpPopup();
                 }
             });
         }
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }

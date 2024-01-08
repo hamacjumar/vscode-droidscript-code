@@ -2,11 +2,11 @@ const vscode = require('vscode');
 
 class TreeDataProvider {
     getTreeItem(element) {
-      return element;
+        return element;
     }
-  
+
     getChildren(element) {
-        if( !element ) {
+        if (!element) {
             return Promise.resolve([
                 new TreeItem('Documentation', vscode.TreeItemCollapsibleState.None, 'droidscript-documentation'),
                 // new TreeItem('Introduction', vscode.TreeItemCollapsibleState.None, 'introduction'),

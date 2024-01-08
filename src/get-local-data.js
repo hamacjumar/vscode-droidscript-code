@@ -5,11 +5,11 @@ const os = require("os");
 const path = require("path");
 const CONSTANTS = require("./CONSTANTS");
 
-module.exports = function() {
+module.exports = function () {
     var filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
-    if( fs.existsSync(filePath) ) {
+    if (fs.existsSync(filePath)) {
         const fileData = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse( fileData );
+        return JSON.parse(fileData);
     }
     return {};
 }

@@ -1,36 +1,74 @@
+const { default: axios } = require('axios');
 const vscode = require('vscode');
+const localData = require('./local-data');
+const path = require("path");
 
-/** @typedef {{title:string, file:string}} DocItem */
+/** @type {DSCONFIG_T} */
+let DSCONFIG;
+
+/** @type {{[x:string]: DocItem[]}} */
+const cache = {};
+
+/** @typedef {{title:string, file:string, hasNavs?: boolean}} DocItem */
 /** @implements {vscode.TreeDataProvider<DocItem>} */
 class TreeDataProvider {
 
     /** @type {{[x:string]: string}} */
     pages = {};
 
+    /** @type {vscode.EventEmitter<DocItem>} */
+    _onDidChangeTreeData = new vscode.EventEmitter();
+    onDidChangeTreeData = this._onDidChangeTreeData.event;
+
     /** @param {DocItem} e */
     getTreeItem(e) {
-        return new TreeItem(e.title, vscode.TreeItemCollapsibleState.None, e.file);
+        const state = !cache[e.file] || cache[e.file].length ?
+            vscode.TreeItemCollapsibleState.Collapsed :
+            vscode.TreeItemCollapsibleState.None;
+        return new TreeItem(e.title, state, e.file);
     }
 
-    /** @param {DocItem} element */
-    getChildren(element) {
-        if (!element) {
-            return Object.entries({
-                Documentation: 'Docs.htm'
-            }).map(([title, file]) => ({ title, file }));
-            // new TreeItem('Documentation', vscode.TreeItemCollapsibleState.None, 'Docs'),
-            // new TreeItem('Introduction', vscode.TreeItemCollapsibleState.None, 'introduction'),
-            // new TreeItem('Reference', vscode.TreeItemCollapsibleState.None, 'reference'),
-            // new TreeItem('Resources', vscode.TreeItemCollapsibleState.None, 'resources'),
-            // new TreeItem('Material UI (Premium)', vscode.TreeItemCollapsibleState.None, 'mui'),
-            // new TreeItem('Game Engine', vscode.TreeItemCollapsibleState.None, 'game-engine'),
-            // new TreeItem('Music', vscode.TreeItemCollapsibleState.None, 'music')
-        }
-        else {
-            vscode.window.showInformationMessage(element.title);
-            return [];
-        }
+    /** @type {(element: DocItem) => Promise<DocItem[]>} */
+    async getChildren(element) {
+        if (!element) return [{ title: "Documentation", file: "Docs.htm" }];
+        const navs = await getNavs(element, this._onDidChangeTreeData);
+        element.hasNavs = navs.length > 0;
+        return navs;
     }
+}
+
+/** 
+ * @param {DocItem} item
+ * @param {vscode.EventEmitter<DocItem>} onEmpty
+ */
+async function getNavs(item, onEmpty) {
+    const file = item.file;
+    if (cache[file]) return cache[file];
+    if (!DSCONFIG) DSCONFIG = localData.load();
+    const dir = (path.dirname(file) + '/').replace(/^.\/|..\/docs\//g, '');
+    const host = DSCONFIG.info.version ?
+        DSCONFIG.serverIP + "/.edit/docs/" :
+        "https://droidscript.github.io/Docs/docs/";
+
+    /** @type {DocItem[]} */
+    let data = [];
+    try {
+        const res = await axios.get(host + file);
+        const navsHtml = res.data;
+        if (res.status !== 200 || typeof navsHtml !== "string") return data;
+
+        const navs = navsHtml.matchAll(/<li><a [^>]*\bhref="([^"]+)"[^>]*>([^<]+)<\/a><\/li>/g);
+        for (const [_, file, title] of navs) data.push({ title, file: dir + file });
+
+        if (data[0]?.title?.startsWith("Version ")) {
+            const newFile = data[data.length - 1].file.replace(/^.\/|..\/docs\//g, '');
+            data = await getNavs(data[data.length - 1], onEmpty);
+            item.file = newFile;
+            setTimeout(() => onEmpty.fire(item), 50);
+        }
+    } catch (e) { }
+    if (!data.length) onEmpty.fire(item);
+    return cache[file] = data;
 }
 
 class TreeItem extends vscode.TreeItem {
@@ -44,6 +82,7 @@ class TreeItem extends vscode.TreeItem {
     constructor(label, collapsibleState, contextValue) {
         super(label, collapsibleState);
         this.contextValue = contextValue;
+        this.description = contextValue;
         Object.assign(this.args, this);
     }
 

@@ -54,7 +54,6 @@ let docsTreeDataProvider;
 let projectsTreeDataProvider;
 /** @type {SamplesTreeData.TreeDataProvider} */
 let samplesTreeDataProvider;
-let isLivePreviewActive = false;
 
 /** @type {vscode.StatusBarItem} */
 let loadButton;
@@ -891,19 +890,28 @@ function highlightErrorLine(msg) {
 }
 
 // documentations
-async function openDocs() {
-    if (isLivePreviewActive) return;
+/** @type {vscode.WebviewPanel | null} */
+let docsPanel;
+/** @param {DocsTreeData.TreeItem} [item] */
+async function openDocs(item) {
 
-    const panel = vscode.window.createWebviewPanel(
-        'dsDocs', 'Documentation', vscode.ViewColumn.Two, { enableScripts: true }
-    );
-    panel.onDidDispose(e => isLivePreviewActive = false);
+    if (!docsPanel) {
+        docsPanel = vscode.window.createWebviewPanel('dsDocs',
+            'Documentation', vscode.ViewColumn.Two,
+            { enableScripts: true }
+        );
+        docsPanel.onDidDispose(e => {
+            docsPanel = null;
+        });
+    }
 
-    const url = DSCONFIG.info.version ?
-        DSCONFIG.serverIP + "/.edit/docs/Docs.htm" :
-        "https://droidscript.github.io/Docs/docs/Docs.htm";
+    const host = DSCONFIG.info.version ?
+        DSCONFIG.serverIP + "/.edit/docs/" :
+        "https://droidscript.github.io/Docs/docs/";
+    const file = item ? item.contextValue : "Docs.htm";
+    console.log("Doc Page: " + host + file, item);
 
-    panel.webview.html = `
+    docsPanel.webview.html = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -911,9 +919,8 @@ async function openDocs() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>body,html,iframe {width:100%;height:100%;margin:0;padding:0;border:none}</style>
     </head>
-    <body><iframe src=${JSON.stringify(url)}></body>
+    <body><iframe src=${JSON.stringify(host + file)}></body>
     </html>`;
-    isLivePreviewActive = true;
 }
 
 /**

@@ -28,7 +28,7 @@ let FOLDER_NAME = "";
 let VSFOLDERS = [];
 let IS_DROIDSCRIPT = false;
 /** @type {DSCONFIG_T} */
-let DSCONFIG = {};
+let DSCONFIG;
 let SELECTED_PROJECT = "";
 let RELOAD_PROJECT = false;
 
@@ -49,11 +49,11 @@ let Debugger;
 let diagnosticCollection;
 let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
-/** @type {ProjectsTreeData.TreeDataProvider} */
+/** @type {DocsTreeData.TreeDataProvider} */
 let docsTreeDataProvider;
-/** @type {SamplesTreeData.TreeDataProvider} */
+/** @type {ProjectsTreeData.TreeDataProvider} */
 let projectsTreeDataProvider;
-/** @type {SamplesTreeData.TreeDataProvider } */
+/** @type {SamplesTreeData.TreeDataProvider} */
 let samplesTreeDataProvider;
 let isLivePreviewActive = false;
 
@@ -141,7 +141,9 @@ function activate(context) {
     // projects
     subscribe("play", play);
     subscribe("stop", stop);
-    subscribe("runApp", (/** @type {{ label: any; }} */ treeItem) => { play(treeItem.label) });
+    subscribe("runApp",
+        /** @param {ProjectsTreeData.TreeItem} treeItem */
+        (treeItem) => { play(treeItem.label) });
     subscribe("openApp", openProject);
     subscribe("openAppInNewWindow", (/** @type {any} */ treeItem) => { openProject(treeItem, true) });
     subscribe("deleteApp", (/** @type {any} */ args) => { deleteApp(args, projectsTreeDataProvider, onDeleteApp); });
@@ -159,7 +161,7 @@ function activate(context) {
     let completionItemProvider = vscode.languages.registerCompletionItemProvider("javascript", {
         provideCompletionItems(doc, pos) {
             const ln = doc.lineAt(pos.line).text;
-            console.log(pos.e, pos);
+            console.log(1, pos.e, pos.character, pos.line, pos, { ...pos }, Object.getOwnPropertyNames(pos));
             const s = ln.substring(0, pos.e - 1).trim().split(" ").pop();
             if (s && completions[s]) return completions[s];
             return [];
@@ -198,7 +200,7 @@ function activate(context) {
     let signatureHelpProvider = vscode.languages.registerSignatureHelpProvider("javascript", {
         provideSignatureHelp(doc, pos) {
             const ln = doc.lineAt(pos.line).text;
-            console.log(pos.e, pos);
+            console.log(2, pos.e, pos.character, pos.line, pos, { ...pos }, Object.getOwnPropertyNames(pos));
             let s = stringHelpers.getFncCall(ln, pos.e);
             let n1 = ln.substring(0, pos.e - s.length).trim();
             let n = n1.replace(/(\s{2,}|\.{2,})/g, ' ')
@@ -239,13 +241,13 @@ function activate(context) {
 
     // Create the TreeDataProvider for the new View
 
-    let projectsTreeDataProvider = new ProjectsTreeData.TreeDataProvider();
+    projectsTreeDataProvider = new ProjectsTreeData.TreeDataProvider();
     let projectsTreeView = vscode.window.createTreeView('droidscript-projects', {
         treeDataProvider: projectsTreeDataProvider,
         showCollapseAll: false // Optional: Show a collapse all button in the new TreeView
     });
 
-    let docsTreeDataProvider = new DocsTreeData.TreeDataProvider();
+    docsTreeDataProvider = new DocsTreeData.TreeDataProvider();
     let docsTreeView = vscode.window.createTreeView('droidscript-docs', {
         treeDataProvider: docsTreeDataProvider,
         showCollapseAll: false // Optional: Show a collapse all button in the new TreeView
@@ -285,7 +287,7 @@ function activate(context) {
     }
 
     // Version 0.2.6 and above...
-    if (VERSION > (DSCONFIG.VERSION || 0) || DEBUG) {
+    if (VERSION > DSCONFIG.VERSION || DEBUG) {
         // extract assets
         extractAssets();
         // set the version
@@ -482,12 +484,9 @@ async function onDidSaveTextDocument(doc) {
         let fileName = documentToSave.fileName;
         let folderName = filePath.substring(0, filePath.lastIndexOf("/"));
         let fileContent = documentToSave.getText();
-        try {
-            if (fileName !== CONSTANTS.DSCONFIG) {
-                await ext.updateFile(fileContent, folderName, fileName);
-            }
-        } catch (error) {
-            console.log(error.message);
+
+        if (fileName !== CONSTANTS.DSCONFIG) {
+            await ext.updateFile(fileContent, folderName, fileName);
         }
         documentToSave = null;
     }
@@ -531,6 +530,9 @@ async function onDeleteFile(e) {
     }
 }
 
+/** @type {(error: any) => DSServerResponse} */
+const catchError = (error) => (console.log(error), { status: "bad", error });
+
 // Create files and folders on the workspace
 /** @type {vscode.FileCreateEvent?} */
 let filesToCreate = null;
@@ -554,19 +556,15 @@ async function onCreateFile(e) {
                 folderName = filePath.substring(0, filePath.lastIndexOf("/"));
                 if (fileName && fileName !== "dsconfig.json") {
                     if (isFile) {
-                        try {
-                            fileExt = fileName.split(".").pop();
-                            if (fileExt && ext.textFileExtensions.includes(fileExt)) {
-                                fileContent = await fs.readFileSync(path, 'utf-8');
-                                response = await ext.updateFile(fileContent, folderName, fileName);
-                            }
-                            else response = await ext.uploadFile(path, folderName, fileName);
+                        fileExt = fileName.split(".").pop();
+                        if (fileExt && ext.textFileExtensions.includes(fileExt)) {
+                            fileContent = fs.readFileSync(path, 'utf-8');
+                            response = await ext.updateFile(fileContent, folderName, fileName);
+                        }
+                        else response = await ext.uploadFile(path, folderName, fileName);
 
-                            if (response.status !== "ok") {
-                                vscode.window.showErrorMessage("An error occured while writing the file in DroidScript.");
-                            }
-                        } catch (error) {
-                            console.log(error.message);
+                        if (response.status !== "ok") {
+                            vscode.window.showErrorMessage("An error occured while writing the file in DroidScript.");
                         }
                     }
                     else {
@@ -750,9 +748,9 @@ function onDeleteApp(appName) {
     }
 
     // remove the folder path in the localProjects array
-    let i = DSCONFIG.localProjects?.findIndex((/** @type {{ path: string; }} */ m) => m.path == folderPath.fsPath) || -1;
+    let i = DSCONFIG.localProjects.findIndex((/** @type {{ path: string; }} */ m) => m.path == folderPath.fsPath) || -1;
     if (i >= 0) {
-        DSCONFIG.localProjects?.splice(i, 1);
+        DSCONFIG.localProjects.splice(i, 1);
         ext.setCONFIG(DSCONFIG);
         saveLocalData(DSCONFIG);
     }
@@ -779,7 +777,7 @@ function onRenameApp(appName, newAppName) {
         }
 
         PROJECT = newAppName;
-        let i = DSCONFIG.localProjects?.find(m => m.path == folderPath.fsPath);
+        let i = DSCONFIG.localProjects.find(m => m.path == folderPath.fsPath);
         if (!i) return;
         i.PROJECT = PROJECT;
         i.reload = true;
@@ -810,7 +808,7 @@ async function wsOnOpen() {
     ext.setCONFIG(DSCONFIG);
 
     // get the project associated with DroidScript
-    let i = DSCONFIG.localProjects?.find(m => m.path == folderPath.fsPath);
+    let i = DSCONFIG.localProjects.find(m => m.path == folderPath.fsPath);
     if (i) PROJECT = i.PROJECT;
 
     CONNECTED = true;
@@ -869,7 +867,7 @@ function wsOnClose() {
     projectsTreeDataProvider.refresh();
 }
 
-/** @param {string} error */
+/** @param {Error} error */
 function wsOnError(error) {
     Logger("Connection Error: " + error);
     console.log(error);
@@ -903,24 +901,34 @@ function highlightErrorLine(msg) {
 }
 
 // documentations
-/** @param {undefined} [treeItem] */
-async function openDocs(treeItem) {
-
+async function openDocs() {
     if (isLivePreviewActive) return;
 
-    const docsPath = path.join(os.homedir(), CONSTANTS.DOCS_FILE);
-    const fileUri = vscode.Uri.file(docsPath);
-    try {
-        await vscode.commands.executeCommand('livePreview.start.preview.atFile', fileUri);
-        isLivePreviewActive = true;
+    const panel = vscode.window.createWebviewPanel(
+        'dsDocs', 'Documentation', vscode.ViewColumn.Two, { enableScripts: true }
+    );
+    panel.onDidDispose(e => isLivePreviewActive = false);
 
-    } catch (err) {
-        console.log(err);
-    }
+
+    const url = CONNECTED ?
+        DSCONFIG.serverIP + "/.edit/docs/Docs.htm" :
+        "https://droidscript.github.io/Docs/docs/Docs.htm";
+
+    panel.webview.html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>body,html,iframe {width:100%;height:100%;margin:0;padding:0;border:none}</style>
+    </head>
+    <body><iframe src=${JSON.stringify(url)}></body>
+    </html>`;
+    isLivePreviewActive = true;
 }
 
 /**
- * @param {{ contextValue: string; }} treeItem
+ * @param {ProjectsTreeData.TreeItem} treeItem
  * @param {boolean} newWindow
  */
 async function openProject(treeItem, newWindow) {
@@ -960,7 +968,7 @@ async function openProject(treeItem, newWindow) {
             if (selection == "Proceed") {
                 const newAppFolder = folderPath.fsPath;
                 try {
-                    DSCONFIG.localProjects?.push({
+                    DSCONFIG.localProjects.push({
                         path: newAppFolder,
                         PROJECT: SELECTED_PROJECT,
                         created: new Date().getTime(),
@@ -1007,10 +1015,10 @@ async function openProject(treeItem, newWindow) {
     }
 }
 
-/** @param {{ label: any; category: any; }} treeItem */
+/** @param {SamplesTreeData.TreeItem} treeItem */
 async function openSample(treeItem) {
 
-    let name = treeItem.label;
+    let name = treeItem.label + '';
     let code = "";
     let category = treeItem.category;
 

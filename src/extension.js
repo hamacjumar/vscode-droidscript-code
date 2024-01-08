@@ -14,14 +14,14 @@ const CONSTANTS = require("./CONSTANTS");
 
 let CONNECTED = false;
 /** @type {DSCONFIG_T} */
-let DSCONFIG = {};
+let DSCONFIG;
 
 const excludedFoldersAndFiles = ["AABs", "APKs", "SPKs", "PPKs", "Plugins", "Extensions", ".edit", ".node", "~DocSamp", ".redirect.html", "index.html"];
-const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1';
-const dataFileExtensions = '.mp4, .mp3, .ppk, .apk, .spk, .png, .jpg, .jpeg, .pdf, .docx, .xlsx, .pptx, .zip';
+const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1'.split(", ");
+const dataFileExtensions = '.mp4, .mp3, .ppk, .apk, .spk, .png, .jpg, .jpeg, .pdf, .docx, .xlsx, .pptx, .zip'.split(", ");
 
-/** @type {(IP: string) => Promise<DSCONFIG_T|{status:"bad",data:any}>} */
-async function getServerInfo(IP) {
+/** @type {(IP?: string) => Promise<DSServerResponse<DSCONFIG_T>>} */
+async function getServerInfo(IP = '') {
     const url = `${(IP || DSCONFIG.serverIP)}/ide?cmd=getinfo`;
     try {
         let response = await axios.get(url, { timeout: 5000 });
@@ -35,35 +35,31 @@ async function getServerInfo(IP) {
     }
 }
 
-/**
- * @param {string} password
- */
+/** @type {(password: string) => Promise<DSServerResponse>} */
 async function login(password) {
     const pass = Buffer.from(password, "utf-8").toString("base64");
     const url = `${DSCONFIG.serverIP}/ide?cmd=login&pass=${pass}`;
     try {
         let response = await axios.get(url);
-        return response;
+        return response.data;
     }
     catch (error) {
-        return { status: "bad", error: error };
+        return /** @type {{status:"bad", error:any}} */ ({ status: "bad", error: error });
     }
 }
 
-/**
- * @param {string} folder
- */
+/** @type {(password: string) => Promise<DSServerResponse<{list:string[]}>>} */
 async function listFolder(folder) {
 
-    if (!CONNECTED) return null;
+    if (!CONNECTED) return { status: "bad", error: "not connected" };
 
     const url = `${DSCONFIG.serverIP}/ide?cmd=list&dir=${querystring.escape(folder)}`;
     try {
         const response = await axios.get(url);
-        return /** @type {{status:"ok", list:string[]}} */ (response.data);
+        return response.data;
     }
     catch (error) {
-        return /** @type {{status:"bad", error:any}} */ ({ status: "bad", error: error })
+        return { status: "bad", error: error }
     }
 }
 
@@ -71,6 +67,7 @@ async function listFolder(folder) {
  * @param {string} name
  * @param {any} type
  * @param {string} template
+ * @return {Promise<DSServerResponse>}
  */
 async function createApp(name, type, template) {
     const url = `${DSCONFIG.serverIP}/ide?cmd=add&prog=${querystring.escape(name)}&type=${type}&template=${querystring.escape(template)}`;
@@ -85,6 +82,7 @@ async function createApp(name, type, template) {
 
 /**
  * @param {string} path
+ * @return {Promise<DSServerResponse<{data:string|NodeJS.ArrayBufferView}>>}
  */
 async function loadFile(path) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(path)}`;
@@ -105,6 +103,7 @@ async function loadFile(path) {
  * @param {any} text
  * @param {string} folder
  * @param {any} file
+ * @return {Promise<DSServerResponse<{data:any}>>}
  */
 async function updateFile(text, folder, file) {
     const url = `${DSCONFIG.serverIP}/upload`;
@@ -117,7 +116,7 @@ async function updateFile(text, folder, file) {
         return { status: "ok", data: response.data }
     } catch (error) {
         console.error(error);
-        return { status: "bad", message: error }
+        return { status: "bad", error }
     }
 }
 
@@ -179,7 +178,7 @@ async function getSamples(type = "js") {
         }
     }
     else {
-        let serverIP = DSCONFIG.serverIP?.replace(DSCONFIG.PORT || '', CONSTANTS.SAMPLE_PORT);
+        let serverIP = DSCONFIG.serverIP.replace(DSCONFIG.PORT, CONSTANTS.SAMPLE_PORT);
         const url = `${serverIP}/getAllSamples`;
         try {
             const response = await axios.get(url);
@@ -200,16 +199,16 @@ async function getSamples(type = "js") {
 
 /**
  * @param {string} name
- * @param {any} category
+ * @param {string} [category]
  */
-async function getSampleFile(name, category) {
+async function getSampleFile(name, category = '') {
     // NetUtils.getServerUrl("ide?cmd=get&file=" + u + currentSampleFile)
 
     let code = "";
     const title = name.split(" ").join("_");
 
     if (category) {
-        let serverIP = DSCONFIG.serverIP?.replace(DSCONFIG.PORT || '', CONSTANTS.SAMPLE_PORT);
+        let serverIP = DSCONFIG.serverIP.replace(DSCONFIG.PORT, CONSTANTS.SAMPLE_PORT);
         const url = `${serverIP}/getSample?category=${category}&title=${name}`;
         try {
             const res = await axios.get(url);
@@ -320,7 +319,7 @@ const getCONFIG = function () {
 
 // WebSocket
 const startWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpen, /** @type {(this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void} */ onMessage, /** @type {(this: WebSocket, code: number, reason: Buffer) => void} */ onClose, /** @type {(this: WebSocket, err: Error) => void} */ onError) {
-    const url = DSCONFIG.serverIP?.replace("http", "ws") || '';
+    const url = DSCONFIG.serverIP.replace("http", "ws") || '';
     const socket = new WebSocket(url);
     socket.on('open', onOpen);
     socket.on('message', onMessage);
@@ -397,7 +396,6 @@ async function executeCommand(cmd) {
 }
 
 module.exports = {
-    DSCONFIG,
     listFolder,
     createApp,
     loadFile,

@@ -4,14 +4,16 @@ type AsyncReturnType<T extends (...args: any) => Promise<any>> =
 
 // DSCONFIG object representing the configuration for DroidScript.
 declare type DSCONFIG_T = {
+    /** The version of the Extension. */
+    VERSION: number;
     /** The version of DroidScript. */
-    VERSION?: number;
-    /** @deprecated The version of DroidScript. */
     version?: number;
     /** The IP address of the DroidScript server. */
-    serverIP?: string;
+    serverIP: string;
+    /** The port number. */
+    PORT: string;
     /** An array of local projects. */
-    localProjects?: {
+    localProjects: {
         /** The path of the local project. */
         path: string;
         /** The project name. */
@@ -49,6 +51,8 @@ declare type DSCONFIG_T = {
     language?: string;
     /** The password for DroidScript. */
     password?: string;
-    /** The port number. */
-    PORT?: string;
 };
+
+type DSServerResponse<T = {}> =
+    { status: "ok" } & T |
+    { status: "bad", error?: any, data?: any }

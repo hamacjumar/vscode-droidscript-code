@@ -13,7 +13,7 @@ const CONSTANTS = require("./CONSTANTS")
 const getLocalData = require("./get-local-data");
 
 /** @type {DSCONFIG_T} */
-let DSCONFIG = {};
+let DSCONFIG;
 
 module.exports = function () {
 

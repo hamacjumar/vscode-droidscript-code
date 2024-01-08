@@ -1,10 +1,12 @@
 const vscode = require('vscode');
 
 class TreeDataProvider {
+    /** @param {TreeItem} element */
     getTreeItem(element) {
         return element;
     }
 
+    /** @param {TreeItem} element */
     getChildren(element) {
         if (!element) {
             return Promise.resolve([
@@ -18,27 +20,30 @@ class TreeDataProvider {
             ]);
         }
         else {
-            vscode.window.showInformationMessage(element.label);
+            vscode.window.showInformationMessage(element.label + '');
         }
     }
 }
 
 class TreeItem extends vscode.TreeItem {
+    /**
+     * @param {string | vscode.TreeItemLabel} label
+     * @param {vscode.TreeItemCollapsibleState | undefined} collapsibleState
+     * @param {string} contextValue
+     */
     constructor(label, collapsibleState, contextValue) {
         super(label, collapsibleState);
         this.contextValue = contextValue;
     }
 
     // Provide the command ID to execute when the tree item is selected
-    get command() {
-        return {
-            command: 'droidscript-code.openDroidScriptDocs',
-            title: 'Open Docs',
-            arguments: [this],
-        };
-    }
+    command = {
+        command: 'droidscript-code.openDroidScriptDocs',
+        title: 'Open Docs',
+        arguments: [{ ...this }]
+    };
 }
 
 module.exports = {
-    TreeDataProvider
+    TreeDataProvider, TreeItem
 }

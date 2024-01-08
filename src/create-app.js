@@ -1,14 +1,15 @@
 const vscode = require('vscode');
 const ext = require('./extension');
 const getLocalData = require('./get-local-data');
+const { TreeDataProvider } = require('./ProjectsTreeView');
 
 /** @type {DSCONFIG_T} */
-let DSCONFIG = {};
+let DSCONFIG;
 let appType = "";
 let appName = "";
 let appTemplate = "";
 /**
- * @type {vscode.TreeView<string>}
+ * @type {TreeDataProvider}
  */
 let projectsTreeView;
 /**
@@ -31,7 +32,7 @@ const TEMPLATES = {
     python: ["Simple", "Hybrid"]
 };
 
-module.exports = function (/** @type {any} */ args, /** @type {vscode.TreeView<string>} */ treeView, /** @type {any} */ openProject) {
+module.exports = function (/** @type {any} */ args, /** @type {TreeDataProvider} */ treeView, /** @type {any} */ openProject) {
 
     projectsTreeView = treeView;
     openNewProject = openProject;

@@ -77,15 +77,14 @@ class TreeItem extends vscode.TreeItem {
     }
 
     // Provide the command ID to execute when the tree item is selected
-    // get command() {
-    //     return {
-    //         command: 'droidscript-code.openDroidScriptSample',
-    //         title: 'Open Sample',
-    //         arguments: [this],
-    //     };
-    // }
+    command = {
+        command: 'droidscript-code.openSample',
+        title: 'Open Sample',
+        arguments: [{ ...this }]
+    }
 }
 
 module.exports = {
-    TreeDataProvider
+    TreeDataProvider,
+    TreeItem
 }

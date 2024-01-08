@@ -1,10 +1,11 @@
 const vscode = require('vscode');
 const ext = require('./extension');
+const { TreeDataProvider } = require('./ProjectsTreeView');
 
 let appName = "";
 let newAppName = "";
 /**
- * @type {vscode.TreeView<string>}
+ * @type {TreeDataProvider}
  */
 let projectsTreeView;
 /**
@@ -12,7 +13,7 @@ let projectsTreeView;
  */
 let CALLBACK = null;
 
-module.exports = function (/** @type {{ label: string; }} */ args, /** @type {vscode.TreeView<string>} */ treeView, /** @type {any} */ callback) {
+module.exports = function (/** @type {{ label: string; }} */ args, /** @type {TreeDataProvider} */ treeView, /** @type {any} */ callback) {
     if (!args || !args.label) {
         return vscode.window.showWarningMessage("Rename an app in DroidScript section under Projects view!");
     }

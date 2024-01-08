@@ -157,7 +157,7 @@ async function getSamples(type = "js") {
 
     if (!CONNECTED) return data;
 
-    if ((DSCONFIG.version || 0) < 3) {
+    if ((DSCONFIG.info.version || 0) < 3) {
         const url = `${DSCONFIG.serverIP}/ide?cmd=getsamples&type=${type}`;
         try {
             const response = await axios.get(url);
@@ -244,7 +244,7 @@ async function getSampleFile(name, category = '') {
 
 /**
  * @param {string} name
- * @param {any} category
+ * @param {string} category
  */
 async function runSample(name, category) {
 
@@ -301,21 +301,14 @@ async function fileExist(filePath) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(filePath)}`;
     try {
         let res = await axios.get(url);
-        if (res && res.status == 200 && res.statusText == "OK") return true;
-        return false;
+        if (res.status === 200 && res.statusText == "OK") return true;
     }
-    catch (err) {
-        return false;
-    }
+    catch (err) { }
+    return false;
 }
 
-const setCONFIG = function (/** @type {DSCONFIG_T} */ config) {
-    DSCONFIG = config;
-}
-
-const getCONFIG = function () {
-    return DSCONFIG;
-}
+const setCONFIG = (/** @type {DSCONFIG_T} */ config) => { DSCONFIG = config; }
+const getCONFIG = () => DSCONFIG;
 
 // WebSocket
 const startWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpen, /** @type {(this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void} */ onMessage, /** @type {(this: WebSocket, code: number, reason: Buffer) => void} */ onClose, /** @type {(this: WebSocket, err: Error) => void} */ onError) {
@@ -331,7 +324,7 @@ const startWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpen
 /**
  * @param {fs.PathLike} filePath
  * @param {string} folder
- * @param {any} fileName
+ * @param {string} fileName
  */
 async function uploadFile(filePath, folder, fileName) {
     const url = `${DSCONFIG.serverIP}/upload`;
@@ -362,7 +355,7 @@ const getConnected = function () {
 //'usr' mode runs inside current user app.
 /**
  * @param {string} mode
- * @param {(string | { valueOf(): string; }) | { [Symbol.toPrimitive](hint: "string"): string; }} code
+ * @param {string} code
  */
 async function execute(mode, code) {
     // xmlHttp = new XMLHttpRequest();

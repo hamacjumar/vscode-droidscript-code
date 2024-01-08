@@ -24,7 +24,6 @@ async function enterPackageName() {
     if (!userInput) return enterPackageName();
 
     packageName = userInput;
-
     enterVersion();
 }
 
@@ -37,6 +36,5 @@ async function enterVersion() {
     if (!userInput) return enterVersion();
 
     version = userInput;
-
     CALLBACK(`!buildapk ${packageName} ${version} ${obfuscate}`);
 }

@@ -2,7 +2,7 @@
  * @param {string} inputString
  * @param {number} index
  */
-function f(inputString, index) {
+function getFncCall(inputString, index) {
     let openParenCount = 0;
 
     // Start searching from the index towards the beginning of the string
@@ -53,6 +53,6 @@ function countCommas(str) {
 }
 
 module.exports = {
-    getFncCall: f,
-    countCommas: countCommas
+    getFncCall,
+    countCommas
 }

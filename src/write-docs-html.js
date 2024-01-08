@@ -10,14 +10,14 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 const CONSTANTS = require("./CONSTANTS")
-const getLocalData = require("./get-local-data");
+const localData = require("./local-data");
 
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 
 module.exports = function () {
 
-    DSCONFIG = getLocalData();
+    DSCONFIG = localData.load();
 
     const html = `
 <!DOCTYPE html>

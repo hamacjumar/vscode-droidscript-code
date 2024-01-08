@@ -49,6 +49,8 @@ class TreeDataProvider {
 }
 
 class TreeItem extends vscode.TreeItem {
+    /** @type {vscode.TreeItem} */
+    args = {};
     /**
      * @param {string | vscode.TreeItemLabel} label
      * @param {vscode.TreeItemCollapsibleState | undefined} collapsibleState
@@ -57,13 +59,14 @@ class TreeItem extends vscode.TreeItem {
     constructor(label, collapsibleState, contextValue) {
         super(label, collapsibleState);
         this.contextValue = contextValue;
+        Object.assign(this.args, this);
     }
 
     // Provide the command ID to execute when the tree item is selected
     command = {
         command: 'droidscript-code.openApp',
         title: 'Open Project',
-        arguments: [{ ...this }]
+        arguments: [this.args]
     }
 }
 

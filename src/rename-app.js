@@ -13,33 +13,36 @@ let projectsTreeView;
  */
 let CALLBACK = null;
 
-module.exports = function (/** @type {{ label: string; }} */ args, /** @type {TreeDataProvider} */ treeView, /** @type {any} */ callback) {
+/** 
+ * @param {import("./ProjectsTreeView").TreeItem} args
+ * @param {import("./ProjectsTreeView").TreeDataProvider} treeView
+ * @param {(appName: string, newName: string) => void} callback 
+ */
+module.exports = function (args, treeView, callback) {
     if (!args || !args.label) {
         return vscode.window.showWarningMessage("Rename an app in DroidScript section under Projects view!");
     }
 
-    appName = args.label;
+    appName = args.label + '';
     projectsTreeView = treeView;
     CALLBACK = callback;
 
     enterAppName();
 }
 
-function enterAppName() {
-    vscode.window.showInputBox({ prompt: "Enter new app name for '" + appName + "'.", placeHolder: 'e.g. MyNewApp' })
-        .then(async input => {
-            if (input) {
-                const data = await ext.listFolder("");
-                if (data && data.status == "ok" && data.list.length) {
-                    if (data.list.includes(input)) {
-                        vscode.window.showWarningMessage(`${input} app already exist!`);
-                        return enterAppName();
-                    }
-                }
-                newAppName = input;
-                renameApp();
-            }
-        });
+async function enterAppName() {
+    const input = await vscode.window.showInputBox({ prompt: "Enter new app name for '" + appName + "'.", placeHolder: 'e.g. MyNewApp' });
+    if (!input) return;
+
+    const data = await ext.listFolder("");
+    if (data && data.status == "ok" && data.list.length) {
+        if (data.list.includes(input)) {
+            vscode.window.showWarningMessage(`${input} app already exist!`);
+            return enterAppName();
+        }
+    }
+    newAppName = input;
+    renameApp();
 }
 
 async function renameApp() {

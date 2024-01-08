@@ -8,8 +8,7 @@ const createNewApp = require("./src/create-app");
 const deleteApp = require("./src/delete-app");
 const renameApp = require("./src/rename-app");
 const stringHelpers = require("./src/string-helpers");
-const getLocalData = require("./src/get-local-data");
-const saveLocalData = require("./src/save-local-data");
+const localData = require("./src/local-data");
 const connectToDroidScript = require("./src/connect-to-droidscript");
 const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
@@ -117,7 +116,7 @@ let subscribe = null;
 /** @param {vscode.ExtensionContext} context */
 function activate(context) {
 
-    DSCONFIG = getLocalData();
+    DSCONFIG = localData.load();
     ext.setCONFIG(DSCONFIG);
 
     VSFOLDERS = vscode.workspace.workspaceFolders || [];
@@ -132,7 +131,7 @@ function activate(context) {
     subscribe("connect", () => { connectToDroidScript(startWebSocket, RELOAD_PROJECT); });
     subscribe("loadFiles", loadFiles);
     subscribe("stopApp", stop);
-    subscribe("addNewApp", (/** @type {any} */ args) => {
+    subscribe("addNewApp", (/** @type {string} */ args) => {
         if (CONNECTED) createNewApp(args, projectsTreeDataProvider, openProject);
         else showReloadPopup();
     });
@@ -141,13 +140,11 @@ function activate(context) {
     // projects
     subscribe("play", play);
     subscribe("stop", stop);
-    subscribe("runApp",
-        /** @param {ProjectsTreeData.TreeItem} treeItem */
-        (treeItem) => { play(treeItem.label) });
+    subscribe("runApp", (/** @type {ProjectsTreeData.TreeItem} */ treeItem) => { play(treeItem.label) });
     subscribe("openApp", openProject);
-    subscribe("openAppInNewWindow", (/** @type {any} */ treeItem) => { openProject(treeItem, true) });
-    subscribe("deleteApp", (/** @type {any} */ args) => { deleteApp(args, projectsTreeDataProvider, onDeleteApp); });
-    subscribe("renameApp", (/** @type {any} */ args) => { renameApp(args, projectsTreeDataProvider, onRenameApp); });
+    subscribe("openAppInNewWindow", (/** @type {ProjectsTreeData.TreeItem} */ treeItem) => { openProject(treeItem, true) });
+    subscribe("deleteApp", (/** @type {ProjectsTreeData.TreeItem} */ args) => { deleteApp(args, projectsTreeDataProvider, onDeleteApp); });
+    subscribe("renameApp", (/** @type {ProjectsTreeData.TreeItem} */ args) => { renameApp(args, projectsTreeDataProvider, onRenameApp); });
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
@@ -161,8 +158,7 @@ function activate(context) {
     let completionItemProvider = vscode.languages.registerCompletionItemProvider("javascript", {
         provideCompletionItems(doc, pos) {
             const ln = doc.lineAt(pos.line).text;
-            console.log(1, pos.e, pos.character, pos.line, pos, { ...pos }, Object.getOwnPropertyNames(pos));
-            const s = ln.substring(0, pos.e - 1).trim().split(" ").pop();
+            const s = ln.substring(0, pos.character - 1).trim().split(" ").pop();
             if (s && completions[s]) return completions[s];
             return [];
         }
@@ -200,9 +196,8 @@ function activate(context) {
     let signatureHelpProvider = vscode.languages.registerSignatureHelpProvider("javascript", {
         provideSignatureHelp(doc, pos) {
             const ln = doc.lineAt(pos.line).text;
-            console.log(2, pos.e, pos.character, pos.line, pos, { ...pos }, Object.getOwnPropertyNames(pos));
-            let s = stringHelpers.getFncCall(ln, pos.e);
-            let n1 = ln.substring(0, pos.e - s.length).trim();
+            let s = stringHelpers.getFncCall(ln, pos.character) || '';
+            let n1 = ln.substring(0, pos.character - s.length).trim();
             let n = n1.replace(/(\s{2,}|\.{2,})/g, ' ')
                 .replace(/\. +|\.+/g, ' ')
                 .split(/[ .{}*\\+\-]/);
@@ -273,15 +268,13 @@ function activate(context) {
                 DSCONFIG.localProjects[ndx].reload = false;
 
                 ext.setCONFIG(DSCONFIG);
-                saveLocalData(DSCONFIG);
+                localData.save(DSCONFIG);
 
                 vscode.commands.executeCommand("droidscript-code.connect");
             }
             else {
-                vscode.window.showInformationMessage("This folder is a DroidScript app. Do you want to connect and reload?", "Proceed").then(selection => {
-                    if (selection == "Proceed")
-                        vscode.commands.executeCommand("droidscript-code.connect");
-                });
+                vscode.window.showInformationMessage("This folder is a DroidScript app. Do you want to connect and reload?", "Proceed")
+                    .then(selection => { selection == "Proceed" && vscode.commands.executeCommand("droidscript-code.connect") });
             }
         }
     }
@@ -294,7 +287,7 @@ function activate(context) {
         DSCONFIG.VERSION = VERSION;
 
         ext.setCONFIG(DSCONFIG);
-        saveLocalData(DSCONFIG);
+        localData.save(DSCONFIG);
     }
 
     // initialize signatures
@@ -429,12 +422,9 @@ async function getAllFiles(folder) {
     }
 }
 
-function showReloadPopup() {
-    vscode.window.showInformationMessage("You are currently disconnected!", "Reconnect").then(selection => {
-        if (selection == "Reconnect") {
-            vscode.commands.executeCommand("droidscript-code.connect");
-        }
-    });
+async function showReloadPopup() {
+    const selection = await vscode.window.showInformationMessage("You are currently disconnected!", "Reconnect");
+    if (selection === "Reconnect") vscode.commands.executeCommand("droidscript-code.connect");
 }
 
 // Write the file to the workspace
@@ -752,7 +742,7 @@ function onDeleteApp(appName) {
     if (i >= 0) {
         DSCONFIG.localProjects.splice(i, 1);
         ext.setCONFIG(DSCONFIG);
-        saveLocalData(DSCONFIG);
+        localData.save(DSCONFIG);
     }
 }
 
@@ -777,14 +767,14 @@ function onRenameApp(appName, newAppName) {
         }
 
         PROJECT = newAppName;
-        let i = DSCONFIG.localProjects.find(m => m.path == folderPath.fsPath);
-        if (!i) return;
-        i.PROJECT = PROJECT;
-        i.reload = true;
+        let proj = DSCONFIG.localProjects.find(m => m.path == folderPath.fsPath);
+        if (!proj) return;
+        proj.PROJECT = PROJECT;
+        proj.reload = true;
         displayProjectName();
 
         ext.setCONFIG(DSCONFIG);
-        saveLocalData(DSCONFIG);
+        localData.save(DSCONFIG);
     }
 }
 
@@ -804,7 +794,7 @@ function startWebSocket() {
 let webSocketKeepAliveTimer;
 async function wsOnOpen() {
 
-    DSCONFIG = getLocalData();
+    DSCONFIG = localData.load();
     ext.setCONFIG(DSCONFIG);
 
     // get the project associated with DroidScript
@@ -909,8 +899,7 @@ async function openDocs() {
     );
     panel.onDidDispose(e => isLivePreviewActive = false);
 
-
-    const url = CONNECTED ?
+    const url = DSCONFIG.info.version ?
         DSCONFIG.serverIP + "/.edit/docs/Docs.htm" :
         "https://droidscript.github.io/Docs/docs/Docs.htm";
 
@@ -950,7 +939,7 @@ async function openProject(treeItem, newWindow) {
             n = -1;
 
             ext.setCONFIG(DSCONFIG);
-            saveLocalData(DSCONFIG);
+            localData.save(DSCONFIG);
         }
     }
 
@@ -958,34 +947,33 @@ async function openProject(treeItem, newWindow) {
         DSCONFIG.localProjects[n].reload = true;
 
         ext.setCONFIG(DSCONFIG);
-        saveLocalData(DSCONFIG);
+        localData.save(DSCONFIG);
 
         folderUri = vscode.Uri.file(DSCONFIG.localProjects[n].path);
         await vscode.commands.executeCommand('vscode.openFolder', folderUri, { forceNewWindow: newWindow });
     }
     else if (!PROJECT && VSFOLDERS[0]) {
-        vscode.window.showInformationMessage("Do you want to associate this folder as '" + SELECTED_PROJECT + "' app?", "Proceed", "Cancel").then(async selection => {
-            if (selection == "Proceed") {
-                const newAppFolder = folderPath.fsPath;
-                try {
-                    DSCONFIG.localProjects.push({
-                        path: newAppFolder,
-                        PROJECT: SELECTED_PROJECT,
-                        created: new Date().getTime(),
-                        reload: false
-                    });
+        const selection = await vscode.window.showInformationMessage("Do you want to associate this folder as '" + SELECTED_PROJECT + "' app?", "Proceed", "Cancel");
+        if (selection !== "Proceed") return;
 
-                    ext.setCONFIG(DSCONFIG);
-                    saveLocalData(DSCONFIG);
+        const newAppFolder = folderPath.fsPath;
+        try {
+            DSCONFIG.localProjects.push({
+                path: newAppFolder,
+                PROJECT: SELECTED_PROJECT,
+                created: new Date().getTime(),
+                reload: false
+            });
 
-                    PROJECT = SELECTED_PROJECT;
-                    await loadFiles();
-                    showStatusBarItems();
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-        });
+            ext.setCONFIG(DSCONFIG);
+            localData.save(DSCONFIG);
+
+            PROJECT = SELECTED_PROJECT;
+            await loadFiles();
+            showStatusBarItems();
+        } catch (error) {
+            console.log(error)
+        }
     }
     else if (PROJECT && n < 0) {
         const currFolder = folderPath.fsPath;
@@ -1002,7 +990,7 @@ async function openProject(treeItem, newWindow) {
             });
 
             ext.setCONFIG(DSCONFIG);
-            saveLocalData(DSCONFIG);
+            localData.save(DSCONFIG);
 
             folderUri = vscode.Uri.file(newAppFolder);
             await vscode.commands.executeCommand('vscode.openFolder', folderUri, { forceNewWindow: newWindow });

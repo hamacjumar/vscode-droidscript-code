@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const ext = require('./extension');
-const getLocalData = require('./get-local-data');
+const localData = require('./local-data');
 const { TreeDataProvider } = require('./ProjectsTreeView');
 
 /** @type {DSCONFIG_T} */
@@ -37,7 +37,7 @@ module.exports = function (/** @type {any} */ args, /** @type {TreeDataProvider}
     projectsTreeView = treeView;
     openNewProject = openProject;
 
-    DSCONFIG = getLocalData();
+    DSCONFIG = localData.load();
 
     const options = {
         placeHolder: 'Select app type',
@@ -51,53 +51,45 @@ module.exports = function (/** @type {any} */ args, /** @type {TreeDataProvider}
     });
 }
 
-function enterAppName() {
-    vscode.window.showInputBox({ prompt: 'Enter app name', placeHolder: 'e.g. MyNewApp' })
-        .then(async input => {
-            if (input) {
-                const data = await ext.listFolder("");
-                if (data && data.status == "ok" && data.list.length) {
-                    if (data.list.includes(input)) {
-                        vscode.window.showWarningMessage(`${input} app already exist!`);
-                        return enterAppName();
-                    }
-                }
-                appName = input;
+async function enterAppName() {
+    const input = await vscode.window.showInputBox({ prompt: 'Enter app name', placeHolder: 'e.g. MyNewApp' })
 
-                showTemplates();
-            }
-        });
+    if (!input) return;
+
+    const data = await ext.listFolder("");
+    if (data && data.status == "ok" && data.list.length) {
+        if (data.list.includes(input)) {
+            vscode.window.showWarningMessage(`${input} app already exist!`);
+            return enterAppName();
+        }
+    }
+    appName = input;
+    showTemplates();
 }
 
-function showTemplates() {
+async function showTemplates() {
     const options = {
         placeHolder: `Select ${appType} app template`,
         ignoreFocusOut: false
     };
-    const TEMPS = TEMPLATES[appType].map((/** @type {string} */ m) => {
-        return DSCONFIG.premium ? m.replace("♦", "").trim() : m;
-    });
-    vscode.window.showQuickPick(TEMPS, options).then(item => {
-        if (item) {
-            if (item.includes("♦")) {
-                vscode.window.showWarningMessage(`${item} is a premium feature.`);
-                return showTemplates();
-            }
-            appTemplate = item;
-            createApp();
+    const TEMPS = TEMPLATES[appType].map(m =>
+        DSCONFIG.info.premium ? m.replace("♦", "").trim() : m);
+
+    const item = await vscode.window.showQuickPick(TEMPS, options);
+    if (item) {
+        if (item.includes("♦")) {
+            vscode.window.showWarningMessage(`${item} is a premium feature.`);
+            return showTemplates();
         }
-    });
+        appTemplate = item;
+        createApp();
+    }
 }
 
 async function createApp() {
-    try {
-        let response = await ext.createApp(appName, appType, appTemplate);
-        if (response.status == "ok") {
-            if (projectsTreeView) projectsTreeView.refresh();
-            if (openNewProject) openNewProject({ contextValue: appName }, true);
-        }
-    }
-    catch (err) {
-        console.log(err);
+    let response = await ext.createApp(appName, appType, appTemplate);
+    if (response.status == "ok") {
+        if (projectsTreeView) projectsTreeView.refresh();
+        if (openNewProject) openNewProject({ contextValue: appName }, true);
     }
 }

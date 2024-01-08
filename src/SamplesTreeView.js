@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const ext = require("./extension");
-const getLocalData = require('./get-local-data');
+const localData = require('./local-data');
 
 class TreeDataProvider {
 
@@ -25,12 +25,12 @@ class TreeDataProvider {
     async getChildren(element) {
         let treeItems = [];
 
-        let DSCONFIG = getLocalData();
+        let DSCONFIG = localData.load();
         if (!element) {
             this.data = await ext.getSamples();
             if (this.data.type == "array") {
                 treeItems = this.data.samples.map((/** @type {string} */ m) => {
-                    let title = DSCONFIG.premium ? m.replace("♦", "") : m;
+                    let title = DSCONFIG.info.premium ? m.replace("♦", "") : m;
                     return new TreeItem(title.trim(), vscode.TreeItemCollapsibleState.None, m.replace("♦", ""));
                 });
             }
@@ -64,6 +64,8 @@ class TreeDataProvider {
 }
 
 class TreeItem extends vscode.TreeItem {
+    /** @type {vscode.TreeItem} */
+    args = {};
     /**
      * @param {string | vscode.TreeItemLabel} label
      * @param {vscode.TreeItemCollapsibleState | undefined} collapsibleState
@@ -74,13 +76,14 @@ class TreeItem extends vscode.TreeItem {
         super(label, collapsibleState);
         this.contextValue = contextValue;
         this.category = category;
+        Object.assign(this.args, this);
     }
 
     // Provide the command ID to execute when the tree item is selected
     command = {
         command: 'droidscript-code.openSample',
         title: 'Open Sample',
-        arguments: [{ ...this }]
+        arguments: [this.args]
     }
 }
 

@@ -42,18 +42,15 @@ class TreeDataProvider {
  * @param {vscode.EventEmitter<DocItem>} onEmpty
  */
 async function getNavs(item, onEmpty) {
-    const file = item.file;
-    if (cache[file]) return cache[file];
+    const file = getFile(item.file);
     if (!DSCONFIG) DSCONFIG = localData.load();
-    const dir = (path.dirname(file) + '/').replace(/^.\/|..\/docs\//g, '');
-    const host = DSCONFIG.info.version ?
-        DSCONFIG.serverIP + "/.edit/docs/" :
-        "https://droidscript.github.io/Docs/docs/";
+    const dir1 = path.dirname(file);
+    const dir = dir1 === "." ? "" : dir1 + "/";
 
     /** @type {DocItem[]} */
     let data = [];
     try {
-        const res = await axios.get(host + file);
+        const res = await axios.get(getUrl(file));
         const navsHtml = res.data;
         if (res.status !== 200 || typeof navsHtml !== "string") return data;
 
@@ -61,9 +58,9 @@ async function getNavs(item, onEmpty) {
         for (const [_, file, title] of navs) data.push({ title, file: dir + file });
 
         if (data[0]?.title?.startsWith("Version ")) {
-            const newFile = data[data.length - 1].file.replace(/^.\/|..\/docs\//g, '');
-            data = await getNavs(data[data.length - 1], onEmpty);
-            item.file = newFile;
+            const fwd = data[data.length - 1];
+            fwd.file = getFile(fwd.file, true);
+            data = await getNavs(fwd, onEmpty);
             setTimeout(() => onEmpty.fire(item), 50);
         }
     } catch (e) { }
@@ -94,6 +91,21 @@ class TreeItem extends vscode.TreeItem {
     };
 }
 
+let latestVer = "";
+/** @param {string} file */
+function getUrl(file) {
+    const host = CONNECTED ?
+        DSCONFIG.serverIP + "/.edit/docs/" :
+        "https://droidscript.github.io/Docs/docs/" + latestVer;
+    return host + getFile(file);
+}
+
+/** @param {string} file */
+function getFile(file, latest = false) {
+    if (latest) latestVer = path.dirname(file).replace('../docs/', '') + "/";;
+    return file.replace('../docs/' + latestVer, '');
+}
+
 module.exports = {
-    TreeDataProvider, TreeItem
+    TreeDataProvider, TreeItem, getUrl
 }

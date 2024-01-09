@@ -1,6 +1,7 @@
 // function to connect a workspace to DroidScript server
 
 const vscode = require('vscode');
+
 const ext = require("./extension");
 const fs = require("fs-extra");
 const localData = require("./local-data");
@@ -18,13 +19,10 @@ let RELOAD = false;
  * @param {boolean} reload 
  */
 module.exports = function (callback, reload) {
-
     DSCONFIG = localData.load();
-    console.log("DSCONFIG", DSCONFIG);
     CALLBACK = callback;
     RELOAD = reload; // use DSCONFIG password
 
-    console.log("set DSCONFIG", DSCONFIG);
     ext.setCONFIG(DSCONFIG);
 
     if (!DSCONFIG.serverIP) showIpPopup();
@@ -49,17 +47,17 @@ async function showIpPopup() {
     getServerInfo();
 }
 
-function getServerInfo() {
-    vscode.window.withProgress({
+async function getServerInfo() {
+    await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
         title: `Connecting to DroidScript at ${DSCONFIG.serverIP.replace("http://", "")}`,
         cancellable: false
-    }, async () => {
+    }, async (prog) => {
         let info = await ext.getServerInfo();
         if (!info || info.status !== "ok") {
-            console.log("not running", info);
-            await vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Re-enter IP Address")
-            showIpPopup();
+            prog.report({ message: "Failed" });
+            vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Re-enter IP Address")
+                .then(res => { res !== undefined && showIpPopup() });
             return;
         }
 
@@ -67,7 +65,7 @@ function getServerInfo() {
 
         if (DSCONFIG.info.usepass) {
             // use DSCONFIG password to auto reload
-            if (RELOAD) return showPasswordPopup();
+            if (RELOAD) await showPasswordPopup();
 
             PASSWORD = DSCONFIG.info.password || '';
             login();
@@ -100,7 +98,7 @@ async function login() {
 
     if (!data) {
         const selection = await vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address")
-        if (selection == "Re-enter IP Address") showIpPopup();
+        if (selection === "Re-enter IP Address") showIpPopup();
         return;
     }
 

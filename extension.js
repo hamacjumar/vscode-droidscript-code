@@ -36,7 +36,6 @@ let GlobalContext;
 /** @type {import("ws")|null} */
 let webSocket = null;
 let lastActivity = "";
-let CONNECTED = false;
 /** @type {vscode.StatusBarItem} */
 let connectionStatusBarItem;
 let connectionStatusShown = false;
@@ -330,21 +329,17 @@ async function createAssetFolder(folder) {
 
 async function initWindow() {
     let hasFile = false;
-    try {
-        if (vscode.window.visibleTextEditors.length == 0) {
-            let rootFile1 = vscode.Uri.joinPath(folderPath, PROJECT + ".js");
-            let rootFile2 = vscode.Uri.joinPath(folderPath, PROJECT + ".html");
-            let rootFile3 = vscode.Uri.joinPath(folderPath, PROJECT + ".py");
-            if (fs.existsSync(rootFile1.fsPath)) { await openFile(rootFile1); hasFile = true; }
-            else if (fs.existsSync(rootFile2.fsPath)) { await openFile(rootFile2); hasFile = true; }
-            else if (fs.existsSync(rootFile3.fsPath)) { await openFile(rootFile3); hasFile = true; }
-            else return;
-        }
-        if (hasFile) {
-            await openDocs();
-        }
-    } catch (err) {
-        console.log(err);
+    if (vscode.window.visibleTextEditors.length == 0) {
+        let rootFile1 = vscode.Uri.joinPath(folderPath, PROJECT + ".js");
+        let rootFile2 = vscode.Uri.joinPath(folderPath, PROJECT + ".html");
+        let rootFile3 = vscode.Uri.joinPath(folderPath, PROJECT + ".py");
+        if (fs.existsSync(rootFile1.fsPath)) { await openFile(rootFile1).catch(catchError); hasFile = true; }
+        else if (fs.existsSync(rootFile2.fsPath)) { await openFile(rootFile2).catch(catchError); hasFile = true; }
+        else if (fs.existsSync(rootFile3.fsPath)) { await openFile(rootFile3).catch(catchError); hasFile = true; }
+        else return;
+    }
+    if (hasFile) {
+        await openDocs().catch(catchError);
     }
 }
 
@@ -363,61 +358,51 @@ async function openFile(filePath) {
 // Load all files in the selected project
 async function loadFiles() {
     if (PROJECT) {
-        vscode.window.withProgress({
+        if (loadButton) loadButton.text = "$(sync~spin) Downloading..."
+        await vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
             title: `Fetching files from ${PROJECT} app`,
             cancellable: false
-        }, async () => {
-            try {
-                if (loadButton) loadButton.text = "$(sync~spin) Downloading..."
-                await getAllFiles(PROJECT);
-                if (loadButton) loadButton.text = "$(sync) Reload"
-            } catch (error) {
-                vscode.window.showErrorMessage(error.message);
-            }
-        });
+        }, async (proc) => await getAllFiles(PROJECT, proc).catch(catchError));
+        if (loadButton) loadButton.text = "$(sync) Reload"
     }
     else {
         vscode.window.showInformationMessage("This folder is not associated with any DroidScript project. Open an app in the DroidScript's 'PROJECT' section.");
     }
 }
 
-/** @param {string} folder */
-async function getAllFiles(folder) {
+/** 
+ * @param {string} folder
+ * @param {vscode.Progress<{message?:string, increment?:number}>} proc
+ */
+async function getAllFiles(folder, proc) {
     folder = folder || PROJECT;
-    try {
-        let data = await ext.listFolder(folder);
-        if (data.status == "ok" && data.list.length) {
+    let data = await ext.listFolder(folder).catch(catchError);
+    proc.report({ increment: 0 });
 
-            IS_DROIDSCRIPT = true;
+    if (data.status !== "ok") return data.error;
+    if (!data.list.length) return "";
 
-            let fileName = "", path = "", filePath = "";
-            for (var i = 0; i < data.list.length; i++) {
-                fileName = data.list[i], path = folder + "/" + fileName;
-                filePath = path.replace(PROJECT + "/", "");
-                if (!fileName.startsWith("~") && fileName.includes(".")) {
-                    try {
-                        let response = await ext.loadFile(path);
-                        if (response.status == "ok") {
-                            try {
-                                await writeFile(filePath, response.data);
-                            } catch (error) {
-                                console.log("Error writing the content of " + fileName); 5
-                            }
-                        }
-                    } catch (err) {
-                        console.log("Error getting the content of " + fileName);
-                    }
-                }
-                else if (dsFolders.includes(fileName) || !fileName.includes(".")) {
-                    var created = await createFolder(filePath);
-                    if (created) await getAllFiles(path);
-                    else vscode.window.showErrorMessage("Error creating " + fileName + " folder");
-                }
+    IS_DROIDSCRIPT = true;
+
+    let fileName = "", path = "", filePath = "";
+    for (var i = 0; i < data.list.length; i++) {
+        fileName = data.list[i], path = folder + "/" + fileName;
+        filePath = path.replace(PROJECT + "/", "");
+        proc.report({ message: filePath });
+        if (!fileName.startsWith("~") && fileName.includes(".")) {
+            let response = await ext.loadFile(path).catch(catchError);
+
+            if (response && response.status == "ok") {
+                await writeFile(filePath, response.data).catch(catchError);
             }
         }
-    } catch (err) {
-        console.log(err);
+        else if (dsFolders.includes(fileName) || !fileName.includes(".")) {
+            var created = await createFolder(filePath);
+            if (created) await getAllFiles(path, proc);
+            else vscode.window.showErrorMessage("Error creating " + fileName + " folder");
+        }
+        proc.report({ increment: 100 * (i + 1) / data.list.length });
     }
 }
 
@@ -519,8 +504,12 @@ async function onDeleteFile(e) {
     }
 }
 
-/** @type {(error: any) => DSServerResponse} */
-const catchError = (error) => (console.log(error), { status: "bad", error });
+/** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
+const catchError = (error) => {
+    console.error(error);
+    vscode.window.showErrorMessage(error.message || error);
+    return { status: "bad", error };
+}
 
 // Create files and folders on the workspace
 /** @type {vscode.FileCreateEvent?} */
@@ -801,7 +790,6 @@ async function wsOnOpen() {
     if (i) PROJECT = i.PROJECT;
 
     CONNECTED = true;
-    ext.setConnected(CONNECTED);
 
     showStatusBarItems();
     Logger("Connected: " + DSCONFIG.serverIP);
@@ -850,7 +838,6 @@ function wsOnClose() {
     }
     webSocket = null;
     hideStatusBarItems();
-    ext.setConnected(CONNECTED);
     // pluginsTreeDataProvider.refresh();
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
@@ -905,11 +892,8 @@ async function openDocs(item) {
         });
     }
 
-    const host = DSCONFIG.info.version ?
-        DSCONFIG.serverIP + "/.edit/docs/" :
-        "https://droidscript.github.io/Docs/docs/";
-    const file = item ? item.contextValue : "Docs.htm";
-    console.log("Doc Page: " + host + file, item);
+    const url = DocsTreeData.getUrl(item ? item.contextValue : "Docs.htm");
+    console.log("Doc Page: " + url, item);
 
     docsPanel.webview.html = `
     <!DOCTYPE html>
@@ -919,7 +903,7 @@ async function openDocs(item) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>body,html,iframe {width:100%;height:100%;margin:0;padding:0;border:none}</style>
     </head>
-    <body><iframe src=${JSON.stringify(host + file)}></body>
+    <body><iframe src=${JSON.stringify(url)}></body>
     </html>`;
 }
 

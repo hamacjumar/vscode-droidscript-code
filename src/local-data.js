@@ -18,6 +18,8 @@ const data = {
 };
 
 function load() {
+    // @ts-ignore
+    if (global._dsconf_data) return global._dsconf_data;
     var filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
 
     if (fs.existsSync(filePath)) {
@@ -28,6 +30,8 @@ function load() {
         adjust(data);
     }
 
+    // @ts-ignore
+    global._dsconf_data = data;
     return data;
 }
 

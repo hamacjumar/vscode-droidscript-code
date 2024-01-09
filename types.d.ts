@@ -2,6 +2,9 @@
 type AsyncReturnType<T extends (...args: any) => Promise<any>> =
     T extends (...args: any) => Promise<infer R> ? R : any;
 
+
+declare var CONNECTED: boolean;
+
 // DSCONFIG object representing the configuration for DroidScript.
 declare type DSCONFIG_T = {
     /** The version of the Extension. */

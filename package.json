@@ -69,6 +69,15 @@
             }
         },
         {
+            "command": "droidscript-code.refreshProjects",
+            "title": "Refresh",
+            "icon": "$(sync)"
+        },
+        {
+            "command": "droidscript-code.revealExplorer",
+            "title": "Reveal in File Explorer"
+        },
+        {
             "command": "droidscript-code.deleteApp",
             "title": "Remove"
         },
@@ -103,6 +112,11 @@
                 "command": "droidscript-code.addNewApp",
                 "when": "view == droidscript-projects",
                 "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.refreshProjects",
+                "when": "view == droidscript-projects",
+                "group": "navigation"
             }
         ],
         "view/item/context": [
@@ -123,6 +137,11 @@
             },
             {
                 "command": "droidscript-code.openAppInNewWindow",
+                "when": "view == droidscript-projects",
+                "group": "navigation"
+            },
+            {
+                "command": "droidscript-code.revealExplorer",
                 "when": "view == droidscript-projects",
                 "group": "navigation"
             },

@@ -20,7 +20,7 @@ const data = {
 function load() {
     // @ts-ignore
     if (global._dsconf_data) return global._dsconf_data;
-    var filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
+    const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
 
     if (fs.existsSync(filePath)) {
         const fileData = fs.readFileSync(filePath, 'utf8');
@@ -53,6 +53,7 @@ function adjust(config) {
         (_, r = "http://", u = "", _p, p = data.PORT) => r + u + (data.PORT = p, _p));
 
     config.localProjects = config.localProjects.filter(m => m?.path && fs.existsSync(m.path));
+    for (const p of config.localProjects) p.path = path.resolve(p.path);
     return config;
 }
 

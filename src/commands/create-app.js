@@ -1,7 +1,7 @@
 const vscode = require('vscode');
-const ext = require('./extension');
-const localData = require('./local-data');
-const { TreeDataProvider } = require('./ProjectsTreeView');
+const ext = require('../extension');
+const localData = require('../local-data');
+const { TreeDataProvider } = require('../ProjectsTreeView');
 
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
@@ -12,10 +12,8 @@ let appTemplate = "";
  * @type {TreeDataProvider}
  */
 let projectsTreeView;
-/**
- * @type {((arg0: { contextValue: string; }, arg1: boolean) => void) | null}
- */
-let openNewProject = null;
+/** @type {(item: import("../ProjectsTreeView").ProjItem, newWindow: boolean) => void} */
+let openNewProject;
 const TYPES = [
     { label: "Native", description: 'Build android app using native controls' },
     { label: "Html", description: 'Build android app using Html, CSS and Javascript' },
@@ -32,7 +30,11 @@ const TEMPLATES = {
     python: ["Simple", "Hybrid"]
 };
 
-module.exports = function (/** @type {any} */ args, /** @type {TreeDataProvider} */ treeView, /** @type {any} */ openProject) {
+/** 
+ * @param {import("../ProjectsTreeView").TreeDataProvider} treeView
+ * @param {(item: import("../ProjectsTreeView").ProjItem, newWindow: boolean) => void} openProject 
+ */
+module.exports = function (treeView, openProject) {
 
     projectsTreeView = treeView;
     openNewProject = openProject;
@@ -90,6 +92,6 @@ async function createApp() {
     let response = await ext.createApp(appName, appType, appTemplate);
     if (response.status == "ok") {
         if (projectsTreeView) projectsTreeView.refresh();
-        if (openNewProject) openNewProject({ contextValue: appName }, true);
+        if (openNewProject) openNewProject({ title: appName }, true);
     }
 }

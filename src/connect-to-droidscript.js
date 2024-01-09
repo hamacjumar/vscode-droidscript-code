@@ -5,7 +5,6 @@ const vscode = require('vscode');
 const ext = require("./extension");
 const fs = require("fs-extra");
 const localData = require("./local-data");
-const writeDocsHtmlContainer = require("./write-docs-html");
 
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
@@ -110,6 +109,5 @@ async function login() {
     localData.save(DSCONFIG);
 
     // rewrite docs html container
-    writeDocsHtmlContainer();
     CALLBACK();
 }

@@ -270,6 +270,27 @@ async function fileExist(filePath) {
     return res.status === 200;
 }
 
+/** 
+ * @param {string} dir 
+ * @param {string} title 
+ * @param {(path:string) => Promise<boolean>} existFn
+ */
+async function getProjectInfo(dir, title, existFn) {
+    /** @type {("py"|"html"|"js"|"")[]} */
+    const types = ["py", "html", "js"];
+
+    /** @type {(typeof types)[number]} */
+    let projType = "";
+
+    for (const type of types) {
+        if (await existFn(`${dir}/${title}.${type}`))
+            projType = type;
+    }
+
+    if (!projType) return null;
+    return { title, file: `${dir}/${title}.${projType}`, ext: projType }
+}
+
 const setCONFIG = (/** @type {DSCONFIG_T} */ config) => { DSCONFIG = config; }
 const getCONFIG = () => DSCONFIG;
 
@@ -349,6 +370,7 @@ module.exports = {
     play,
     stop,
     fileExist,
+    getProjectInfo,
     setCONFIG,
     getCONFIG,
     login,

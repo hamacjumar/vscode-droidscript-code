@@ -1,20 +1,19 @@
 const vscode = require('vscode');
-const ext = require('./extension');
-const { TreeItem } = require('./ProjectsTreeView');
+const ext = require('../extension');
 
 let appName = "";
 
 /** 
- * @param {import("./ProjectsTreeView").TreeItem} args
- * @param {import("./ProjectsTreeView").TreeDataProvider} treeView
+ * @param {import("../ProjectsTreeView").ProjItem} item
+ * @param {import("../ProjectsTreeView").TreeDataProvider} treeView
  * @param {(appName: string) => void} callback 
  */
-module.exports = async function (args, treeView, callback) {
-    if (!args || !args.label) {
-        return vscode.window.showWarningMessage("Delete an app in DroidScript's PROJECTS section!");
+module.exports = async function (item, treeView, callback) {
+    if (!item || !item.title) {
+        return vscode.window.showWarningMessage("Selec an app in DroidScript's PROJECTS section!");
     }
 
-    appName = args.label + '';
+    appName = item.title + '';
     const selection = await vscode.window.showWarningMessage(`Do you want to remove ${appName} app?`, "Remove", "Cancel")
     if (selection !== "Remove") return;
 

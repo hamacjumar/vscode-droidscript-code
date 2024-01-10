@@ -34,9 +34,13 @@ class TreeDataProvider {
 
         var folders = data.list.filter(m => {
             if (ext.excludedFoldersAndFiles.includes(m)) return false;
-            var ftype = m.substring(m.lastIndexOf("."));
-            if (ext.textFileExtensions.includes(ftype)) return false;
-            if (ext.dataFileExtensions.includes(ftype)) return false;
+            if (m.includes(".")) {
+                var ftype = m.substring(m.lastIndexOf("."));
+                if (ext.textFileExtensions.includes(ftype))
+                    console.log("textfile", m)
+                if (ext.dataFileExtensions.includes(ftype))
+                    console.log("datafile", m)
+            }
             if (m.startsWith("~")) return false;
             return true;
         });

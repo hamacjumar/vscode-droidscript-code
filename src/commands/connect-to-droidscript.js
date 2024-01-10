@@ -2,25 +2,18 @@
 
 const vscode = require('vscode');
 
-const ext = require("./extension");
-const fs = require("fs-extra");
-const localData = require("./local-data");
+const ext = require("../extension");
+const localData = require("../local-data");
 
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 /** @type {() => void} */
 let CALLBACK;
-let PASSWORD = "";
-let RELOAD = false;
 
-/**
- * @param {() => void} callback 
- * @param {boolean} reload 
- */
-module.exports = function (callback, reload) {
+/** @param {() => void} callback */
+module.exports = function (callback) {
     DSCONFIG = localData.load();
     CALLBACK = callback;
-    RELOAD = reload; // use DSCONFIG password
 
     ext.setCONFIG(DSCONFIG);
 
@@ -63,13 +56,13 @@ async function getServerInfo() {
         Object.assign(DSCONFIG.info, info);
 
         if (DSCONFIG.info.usepass) {
-            // use DSCONFIG password to auto reload
-            if (RELOAD) await showPasswordPopup();
-
-            PASSWORD = DSCONFIG.info.password || '';
-            login();
+            let ok = false;
+            if (DSCONFIG.password) ok = await login(DSCONFIG.password);
+            if (!ok) ok = await showPasswordPopup();
+            if (!ok) return;
         }
-        else CALLBACK();
+
+        CALLBACK();
     });
 }
 
@@ -85,29 +78,26 @@ async function showPasswordPopup(msg = "", placeHolder = "Enter Password") {
         ignoreFocusOut: true
     };
     const value = await vscode.window.showInputBox(options);
-    if (value === undefined) return;
-
-    PASSWORD = value || "";
-    login();
+    if (value === undefined) return false;
+    return await login(value);
 }
 
 // Login
-async function login() {
-    let data = await ext.login(PASSWORD);
+/** @return {Promise<boolean>} */
+async function login(pass = '') {
+    let data = await ext.login(pass);
 
     if (!data) {
         const selection = await vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address")
         if (selection === "Re-enter IP Address") showIpPopup();
-        return;
+        return false;
     }
 
     if (data.status !== "ok")
-        return showPasswordPopup("Password is incorrect.", "Re-enter password");
+        return await showPasswordPopup("Password is incorrect.", "Re-enter password");
 
     // to be use in DroidScript CLI
-    DSCONFIG.info.password = PASSWORD;
+    DSCONFIG.password = pass;
     localData.save(DSCONFIG);
-
-    // rewrite docs html container
-    CALLBACK();
+    return true;
 }

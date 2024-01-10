@@ -94,6 +94,7 @@ class TreeItem extends vscode.TreeItem {
 let latestVer = "";
 /** @param {string} file */
 function getUrl(file) {
+    if (!DSCONFIG) DSCONFIG = localData.load();
     const host = CONNECTED ?
         DSCONFIG.serverIP + "/.edit/docs/" :
         "https://droidscript.github.io/Docs/docs/" + latestVer;

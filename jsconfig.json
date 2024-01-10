@@ -2,12 +2,32 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "ES2020",
-		"checkJs": false,  /* Typecheck .js files. */
+		"baseUrl": ".",
+		"allowJs": true,
+		"checkJs": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitThis": true,
 		"lib": [
 			"ES2020"
-		]
+		],
+		// "skipLibCheck": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"incremental": true,
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true
 	},
+	"include": [
+		"*.js",
+		"**/*.d.ts"
+	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"markup/**/*"
 	]
 }

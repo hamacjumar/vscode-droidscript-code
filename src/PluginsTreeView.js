@@ -9,13 +9,13 @@ class TreeDataProvider {
     }
 
     getTreeItem(element) {
-      return element;
+        return element;
     }
-  
+
     async getChildren(element) {
-        if( !element ) {
+        if (!element) {
             let data = await ext.listFolder(".edit/docs/plugins");
-            if(data.status=="ok") {
+            if (data.status == "ok") {
                 const plugins = data.list.map(m => {
                     return new TreeItem(m, vscode.TreeItemCollapsibleState.None, m);
                 });
@@ -36,21 +36,22 @@ class TreeDataProvider {
 }
 
 class TreeItem extends vscode.TreeItem {
+    /** @type {vscode.TreeItem} */
+    args = {};
     constructor(label, collapsibleState, contextValue) {
         super(label, collapsibleState);
         this.contextValue = contextValue;
+        Object.assign(this.args, this);
     }
 
     // Provide the command ID to execute when the tree item is selected
-    get command() {
-        return {
-            command: 'droidscript-code.openDroidScriptPlugin',
-            title: 'Open Plugin',
-            arguments: [this],
-        };
-    }
+    command = {
+        command: 'droidscript-code.openDroidScriptPlugin',
+        title: 'Open Plugin',
+        arguments: [this.args]
+    };
 }
 
 module.exports = {
-    TreeDataProvider
+    TreeDataProvider, TreeItem
 }

@@ -11,7 +11,6 @@ const FormData = require('form-data');
 const fs = require('fs');
 const CONSTANTS = require("./CONSTANTS");
 
-CONNECTED = false;
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 
@@ -96,25 +95,6 @@ async function loadFile(path) {
     let options = { responseType: 'arraybuffer' };
     if (textFileExtensions.includes(fileExt)) options = { responseType: 'text' };
     const response = await axios.get(url, options).catch(catchError);
-
-    if (typeof response.status === "undefined") return response.data;
-    return { status: "ok", data: response.data }
-}
-
-/**
- * @param {any} text
- * @param {string} folder
- * @param {any} file
- * @return {Promise<DSServerResponse<{data:any}>>}
- */
-async function updateFile(text, folder, file) {
-    const url = `${DSCONFIG.serverIP}/upload`;
-    const formData = new FormData();
-    formData.append(folder, text, { filename: file });
-
-    const response = await axios.post(url, formData, {
-        headers: formData.getHeaders()
-    }).catch(catchError);
 
     if (typeof response.status === "undefined") return response.data;
     return { status: "ok", data: response.data }
@@ -346,7 +326,6 @@ module.exports = {
     listFolder,
     createApp,
     loadFile,
-    updateFile,
     deleteFile,
     renameFile,
     getSamples,

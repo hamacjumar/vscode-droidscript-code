@@ -47,7 +47,6 @@ let projectsTreeDataProvider;
 let samplesTreeDataProvider;
 /** @type {ReturnType<debugServer>} */
 let dbgServ;
-let lastActivity = "";
 
 /** @type {vscode.StatusBarItem} */
 let loadButton;
@@ -138,9 +137,15 @@ async function activate(context) {
     });
     subscribe("openApp", openProject);
     subscribe("openAppInNewWindow", openProject);
-    subscribe("revealExplorer", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => { revealExplorer(treeItem, projectsTreeDataProvider) });
-    subscribe("deleteApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => { deleteApp(args, projectsTreeDataProvider, onDeleteApp); });
-    subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => { renameApp(args, projectsTreeDataProvider, onRenameApp); });
+    subscribe("revealExplorer", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => {
+        revealExplorer(treeItem, projectsTreeDataProvider)
+    });
+    subscribe("deleteApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
+        deleteApp(args, projectsTreeDataProvider, onDeleteApp);
+    });
+    subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
+        renameApp(args, projectsTreeDataProvider, onRenameApp);
+    });
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
@@ -247,7 +252,6 @@ async function activate(context) {
         showCollapseAll: false // Optional: Show a collapse all button in the new TreeView
     });
 
-    setProjectName();
     prepareWorkspace();
 
     // Version 0.2.6 and above...
@@ -423,32 +427,33 @@ async function createFolder(path) {
     }
 }
 
+/** 
+ * @param {string} filePath
+ * @param {DSCONFIG_T["localProjects"][number]} [proj]
+ */
+function getProjectPath(filePath, proj) {
+    if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
+    if (!proj) return null;
+
+    const fileDs = path.relative(proj.path, filePath);
+    return proj.PROJECT + "/" + fileDs.replace(/\\/g, '/');
+}
+
 // Called when the document is save
 /** @type {vscode.TextDocument?} */
 let documentToSave = null;
 /** @param {vscode.TextDocument} [doc] */
 async function onDidSaveTextDocument(doc) {
-    if (!IS_DROIDSCRIPT || !PROJECT) return;
-
-    lastActivity = "";
+    if (!IS_DROIDSCRIPT) return;
     documentToSave = doc || documentToSave;
-    if (CONNECTED && documentToSave) {
-        if (documentToSave.uri.fsPath.includes(FOLDER_NAME + "/.droidscript")) return;
-        var file = documentToSave.uri.fsPath.split(FOLDER_NAME + "/")[1];
-        var filePath = PROJECT + "/" + file; // file path on DroidScript server
-        let fileName = documentToSave.fileName;
-        let folderName = filePath.substring(0, filePath.lastIndexOf("/"));
-        let fileContent = documentToSave.getText();
+    if (!documentToSave) return;
+    if (!CONNECTED) return showReloadPopup();
 
-        if (fileName !== CONSTANTS.DSCONFIG) {
-            await ext.updateFile(fileContent, folderName, fileName);
-        }
-        documentToSave = null;
-    }
-    else {
-        lastActivity = "save";
-        showReloadPopup();
-    }
+    const dsFile = getProjectPath(documentToSave.uri.fsPath);
+    if (!dsFile) return;
+
+    await ext.uploadFile(documentToSave.uri.fsPath, path.dirname(dsFile), path.basename(dsFile));
+    documentToSave = null;
 }
 
 // Delete the file on the workspace
@@ -456,28 +461,17 @@ async function onDidSaveTextDocument(doc) {
 let filesToDelete = null;
 /** @param {vscode.FileDeleteEvent} [e] */
 async function onDeleteFile(e) {
-    if (!IS_DROIDSCRIPT || !PROJECT) return;
-
-    lastActivity = "";
+    if (!IS_DROIDSCRIPT) return;
     filesToDelete = e || filesToDelete;
-    if (CONNECTED && filesToDelete) {
-        let fileName, path, file, filePath;
-        for (var i = 0; i < filesToDelete.files.length; i++) {
-            path = filesToDelete.files[i].path;
-            if (!path.includes(FOLDER_NAME + "/.droidscript")) {
-                file = path.split(FOLDER_NAME + "/")[1];
-                filePath = PROJECT + "/" + file; // file path on DroidScript
-                fileName = path.split("/").pop();
-                if (fileName !== "dsconfig.json")
-                    await ext.deleteFile(filePath).catch(catchError);
-            }
-        }
-        filesToDelete = null;
+    if (!filesToDelete) return;
+    if (!CONNECTED) return showReloadPopup();
+
+    for (const file of filesToDelete.files) {
+        const dsFile = getProjectPath(file.fsPath);
+        if (!dsFile) continue;
+        await ext.deleteFile(dsFile).catch(catchError);
     }
-    else {
-        lastActivity = "delete";
-        showReloadPopup();
-    }
+    filesToDelete = null;
 }
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
@@ -492,50 +486,30 @@ const catchError = (error) => {
 let filesToCreate = null;
 /** @param {vscode.FileCreateEvent} [e] */
 async function onCreateFile(e) {
-    if (!IS_DROIDSCRIPT || !PROJECT) return;
-
-    lastActivity = "";
+    if (!IS_DROIDSCRIPT) return;
     filesToCreate = e || filesToCreate;
-    if (CONNECTED && filesToCreate) {
-        let fileName, path, file, filePath, folderName, fileExt, fileContent, response, stats, isFile;
-        for (var i = 0; i < filesToCreate.files.length; i++) {
-            path = filesToCreate.files[i].path;
-            if (!path.includes(FOLDER_NAME + "/.droidscript")) {
-                isFile = !fs.existsSync(path);
-                stats = fs.statSync(path);
-                isFile = stats.isFile();
-                file = path.split(FOLDER_NAME + "/")[1];
-                filePath = PROJECT + "/" + file;
-                fileName = path.split("/").pop();
-                folderName = filePath.substring(0, filePath.lastIndexOf("/"));
-                if (fileName && fileName !== "dsconfig.json") {
-                    if (isFile) {
-                        fileExt = fileName.split(".").pop();
-                        if (fileExt && ext.textFileExtensions.includes(fileExt)) {
-                            fileContent = fs.readFileSync(path, 'utf-8');
-                            response = await ext.updateFile(fileContent, folderName, fileName);
-                        }
-                        else response = await ext.uploadFile(path, folderName, fileName);
+    if (!filesToCreate) return;
+    if (!CONNECTED) return showReloadPopup();
 
-                        if (response.status !== "ok") {
-                            vscode.window.showErrorMessage("An error occured while writing the file in DroidScript.");
-                        }
-                    }
-                    else {
-                        // folder
-                        // const code = `app.MakeFolder("${filePath}")`;
-                        // response = await ext.execute("usr", code);
-                        // console.log( response );
-                    }
-                }
-            }
+    for (const file of filesToCreate.files) {
+        const dsFile = getProjectPath(file.fsPath);
+        if (!dsFile) continue;
+
+        const stats = fs.statSync(file.fsPath);
+
+        if (stats.isFile()) {
+            const response = await ext.uploadFile(file.fsPath, path.dirname(dsFile), path.basename(dsFile));
+            if (response.status !== "ok")
+                vscode.window.showErrorMessage("An error occured while writing the file in DroidScript.");
         }
-        filesToCreate = null;
+        else if (stats.isDirectory()) {
+            // folder
+            // const code = `app.MakeFolder("${filePath}")`;
+            // response = await ext.execute("usr", code);
+            // console.log( response );
+        }
     }
-    else {
-        lastActivity = "create";
-        showReloadPopup();
-    }
+    filesToCreate = null;
 }
 
 // Rename a files in the workspace
@@ -543,31 +517,19 @@ async function onCreateFile(e) {
 let filesToRename = null;
 /** @param {vscode.FileRenameEvent} [e] */
 async function onRenameFile(e) {
-    if (!IS_DROIDSCRIPT || !PROJECT) return;
-
-    lastActivity = "";
+    if (!IS_DROIDSCRIPT) return;
     filesToRename = e || filesToRename;
-    if (CONNECTED && filesToRename) {
-        let fileName, path1, path2, file1, file2, filePath1, filePath2;
-        for (var i = 0; i < filesToRename.files.length; i++) {
-            path1 = filesToRename.files[i].oldUri.path;
-            if (!path1.includes(FOLDER_NAME + "/.droidscript")) {
-                path2 = filesToRename.files[i].newUri.path;
-                file1 = path1.split(FOLDER_NAME + "/")[1];
-                file2 = path2.split(FOLDER_NAME + "/")[1];
-                filePath1 = PROJECT + "/" + file1;
-                filePath2 = PROJECT + "/" + file2;
-                fileName = path1.split("/").pop();
-                if (fileName !== "dsconfig.json")
-                    await ext.renameFile(filePath1, filePath2).catch(catchError);
-            }
-        }
-        filesToRename = null;
+    if (!filesToRename) return;
+    if (!CONNECTED) return showReloadPopup();
+
+    for (const file of filesToRename.files) {
+        const oldDsFile = getProjectPath(file.oldUri.fsPath);
+        const newDsFile = getProjectPath(file.newUri.fsPath);
+        if (!oldDsFile || !newDsFile) continue;
+
+        await ext.renameFile(oldDsFile, newDsFile).catch(catchError);
     }
-    else {
-        lastActivity = "rename";
-        showReloadPopup();
-    }
+    filesToRename = null;
 }
 
 // control buttons
@@ -687,7 +649,7 @@ function onDeleteApp(appName) {
     }
 
     // remove the folder path in the localProjects array
-    let i = DSCONFIG.localProjects.findIndex((/** @type {{ path: string; }} */ m) => m.path == folderPath.fsPath) || -1;
+    let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath.fsPath) || -1;
     if (i >= 0) {
         DSCONFIG.localProjects.splice(i, 1);
         ext.setCONFIG(DSCONFIG);
@@ -701,13 +663,14 @@ function onDeleteApp(appName) {
  */
 async function onRenameApp(appName, newAppName) {
     if (appName == PROJECT) {
-        const info = await ext.getProjectInfo(folderPath.fsPath, appName, async p => fs.existsSync(p));
-        if (!info) return;
-        fs.renameSync(info.file, path.join(folderPath.fsPath, newAppName + "." + ext));
-
-        let proj = DSCONFIG.localProjects.find(m => m.path == folderPath.fsPath);
+        let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
         if (!proj) return;
-        proj.PROJECT = PROJECT;
+        const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
+        if (!info) return;
+
+        fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
+
+        proj.PROJECT = newAppName;
         proj.reload = true;
         setProjectName(newAppName);
 
@@ -717,12 +680,10 @@ async function onRenameApp(appName, newAppName) {
 }
 
 async function onDebugServerStart() {
-    switch (lastActivity) {
-        case "save": await onDidSaveTextDocument(); break;
-        case "delete": await onDeleteFile(); break;
-        case "create": await onCreateFile(); break;
-        case "rename": await onRenameFile(); break;
-    }
+    if (documentToSave) await onDidSaveTextDocument();
+    if (filesToDelete) await onDeleteFile();
+    if (filesToCreate) await onCreateFile();
+    if (filesToRename) await onRenameFile();
 
     showStatusBarItems();
     // Load projects
@@ -778,14 +739,8 @@ async function openDocs(item) {
 async function openProject(item) {
     SELECTED_PROJECT = item.contextValue || item.title;
 
-    if (SELECTED_PROJECT == PROJECT) {
-        return vscode.window.showInformationMessage(`Current folder is already ${SELECTED_PROJECT} app.`);
-    }
-
-    const proj = DSCONFIG.localProjects.find(m => m.PROJECT == SELECTED_PROJECT);
-    if (proj && !fs.existsSync(proj.path)) {
-        return vscode.window.showInformationMessage(`Project has moved or has been deleted`);
-    }
+    let proj = DSCONFIG.localProjects.find(m => m.PROJECT == SELECTED_PROJECT) || null;
+    if (proj && !fs.existsSync(proj.path)) proj = null;
 
     // open existing local project
     if (proj) {
@@ -796,12 +751,15 @@ async function openProject(item) {
         return;
     }
 
-    const curPath = path.resolve(folderPath.fsPath, "..", SELECTED_PROJECT);
-    const selection = await vscode.window.showInformationMessage("Open folder in current location",
-        { modal: true, detail: curPath }, "Current", "Other");
+    let selection = "Other";
+    let folder = "";
+    if (folderPath) {
+        folder = path.resolve(folderPath.fsPath, "..", SELECTED_PROJECT);
+        selection = await vscode.window.showInformationMessage("Open folder in current location",
+            { modal: true, detail: folder }, "Current", "Other") || '';
+    }
 
     if (!selection) return;
-    let folder = curPath;
 
     if (selection == "Other") {
         const folders = await vscode.window.showOpenDialog({
@@ -814,7 +772,7 @@ async function openProject(item) {
         if (!folders || !folders.length) return;
         folder = folders[0].fsPath;
     }
-    else await fs.mkdir(curPath).catch(catchError);
+    else await fs.mkdir(folder).catch(catchError);
 
     if (!fs.existsSync(folder)) return vscode.window.showInformationMessage("Selected folder does not exist.");
 
@@ -823,7 +781,7 @@ async function openProject(item) {
         path: folder,
         PROJECT: SELECTED_PROJECT,
         created: Date.now(),
-        reload: false
+        reload: true
     }
 
     DSCONFIG.localProjects.push(newProj);
@@ -843,7 +801,8 @@ async function openProjectFolder(proj) {
     FOLDER_NAME = path.basename(proj.path);
     folderPath = vscode.Uri.file(proj.path);
     setProjectName(proj.PROJECT);
-    vscode.workspace.updateWorkspaceFolders(Infinity, 0, { uri: folderPath, name: PROJECT })
+    const n = vscode.workspace.workspaceFolders?.length || 0;
+    vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
 
     const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
     if (!info) return;

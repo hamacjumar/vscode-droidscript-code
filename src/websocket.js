@@ -11,6 +11,7 @@ let webSocket = null;
 let Debugger;
 /** @type {vscode.DiagnosticCollection} */
 let diagnosticCollection;
+CONNECTED = false;
 
 let _onOpen = () => { };
 let _onClose = () => { };

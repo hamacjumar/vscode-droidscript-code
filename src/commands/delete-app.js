@@ -1,7 +1,14 @@
 const vscode = require('vscode');
 const ext = require('../extension');
+const rimraf = require("rimraf");
 
-let appName = "";
+
+/** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
+const catchError = (error) => {
+    console.error(error);
+    vscode.window.showErrorMessage(error.message || error);
+    return { status: "bad", error };
+}
 
 /** 
  * @param {import("../ProjectsTreeView").ProjItem} item
@@ -9,21 +16,35 @@ let appName = "";
  * @param {(appName: string) => void} callback 
  */
 module.exports = async function (item, treeView, callback) {
-    if (!item || !item.title) {
+    if (!item || !item.title)
         return vscode.window.showWarningMessage("Selec an app in DroidScript's PROJECTS section!");
+
+    const appName = item.title;
+    /** @type {("Remove"|"Delete"|"Cancel")[]} */
+    const actions = ["Remove", "Delete", "Cancel"];
+    if (!item.path) actions.shift();
+
+    const message = item.path ?
+        `Remove local ${appName} app or delete on device?` :
+        `Delete ${appName} on device?`;
+
+    const selection = await vscode.window.showWarningMessage(message, ...actions)
+
+    if (selection === "Delete") {
+        let response = await ext.deleteFile(appName).catch(catchError);
+        if (response.status !== "ok") return vscode.window.showErrorMessage(`Error removing ${appName} app!`);
     }
 
-    appName = item.title + '';
-    const selection = await vscode.window.showWarningMessage(`Do you want to remove ${appName} app?`, "Remove", "Cancel")
-    if (selection !== "Remove") return;
+    if (selection === "Remove" || selection === "Delete") {
+        try {
+            rimraf.sync(item.path);
+            const n = vscode.workspace.workspaceFolders?.findIndex(f => f.uri.fsPath == item.path);
+            if (n !== undefined) vscode.workspace.updateWorkspaceFolders(n, 1);
+        }
+        catch (e) { catchError(e); }
+    }
 
-    let response = await ext.deleteFile(appName);
-    if (response.status == "ok") {
-        if (treeView) treeView.refresh();
-        if (callback) callback(appName);
-    }
-    else {
-        vscode.window.showErrorMessage(`Error removing ${appName} app!`);
-    }
+    if (treeView) treeView.refresh();
+    if (callback) callback(appName);
 }
 

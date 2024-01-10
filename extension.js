@@ -4,6 +4,7 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 const ext = require('./src/extension');
+const debugServer = require('./src/websocket');
 const createNewApp = require("./src/commands/create-app");
 const deleteApp = require("./src/commands/delete-app");
 const revealExplorer = require("./src/commands/revealExplorer");
@@ -31,18 +32,11 @@ let SELECTED_PROJECT = "";
 
 /** @type {vscode.ExtensionContext} */
 let GlobalContext;
-/** @type {import("ws")|null} */
-let webSocket = null;
-let lastActivity = "";
 /** @type {vscode.StatusBarItem} */
 let connectionStatusBarItem;
 let connectionStatusShown = false;
 /** @type {vscode.StatusBarItem} */
 let projectName;
-/** @type {vscode.OutputChannel} */
-let Debugger;
-/** @type {vscode.DiagnosticCollection} */
-let diagnosticCollection;
 let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
 /** @type {DocsTreeData.TreeDataProvider} */
@@ -51,6 +45,9 @@ let docsTreeDataProvider;
 let projectsTreeDataProvider;
 /** @type {SamplesTreeData.TreeDataProvider} */
 let samplesTreeDataProvider;
+/** @type {ReturnType<debugServer>} */
+let dbgServ;
+let lastActivity = "";
 
 /** @type {vscode.StatusBarItem} */
 let loadButton;
@@ -115,10 +112,12 @@ async function activate(context) {
     DSCONFIG = localData.load();
     ext.setCONFIG(DSCONFIG);
 
+    dbgServ = debugServer(onDebugServerStart, onDebugServerStop);
+
     subscribe = (/** @type {string} */ cmd, /** @type {(...args: any[]) => any} */ fnc) => {
         context.subscriptions.push(vscode.commands.registerCommand("droidscript-code." + cmd, fnc));
     }
-    subscribe("connect", () => { connectToDroidScript(startWebSocket); });
+    subscribe("connect", () => { connectToDroidScript(dbgServ.start); });
     subscribe("loadFiles", loadFiles);
     subscribe("stopApp", stop);
     subscribe("addNewApp", () => {
@@ -134,7 +133,9 @@ async function activate(context) {
     // projects
     subscribe("play", play);
     subscribe("stop", stop);
-    subscribe("runApp", (/** @type {ProjectsTreeData.TreeItem} */ treeItem) => { play(treeItem.label) });
+    subscribe("runApp", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => {
+        play(treeItem.title)
+    });
     subscribe("openApp", openProject);
     subscribe("openAppInNewWindow", openProject);
     subscribe("revealExplorer", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => { revealExplorer(treeItem, projectsTreeDataProvider) });
@@ -226,9 +227,6 @@ async function activate(context) {
 
     GlobalContext = context;
 
-    Debugger = vscode.window.createOutputChannel('DroidScript Logs');
-    diagnosticCollection = vscode.languages.createDiagnosticCollection('DroidScript Errors');
-
     // Create the TreeDataProvider for the new View
 
     projectsTreeDataProvider = new ProjectsTreeData.TreeDataProvider();
@@ -273,7 +271,7 @@ async function activate(context) {
 
 // This method is called when extension is deactivated
 function deactivate() {
-    webSocket = null;
+    dbgServ.stop();
     vscode.commands.executeCommand('livePreview.end');
 }
 
@@ -431,7 +429,7 @@ let documentToSave = null;
 /** @param {vscode.TextDocument} [doc] */
 async function onDidSaveTextDocument(doc) {
     if (!IS_DROIDSCRIPT || !PROJECT) return;
-    // restartWebsocket()
+
     lastActivity = "";
     documentToSave = doc || documentToSave;
     if (CONNECTED && documentToSave) {
@@ -459,7 +457,7 @@ let filesToDelete = null;
 /** @param {vscode.FileDeleteEvent} [e] */
 async function onDeleteFile(e) {
     if (!IS_DROIDSCRIPT || !PROJECT) return;
-    // restartWebsocket()
+
     lastActivity = "";
     filesToDelete = e || filesToDelete;
     if (CONNECTED && filesToDelete) {
@@ -470,13 +468,8 @@ async function onDeleteFile(e) {
                 file = path.split(FOLDER_NAME + "/")[1];
                 filePath = PROJECT + "/" + file; // file path on DroidScript
                 fileName = path.split("/").pop();
-                if (fileName !== "dsconfig.json") {
-                    try {
-                        await ext.deleteFile(filePath);
-                    } catch (error) {
-                        console.log(error.message);
-                    }
-                }
+                if (fileName !== "dsconfig.json")
+                    await ext.deleteFile(filePath).catch(catchError);
             }
         }
         filesToDelete = null;
@@ -500,7 +493,7 @@ let filesToCreate = null;
 /** @param {vscode.FileCreateEvent} [e] */
 async function onCreateFile(e) {
     if (!IS_DROIDSCRIPT || !PROJECT) return;
-    // restartWebsocket()
+
     lastActivity = "";
     filesToCreate = e || filesToCreate;
     if (CONNECTED && filesToCreate) {
@@ -551,7 +544,7 @@ let filesToRename = null;
 /** @param {vscode.FileRenameEvent} [e] */
 async function onRenameFile(e) {
     if (!IS_DROIDSCRIPT || !PROJECT) return;
-    // restartWebsocket()
+
     lastActivity = "";
     filesToRename = e || filesToRename;
     if (CONNECTED && filesToRename) {
@@ -565,13 +558,8 @@ async function onRenameFile(e) {
                 filePath1 = PROJECT + "/" + file1;
                 filePath2 = PROJECT + "/" + file2;
                 fileName = path1.split("/").pop();
-                if (fileName !== "dsconfig.json") {
-                    try {
-                        await ext.renameFile(filePath1, filePath2);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
+                if (fileName !== "dsconfig.json")
+                    await ext.renameFile(filePath1, filePath2).catch(catchError);
             }
         }
         filesToRename = null;
@@ -660,56 +648,42 @@ function hideStatusBarItems() {
     displayConnectionStatus();
 }
 
-/** @param {any} APPNAME */
+/** @param {string} APPNAME */
 function play(APPNAME) {
+    if (!CONNECTED) return showReloadPopup();
 
-    if (!webSocket) return showReloadPopup();
-
-    restartWebsocket();
-    if (Debugger) Debugger.clear();
-    if (diagnosticCollection) diagnosticCollection.clear();
-
-    // Run the app
-    Logger("Running " + (APPNAME || PROJECT) + " app.");
-    Logger("");
+    dbgServ.playApp(APPNAME || PROJECT, "app");
     ext.play(APPNAME || PROJECT);
 }
 
-/** @param {{ label: any; category: any; }} treeItem */
+/** @param {SamplesTreeData.TreeItem} treeItem */
 function runSampleProgram(treeItem) {
 
-    let title = treeItem.label;
-    let category = treeItem.category;
+    let title = (treeItem.label || '') + '';
+    let category = treeItem.category || '';
 
     if (title.includes("♦")) {
         return vscode.window.showWarningMessage("PREMIUM FEATURE. Please subscribe to 'DroidScript Premium' to run this sample.");
     }
 
-    restartWebsocket();
-    if (Debugger) Debugger.clear();
-    if (diagnosticCollection) diagnosticCollection.clear();
-    Logger("Running " + title + " sample.");
-    Logger("");
+    if (!CONNECTED) return showReloadPopup();
+
+    dbgServ.playApp(title, "sample")
     ext.runSample(title, category);
 }
 
 function stop() {
-    if (!webSocket) {
-        showReloadPopup();
-        return;
-    }
-    restartWebsocket();
-    Logger("");
-    Logger("Stopping app.");
+    if (!CONNECTED) return showReloadPopup();
+
+    dbgServ.stopApp();
     ext.stop();
 }
 
 /** @param {string} appName */
 function onDeleteApp(appName) {
     if (appName == PROJECT) {
-        // stop the websocket the deleted app is the current project
-        if (webSocket && webSocket.close) webSocket.close();
-        if (projectName) projectName.hide();
+        dbgServ.stop();
+        projectName?.hide();
     }
 
     // remove the folder path in the localProjects array
@@ -742,35 +716,7 @@ async function onRenameApp(appName, newAppName) {
     }
 }
 
-function restartWebsocket() {
-    if (!webSocket) {
-        startWebSocket();
-    }
-}
-
-function startWebSocket() {
-    if (!webSocket) {
-        webSocket = ext.startWebSocket(wsOnOpen, wsOnMessage, wsOnClose, wsOnError);
-    }
-}
-
-/** @type {NodeJS.Timer} */
-let webSocketKeepAliveTimer;
-async function wsOnOpen() {
-
-    DSCONFIG = localData.load();
-    ext.setCONFIG(DSCONFIG);
-    CONNECTED = true;
-
-    showStatusBarItems();
-    Logger("Connected: " + DSCONFIG.serverIP);
-
-    webSocket?.send("debug");
-    webSocketKeepAliveTimer = setInterval(function () {
-        // Debug.Log("sending keepalive");
-        webSocket?.send("keepalive");
-    }, 5e3);
-
+async function onDebugServerStart() {
     switch (lastActivity) {
         case "save": await onDidSaveTextDocument(); break;
         case "delete": await onDeleteFile(); break;
@@ -778,6 +724,7 @@ async function wsOnOpen() {
         case "rename": await onRenameFile(); break;
     }
 
+    showStatusBarItems();
     // Load projects
     await loadFiles();
 
@@ -786,63 +733,12 @@ async function wsOnOpen() {
     projectsTreeDataProvider.refresh();
 }
 
-/** @param {{ toString: () => any; }} message */
-function wsOnMessage(message) {
-    var msg = message.toString();
-    msg = msg.replace(/%20/g, ' ');
-    if (msg.startsWith("Error:") || msg.startsWith("Script Error:")) {
-        msg = '❌ ' + msg;
-        highlightErrorLine(msg);
-    }
-    Logger(msg);
-}
-
-function wsOnClose() {
-    CONNECTED = false;
-    Logger("Disconnected");
-    if (webSocketKeepAliveTimer) {
-        // @ts-ignore
-        clearInterval(webSocketKeepAliveTimer);
-    }
-    webSocket = null;
+async function onDebugServerStop() {
     hideStatusBarItems();
     setProjectName();
     // pluginsTreeDataProvider.refresh();
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
-}
-
-/** @param {Error} error */
-function wsOnError(error) {
-    Logger("Connection Error: " + error);
-    console.log(error);
-}
-
-/** @param {string} log */
-function Logger(log) {
-    if (Debugger) {
-        Debugger.show(true); // Show the output channel in the OUTPUT panel
-        Debugger.appendLine(log); // Append the log message to the output channel
-    }
-}
-
-/** @param {string} msg */
-function highlightErrorLine(msg) {
-    const str = msg.split("|");
-    let err = str[0].split(":")[1];
-    let line = parseInt(str[1]);
-    let file = str[2].split("/").pop();
-
-    // Search for files matching the provided pattern in the workspace
-    vscode.workspace.findFiles('**/' + file, null, 1).then((files) => {
-        if (files.length > 0) {
-            const fileUri = files[0];
-            const range = new vscode.Range(line - 1, 0, line - 1, 0);
-            const diagnostic = new vscode.Diagnostic(range, err, vscode.DiagnosticSeverity.Error);
-            // diagnosticCollection.set(editor.document.uri, [diagnostic]);
-            diagnosticCollection.set(fileUri, [diagnostic]);
-        }
-    });
 }
 
 // documentations

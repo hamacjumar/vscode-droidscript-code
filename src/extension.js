@@ -8,7 +8,6 @@
 const _axios = require('axios').default;
 const querystring = require('querystring');
 const FormData = require('form-data');
-const WebSocket = require('ws');
 const fs = require('fs');
 const CONSTANTS = require("./CONSTANTS");
 
@@ -294,17 +293,6 @@ async function getProjectInfo(dir, title, existFn) {
 const setCONFIG = (/** @type {DSCONFIG_T} */ config) => { DSCONFIG = config; }
 const getCONFIG = () => DSCONFIG;
 
-// WebSocket
-const startWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpen, /** @type {(this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void} */ onMessage, /** @type {(this: WebSocket, code: number, reason: Buffer) => void} */ onClose, /** @type {(this: WebSocket, err: Error) => void} */ onError) {
-    const url = DSCONFIG.serverIP.replace("http", "ws") || '';
-    const socket = new WebSocket(url);
-    socket.on('open', onOpen);
-    socket.on('message', onMessage);
-    socket.on('close', onClose);
-    socket.on('error', onError);
-    return socket;
-}
-
 /**
  * @param {fs.PathLike} filePath
  * @param {string} folder
@@ -374,7 +362,6 @@ module.exports = {
     setCONFIG,
     getCONFIG,
     login,
-    startWebSocket,
     getServerInfo,
     uploadFile,
     execute,

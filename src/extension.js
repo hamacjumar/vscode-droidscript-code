@@ -8,11 +8,9 @@
 const _axios = require('axios').default;
 const querystring = require('querystring');
 const FormData = require('form-data');
-const WebSocket = require('ws');
 const fs = require('fs');
 const CONSTANTS = require("./CONSTANTS");
 
-CONNECTED = false;
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 
@@ -97,25 +95,6 @@ async function loadFile(path) {
     let options = { responseType: 'arraybuffer' };
     if (textFileExtensions.includes(fileExt)) options = { responseType: 'text' };
     const response = await axios.get(url, options).catch(catchError);
-
-    if (typeof response.status === "undefined") return response.data;
-    return { status: "ok", data: response.data }
-}
-
-/**
- * @param {any} text
- * @param {string} folder
- * @param {any} file
- * @return {Promise<DSServerResponse<{data:any}>>}
- */
-async function updateFile(text, folder, file) {
-    const url = `${DSCONFIG.serverIP}/upload`;
-    const formData = new FormData();
-    formData.append(folder, text, { filename: file });
-
-    const response = await axios.post(url, formData, {
-        headers: formData.getHeaders()
-    }).catch(catchError);
 
     if (typeof response.status === "undefined") return response.data;
     return { status: "ok", data: response.data }
@@ -294,17 +273,6 @@ async function getProjectInfo(dir, title, existFn) {
 const setCONFIG = (/** @type {DSCONFIG_T} */ config) => { DSCONFIG = config; }
 const getCONFIG = () => DSCONFIG;
 
-// WebSocket
-const startWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpen, /** @type {(this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void} */ onMessage, /** @type {(this: WebSocket, code: number, reason: Buffer) => void} */ onClose, /** @type {(this: WebSocket, err: Error) => void} */ onError) {
-    const url = DSCONFIG.serverIP.replace("http", "ws") || '';
-    const socket = new WebSocket(url);
-    socket.on('open', onOpen);
-    socket.on('message', onMessage);
-    socket.on('close', onClose);
-    socket.on('error', onError);
-    return socket;
-}
-
 /**
  * @param {fs.PathLike} filePath
  * @param {string} folder
@@ -358,7 +326,6 @@ module.exports = {
     listFolder,
     createApp,
     loadFile,
-    updateFile,
     deleteFile,
     renameFile,
     getSamples,
@@ -374,7 +341,6 @@ module.exports = {
     setCONFIG,
     getCONFIG,
     login,
-    startWebSocket,
     getServerInfo,
     uploadFile,
     execute,

@@ -16,6 +16,7 @@ const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
 const SamplesTreeData = require("./src/SamplesTreeView");
 const CONSTANTS = require("./src/CONSTANTS");
+const { homePath } = require("./src/util");
 
 // global constants
 const VERSION = 0.28;
@@ -283,27 +284,26 @@ function connectDS() {
 // Assets related functions
 async function extractAssets() {
     try {
-        const homeDir = os.homedir();
         // clear .droidscript folder first
-        fs.removeSync(CONSTANTS.LOCALFOLDER);
+        fs.removeSync(homePath(CONSTANTS.LOCALFOLDER));
 
         await createAssetFolder(CONSTANTS.LOCALFOLDER);
         await createAssetFolder(CONSTANTS.SAMPLES);
-        await createAssetFolder(CONSTANTS.SRC);
-    } catch (err) {
-        console.log(err);
+        await createAssetFolder(CONSTANTS.DEFINITIONS);
+
+        const defFolder = path.join(__dirname, "definitions");
+        for (const file of fs.readdirSync(defFolder))
+            fs.copyFileSync(path.join(defFolder, file), homePath(CONSTANTS.DEFINITIONS, file));
+    } catch (e) {
+        catchError(e);
     }
 }
 
 /** @param {string} paths */
 async function createAssetFolder(paths) {
-    try {
-        const filePath = path.resolve(os.homedir(), paths);
-        fs.mkdirSync(filePath, { recursive: true });
-    } catch (err) {
-        console.log(err);
-    }
+    fs.mkdirSync(homePath(paths), { recursive: true });
 }
+
 async function prepareWorkspace() {
 
     const VSFOLDERS = vscode.workspace.workspaceFolders || [];
@@ -324,7 +324,7 @@ async function prepareWorkspace() {
         vscode.commands.executeCommand("droidscript-code.connect");
     }
     else {
-        const selection = await vscode.window.showInformationMessage("This folder is a DroidScript app.\nConnect to DroidScript?", "Proceed")
+        const selection = await vscode.window.showInformationMessage(proj.PROJECT + " is a DroidScript app.\nConnect to DroidScript?", "Proceed")
         if (selection !== "Proceed") return;
         vscode.commands.executeCommand("droidscript-code.connect");
     }
@@ -792,11 +792,47 @@ async function openProjectFolder(proj) {
     const n = vscode.workspace.workspaceFolders?.length || 0;
     vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
 
-    const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
-    if (!info) return;
+    try {
+        const jsconfigPath = path.join(proj.path, "jsconfig.json");
+        if (!fs.existsSync(jsconfigPath)) {
+            let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "jsconfig.json"), "utf8");
+            jsconfig = replacePaths(jsconfig, true);
+            fs.writeFileSync(jsconfigPath, jsconfig);
+        }
 
-    await openFile(vscode.Uri.file(info.file)).catch(catchError);
-    await openDocs().catch(catchError);
+        const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
+        if (!info) return;
+
+        await openFile(vscode.Uri.file(info.file));
+        await openDocs();
+    } catch (e) {
+        catchError(e);
+    }
+}
+
+/** @param {string} string */
+function replacePaths(string, unix = false) {
+    /** @type {{[x:string]:string}} */
+    const pathDict = {
+        userHome: os.homedir(),
+    };
+
+    if (folderPath) {
+        pathDict.projectFolder = folderPath.fsPath;
+        pathDict.projectName = PROJECT;
+        pathDict.WorkspaceFolder = path.dirname(folderPath.fsPath);
+    }
+
+    /** @param {string} p */
+    const norm = p => p.split(/[/\\]/).join(unix ? path.posix.sep : path.sep)
+
+    return string
+        .replace(/\$\{(\w+)\}/g, (m, v) => {
+            // @ts-ignore
+            if (CONSTANTS[v]) return norm(homePath(CONSTANTS[v]));
+            if (pathDict[v]) return norm(pathDict[v]);
+            return m;
+        })
 }
 
 /** @param {SamplesTreeData.TreeItem} treeItem */
@@ -815,7 +851,7 @@ async function openSample(treeItem) {
 
     const fileName = category == "python" ? name + ".py" : name + ".js";
 
-    const fileUri = vscode.Uri.joinPath(vscode.Uri.file(os.homedir()), CONSTANTS.SAMPLES, fileName);
+    const fileUri = vscode.Uri.file(homePath(CONSTANTS.SAMPLES, fileName));
     fs.writeFileSync(fileUri.fsPath, code, { flag: 'w' });
     const document = await vscode.workspace.openTextDocument(fileUri);
     await vscode.window.showTextDocument(document);

@@ -3,6 +3,11 @@ const ext = require("./extension");
 const localData = require('./local-data');
 const { existsSync } = require('fs');
 
+
+const excludedFoldersAndFiles = ["AABs", "APKs", "SPKs", "PPKs", "Plugins", "Extensions", ".edit", ".node", "~DocSamp", ".redirect.html", "index.html", "_sdk_", ".license.txt"];
+const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1'.split(", ");
+const dataFileExtensions = '.mp4, .mp3, .ppk, .apk, .spk, .png, .jpg, .jpeg, .pdf, .docx, .xlsx, .pptx, .zip'.split(", ");
+
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 
@@ -32,18 +37,23 @@ class TreeDataProvider {
         let data = await ext.listFolder("");
         if (data.status !== "ok") return [];
 
-        var folders = data.list.filter(m => {
-            if (ext.excludedFoldersAndFiles.includes(m)) return false;
-            if (m.includes(".")) {
-                var ftype = m.substring(m.lastIndexOf("."));
-                if (ext.textFileExtensions.includes(ftype))
-                    console.log("textfile", m)
-                if (ext.dataFileExtensions.includes(ftype))
-                    console.log("datafile", m)
+        /** @type {string[]} */
+        const folders = [];
+        for (const title of data.list) {
+            if (title.startsWith("~")) continue;
+            if (excludedFoldersAndFiles.includes(title)) continue;
+            if (title.includes(".")) {
+                var ftype = title.substring(title.lastIndexOf("."));
+                if (textFileExtensions.includes(ftype))
+                    continue; // console.log("textfile", m)
+                if (dataFileExtensions.includes(ftype))
+                    continue; // console.log("datafile", m)
             }
-            if (m.startsWith("~")) return false;
-            return true;
-        });
+            folders.push(title);
+
+            // const info = await ext.getProjectInfo(m, m, ext.fileExist);
+            // if (info) folders.push(info.title);
+        };
 
         const samples = folders.map(title => {
             const proj = DSCONFIG.localProjects.find(e => e.PROJECT === title);

@@ -144,6 +144,8 @@ async function activate(context) {
     subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
         renameApp(args, projectsTreeDataProvider, onRenameApp);
     });
+    subscribe("addTypes", addTypes);
+    subscribe("autoFormat", autoFormat);
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
@@ -406,7 +408,7 @@ async function showReloadPopup() {
  */
 async function writeFile(fileName, content) {
     if (!FOLDER_NAME) return;
-    fs.writeFile(path.join(folderPath.fsPath, fileName), content, { flag: 'w' }).catch(catchError);
+    await fs.writeFile(path.join(folderPath.fsPath, fileName), content, { flag: 'w' }).catch(catchError);
 }
 
 // Create a folder in the workspace
@@ -650,6 +652,43 @@ function onDeleteApp(appName) {
     }
 }
 
+/** @param {ProjectsTreeData.ProjItem} item */
+async function addTypes(item) {
+    if (!item.path) return vscode.window.showWarningMessage("Types can be only enabled on local projects.");
+
+    const jsconfigPath = path.join(item.path, "jsconfig.json");
+    if (fs.existsSync(jsconfigPath)) return;
+
+    const res = await vscode.window.showInformationMessage("This will add jsconfig.json to your project. Proceed?", "Ok", "Cancel");
+    if (res !== "Ok") return;
+
+    try {
+        let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "jsconfig.json"), "utf8");
+        jsconfig = replacePaths(jsconfig, true);
+        fs.writeFileSync(jsconfigPath, jsconfig);
+    } catch (e) {
+        catchError(e);
+    }
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
+async function autoFormat(item) {
+    if (!item.path) return vscode.window.showWarningMessage("AutoFormat can be only enabled on local projects.");
+
+    const settingsPath = path.join(item.path, ".vscode", "settings.json");
+    if (fs.existsSync(settingsPath)) return;
+
+    const res = await vscode.window.showInformationMessage("This will add .vscode/settings.json to your project. Proceed?", "Ok", "Cancel");
+    if (res !== "Ok") return;
+
+    try {
+        fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+        fs.copyFileSync(homePath(CONSTANTS.DEFINITIONS, "settings.json"), settingsPath);
+    } catch (e) {
+        catchError(e);
+    }
+}
+
 /**
  * @param {string} appName
  * @param {string} newAppName
@@ -741,9 +780,9 @@ async function openProject(item) {
 
     /** @type {"Other" | "Current" | undefined} */
     let selection = "Other";
-    let folder = "";
-    if (folderPath) {
-        folder = path.resolve(folderPath.fsPath, "..", SELECTED_PROJECT);
+    let folder = folderPath?.fsPath || DSCONFIG.localProjects[0]?.path || "";
+    if (folder) {
+        folder = path.resolve(folder, "..", SELECTED_PROJECT);
         selection = await vscode.window.showInformationMessage("Open folder in current location",
             { modal: true, detail: folder }, "Current", "Other");
     }
@@ -793,13 +832,6 @@ async function openProjectFolder(proj) {
     vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
 
     try {
-        const jsconfigPath = path.join(proj.path, "jsconfig.json");
-        if (!fs.existsSync(jsconfigPath)) {
-            let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "jsconfig.json"), "utf8");
-            jsconfig = replacePaths(jsconfig, true);
-            fs.writeFileSync(jsconfigPath, jsconfig);
-        }
-
         const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
         if (!info) return;
 

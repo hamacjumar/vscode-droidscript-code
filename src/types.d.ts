@@ -6,6 +6,12 @@ type AsyncReturnType<T extends (...args: any) => Promise<any>> =
 declare var CONNECTED: boolean;
 declare var _dsconf_data: DSCONFIG_T;
 
+type ProjInfo = {
+    title: string,
+    file: string,
+    ext: "js" | "html" | "py"
+}
+
 type LocalProject = {
     // The path of the local project
     path: string;

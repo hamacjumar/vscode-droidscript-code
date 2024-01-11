@@ -14,10 +14,6 @@ const localData = require("./local-data");
 
 let DSCONFIG = localData.load();
 
-const excludedFoldersAndFiles = ["AABs", "APKs", "SPKs", "PPKs", "Plugins", "Extensions", ".edit", ".node", "~DocSamp", ".redirect.html", "index.html", "_sdk_", ".license.txt"];
-const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1'.split(", ");
-const dataFileExtensions = '.mp4, .mp3, .ppk, .apk, .spk, .png, .jpg, .jpeg, .pdf, .docx, .xlsx, .pptx, .zip'.split(", ");
-
 const axios = {
     /** @type {<T>(url: string, res:T) => T} */
     intercept: (url, res) => {
@@ -89,12 +85,7 @@ async function createApp(name, type, template) {
  */
 async function loadFile(path) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(path)}`;
-    const fileExt = path.split('.').pop() || '';
-
-    /** @type {import('axios').AxiosRequestConfig} */
-    let options = { responseType: 'arraybuffer' };
-    if (textFileExtensions.includes(fileExt)) options = { responseType: 'text' };
-    const response = await axios.get(url, options).catch(catchError);
+    const response = await axios.get(url, { responseType: 'arraybuffer' }).catch(catchError);
 
     if (typeof response.status === "undefined") return response.data;
     return { status: "ok", data: response.data }
@@ -253,6 +244,7 @@ async function fileExist(filePath) {
  * @param {string} dir 
  * @param {string} title 
  * @param {(path:string) => Promise<boolean>} existFn
+ * @return {Promise<ProjInfo | null>}
  */
 async function getProjectInfo(dir, title, existFn) {
     /** @type {("py"|"html"|"js"|"")[]} */
@@ -328,9 +320,6 @@ module.exports = {
     getSamples,
     getSampleFile,
     runSample,
-    excludedFoldersAndFiles,
-    textFileExtensions,
-    dataFileExtensions,
     play,
     stop,
     fileExist,

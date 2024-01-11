@@ -15,8 +15,6 @@ module.exports = function (callback) {
     DSCONFIG = localData.load();
     CALLBACK = callback;
 
-    ext.setCONFIG(DSCONFIG);
-
     if (!DSCONFIG.serverIP) showIpPopup();
     else getServerInfo();
 }

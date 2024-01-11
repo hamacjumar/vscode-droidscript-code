@@ -32,10 +32,9 @@ let SELECTED_PROJECT = "";
 
 /** @type {vscode.ExtensionContext} */
 let GlobalContext;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let connectionStatusBarItem;
-let connectionStatusShown = false;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let projectName;
 let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
@@ -48,11 +47,11 @@ let samplesTreeDataProvider;
 /** @type {ReturnType<debugServer>} */
 let dbgServ;
 
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let loadButton;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let playButton;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let stopButton;
 
 /** @type {vscode.Uri} */
@@ -109,14 +108,12 @@ let subscribe = null;
 async function activate(context) {
 
     DSCONFIG = localData.load();
-    ext.setCONFIG(DSCONFIG);
-
     dbgServ = debugServer(onDebugServerStart, onDebugServerStop);
 
     subscribe = (/** @type {string} */ cmd, /** @type {(...args: any[]) => any} */ fnc) => {
         context.subscriptions.push(vscode.commands.registerCommand("droidscript-code." + cmd, fnc));
     }
-    subscribe("connect", () => { connectToDroidScript(dbgServ.start); });
+    subscribe("connect", connectDS);
     subscribe("loadFiles", loadFiles);
     subscribe("stopApp", stop);
     subscribe("addNewApp", () => {
@@ -260,8 +257,6 @@ async function activate(context) {
         extractAssets();
         // set the version
         DSCONFIG.VERSION = VERSION;
-
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
     }
 
@@ -277,6 +272,12 @@ async function activate(context) {
 function deactivate() {
     dbgServ.stop();
     vscode.commands.executeCommand('livePreview.end');
+}
+
+function connectDS() {
+    const proj = DSCONFIG.localProjects.find(p => p.PROJECT === PROJECT)
+    if (proj) openProjectFolder(proj);
+    connectToDroidScript(dbgServ.start);
 }
 
 // Assets related functions
@@ -319,19 +320,14 @@ async function prepareWorkspace() {
     // this is from DroidScript CLI
     if (proj.reload) {
         proj.reload = false;
-
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
-
-        await vscode.commands.executeCommand("droidscript-code.connect");
+        vscode.commands.executeCommand("droidscript-code.connect");
     }
     else {
         const selection = await vscode.window.showInformationMessage("This folder is a DroidScript app.\nConnect to DroidScript?", "Proceed")
         if (selection !== "Proceed") return;
-        await vscode.commands.executeCommand("droidscript-code.connect");
+        vscode.commands.executeCommand("droidscript-code.connect");
     }
-
-    openProjectFolder(proj);
 }
 
 /** @param {vscode.Uri} filePath */
@@ -429,7 +425,7 @@ async function createFolder(path) {
 
 /** 
  * @param {string} filePath
- * @param {DSCONFIG_T["localProjects"][number]} [proj]
+ * @param {LocalProject} [proj]
  */
 function getProjectPath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
@@ -534,7 +530,6 @@ async function onRenameFile(e) {
 
 // control buttons
 function displayControlButtons() {
-
     if (!PROJECT) return;
 
     if (!loadButton) {
@@ -568,14 +563,13 @@ function displayControlButtons() {
 
 // connection status
 function displayConnectionStatus() {
-    if (connectionStatusShown) {
+    if (connectionStatusBarItem) {
         if (CONNECTED) connectionStatusBarItem.text = "$(radio-tower) Connected: " + DSCONFIG.serverIP; // Wi-Fi icon
         else connectionStatusBarItem.text = "$(circle-slash) Connect to droidscript"; // Wi-Fi icon
     }
     else {
         connectionStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
         connectionStatusBarItem.show();
-        connectionStatusShown = true;
         connectionStatusBarItem.tooltip = "DroidScript Connection Status";
         connectionStatusBarItem.command = "droidscript-code.connect"; // Replace with your command ID or leave it empty
         if (CONNECTED) connectionStatusBarItem.text = "$(radio-tower) Connected: " + DSCONFIG.serverIP; // Wi-Fi icon
@@ -604,9 +598,9 @@ function showStatusBarItems() {
 }
 
 function hideStatusBarItems() {
-    loadButton.hide();
-    playButton.hide();
-    stopButton.hide();
+    loadButton?.hide();
+    playButton?.hide();
+    stopButton?.hide();
     displayConnectionStatus();
 }
 
@@ -645,14 +639,13 @@ function stop() {
 function onDeleteApp(appName) {
     if (appName == PROJECT) {
         dbgServ.stop();
-        projectName?.hide();
+        setProjectName();
     }
 
     // remove the folder path in the localProjects array
     let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath.fsPath) || -1;
     if (i >= 0) {
         DSCONFIG.localProjects.splice(i, 1);
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
     }
 }
@@ -662,21 +655,17 @@ function onDeleteApp(appName) {
  * @param {string} newAppName
  */
 async function onRenameApp(appName, newAppName) {
-    if (appName == PROJECT) {
-        let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
-        if (!proj) return;
-        const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
-        if (!info) return;
+    let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
+    if (!proj) return;
+    const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
+    if (!info) return;
 
-        fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
+    fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
 
-        proj.PROJECT = newAppName;
-        proj.reload = true;
-        setProjectName(newAppName);
-
-        ext.setCONFIG(DSCONFIG);
-        localData.save(DSCONFIG);
-    }
+    proj.PROJECT = newAppName;
+    proj.reload = true;
+    openProjectFolder(proj);
+    localData.save(DSCONFIG);
 }
 
 async function onDebugServerStart() {
@@ -703,7 +692,7 @@ async function onDebugServerStop() {
 }
 
 // documentations
-/** @type {vscode.WebviewPanel | null} */
+/** @type {vscode.WebviewPanel?} */
 let docsPanel;
 /** @param {DocsTreeData.TreeItem} [item] */
 async function openDocs(item) {
@@ -745,23 +734,23 @@ async function openProject(item) {
     // open existing local project
     if (proj) {
         proj.reload = true;
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
         openProjectFolder(proj);
         return;
     }
 
+    /** @type {"Other" | "Current" | undefined} */
     let selection = "Other";
     let folder = "";
     if (folderPath) {
         folder = path.resolve(folderPath.fsPath, "..", SELECTED_PROJECT);
         selection = await vscode.window.showInformationMessage("Open folder in current location",
-            { modal: true, detail: folder }, "Current", "Other") || '';
+            { modal: true, detail: folder }, "Current", "Other");
     }
 
     if (!selection) return;
 
-    if (selection == "Other") {
+    if (selection === "Other") {
         const folders = await vscode.window.showOpenDialog({
             canSelectFiles: false,
             canSelectFolders: true,
@@ -776,7 +765,7 @@ async function openProject(item) {
 
     if (!fs.existsSync(folder)) return vscode.window.showInformationMessage("Selected folder does not exist.");
 
-    /** @type {DSCONFIG_T["localProjects"][number]} */
+    /** @type {LocalProject} */
     const newProj = {
         path: folder,
         PROJECT: SELECTED_PROJECT,
@@ -785,7 +774,6 @@ async function openProject(item) {
     }
 
     DSCONFIG.localProjects.push(newProj);
-    ext.setCONFIG(DSCONFIG);
     localData.save(DSCONFIG);
 
     openProjectFolder(newProj);
@@ -795,7 +783,7 @@ async function openProject(item) {
 }
 
 /** 
- * @param {DSCONFIG_T["localProjects"][number]} proj
+ * @param {LocalProject} proj
  */
 async function openProjectFolder(proj) {
     FOLDER_NAME = path.basename(proj.path);

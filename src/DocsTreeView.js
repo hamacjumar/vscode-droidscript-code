@@ -43,7 +43,7 @@ class TreeDataProvider {
  */
 async function getNavs(item, onEmpty) {
     const file = getFile(item.file);
-    if (!DSCONFIG) DSCONFIG = localData.load();
+    DSCONFIG = localData.load();
     const dir1 = path.dirname(file);
     const dir = dir1 === "." ? "" : dir1 + "/";
 
@@ -94,7 +94,7 @@ class TreeItem extends vscode.TreeItem {
 let latestVer = "";
 /** @param {string} file */
 function getUrl(file) {
-    if (!DSCONFIG) DSCONFIG = localData.load();
+    DSCONFIG = localData.load();
     const host = CONNECTED ?
         DSCONFIG.serverIP + "/.edit/docs/" :
         "https://droidscript.github.io/Docs/docs/" + latestVer;

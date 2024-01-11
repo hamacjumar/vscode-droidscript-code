@@ -27,7 +27,7 @@ class TreeDataProvider {
             return [];
         }
 
-        if (!DSCONFIG) DSCONFIG = localData.load();
+        DSCONFIG = localData.load();
 
         let data = await ext.listFolder("");
         if (data.status !== "ok") return [];

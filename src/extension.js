@@ -10,9 +10,9 @@ const querystring = require('querystring');
 const FormData = require('form-data');
 const fs = require('fs');
 const CONSTANTS = require("./CONSTANTS");
+const localData = require("./local-data");
 
-/** @type {DSCONFIG_T} */
-let DSCONFIG;
+let DSCONFIG = localData.load();
 
 const excludedFoldersAndFiles = ["AABs", "APKs", "SPKs", "PPKs", "Plugins", "Extensions", ".edit", ".node", "~DocSamp", ".redirect.html", "index.html", "_sdk_", ".license.txt"];
 const textFileExtensions = 'html, js, css, txt, md, json, xml, csv, yaml, yml, sql, php, py, rb, java, c, cpp, h, cs, pl, sh, ps1'.split(", ");
@@ -270,9 +270,6 @@ async function getProjectInfo(dir, title, existFn) {
     return { title, file: `${dir}/${title}.${projType}`, ext: projType }
 }
 
-const setCONFIG = (/** @type {DSCONFIG_T} */ config) => { DSCONFIG = config; }
-const getCONFIG = () => DSCONFIG;
-
 /**
  * @param {fs.PathLike} filePath
  * @param {string} folder
@@ -338,8 +335,6 @@ module.exports = {
     stop,
     fileExist,
     getProjectInfo,
-    setCONFIG,
-    getCONFIG,
     login,
     getServerInfo,
     uploadFile,

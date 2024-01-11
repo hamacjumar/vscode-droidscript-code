@@ -97,4 +97,5 @@ Completion items for `app`, `ui` and `MUI` scopes are provided in the extension.
 <br>
 
 #### Author
-- **GineersLife:** Jumar Hamac - *hamacjumar@gmail.com*
+- **GineersLife:** - *hamacjumar@gmail.com*
+- **Symbroson:** - *alex-Symbroson@gmail.com*

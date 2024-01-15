@@ -61,6 +61,10 @@
     ],
     "commands": [
       {
+        "command": "droidscript-code.runApp",
+        "title": "Run"
+      },
+      {
         "command": "droidscript-code.addNewApp",
         "title": "Create new app",
         "icon": {
@@ -69,29 +73,13 @@
         }
       },
       {
-        "command": "droidscript-code.refreshProjects",
-        "title": "Refresh",
-        "icon": "$(sync)"
-      },
-      {
-        "command": "droidscript-code.revealExplorer",
-        "title": "Reveal in File Explorer"
-      },
-      {
-        "command": "droidscript-code.deleteApp",
-        "title": "Remove"
-      },
-      {
         "command": "droidscript-code.renameApp",
         "title": "Rename"
       },
       {
-        "command": "droidscript-code.openSample",
-        "title": "Open"
-      },
-      {
-        "command": "droidscript-code.runSample",
-        "title": "Run"
+        "command": "droidscript-code.refreshProjects",
+        "title": "Refresh",
+        "icon": "$(sync)"
       },
       {
         "command": "droidscript-code.openApp",
@@ -102,7 +90,27 @@
         "title": "Open in New Window"
       },
       {
-        "command": "droidscript-code.runApp",
+        "command": "droidscript-code.revealExplorer",
+        "title": "Reveal in File Explorer"
+      },
+      {
+        "command": "droidscript-code.deleteApp",
+        "title": "Remove"
+      },
+      {
+        "command": "droidscript-code.addTypes",
+        "title": "Enable Types"
+      },
+      {
+        "command": "droidscript-code.autoFormat",
+        "title": "Format On Save"
+      },
+      {
+        "command": "droidscript-code.openSample",
+        "title": "Open"
+      },
+      {
+        "command": "droidscript-code.runSample",
         "title": "Run"
       }
     ],
@@ -123,42 +131,52 @@
         {
           "command": "droidscript-code.openSample",
           "when": "view == droidscript-samples && viewItem not in droidscript-code.sampleTypes",
-          "group": "navigation"
+          "group": "3_open"
         },
         {
           "command": "droidscript-code.runSample",
           "when": "view == droidscript-samples && viewItem not in droidscript-code.sampleTypes",
-          "group": "navigation"
-        },
-        {
-          "command": "droidscript-code.openApp",
-          "when": "view == droidscript-projects",
-          "group": "navigation"
-        },
-        {
-          "command": "droidscript-code.openAppInNewWindow",
-          "when": "view == droidscript-projects",
-          "group": "navigation"
-        },
-        {
-          "command": "droidscript-code.revealExplorer",
-          "when": "view == droidscript-projects",
-          "group": "navigation"
+          "group": "1_run"
         },
         {
           "command": "droidscript-code.runApp",
           "when": "view == droidscript-projects",
-          "group": "1_diff"
+          "group": "1_run"
         },
         {
           "command": "droidscript-code.renameApp",
           "when": "view == droidscript-projects",
-          "group": "1_diff"
+          "group": "2_workspace"
         },
         {
           "command": "droidscript-code.addNewApp",
           "when": "view == droidscript-projects",
+          "group": "2_workspace@2"
+        },
+        {
+          "command": "droidscript-code.openApp",
+          "when": "view == droidscript-projects",
           "group": "3_open"
+        },
+        {
+          "command": "droidscript-code.openAppInNewWindow",
+          "when": "view == droidscript-projects",
+          "group": "3_open"
+        },
+        {
+          "command": "droidscript-code.revealExplorer",
+          "when": "view == droidscript-projects",
+          "group": "3_open"
+        },
+        {
+          "command": "droidscript-code.addTypes",
+          "when": "view == droidscript-projects",
+          "group": "4_configure"
+        },
+        {
+          "command": "droidscript-code.autoFormat",
+          "when": "view == droidscript-projects",
+          "group": "4_configure"
         },
         {
           "command": "droidscript-code.deleteApp",

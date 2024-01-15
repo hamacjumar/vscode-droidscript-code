@@ -16,6 +16,7 @@ const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
 const SamplesTreeData = require("./src/SamplesTreeView");
 const CONSTANTS = require("./src/CONSTANTS");
+const { homePath } = require("./src/util");
 
 // global constants
 const VERSION = 0.28;
@@ -32,10 +33,9 @@ let SELECTED_PROJECT = "";
 
 /** @type {vscode.ExtensionContext} */
 let GlobalContext;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let connectionStatusBarItem;
-let connectionStatusShown = false;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let projectName;
 let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
@@ -48,11 +48,11 @@ let samplesTreeDataProvider;
 /** @type {ReturnType<debugServer>} */
 let dbgServ;
 
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let loadButton;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let playButton;
-/** @type {vscode.StatusBarItem} */
+/** @type {vscode.StatusBarItem?} */
 let stopButton;
 
 /** @type {vscode.Uri} */
@@ -109,14 +109,12 @@ let subscribe = null;
 async function activate(context) {
 
     DSCONFIG = localData.load();
-    ext.setCONFIG(DSCONFIG);
-
     dbgServ = debugServer(onDebugServerStart, onDebugServerStop);
 
     subscribe = (/** @type {string} */ cmd, /** @type {(...args: any[]) => any} */ fnc) => {
         context.subscriptions.push(vscode.commands.registerCommand("droidscript-code." + cmd, fnc));
     }
-    subscribe("connect", () => { connectToDroidScript(dbgServ.start); });
+    subscribe("connect", connectDS);
     subscribe("loadFiles", loadFiles);
     subscribe("stopApp", stop);
     subscribe("addNewApp", () => {
@@ -146,6 +144,8 @@ async function activate(context) {
     subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
         renameApp(args, projectsTreeDataProvider, onRenameApp);
     });
+    subscribe("addTypes", addTypes);
+    subscribe("autoFormat", autoFormat);
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
@@ -260,8 +260,6 @@ async function activate(context) {
         extractAssets();
         // set the version
         DSCONFIG.VERSION = VERSION;
-
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
     }
 
@@ -279,30 +277,35 @@ function deactivate() {
     vscode.commands.executeCommand('livePreview.end');
 }
 
+function connectDS() {
+    const proj = DSCONFIG.localProjects.find(p => p.PROJECT === PROJECT)
+    if (proj) openProjectFolder(proj);
+    connectToDroidScript(dbgServ.start);
+}
+
 // Assets related functions
 async function extractAssets() {
     try {
-        const homeDir = os.homedir();
         // clear .droidscript folder first
-        fs.removeSync(CONSTANTS.LOCALFOLDER);
+        fs.removeSync(homePath(CONSTANTS.LOCALFOLDER));
 
         await createAssetFolder(CONSTANTS.LOCALFOLDER);
         await createAssetFolder(CONSTANTS.SAMPLES);
-        await createAssetFolder(CONSTANTS.SRC);
-    } catch (err) {
-        console.log(err);
+        await createAssetFolder(CONSTANTS.DEFINITIONS);
+
+        const defFolder = path.join(__dirname, "definitions");
+        for (const file of fs.readdirSync(defFolder))
+            fs.copyFileSync(path.join(defFolder, file), homePath(CONSTANTS.DEFINITIONS, file));
+    } catch (e) {
+        catchError(e);
     }
 }
 
 /** @param {string} paths */
 async function createAssetFolder(paths) {
-    try {
-        const filePath = path.resolve(os.homedir(), paths);
-        fs.mkdirSync(filePath, { recursive: true });
-    } catch (err) {
-        console.log(err);
-    }
+    fs.mkdirSync(homePath(paths), { recursive: true });
 }
+
 async function prepareWorkspace() {
 
     const VSFOLDERS = vscode.workspace.workspaceFolders || [];
@@ -319,19 +322,14 @@ async function prepareWorkspace() {
     // this is from DroidScript CLI
     if (proj.reload) {
         proj.reload = false;
-
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
-
-        await vscode.commands.executeCommand("droidscript-code.connect");
+        vscode.commands.executeCommand("droidscript-code.connect");
     }
     else {
-        const selection = await vscode.window.showInformationMessage("This folder is a DroidScript app.\nConnect to DroidScript?", "Proceed")
+        const selection = await vscode.window.showInformationMessage(proj.PROJECT + " is a DroidScript app.\nConnect to DroidScript?", "Proceed")
         if (selection !== "Proceed") return;
-        await vscode.commands.executeCommand("droidscript-code.connect");
+        vscode.commands.executeCommand("droidscript-code.connect");
     }
-
-    openProjectFolder(proj);
 }
 
 /** @param {vscode.Uri} filePath */
@@ -410,7 +408,7 @@ async function showReloadPopup() {
  */
 async function writeFile(fileName, content) {
     if (!FOLDER_NAME) return;
-    fs.writeFile(path.join(folderPath.fsPath, fileName), content, { flag: 'w' }).catch(catchError);
+    await fs.writeFile(path.join(folderPath.fsPath, fileName), content, { flag: 'w' }).catch(catchError);
 }
 
 // Create a folder in the workspace
@@ -429,7 +427,7 @@ async function createFolder(path) {
 
 /** 
  * @param {string} filePath
- * @param {DSCONFIG_T["localProjects"][number]} [proj]
+ * @param {LocalProject} [proj]
  */
 function getProjectPath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
@@ -534,7 +532,6 @@ async function onRenameFile(e) {
 
 // control buttons
 function displayControlButtons() {
-
     if (!PROJECT) return;
 
     if (!loadButton) {
@@ -568,14 +565,13 @@ function displayControlButtons() {
 
 // connection status
 function displayConnectionStatus() {
-    if (connectionStatusShown) {
+    if (connectionStatusBarItem) {
         if (CONNECTED) connectionStatusBarItem.text = "$(radio-tower) Connected: " + DSCONFIG.serverIP; // Wi-Fi icon
         else connectionStatusBarItem.text = "$(circle-slash) Connect to droidscript"; // Wi-Fi icon
     }
     else {
         connectionStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
         connectionStatusBarItem.show();
-        connectionStatusShown = true;
         connectionStatusBarItem.tooltip = "DroidScript Connection Status";
         connectionStatusBarItem.command = "droidscript-code.connect"; // Replace with your command ID or leave it empty
         if (CONNECTED) connectionStatusBarItem.text = "$(radio-tower) Connected: " + DSCONFIG.serverIP; // Wi-Fi icon
@@ -604,9 +600,9 @@ function showStatusBarItems() {
 }
 
 function hideStatusBarItems() {
-    loadButton.hide();
-    playButton.hide();
-    stopButton.hide();
+    loadButton?.hide();
+    playButton?.hide();
+    stopButton?.hide();
     displayConnectionStatus();
 }
 
@@ -645,15 +641,51 @@ function stop() {
 function onDeleteApp(appName) {
     if (appName == PROJECT) {
         dbgServ.stop();
-        projectName?.hide();
+        setProjectName();
     }
 
     // remove the folder path in the localProjects array
     let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath.fsPath) || -1;
     if (i >= 0) {
         DSCONFIG.localProjects.splice(i, 1);
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
+    }
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
+async function addTypes(item) {
+    if (!item.path) return vscode.window.showWarningMessage("Types can be only enabled on local projects.");
+
+    const jsconfigPath = path.join(item.path, "jsconfig.json");
+    if (fs.existsSync(jsconfigPath)) return;
+
+    const res = await vscode.window.showInformationMessage("This will add jsconfig.json to your project. Proceed?", "Ok", "Cancel");
+    if (res !== "Ok") return;
+
+    try {
+        let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "jsconfig.json"), "utf8");
+        jsconfig = replacePaths(jsconfig, true);
+        fs.writeFileSync(jsconfigPath, jsconfig);
+    } catch (e) {
+        catchError(e);
+    }
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
+async function autoFormat(item) {
+    if (!item.path) return vscode.window.showWarningMessage("AutoFormat can be only enabled on local projects.");
+
+    const settingsPath = path.join(item.path, ".vscode", "settings.json");
+    if (fs.existsSync(settingsPath)) return;
+
+    const res = await vscode.window.showInformationMessage("This will add .vscode/settings.json to your project. Proceed?", "Ok", "Cancel");
+    if (res !== "Ok") return;
+
+    try {
+        fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+        fs.copyFileSync(homePath(CONSTANTS.DEFINITIONS, "settings.json"), settingsPath);
+    } catch (e) {
+        catchError(e);
     }
 }
 
@@ -662,21 +694,17 @@ function onDeleteApp(appName) {
  * @param {string} newAppName
  */
 async function onRenameApp(appName, newAppName) {
-    if (appName == PROJECT) {
-        let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
-        if (!proj) return;
-        const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
-        if (!info) return;
+    let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
+    if (!proj) return;
+    const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
+    if (!info) return;
 
-        fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
+    fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
 
-        proj.PROJECT = newAppName;
-        proj.reload = true;
-        setProjectName(newAppName);
-
-        ext.setCONFIG(DSCONFIG);
-        localData.save(DSCONFIG);
-    }
+    proj.PROJECT = newAppName;
+    proj.reload = true;
+    openProjectFolder(proj);
+    localData.save(DSCONFIG);
 }
 
 async function onDebugServerStart() {
@@ -703,7 +731,7 @@ async function onDebugServerStop() {
 }
 
 // documentations
-/** @type {vscode.WebviewPanel | null} */
+/** @type {vscode.WebviewPanel?} */
 let docsPanel;
 /** @param {DocsTreeData.TreeItem} [item] */
 async function openDocs(item) {
@@ -745,23 +773,23 @@ async function openProject(item) {
     // open existing local project
     if (proj) {
         proj.reload = true;
-        ext.setCONFIG(DSCONFIG);
         localData.save(DSCONFIG);
         openProjectFolder(proj);
         return;
     }
 
+    /** @type {"Other" | "Current" | undefined} */
     let selection = "Other";
-    let folder = "";
-    if (folderPath) {
-        folder = path.resolve(folderPath.fsPath, "..", SELECTED_PROJECT);
+    let folder = folderPath?.fsPath || DSCONFIG.localProjects[0]?.path || "";
+    if (folder) {
+        folder = path.resolve(folder, "..", SELECTED_PROJECT);
         selection = await vscode.window.showInformationMessage("Open folder in current location",
-            { modal: true, detail: folder }, "Current", "Other") || '';
+            { modal: true, detail: folder }, "Current", "Other");
     }
 
     if (!selection) return;
 
-    if (selection == "Other") {
+    if (selection === "Other") {
         const folders = await vscode.window.showOpenDialog({
             canSelectFiles: false,
             canSelectFolders: true,
@@ -776,7 +804,7 @@ async function openProject(item) {
 
     if (!fs.existsSync(folder)) return vscode.window.showInformationMessage("Selected folder does not exist.");
 
-    /** @type {DSCONFIG_T["localProjects"][number]} */
+    /** @type {LocalProject} */
     const newProj = {
         path: folder,
         PROJECT: SELECTED_PROJECT,
@@ -785,7 +813,6 @@ async function openProject(item) {
     }
 
     DSCONFIG.localProjects.push(newProj);
-    ext.setCONFIG(DSCONFIG);
     localData.save(DSCONFIG);
 
     openProjectFolder(newProj);
@@ -795,7 +822,7 @@ async function openProject(item) {
 }
 
 /** 
- * @param {DSCONFIG_T["localProjects"][number]} proj
+ * @param {LocalProject} proj
  */
 async function openProjectFolder(proj) {
     FOLDER_NAME = path.basename(proj.path);
@@ -804,11 +831,40 @@ async function openProjectFolder(proj) {
     const n = vscode.workspace.workspaceFolders?.length || 0;
     vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
 
-    const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
-    if (!info) return;
+    try {
+        const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
+        if (!info) return;
 
-    await openFile(vscode.Uri.file(info.file)).catch(catchError);
-    await openDocs().catch(catchError);
+        await openFile(vscode.Uri.file(info.file));
+        await openDocs();
+    } catch (e) {
+        catchError(e);
+    }
+}
+
+/** @param {string} string */
+function replacePaths(string, unix = false) {
+    /** @type {{[x:string]:string}} */
+    const pathDict = {
+        userHome: os.homedir(),
+    };
+
+    if (folderPath) {
+        pathDict.projectFolder = folderPath.fsPath;
+        pathDict.projectName = PROJECT;
+        pathDict.WorkspaceFolder = path.dirname(folderPath.fsPath);
+    }
+
+    /** @param {string} p */
+    const norm = p => p.split(/[/\\]/).join(unix ? path.posix.sep : path.sep)
+
+    return string
+        .replace(/\$\{(\w+)\}/g, (m, v) => {
+            // @ts-ignore
+            if (CONSTANTS[v]) return norm(homePath(CONSTANTS[v]));
+            if (pathDict[v]) return norm(pathDict[v]);
+            return m;
+        })
 }
 
 /** @param {SamplesTreeData.TreeItem} treeItem */
@@ -827,7 +883,7 @@ async function openSample(treeItem) {
 
     const fileName = category == "python" ? name + ".py" : name + ".js";
 
-    const fileUri = vscode.Uri.joinPath(vscode.Uri.file(os.homedir()), CONSTANTS.SAMPLES, fileName);
+    const fileUri = vscode.Uri.file(homePath(CONSTANTS.SAMPLES, fileName));
     fs.writeFileSync(fileUri.fsPath, code, { flag: 'w' });
     const document = await vscode.workspace.openTextDocument(fileUri);
     await vscode.window.showTextDocument(document);

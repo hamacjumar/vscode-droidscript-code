@@ -18,7 +18,6 @@ const data = {
 };
 
 function load() {
-    // @ts-ignore
     if (global._dsconf_data) return global._dsconf_data;
     const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
 
@@ -30,9 +29,7 @@ function load() {
         adjust(data);
     }
 
-    // @ts-ignore
-    global._dsconf_data = data;
-    return data;
+    return global._dsconf_data = data;
 }
 
 /** @param {DSCONFIG_T} CONFIG */

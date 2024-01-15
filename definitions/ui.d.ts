@@ -1,557 +1,479 @@
-/** all types */
-declare type all = any;
-/** Boolean */
-declare type bin = boolean;
-/** app object */
-declare type dso = AppObject;
-/** game object */
-declare type gvo = GameObject;
-/** smartwatch object */
-declare type swo = SmartWatchObject;
-/** JavaScript object */
-declare type jso = JSObject;
-/** Function */
-declare type fnc = Function;
-/** List */
-declare type lst = any[];
-/** Number */
-declare type num = number;
-/** Object */
-declare type obj = object;
-/** String */
-declare type str = string;
+declare var ui: UI;
+declare type UIObject = UIAccordion | UIAppBar | UIBottomNavbar | UIButton | UIButtonGroup | UICheckbox | UICheckboxGroup | UIChip | UIDatePicker | UIDialog | UIDivider | UIDrawer | UIDropdown | UIFAB | UIImage | UILayout | UIList | UIMenu | UIProgress | UIRadioGroup | UISelect | UISlider | UIStepper | UISwitch | UISwitchGroup | UITabs | UIText | UITextField | UITimePicker | UITreeView | UIWebView | UIColorPicker | UIDateTimePicker | UIPopup | UIProgressDialog;
 /** ui object */
 declare type uio = UIObject;
-/** of objects */
-declare type lst_obj = any[];
-/** of numbers */
-declare type lst_num = number[];
-/** bytes */
-declare type num_byt = number;
-/** hexadecimal 0xrrggbb */
-declare type num_col = number;
-/** datetime in milliseconds (from JS Date object) */
-declare type num_dat = number;
-/** angle in degrees (0..360) */
-declare type num_deg = number;
-/** 0-255 */
-declare type num_dhx = number;
-/** factor */
-declare type num_fac = number;
-/** float */
-declare type num_flt = number;
-/** frames per second */
-declare type num_fps = number;
-/** fraction (0..1) */
-declare type num_frc = number;
-/** gigabytes */
-declare type num_gbt = number;
-/** hertz */
-declare type num_hrz = number;
-/** integer */
-declare type num_int = number;
-/** meters */
-declare type num_met = number;
-/** milliseconds */
-declare type num_mls = number;
-/** maximum transmission unit */
-declare type num_mtu = number;
-/** percent */
-declare type num_prc = number;
-/** pixel */
-declare type num_pxl = number;
-/** angle in radient (0..2*π) */
-declare type num_rad = number;
-/** seconds */
-declare type num_sec = number;
-/** account Email */
-declare type str_acc = string;
-/** base64 encoded */
-declare type str_b64 = string;
-/** <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... */
-declare type str_col = string;
-/** comma “,” separated */
-declare type str_com = string|string[];
-/** comma separated email addresses or names */
-declare type str_eml = string;
-/** float */
-declare type str_flt = string;
-/** format */
-declare type str_fmt = string;
-/** html code */
-declare type str_htm = string;
-/** hexadecimal “00”..“FF” */
-declare type str_hex = string;
-/** integer */
-declare type str_int = string;
-/** javascript code */
-declare type str_jsc = string;
-/** JSON object */
-declare type str_jsn = string;
-/** separated */
-declare type str_lst = string;
-/** mimetype */
-declare type str_mim = string;
-/** mode */
-declare type str_mod = string;
-/** number */
-declare type str_num = string;
-/** object id “#id” */
-declare type str_oid = string;
-/** “Default”, “Portrait”, “Landscape” */
-declare type str_ort = string;
-/** pipe “|” separated */
-declare type str_pip = string;
-/** file path or content:// uri */
-declare type str_ptc = string;
-/** path to file or folder ( “/absolute/...” or “relative/...” ) */
-declare type str_pth = string;
-/** path to file ( “/absolute/...” or “relative/...” ) */
-declare type str_ptf = string;
-/** path to folder ( “/absolute/...” or “relative/...” ) */
-declare type str_ptd = string;
-/** “/absolute/...” path to a file */
-declare type str_pfa = string;
-/** “relative/...” path to a file */
-declare type str_pfr = string;
-/** “/absolute/...” path to a folder */
-declare type str_pda = string;
-/** “relative/...” path to a folder */
-declare type str_pdr = string;
-/** integer in pixels */
-declare type str_pxl = string;
-/** semicolon “;” separated */
-declare type str_smc = string;
-/** sql code */
-declare type str_sql = string;
-/** style */
-declare type str_sty = string;
-/** URI encoded */
-declare type str_uri = string;
-/** url path */
-declare type str_url = string;
+declare class App { }
 
-
-class UI {
+declare class UI {
 
 	/**
 	 * AddAccordion
 	 * @param parent The parent layout where to add the text.
 	 * @param titles An array of accordion titles.
-	 * @param options one or a combination of the following: `Square` \n `Layout type `Linear` or `Absolute`
-	 * @param width Fraction of the screen width: [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Accordion Component
+	 * @param options one or a combination of the following: `Square` 
+ `Layout type `Linear` or `Absolute`
+	 * @param width `Fraction of the screen width: [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addAccordion(parent: obj, titles: obj, options: str_com, width: num, height: num): obj;
+	addAccordion(parent: obj, titles: obj, options?: str_com, width?: num, height?: num): UIAccordion;
 
 	/**
 	 * AddAppBar
 	 * @param parent The parent layout where to add the AppBar
-	 * @param title The title text of the appbar
-	 * @param options one or a combination of the following: \n `Menu` : Adds a menu icon on the left \n `Primary` `Secondary` `Transparent` `Inherit` `Default` : Adds a color \n `Absolute` `Static` `Fixed` `Relative` : Adds a positioning
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return AppBar Component
+	 * @param title `The title text of the appbar`
+	 * @param options one or a combination of the following: 
+ `Menu` : Adds a menu icon on the left 
+ `Primary` `Secondary` `Transparent` `Inherit` `Default` : Adds a color 
+ `Absolute` `Static` `Fixed` `Relative` : Adds a positioning
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addAppBar(parent: obj, title: str, options: str_com, width: num, height: num): obj;
+	addAppBar(parent: obj, title: str, options?: str_com, width?: num, height?: num): UIAppBar;
 
 	/**
 	 * AddBottomNavbar
 	 * @param parent The parent layout where to add the BottomNavbar
 	 * @param navs An array whose elements are of the form `[ "Title", "Icon" ]`
 	 * @param options one or a combination of the following: `Hidelabels`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return BottomNavbar Component
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addBottomNavbar(parent: obj, navs: lst, options: str_com, width: num, height: num): obj;
+	addBottomNavbar(parent: obj, navs: lst, options?: str_com, width?: num, height?: num): UIBottomNavbar;
 
 	/**
 	 * AddButton
 	 * @param parent The layout where to add the button.
-	 * @param text The button text or the material icon text.
-	 * @param options one or a combination of the following: \n Variant: `Contained` `Outlined` `Text` `Default` \n `Color`: `Primary` `Secondary` `Default` \n `Size`: `Small` `Medium` `Large` \n `Util`: `Icon` `NoRipple` `Upload` \n `In case of upload, you can specify `Multiple` to accept multiple files.
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
-	 * @return Button Component
+	 * @param text `The button text or the material icon text.`
+	 * @param options one or a combination of the following: 
+ Variant: `Contained` `Outlined` `Text` `Default` 
+ `Color`: `Primary` `Secondary` `Default` 
+ `Size`: `Small` `Medium` `Large` 
+ `Util`: `Icon` `NoRipple` `Upload` 
+ `In case of upload,  you can specify `Multiple` to accept multiple files.
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
-	addButton(parent: obj, text: str, options: str_com, width: num, height: num): obj;
+	addButton(parent: obj, text: str, options?: str_com, width?: num, height?: num): UIButton;
 
 	/**
 	 * AddButtonGroup
 	 * @param parent The parent layout where to add the ButtonGroup
 	 * @param list The item to be displayed on the buttn group.
-	 * @param options one or a combination of the following: \n Variant: `Contained` `Outlined` `Text` `Default` \n `Color`: `Primary` `Secondary` `Default` \n `Size`: `Small` `Medium` `Large` \n `Orientation`: `Horizontal` `Vertical` \n `Util`: `Icon` `NoElevation`
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
-	 * @return ButtonGroup Component
+	 * @param options one or a combination of the following: 
+ Variant: `Contained` `Outlined` `Text` `Default` 
+ `Color`: `Primary` `Secondary` `Default` 
+ `Size`: `Small` `Medium` `Large` 
+ `Orientation`: `Horizontal` `Vertical` 
+ `Util`: `Icon` `NoElevation`
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
-	addButtonGroup(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addButtonGroup(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UIButtonGroup;
 
 	/**
 	 * AddCheckbox
 	 * @param parent The layout where to add the checkbox
-	 * @param text The label for the checkbox
-	 * @param options Colors: `Primary` `Secondary` `Medium` `Small` \n `Position`: `Left` `Top` `Right` `Bottom` \n `Variant`: `Indeterminate` `Determinate`
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
-	 * @return Checkbox Component
+	 * @param text `The label for the checkbox`
+	 * @param options Colors: `Primary` `Secondary` `Medium` `Small` 
+ `Position`: `Left` `Top` `Right` `Bottom` 
+ `Variant`: `Indeterminate` `Determinate`
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
-	addCheckbox(parent: obj, text: str, options: str_com, width: num, height: num): obj;
+	addCheckbox(parent: obj, text: str, options?: str_com, width?: num, height?: num): UICheckbox;
 
 	/**
 	 * AddCheckboxGroup
 	 * @param parent The parent layout where to add the CheckboxGroup.
 	 * @param list The items to be displayed.
-	 * @param options Colors: `Default` `Primary` `Secondary` \n `Sizes`: `Small` `Medium` \n `Icon Position: `Left` or `Right` \n `Container`: `Elevated` or `Outlined` \n `Corners : `Square`
-	 * @param width Fraction of the screen width.
-	 * @param height Fraction of the screen height.
-	 * @return CheckboxGroup Component
+	 * @param options Colors: `Default` `Primary` `Secondary` 
+ `Sizes`: `Small` `Medium` 
+ `Icon Position: `Left` or `Right` 
+ `Container`: `Elevated` or `Outlined` 
+ `Corners : `Square`
+	 * @param width `Fraction of the screen width.`
+	 * @param height `Fraction of the screen height.`
 	 */
-	addCheckboxGroup(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addCheckboxGroup(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UICheckboxGroup;
 
 	/**
 	 * AddChip
 	 * @param parent The parent layout where to add the Chip.
-	 * @param text The text on the chip.
-	 * @param options Color: `Primary` `Secondary` `Default` \n `Size`: `Small` `Medium` \n `Variant`: `Outlined` `Default` \n `Util`: `Touchable`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Chip Component
+	 * @param text `The text on the chip.`
+	 * @param options Color: `Primary` `Secondary` `Default` 
+ `Size`: `Small` `Medium` 
+ `Variant`: `Outlined` `Default` 
+ `Util`: `Touchable`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addChip(parent: obj, text: str, options: str_com, width: num, height: num): obj;
+	addChip(parent: obj, text: str, options?: str_com, width?: num, height?: num): UIChip;
 
 	/**
 	 * AddDatePicker
 	 * @param date A default date value to which the datepicker begins. Format `YYYY-MM-DD`
 	 * @param options `Portrait` `Landscape`
-	 * @return DatePicker Component
 	 */
-	addDatePicker(date: str, options: str_com): obj;
+	addDatePicker(date: str, options?: str_com): UIDatePicker;
 
 	/**
 	 * AddDialog
-	 * @param title The dialog title text.
-	 * @param body The dialog message to be shown.
-	 * @param actions A comma separated text for action buttons.
-	 * @param options Colors: `Primary` `Secondary` \n `Util`: `NoCancel` prevents the dialog from closing on action.
-	 * @return Dialog Component
+	 * @param title `The dialog title text.`
+	 * @param body `The dialog message to be shown.`
+	 * @param actions `A comma separated text for action buttons.`
+	 * @param options Colors: `Primary` `Secondary` 
+ `Util`: `NoCancel` prevents the dialog from closing on action.
 	 */
-	addDialog(title: str, body: str, actions: str, options: str_com): obj;
+	addDialog(title: str, body: str, actions?: str, options?: str_com): UIDialog;
 
 	/**
 	 * AddDivider
 	 * @param parent The layour where to add the divider.
-	 * @param width Fraction of the screen width. Default is 1.
+	 * @param width `Fraction of the screen width. Default is 1.`
 	 * @param options A comma separated Divider options. Values can be `Inset`
-	 * @return Divider Component
 	 */
-	addDivider(parent: obj, width: num, options: str): obj;
+	addDivider(parent: obj, width?: num, options?: str): UIDivider;
 
 	/**
 	 * AddDrawer
 	 * @param lay The drawer layout.
-	 * @return Drawer Component
 	 */
-	addDrawer(lay: obj, options: str_com): obj;
+	addDrawer(lay: obj, options?: str_com): UIDrawer;
 
 	/**
 	 * AddDropdown
 	 * @param parent The layout where to add the dropdown.
 	 * @param list The list items to show.
-	 * @param options A comma separated Dropdown options. Can be \n Colors: `Primary` `Secondary` `Default` \n `Variants`: `Contained` `Outlined` `Text` \n `Sizes`: `Small` `Medium` `Large` \n `Orientation`: `Horizontal` `Vertical` \n `Util`: `NoElevation`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Dropdown Component.
+	 * @param options A comma separated Dropdown options. Can be 
+ Colors: `Primary` `Secondary` `Default` 
+ `Variants`: `Contained` `Outlined` `Text` 
+ `Sizes`: `Small` `Medium` `Large` 
+ `Orientation`: `Horizontal` `Vertical` 
+ `Util`: `NoElevation`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addDropdown(parent: obj, list: lst, options: str, width: num, height: num): obj;
+	addDropdown(parent: obj, list?: lst, options?: str, width?: num, height?: num): UIDropdown;
 
 	/**
 	 * AddFAB
 	 * @param parent The parent layout where to add the fab
-	 * @param icon The string icon of the FAB
+	 * @param icon `The string icon of the FAB`
 	 * @param options `Fixed` `Static` `Rounded` `Extended` `Left` `Right`
-	 * @param text Text to show for extended FABs.
-	 * @return FAB Component
+	 * @param text `Text to show for extended FABs.`
 	 */
-	addFAB(parent: obj, icon: str, options: str_com, text: str): obj;
+	addFAB(parent: obj, icon: str, options?: str_com, text?: str): UIFAB;
 
 	/**
 	 * AddImage
 	 * @param parent The parent layout where to add the image.
-	 * @param file The path to the image.
+	 * @param file `The path to the image.`
 	 * @param options A comma seprated options for the image. Can be `Canvas` `Button` or `Avatar`
-	 * @param width Fraction of the screen width.
-	 * @param height Fraction of the screen height.
-	 * @return Image Component.
+	 * @param width `Fraction of the screen width.`
+	 * @param height `Fraction of the screen height.`
 	 */
-	addImage(parent: obj, file: str, options: str, width: num, height: num): obj;
+	addImage(parent: obj, file: str, options?: str, width?: num, height?: num): UIImage;
 
 	/**
 	 * AddLayout
 	 * @param parent The parent layout where to add this component. Pass a string `main` for the main layout of your app.
 	 * @param type The layout type. Values can be `Linear` `Absolute` `Frame` `Slide`
-	 * @param options Layout options. Values can be \n Orientation:  `Horizontal` `Vertical` \n `Horizontal Alignment: `Left` `Center` `Right` \n `Vertical Alignment: `Top` `VCenter` `Bottom` \n `Dimensions`: `FillX` `FillY` \n `Scroll`: `ScrollX` `ScrollY` `ScrollXY` `NoScrollBar` \n `Utils`: `BackColor` to apply light or dark background rather than transparent.
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Layout Component
+	 * @param options Layout options. Values can be 
+ Orientation:  `Horizontal` `Vertical` 
+ `Horizontal Alignment: `Left` `Center` `Right` 
+ `Vertical Alignment: `Top` `VCenter` `Bottom` 
+ `Dimensions`: `FillX` `FillY` 
+ `Scroll`: `ScrollX` `ScrollY` `ScrollXY` `NoScrollBar` 
+ `Utils`: `BackColor` to apply light or dark background rather than transparent.
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addLayout(parent: obj, type: str, options: str, width: num, height: obj): obj;
+	addLayout(parent: "main" | obj, type: str, options?: str, width?: num, height?: num): UILayout;
 
 	/**
 	 * AddList
 	 * @param parent The parent layout
 	 * @param list An array of arrays. Each element is of the form `[icon, title, body, secondary]`
-	 * @param options Media: `Icon` `Avatar` \n `Styling`: `Dense` `Inset` \n `Util`: `Selectable` `Divider` `SecondaryText`, `NoRipple` to disable ripple effect
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return List Component
+	 * @param options Media: `Icon` `Avatar` 
+ `Styling`: `Dense` `Inset` 
+ `Util`: `Selectable` `Divider` `SecondaryText`,  `NoRipple` to disable ripple effect
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addList(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addList(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UIList;
 
 	/**
 	 * AddMenu
 	 * @param parent The component where to anchor the Menu.
 	 * @param list A list of items to be shown in the pop-up menu. You can also pass a comma separated string. For menu with icon the format is `icon&colon;title` \n `Add a `colon` before an item to display it as the label text.
-	 * @param options Color: `Primary` `Secondary` `Error` \n List: `Dense` \n Icons: `Icon`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Menu Component
+	 * @param options Color: `Primary` `Secondary` `Error` 
+ List: `Dense` 
+ Icons: `Icon`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addMenu(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addMenu(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UIMenu;
 
 	/**
 	 * AddProgress
 	 * @param parent The parent layout where to add the prgress component.
-	 * @param value the initial value of the progress component.
-	 * @param options Color: `Primary` `Secondary` \n `Type`: `Circular` `Linear` \n `Variant`: `Determinate` `Indeterminate`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction fo the screen height. [0-1]
-	 * @return Progress Component
+	 * @param value `the initial value of the progress component.`
+	 * @param options Color: `Primary` `Secondary` 
+ `Type`: `Circular` `Linear` 
+ `Variant`: `Determinate` `Indeterminate`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction fo the screen height. [0-1]`
 	 */
-	addProgress(parent: obj, value: num, options: str_com, width: num, height: num): obj;
+	addProgress(parent: obj, value?: num, options?: str_com, width?: num, height?: num): UIProgress;
 
 	/**
 	 * AddRadioGroup
 	 * @param parent The parent where to add the RadioGroup component.
 	 * @param list The list items array.
-	 * @param options Radio Sizes: `Small` `Medium` \n `Colors`: `Primary` `Secondary` \n `Icon Position: `Left` or `Right` \n `Container`: `Elevated` or `Outlined` \n `Corner`: `Square` \n `Required`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return RadioGroup Component
+	 * @param options Radio Sizes: `Small` `Medium` 
+ `Colors`: `Primary` `Secondary` 
+ `Icon Position: `Left` or `Right` 
+ `Container`: `Elevated` or `Outlined` 
+ `Corner`: `Square` 
+ `Required`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addRadioGroup(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addRadioGroup(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UIRadioGroup;
 
 	/**
 	 * AddSelect
 	 * @param parent The parent layout where to add the control
 	 * @param list The list of items for the Select options
-	 * @param options Sizes: `Small` `Medium` \n `Variant`: `Filled` `Outlined` `Standard` \n `Margin`: `Dense` `Normal` \n `Utils`: `Required` `Multiple` `Radio` `Disabled` `AutoFocus` `FullWidth`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Select Component
+	 * @param options Sizes: `Small` `Medium` 
+ `Variant`: `Filled` `Outlined` `Standard` 
+ `Margin`: `Dense` `Normal` 
+ `Utils`: `Required` `Multiple` `Radio` `Disabled` `AutoFocus` `FullWidth`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addSelect(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addSelect(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UISelect;
 
 	/**
 	 * AddSlider
 	 * @param parent The layout where to add the Slider Component.
-	 * @param value The initial value of the Slider. Value must be between 0-100, the default min and max values.
-	 * @param options Color: `Primary` `Secondary` \n `Orienation`: `Horizontal` `Vertical` \n `Track`: `Normal` `Inverted` `False`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height.
-	 * @return Slider Component.
+	 * @param value `The initial value of the Slider. Value must be between 0-100`, ` the default min and max values.`
+	 * @param options Color: `Primary` `Secondary` 
+ `Orienation`: `Horizontal` `Vertical` 
+ `Track`: `Normal` `Inverted` `False`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height.`
 	 */
-	addSlider(parent: obj, value: num, options: str_com, width: num, height: num): obj;
+	addSlider(parent: obj, value: num, options?: str_com, width?: num, height?: num): UISlider;
 
 	/**
 	 * AddStepper
 	 * @param parent The parent layout of the Stepper
 	 * @param steps An array of titles.
 	 * @param options A comma separated Stepper options. Values can be `Vertical` `Horizontal` `Loop` `Mobile` or `AlternativeLabel`.
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Stepper Component
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addStepper(parent: obj, steps: lst, options: str, width: num, height: num): obj;
+	addStepper(parent: obj, steps?: lst, options?: str, width?: num, height?: num): UIStepper;
 
 	/**
 	 * AddSwitch
 	 * @param parent The parent layout where to add the Switch Component.
-	 * @param text The label text.
-	 * @param options A comma separated switch options. Options can be one or a combination of the following \n Color: `Primary` `Secondary` `Default` \n `Icon Position: `Left` `Top` `Right` `Bottom` \n `Sizes`: `Small` `Medium`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Switch Component
+	 * @param text `The label text.`
+	 * @param options A comma separated switch options. Options can be one or a combination of the following 
+ Color: `Primary` `Secondary` `Default` 
+ `Icon Position: `Left` `Top` `Right` `Bottom` 
+ `Sizes`: `Small` `Medium`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addSwitch(parent: obj, text: str, options: str, width: num, height: num): obj;
+	addSwitch(parent: obj, text: str, options?: str, width?: num, height?: num): UISwitch;
 
 	/**
 	 * AddSwitchGroup
 	 * @param parent The parent layout where to add the SwitchGroup Component.
 	 * @param list The list items array whose elements can be `String` if items is text only, or `Array` of the form `[ "icon", "label" ]` if items is icon and text.
-	 * @param options Icon: `Icon` \n `Color`: `Primary` or `Secondary` \n `Container`: `Elevated` or `Outlined` \n `Corner`: `Square` \n`Divider`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return SwitchGroup Component
+	 * @param options Icon: `Icon` 
+ `Color`: `Primary` or `Secondary` 
+ `Container`: `Elevated` or `Outlined` 
+ `Corner`: `Square` 
+`Divider`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addSwitchGroup(parent: obj, list: obj, options: str_com, width: num, height: num): obj;
+	addSwitchGroup(parent: obj, list?: obj, options?: str_com, width?: num, height?: num): UISwitchGroup;
 
 	/**
 	 * AddTabs
 	 * @param parent The parent layout where to add the Tabs Component.
 	 * @param list An array of tab names.
-	 * @param options Enable swipe: `Swipeable` \n `Colors`: `Primary` `Secondary` `Inherit` `Transparent` `Default` \n `Variant`: `Standard` `Scrollable` `FullWidth` \n `Layout`: `Linear`, `Absolute` \nUtils: `Icon` `Center` `Paper`
-	 * @param width Fraction of the screen width. [0-1]
-	 * @param height Fraction of the screen height. [0-1]
-	 * @return Tabs Component
+	 * @param options Enable swipe: `Swipeable` 
+ `Colors`: `Primary` `Secondary` `Inherit` `Transparent` `Default` 
+ `Variant`: `Standard` `Scrollable` `FullWidth` 
+ `Layout`: `Linear`,  `Absolute` 
+Utils: `Icon` `Center` `Paper`
+	 * @param width `Fraction of the screen width. [0-1]`
+	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addTabs(parent: obj, list: lst, options: str_com, width: num, height: num): obj;
+	addTabs(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UITabs;
 
 	/**
 	 * AddText
 	 * @param parent The layout control where to add the text control
-	 * @param text The text to be displayed on the text control
-	 * @param options A comma separated string. Options can be one or a combination of the following: \n Variants: `H1` `H2` `H3` `H4` `H5` `H6` `body1` `body2` `overline` `subtitle1` `subtitle2` `button` `caption`.\nLines: `Singleline` `Multiline`.\nAlignment: `Left` `Center` `Right` `Justify`.\nColor: `Primary` `Secondary` `Error`.\nFormat `Html` `Icon` `Italize` `Monospace` `Bold` `Underline` \n `Utils`: `Touchable`
-	 * @param width Fraction of the screen width
-	 * @param height Fraction of the screen height
-	 * @return Text Component
+	 * @param text `The text to be displayed on the text control`
+	 * @param options A comma separated string. Options can be one or a combination of the following: 
+ Variants: `H1` `H2` `H3` `H4` `H5` `H6` `body1` `body2` `overline` `subtitle1` `subtitle2` `button` `caption`.
+Lines: `Singleline` `Multiline`.
+Alignment: `Left` `Center` `Right` `Justify`.
+Color: `Primary` `Secondary` `Error`.
+Format `Html` `Icon` `Italize` `Monospace` `Bold` `Underline` 
+ `Utils`: `Touchable`
+	 * @param width `Fraction of the screen width`
+	 * @param height `Fraction of the screen height`
 	 */
-	addText(parent: obj, text: str, options: str, width: num, height: num): obj;
+	addText(parent: obj, text: str, options?: str, width?: num, height?: num): UIText;
 
 	/**
 	 * AddTextField
 	 * @param parent The layout where to add the TextField Component.
-	 * @param text The initial value of the TextField
-	 * @param options Color: `Primary` or `Secondary` \n `Sizes`: `Small` or `Medium` \n `Type`: `Text` `Password` `Email` `Search` `Number` `Date` `Time` or `DateTime` \n `Variant`: `Standard` `Filled` or `Outlined` \n `Utils`: `Autofocus`
-	 * @param width Fraction of the screen width.
-	 * @param height Fraction of the screen height.
-	 * @return TextField Component
+	 * @param text `The initial value of the TextField`
+	 * @param options Color: `Primary` or `Secondary` 
+ `Sizes`: `Small` or `Medium` 
+ `Type`: `Text` `Password` `Email` `Search` `Number` `Date` `Time` or `DateTime` 
+ `Variant`: `Standard` `Filled` or `Outlined` 
+ `Utils`: `Autofocus`
+	 * @param width `Fraction of the screen width.`
+	 * @param height `Fraction of the screen height.`
 	 */
-	addTextField(parent: obj, text: str, options: str_com, width: num, height: num): obj;
+	addTextField(parent: obj, text: str, options?: str_com, width?: num, height?: num): UITextField;
 
 	/**
 	 * AddTimePicker
 	 * @param time A default time value to which the timepicker begins. Value is of the form `HH:mm`
 	 * @param options `Portrait` `24H` `12H`
-	 * @return TimePicker Component
 	 */
-	addTimePicker(time: str, options: str_com): obj;
+	addTimePicker(time: str, options?: str_com): UITimePicker;
 
 	/**
 	 * AddTreeView
 	 * @param parent The parent layout where to add the TreeView component.
 	 * @param list An object of the treeview items. See example below.
-	 * @param options A comma separated TreeView options.
-	 * @param width Fraction of the screen width.
-	 * @param height Fraction of the screen height.
-	 * @return TreeView Component
+	 * @param options `A comma separated TreeView options.`
+	 * @param width `Fraction of the screen width.`
+	 * @param height `Fraction of the screen height.`
 	 */
-	addTreeView(parent: obj, list: obj, options: str, width: num, height: num): obj;
+	addTreeView(parent: obj, list?: obj, options?: str, width?: num, height?: num): UITreeView;
 
 	/**
 	 * AddWebView
 	 * @param parent The parent layout where to add the WebView component.
-	 * @param url The url of the website.
-	 * @param width Fraction of the parent width.
-	 * @param height Fraction of the parent height.
-	 * @return WebView Component
+	 * @param url `The url of the website.`
+	 * @param width `Fraction of the parent width.`
+	 * @param height `Fraction of the parent height.`
 	 */
-	addWebView(parent: obj, url: str, options: str_com, width: num, height: num): obj;
+	addWebView(parent: obj, url?: str, options?: str_com, width?: num, height?: num): UIWebView;
 
 	/**
 	 * ShowColorPicker
-	 * @param value A hexadecimal default value for the color picker.
-	 * @param options A comma separated color picker options. Values can be \n `Alpha` Includes an alpha
-	 * @return ColorPicker Component
+	 * @param value `A hexadecimal default value for the color picker.`
+	 * @param options A comma separated color picker options. Values can be 
+ `Alpha` Includes an alpha
 	 */
-	showColorPicker(value: str, options: str): obj;
+	showColorPicker(value?: str, options?: str): UIColorPicker;
 
 	/**
 	 * ShowDateTimePicker
-	 * @param date Default value for date of the form "MM/DD/YYYY"
-	 * @param time Default value for time of the form "HH/MM/SS"
-	 * @param format The format value that will be pass to callback. Formats can be of the form \n `MM/DD/YYYY HH:MM:SS` `MM:DD:YYYY HH:MM:SS`
-	 * @return DateTimePicker Component
+	 * @param date `Default value for date of the form "MM/DD/YYYY"`
+	 * @param time `Default value for time of the form "HH/MM/SS"`
+	 * @param format The format value that will be pass to callback. Formats can be of the form 
+ `MM/DD/YYYY HH:SS` `MM:YYYY HH:SS`\
+	   * &emsp; `HH` - MM\
+	   * &emsp; `MM` - DD\
+	   * &emsp; `HH` - MM
 	 */
-	showDateTimePicker(callback: () => void, date: str, time: str, format: str): obj;
+	showDateTimePicker(callback: () => void, date?: str, time?: str, format?: str): UIDateTimePicker;
 
 	/**
 	 * ShowPopover
 	 * @param parent UI component. Can be a `Layout` `Button` `Image` `Text` or any UI component except dialogs.
-	 * @param text The text to de displayed. For displaying more data, pass a `Layout`
-	 * @param position A comma separated values representing the `anchorOrigin,transformOrigin` \n `anchorOrigin` Position of the popover on its parent. Available values are `tl` for top-left, `tc` for top-center, `tr` `cl` `cc` `cr` `bl` `bc` and `br` for bottom-right. \n `transformOrigin` Origin on the popover itselt. Values are the same as the `anchorOrigin`
-	 * @param width Fraction of the screen width.
-	 * @param height Fraction of the screen height.
-	 * @return Popover Component.
+	 * @param text The text to de displayed. For displaying more data,  pass a `Layout`
+	 * @param position A comma separated values representing the `anchorOrigin, transformOrigin` 
+ `anchorOrigin` Position of the popover on its parent. Available values are `tl` for top-left,  `tc` for top-center,  `tr` `cl` `cc` `cr` `bl` `bc` and `br` for bottom-right. 
+ `transformOrigin` Origin on the popover itselt. Values are the same as the `anchorOrigin`
+	 * @param width `Fraction of the screen width.`
+	 * @param height `Fraction of the screen height.`
+	 * @return \Popover
 	 */
-	showPopover(parent: obj, text: str, position: str, width: num, height: num): obj;
+	showPopover(parent: obj, text?: str, position?: str, width?: num, height?: num): Popover;
 
 	/**
 	 * ShowPopup
-	 * @param msg The message to display on the pop-up.
-	 * @param options A comma separated Menu options. Values can be \n Duration: `Short` `Long` \n `Vertical Alignment: `Top` `Bottom` \n `Horizontal Alignment: `Left` `Center` `Right` \n `Action options: `Icon` or `HideOnAction` \n `Transition`: `Grow` `Fade` `Slide` `Collapse` `Zoom`
-	 * @param duration Time in milliseconds. Pass this, if you don't want the default auto hide duration.
-	 * @param action Action button text.
-	 * @return Popup Component.
+	 * @param msg `The message to display on the pop-up.`
+	 * @param options A comma separated Menu options. Values can be 
+ Duration: `Short` `Long` 
+ `Vertical Alignment: `Top` `Bottom` 
+ `Horizontal Alignment: `Left` `Center` `Right` 
+ `Action options: `Icon` or `HideOnAction` 
+ `Transition`: `Grow` `Fade` `Slide` `Collapse` `Zoom`
+	 * @param duration `Time in milliseconds. Pass this`, ` if you don't want the default auto hide duration.`
+	 * @param action `Action button text.`
 	 */
-	showPopup(msg: str, options: str, duration: num, action: str): obj;
+	showPopup(msg: str, options?: str, duration?: num, action?: str): UIPopup;
 
 	/**
 	 * ShowProgressDialog
-	 * @param text The text message of the progress dialog. Options can be \n `AutoCancel` to close the dialog when backdrop is click.
+	 * @param text The text message of the progress dialog. Options can be 
+ `AutoCancel` to close the dialog when backdrop is click.
 	 */
-	showProgressDialog(text: str, options: str_com): ProgressDialog;
+	showProgressDialog(text?: str, options?: str_com): UIProgressDialog;
 
 }
 
-class UIAccordion {
+declare class UIAccordion {
 
 	/**
 	 * GetLayout
-	 * @param index The index of the accordion. You can also pass accordion title.
-	 * @return Layout Component
+	 * @param index `The index of the accordion. You can also pass accordion title.`
 	 */
-	getLayout(index: num): obj;
+	getLayout(index: num): UILayout;
 
 	/**
 	 * SetTitleText
-	 * @param index The index of the corresponding title to updates.
-	 * @param title The new title text.
+	 * @param index `The index of the corresponding title to updates.`
+	 * @param title `The new title text.`
 	 */
 	setTitleText(index: num, title: str): void;
 
 	/**
 	 * SetSecondaryText
 	 * @param text The secondary text to display. You can pass arguments as string or array by following the format below. \n String: `"Secodary text 1,Secondary text 2,Secondary text 3"` \n `Array`: `[ "Secondary text 1", "Secondary text 2", "Secondary text 3" ]`
-	 * @param index If `index` is provided, the corresponding index will be updated with the new text.
+	 * @param index If `index` is provided,  the corresponding index will be updated with the new text.
 	 */
 	setSecondaryText(text: obj, index: num): void;
 
 	/**
 	 * SetExpandIcon
-	 * @param icon A material icon
+	 * @param icon `A material icon`
 	 */
 	setExpandIcon(icon: str): void;
 
 	/**
 	 * AddItem
-	 * @param title Accordion title
-	 * @param secondaryText Accordion secondary text
-	 * @param index The index at which the accordion item will be added. If `null`, the item will be added at the bottom of the accordion.
+	 * @param title `Accordion title`
+	 * @param secondaryText `Accordion secondary text`
+	 * @param index The index at which the accordion item will be added. If `null`,  the item will be added at the bottom of the accordion.
 	 */
 	addItem(title: str, secondaryText: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the corresponding accordion to remove.
+	 * @param index `The index of the corresponding accordion to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param title The title of the corresponding accordion to remove.
+	 * @param title `The title of the corresponding accordion to remove.`
 	 */
 	removeItemByName(title: str): void;
 
@@ -563,27 +485,27 @@ class UIAccordion {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the corresponding accordion.
+	 * @param index `The index of the corresponding accordion.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the accordion item.
+	 * @param index `The index of the accordion item.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The title of the accordion
+	 * @param name `The title of the accordion`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The title of the accordion.
+	 * @param name `The title of the accordion.`
 	 */
 	getEnabledByName(name: str): bin;
 
@@ -604,29 +526,45 @@ class UIAccordion {
 	 * @param color1 Color of the title text in hexadecimal format `#rrggbb`
 	 * @param color2 Color of the secondary text in hexadecimal format `#rrggbb`
 	 */
-	setTextColor(color1: str, color2: str): void;
+	setTextColor(color1: str, color2?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -653,43 +591,43 @@ class UIAccordion {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -705,7 +643,7 @@ class UIAccordion {
 }
 
 
-class UIAppBar {
+declare class UIAppBar {
 
 	/** SetOnMenu */
 	setOnMenu(callback: () => void): void;
@@ -718,13 +656,13 @@ class UIAppBar {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -734,15 +672,31 @@ class UIAppBar {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -769,43 +723,43 @@ class UIAppBar {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -821,7 +775,7 @@ class UIAppBar {
 }
 
 
-class UIBottomNavbar {
+declare class UIBottomNavbar {
 
 	/** SetOnContextMenu */
 	setOnContextMenu(callback: (text: str, index: num, event: obj) => void): void;
@@ -837,13 +791,13 @@ class UIBottomNavbar {
 
 	/**
 	 * SelectItem
-	 * @param name The name to be set to active
+	 * @param name `The name to be set to active`
 	 */
 	selectItem(name: str): void;
 
 	/**
 	 * SelectItemByIndex
-	 * @param index The index of the bottom navigation action to be selected
+	 * @param index `The index of the bottom navigation action to be selected`
 	 */
 	selectItemByIndex(index: num): void;
 
@@ -852,36 +806,36 @@ class UIBottomNavbar {
 
 	/**
 	 * SetItemByIndex
-	 * @param index The index to update
-	 * @param newName The name of the navigation action
-	 * @param newIcon Material icon
+	 * @param index `The index to update`
+	 * @param newName `The name of the navigation action`
+	 * @param newIcon `Material icon`
 	 */
 	setItemByIndex(index: num, newName: str, newIcon: str): void;
 
 	/**
 	 * SetIcon
-	 * @param index The index of the navigation action to update
-	 * @param newIcon Material icon
+	 * @param index `The index of the navigation action to update`
+	 * @param newIcon `Material icon`
 	 */
 	setIcon(index: num, newIcon: str): void;
 
 	/**
 	 * AddItem
-	 * @param name The name of the navigation action
-	 * @param icon Material icon
-	 * @param index The index in which to add the action.
+	 * @param name `The name of the navigation action`
+	 * @param icon `Material icon`
+	 * @param index `The index in which to add the action.`
 	 */
 	addItem(name: str, icon: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the navigation action to be remove
+	 * @param index `The index of the navigation action to be remove`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the navigation action to be remove.
+	 * @param name `The name of the navigation action to be remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -896,27 +850,27 @@ class UIBottomNavbar {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the navigation action.
+	 * @param index `The index of the navigation action.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the navigation action.
+	 * @param index `The index of the navigation action.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the bottom navigation action.
+	 * @param name `The name of the bottom navigation action.`
 	 * @param value Values can be `true` or `false`
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The name of the bottom navigation action.
+	 * @param name `The name of the bottom navigation action.`
 	 */
 	getEnabledByName(name: str): bin;
 
@@ -931,15 +885,31 @@ class UIBottomNavbar {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -966,53 +936,53 @@ class UIBottomNavbar {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -1028,46 +998,47 @@ class UIBottomNavbar {
 }
 
 
-class UIButton {
+declare class UIButton {
 
 	/** SetOnFileSelect */
 	setOnFileSelect(callback: (files: lst) => void): void;
 
 	/**
 	 * SetToolTip
-	 * @param title The text of the tooltip
-	 * @param pos Position of the tooltip. \n Positions : `top` `left` `right` `bottom` `bottom-end` `bottom-start` `left-end` `left-start` `right-end` `right-start` `top-end` `top-start`
+	 * @param title `The text of the tooltip`
+	 * @param pos Position of the tooltip. 
+ Positions : `top` `left` `right` `bottom` `bottom-end` `bottom-start` `left-end` `left-start` `right-end` `right-start` `top-end` `top-start`
 	 */
-	setToolTip(title: str, pos: str): void;
+	setToolTip(title: str, pos?: str): void;
 
 	/**
 	 * SetTextShadow
-	 * @param radius The radius in pixels
-	 * @param dx The x-offset in pixels
-	 * @param dy The y-offset in pixels
+	 * @param radius `The radius in pixels`
+	 * @param dx `The x-offset in pixels`
+	 * @param dy `The y-offset in pixels`
 	 * @param color The color in hexadecimal `#rrggbb`
 	 */
 	setTextShadow(radius: num, dx: num, dy: num, color: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left The left padding in pixel.
-	 * @param top The top padding in pixels,
-	 * @param right The right padding in pixels.
-	 * @param bottom The bottom padding in pixels.
+	 * @param left `The left padding in pixel.`
+	 * @param top `The top padding in pixels`, ``
+	 * @param right `The right padding in pixels.`
+	 * @param bottom `The bottom padding in pixels.`
 	 * @param mode `px` `%`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -1077,15 +1048,31 @@ class UIButton {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1112,33 +1099,33 @@ class UIButton {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -1154,7 +1141,7 @@ class UIButton {
 }
 
 
-class UIButtonGroup {
+declare class UIButtonGroup {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (text: str, index: num, event: obj) => void): void;
@@ -1164,32 +1151,32 @@ class UIButtonGroup {
 
 	/**
 	 * SetList
-	 * @param items A comma separated list or an array
+	 * @param items `A comma separated list or an array`
 	 */
 	setList(items: str): void;
 
 	/**
 	 * SetItemByIndex
-	 * @param item The new text
-	 * @param index The index of the item.
+	 * @param item `The new text`
+	 * @param index `The index of the item.`
 	 */
 	setItemByIndex(item: str, index: num): void;
 
 	/**
 	 * AddItem
-	 * @param item The additional item.
+	 * @param item `The additional item.`
 	 */
 	addItem(item: str): void;
 
 	/**
 	 * RemoveItemIndex
-	 * @param index The index of the item to be remove.
+	 * @param index `The index of the item to be remove.`
 	 */
 	removeItemIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the item to be remove.
+	 * @param name `The name of the item to be remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -1202,9 +1189,10 @@ class UIButtonGroup {
 	/**
 	 * SetToolTip
 	 * @param titles The titles for each item in the ButtonGroup.
-	 * @param pos The positio of the tooltip. \n Can be `top` `left` `right` `bottom` `bottom-end` `bottom-start` `left-end` `left-start` `right-end` `right-start` `top-end` `top-start`
+	 * @param pos The positio of the tooltip. 
+ Can be `top` `left` `right` `bottom` `bottom-end` `bottom-start` `left-end` `left-start` `right-end` `right-start` `top-end` `top-start`
 	 */
-	setToolTip(titles: lst, pos: str): void;
+	setToolTip(titles: lst, pos?: str): void;
 
 	/**
 	 * EnableElevation
@@ -1214,41 +1202,57 @@ class UIButtonGroup {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the button item.
+	 * @param index `The index of the button item.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the button item in the button group.
+	 * @param index `The index of the button item in the button group.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The button text.
+	 * @param name `The button text.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The button text.
+	 * @param name `The button text.`
 	 */
 	getEnabledByName(name: str): bin;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1275,53 +1279,53 @@ class UIButtonGroup {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -1337,15 +1341,15 @@ class UIButtonGroup {
 }
 
 
-class UICheckbox {
+declare class UICheckbox {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (check: bin) => void): void;
 
 	/**
 	 * SetIcon
-	 * @param checked Material icon for checked state
-	 * @param unchecked Material icon for unchecked state
+	 * @param checked `Material icon for checked state`
+	 * @param unchecked `Material icon for unchecked state`
 	 */
 	setIcon(checked: str, unchecked: str): void;
 
@@ -1357,15 +1361,31 @@ class UICheckbox {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1392,53 +1412,53 @@ class UICheckbox {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -1454,7 +1474,7 @@ class UICheckbox {
 }
 
 
-class UICheckboxGroup {
+declare class UICheckboxGroup {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (value: bin, text: str, index: num, event: obj) => void): void;
@@ -1464,8 +1484,8 @@ class UICheckboxGroup {
 
 	/**
 	 * SetIcon
-	 * @param checked Material icon font
-	 * @param unchecked Material icon font
+	 * @param checked `Material icon font`
+	 * @param unchecked `Material icon font`
 	 */
 	setIcon(checked: str, unchecked: str): void;
 
@@ -1474,14 +1494,14 @@ class UICheckboxGroup {
 
 	/**
 	 * SetCheckedByIndex
-	 * @param item The item or index of the item.
+	 * @param item `The item or index of the item.`
 	 * @param bool The item value. Can be `true` or `false`.
 	 */
 	setCheckedByIndex(item: num, bool: bin): void;
 
 	/**
 	 * SetCheckedByName
-	 * @param name The item or index of the item.
+	 * @param name `The item or index of the item.`
 	 * @param bool The item value. Can be `true` or `false`.
 	 */
 	setCheckedByName(name: str, bool: bin): void;
@@ -1491,33 +1511,33 @@ class UICheckboxGroup {
 
 	/**
 	 * GetCheckedByIndex
-	 * @param index The index of the corresponding item.
+	 * @param index `The index of the corresponding item.`
 	 */
 	getCheckedByIndex(index: num): bin;
 
 	/**
 	 * GetCheckedByName
-	 * @param name The index of the corresponding item.
+	 * @param name `The index of the corresponding item.`
 	 */
 	getCheckedByName(name: str): bin;
 
 	/**
 	 * SetTextByIndex
-	 * @param index The index of the item.
-	 * @param val The new text to replace.
+	 * @param index `The index of the item.`
+	 * @param val `The new text to replace.`
 	 */
 	setTextByIndex(index: num, val: str): void;
 
 	/**
 	 * SetTextByName
-	 * @param name The name of the item
-	 * @param val The new text to replace
+	 * @param name `The name of the item`
+	 * @param val `The new text to replace`
 	 */
 	setTextByName(name: str, val: str): void;
 
 	/**
 	 * GetText
-	 * @param index The index of the list
+	 * @param index `The index of the list`
 	 */
 	getText(index: num): str;
 
@@ -1529,46 +1549,46 @@ class UICheckboxGroup {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the checkbox item.
+	 * @param index `The index of the checkbox item.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the checkbox item.
+	 * @param index `The index of the checkbox item.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the checkbox item.
+	 * @param name `The name of the checkbox item.`
 	 * @param value Values can be `true` or `false`
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The checkbox item.
+	 * @param name `The checkbox item.`
 	 */
 	getEnabledByName(name: str): bin;
 
 	/**
 	 * AddItem
-	 * @param text The text label for the checkbox.
-	 * @param index The index in which to insert the item.
+	 * @param text `The text label for the checkbox.`
+	 * @param index `The index in which to insert the item.`
 	 */
 	addItem(text: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the corresponding item to remove.
+	 * @param index `The index of the corresponding item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param title The title text of the corresponding checkbox item.
+	 * @param title `The title text of the corresponding checkbox item.`
 	 */
 	removeItemByName(title: str): void;
 
@@ -1583,25 +1603,41 @@ class UICheckboxGroup {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1628,43 +1664,43 @@ class UICheckboxGroup {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -1680,7 +1716,7 @@ class UICheckboxGroup {
 }
 
 
-class UIChip {
+declare class UIChip {
 
 	/**
 	 * SetTouchable
@@ -1693,13 +1729,13 @@ class UIChip {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -1709,15 +1745,31 @@ class UIChip {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1744,43 +1796,43 @@ class UIChip {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -1796,7 +1848,7 @@ class UIChip {
 }
 
 
-class UIDatePicker {
+declare class UIDatePicker {
 
 	/** Show */
 	show(): void;
@@ -1809,7 +1861,7 @@ class UIDatePicker {
 	 * @param past Date in the past of the form `YYYY-MM-DD`
 	 * @param future Date in the future of the form `YYYY-MM-DD`
 	 */
-	setLimits(past: str, future: str): void;
+	setLimits(past?: str, future?: str): void;
 
 	/** SetOnSelect */
 	setOnSelect(callback: (date: str) => void): void;
@@ -1825,7 +1877,7 @@ class UIDatePicker {
 }
 
 
-class UIDialog {
+declare class UIDialog {
 
 	/** SetOnAction */
 	setOnAction(callback: (text: str, index: num) => void): void;
@@ -1841,7 +1893,7 @@ class UIDialog {
 }
 
 
-class UIDivider {
+declare class UIDivider {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -1851,15 +1903,31 @@ class UIDivider {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -1886,53 +1954,53 @@ class UIDivider {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -1948,7 +2016,7 @@ class UIDivider {
 }
 
 
-class UIDrawer {
+declare class UIDrawer {
 
 	/**
 	 * AddLayout
@@ -1991,10 +2059,10 @@ class UIDrawer {
 }
 
 
-class UIDropdown {
+declare class UIDropdown {
 
 	/** SetOnChange */
-	setOnChange(callback: (The: obj, index: num) => void): void;
+	setOnChange(callback: (value: obj, index: num) => void): void;
 
 	/** SetOnClose */
 	setOnClose(callback: () => void): void;
@@ -2007,59 +2075,59 @@ class UIDropdown {
 
 	/**
 	 * SetItemByIndex
-	 * @param item The new item text.
-	 * @param index The index of the item to update.
+	 * @param item `The new item text.`
+	 * @param index `The index of the item to update.`
 	 */
 	setItemByIndex(item: str, index: num): void;
 
 	/**
 	 * GetItemByIndex
-	 * @param index The index of corresponding item.
+	 * @param index `The index of corresponding item.`
 	 */
 	getItemByIndex(index: num): str;
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the item.
+	 * @param index `The index of the item.`
 	 * @param value Values can be `true` `false`.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the item.
+	 * @param index `The index of the item.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the item.
+	 * @param name `The name of the item.`
 	 * @param value Values can be `true` `false`.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The name of the corresponding menu item.
+	 * @param name `The name of the corresponding menu item.`
 	 */
 	getEnabledByName(name: str): bin;
 
 	/**
 	 * AddItem
-	 * @param name The name of the menu.
-	 * @param index The index in which to insert the menu item.
+	 * @param name `The name of the menu.`
+	 * @param index `The index in which to insert the menu item.`
 	 */
 	addItem(name: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the menu item to remove.
+	 * @param index `The index of the menu item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the menu item.
+	 * @param name `The name of the menu item.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -2071,13 +2139,13 @@ class UIDropdown {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -2087,15 +2155,31 @@ class UIDropdown {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -2122,43 +2206,43 @@ class UIDropdown {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -2174,17 +2258,17 @@ class UIDropdown {
 }
 
 
-class UIFAB {
+declare class UIFAB {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -2194,15 +2278,31 @@ class UIFAB {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -2229,43 +2329,43 @@ class UIFAB {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -2281,7 +2381,7 @@ class UIFAB {
 }
 
 
-class UIImage {
+declare class UIImage {
 
 	/** SetOnLoad */
 	setOnLoad(callback: () => void): void;
@@ -2294,14 +2394,14 @@ class UIImage {
 
 	/**
 	 * SetImage
-	 * @param file The path to the image file.
+	 * @param file `The path to the image file.`
 	 */
 	setImage(file: str): void;
 
 	/**
 	 * GetPixelColor
-	 * @param x The x-coordinate of the pixel from the left.
-	 * @param y The y-coordinate of the pixel from the top.
+	 * @param x `The x-coordinate of the pixel from the left.`
+	 * @param y `The y-coordinate of the pixel from the top.`
 	 */
 	getPixelColor(x: num, y: num): lst;
 
@@ -2310,71 +2410,71 @@ class UIImage {
 
 	/**
 	 * DrawLine
-	 * @param x1 The x-coordinate of the starting point in pixels.
-	 * @param y1 The y-coordinate of the starting point in pixels
-	 * @param x2 The x-coordinate of the second point in pixels.
-	 * @param y2 The y-coordinate of the second point in pixels.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness.
+	 * @param x1 `The x-coordinate of the starting point in pixels.`
+	 * @param y1 `The y-coordinate of the starting point in pixels`
+	 * @param x2 `The x-coordinate of the second point in pixels.`
+	 * @param y2 `The y-coordinate of the second point in pixels.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness.`
 	 */
-	drawLine(x1: num, y1: num, x2: num, y2: num, strokeColor: str, strokeWidth: num): void;
+	drawLine(x1: num, y1: num, x2: num, y2: num, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawCircle
-	 * @param x The x-coordinate of the center of the circle in pixels.
-	 * @param y The y-coordinate of the center of the circle in pixels.
-	 * @param radius The radius of the circle in pixels.
-	 * @param fillColor A hexadecimal color.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stoke thickness.
+	 * @param x `The x-coordinate of the center of the circle in pixels.`
+	 * @param y `The y-coordinate of the center of the circle in pixels.`
+	 * @param radius `The radius of the circle in pixels.`
+	 * @param fillColor `A hexadecimal color.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stoke thickness.`
 	 */
-	drawCircle(x: num, y: num, radius: num, fillColor: str, strokeColor: str, strokeWidth: num): void;
+	drawCircle(x: num, y: num, radius: num, fillColor?: str, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawSquare
-	 * @param x The position from the left of the top-left corner of the square in pixels.
-	 * @param y The distance from the top of the top-left corner of the square in pixels.
-	 * @param width The width of the square in pixels.
-	 * @param fillColor A hexadecimal color.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness in pixels.
+	 * @param x `The position from the left of the top-left corner of the square in pixels.`
+	 * @param y `The distance from the top of the top-left corner of the square in pixels.`
+	 * @param width `The width of the square in pixels.`
+	 * @param fillColor `A hexadecimal color.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness in pixels.`
 	 */
-	drawSquare(x: num, y: num, width: num, fillColor: str, strokeColor: str, strokeWidth: num): void;
+	drawSquare(x: num, y: num, width: num, fillColor?: str, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawRectangle
-	 * @param x1 The distance from the left of the top-left corner of the rectangle in pixels.
-	 * @param y1 The distance from the top of the top-left corner of the rectangle in pixels.
-	 * @param width The width of the rectangle in pixels.
-	 * @param height The height of the rectangle in pixels.
-	 * @param fillColor A hexadecimal color.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness.
+	 * @param x1 `The distance from the left of the top-left corner of the rectangle in pixels.`
+	 * @param y1 `The distance from the top of the top-left corner of the rectangle in pixels.`
+	 * @param width `The width of the rectangle in pixels.`
+	 * @param height `The height of the rectangle in pixels.`
+	 * @param fillColor `A hexadecimal color.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness.`
 	 */
-	drawRectangle(x1: num, y1: num, width: num, height: num, fillColor: str, strokeColor: str, strokeWidth: num): void;
+	drawRectangle(x1: num, y1: num, width: num, height: num, fillColor?: str, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawArc
-	 * @param x The x-coordinate of the center of the arc in pixels.
-	 * @param y The y-coordinate of the center of the arc in pixels.
-	 * @param radius The radius of the arc in pixels.
-	 * @param start The starting angle in degress
-	 * @param end The angle in degress in which the arc will stop.
-	 * @param fillColor A hexadecimal color.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness.
+	 * @param x `The x-coordinate of the center of the arc in pixels.`
+	 * @param y `The y-coordinate of the center of the arc in pixels.`
+	 * @param radius `The radius of the arc in pixels.`
+	 * @param start `The starting angle in degress`
+	 * @param end `The angle in degress in which the arc will stop.`
+	 * @param fillColor `A hexadecimal color.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness.`
 	 */
-	drawArc(x: num, y: num, radius: num, start: num, end: num, fillColor: str, strokeColor: str, strokeWidth: num): void;
+	drawArc(x: num, y: num, radius: num, start: num, end: num, fillColor?: str, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawImage
-	 * @param img Path to image file.
-	 * @param x The distance from the left of the top-left corner of the image in pixels.
-	 * @param y The distance from the top of the top-left corner of the image in pixels.
-	 * @param width If provided, the image will be shrink or stretch to fill this width in pixels.
-	 * @param height If provided, the height of the image will be shrink or stretch to fill this height in pixels.
+	 * @param img `Path to image file.`
+	 * @param x `The distance from the left of the top-left corner of the image in pixels.`
+	 * @param y `The distance from the top of the top-left corner of the image in pixels.`
+	 * @param width `If provided`, ` the image will be shrink or stretch to fill this width in pixels.`
+	 * @param height `If provided`, ` the height of the image will be shrink or stretch to fill this height in pixels.`
 	 */
-	drawImage(img: str, x: num, y: num, width: num, height: num): void;
+	drawImage(img: str, x?: num, y?: num, width?: num, height?: num): void;
 
 	/** Clear */
 	clear(): void;
@@ -2382,27 +2482,27 @@ class UIImage {
 	/**
 	 * DrawPolyline
 	 * @param points An array of coordinates. Each element on this array if an array of the form `[x, y]` where `x` is the x-coordinate of a point and `y` is the y-coordinate of a point.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness.
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness.`
 	 */
-	drawPolyline(points: lst, strokeColor: str, strokeWidth: num): void;
+	drawPolyline(points: lst, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawPolygon
 	 * @param points An array of coordinates. Each element on this array if an array of the form `[x, y]` where `x` is the x-coordinate of a point and `y` is the y-coordinate of a point.
-	 * @param fillColor A hexadecimal color.
-	 * @param strokeColor A hexadecimal color.
-	 * @param strokeWidth The stroke thickness.
+	 * @param fillColor `A hexadecimal color.`
+	 * @param strokeColor `A hexadecimal color.`
+	 * @param strokeWidth `The stroke thickness.`
 	 */
-	drawPolygon(points: lst, fillColor: str, strokeColor: str, strokeWidth: num): void;
+	drawPolygon(points: lst, fillColor?: str, strokeColor?: str, strokeWidth?: num): void;
 
 	/**
 	 * DrawPoint
-	 * @param x The x-coordinate in pixels.
-	 * @param y The y-coordinate in pixels.
-	 * @param color A hexadecimal color.
+	 * @param x `The x-coordinate in pixels.`
+	 * @param y `The y-coordinate in pixels.`
+	 * @param color `A hexadecimal color.`
 	 */
-	drawPoint(x: num, y: num, color: str): void;
+	drawPoint(x: num, y: num, color?: str): void;
 
 	/** SetOnTouchMove */
 	setOnTouchMove(callback: () => void): void;
@@ -2415,15 +2515,31 @@ class UIImage {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -2450,53 +2566,53 @@ class UIImage {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -2512,24 +2628,24 @@ class UIImage {
 }
 
 
-class UILayout {
+declare class UILayout {
 
 	/**
 	 * SetChildMargins
-	 * @param left Left margin.
-	 * @param top Top margin.
-	 * @param right Right margin.
-	 * @param bottom Bottom margin.
+	 * @param left `Left margin.`
+	 * @param top `Top margin.`
+	 * @param right `Right margin.`
+	 * @param bottom `Bottom margin.`
 	 * @param mode `px`. Default is a fraction of viewport.
 	 */
-	setChildMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setChildMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/** Show */
 	show(): void;
 
 	/**
 	 * Goto
-	 * @param index Index of a given layout.
+	 * @param index `Index of a given layout.`
 	 */
 	goto(index: num): void;
 
@@ -2574,15 +2690,31 @@ class UILayout {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -2606,53 +2738,53 @@ class UILayout {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -2668,16 +2800,16 @@ class UILayout {
 }
 
 
-class UIList {
+declare class UIList {
 
 	/**
 	 * AddItem
-	 * @param title The title of the item.
-	 * @param body The text description of the item.
-	 * @param image A material icon or image file path.
-	 * @param index The index in which to add or insert the item.
+	 * @param title `The title of the item.`
+	 * @param body `The text description of the item.`
+	 * @param image `A material icon or image file path.`
+	 * @param index `The index in which to add or insert the item.`
 	 */
-	addItem(title: str, body: str, image: str, index: num): void;
+	addItem(title: str, body?: str, image?: str, index?: num): void;
 
 	/** SetOnTouch */
 	setOnTouch(callback: (title: str, body: str, icon: str, index: num, event: obj) => void): void;
@@ -2705,49 +2837,49 @@ class UIList {
 
 	/**
 	 * SetSelectable
-	 * @param selectable If true, make the list selectable. Otherwise, list is not selectable
+	 * @param selectable `If true`, ` make the list selectable. Otherwise`, ` list is not selectable`
 	 */
 	setSelectable(selectable: bin): void;
 
 	/**
 	 * SetItemByIndex
-	 * @param index The index of the item to update
-	 * @param newTitle The new title of the item
-	 * @param newBody The new body text
-	 * @param newImage The new icon or image
+	 * @param index `The index of the item to update`
+	 * @param newTitle `The new title of the item`
+	 * @param newBody `The new body text`
+	 * @param newImage `The new icon or image`
 	 */
-	setItemByIndex(index: num, newTitle: str, newBody: str, newImage: str): void;
+	setItemByIndex(index: num, newTitle: str, newBody?: str, newImage?: str): void;
 
 	/**
 	 * GetItemByIndex
-	 * @param index Returns the item in a list as an object of the following format { title, body, image }
+	 * @param index `Returns the item in a list as an object of the following format { title`, ` body`, ` image }`
 	 */
 	getItemByIndex(index: num): void;
 
 	/**
 	 * SetItem
-	 * @param title The title of the list item to update.
-	 * @param newTitle The new title of the list item.
-	 * @param newBody The new description of the list item.
-	 * @param newImage A material icon font or image file path.
+	 * @param title `The title of the list item to update.`
+	 * @param newTitle `The new title of the list item.`
+	 * @param newBody `The new description of the list item.`
+	 * @param newImage `A material icon font or image file path.`
 	 */
-	setItem(title: str, newTitle: str, newBody: str, newImage: str): void;
+	setItem(title: str, newTitle: str, newBody?: str, newImage?: str): void;
 
 	/**
 	 * GetItem
-	 * @param title Returns the item in a list as an object of the following format { title, body, image }
+	 * @param title `Returns the item in a list as an object of the following format { title`, ` body`, ` image }`
 	 */
 	getItem(title: str): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the item to remove
+	 * @param index `The index of the item to remove`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The title of the list to remove.
+	 * @param name `The title of the list to remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -2762,52 +2894,68 @@ class UIList {
 
 	/**
 	 * SelectItemByIndex
-	 * @param index The index to be selected.
+	 * @param index `The index to be selected.`
 	 */
 	selectItemByIndex(index: num): void;
 
 	/**
 	 * SetTitleText
-	 * @param index The index of the corresponding list item.
-	 * @param title The new title text.
+	 * @param index `The index of the corresponding list item.`
+	 * @param title `The new title text.`
 	 */
 	setTitleText(index: num, title: str): void;
 
 	/**
 	 * SetBodyText
-	 * @param index The index of the list whose secondary text to be changed.
-	 * @param newText The new secondary text.
+	 * @param index `The index of the list whose secondary text to be changed.`
+	 * @param newText `The new secondary text.`
 	 */
 	setBodyText(index: num, newText: str): void;
 
 	/**
 	 * SetIcon
-	 * @param index The index of the corresponding list item.
-	 * @param icon Material icon font.
+	 * @param index `The index of the corresponding list item.`
+	 * @param icon `Material icon font.`
 	 */
 	setIcon(index: num, icon: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -2834,43 +2982,43 @@ class UIList {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -2886,7 +3034,7 @@ class UIList {
 }
 
 
-class UIMenu {
+declare class UIMenu {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (item: str, icon: str, index: num) => void): void;
@@ -2908,20 +3056,20 @@ class UIMenu {
 
 	/**
 	 * AddItem
-	 * @param name The new item to be added.
-	 * @param index The index at which to add the item.
+	 * @param name `The new item to be added.`
+	 * @param index `The index at which to add the item.`
 	 */
 	addItem(name: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the item to remove.
+	 * @param index `The index of the item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the item to remove.
+	 * @param name `The name of the item to remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -2933,8 +3081,8 @@ class UIMenu {
 
 	/**
 	 * SetPosition
-	 * @param left The position of the menu from the left of the parent or anchor component. The unit is in pixels.
-	 * @param top The position of the menu from the top of the parent or anchor component. The unit is in pixels.
+	 * @param left `The position of the menu from the left of the parent or anchor component. The unit is in pixels.`
+	 * @param top `The position of the menu from the top of the parent or anchor component. The unit is in pixels.`
 	 */
 	setPosition(left: num, top: num): void;
 
@@ -2946,27 +3094,27 @@ class UIMenu {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the item.
+	 * @param index `The index of the item.`
 	 * @param value Values can be `true` or `false`. `false` to disable.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the item.
+	 * @param index `The index of the item.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the corresping item the menu.
+	 * @param name `The name of the corresping item the menu.`
 	 * @param value Values can be `true` or `false`. `false` to disable an item.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The name of the item.
+	 * @param name `The name of the item.`
 	 */
 	getEnabledByName(name: str): bin;
 
@@ -2975,15 +3123,31 @@ class UIMenu {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3004,45 +3168,45 @@ class UIMenu {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3058,7 +3222,7 @@ class UIMenu {
 }
 
 
-class UIProgress {
+declare class UIProgress {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (event: obj) => void): void;
@@ -3068,15 +3232,31 @@ class UIProgress {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3103,53 +3283,53 @@ class UIProgress {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3165,7 +3345,7 @@ class UIProgress {
 }
 
 
-class UIRadioGroup {
+declare class UIRadioGroup {
 
 	/** SetOnChange */
 	setOnChange(callback: (index: num) => void): void;
@@ -3175,40 +3355,40 @@ class UIRadioGroup {
 
 	/**
 	 * SetList
-	 * @param val A comma separated items
+	 * @param val `A comma separated items`
 	 */
 	setList(val: str): void;
 
 	/**
 	 * SetItemByIndex
-	 * @param item The new item name to be displayed
-	 * @param index The index to of the item to be updated
+	 * @param item `The new item name to be displayed`
+	 * @param index `The index to of the item to be updated`
 	 */
 	setItemByIndex(item: str, index: num): void;
 
 	/**
 	 * SetItemByName
-	 * @param name The name of the item.
-	 * @param text The new text to replaced the name of the item.
+	 * @param name `The name of the item.`
+	 * @param text `The new text to replaced the name of the item.`
 	 */
 	setItemByName(name: str, text: str): void;
 
 	/**
 	 * AddItem
-	 * @param name The new item to be added.
-	 * @param index The index in which to add the item.
+	 * @param name `The new item to be added.`
+	 * @param index `The index in which to add the item.`
 	 */
 	addItem(name: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the item to remove.
+	 * @param index `The index of the item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the item to remove.
+	 * @param name `The name of the item to remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -3220,27 +3400,27 @@ class UIRadioGroup {
 
 	/**
 	 * SetEnabled
-	 * @param index The index of the item.
-	 * @param value Values can be `true` or `false`. If `false`, the item will be disabled.
+	 * @param index `The index of the item.`
+	 * @param value Values can be `true` or `false`. If `false`,  the item will be disabled.
 	 */
 	setEnabled(index: num, value: bin): void;
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the corresponding item.
+	 * @param index `The index of the corresponding item.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The radiogroup text.
+	 * @param name `The radiogroup text.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The radiogroup text.
+	 * @param name `The radiogroup text.`
 	 */
 	getEnabledByName(name: str): bin;
 
@@ -3249,25 +3429,41 @@ class UIRadioGroup {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3294,43 +3490,43 @@ class UIRadioGroup {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -3346,7 +3542,7 @@ class UIRadioGroup {
 }
 
 
-class UISelect {
+declare class UISelect {
 
 	/** SetOnChange */
 	setOnChange(callback: (value: str) => void): void;
@@ -3359,20 +3555,20 @@ class UISelect {
 
 	/**
 	 * AddItem
-	 * @param item A new item to be added.
-	 * @param index The index in which to add the item.
+	 * @param item `A new item to be added.`
+	 * @param index `The index in which to add the item.`
 	 */
 	addItem(item: str, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the corresponding item to remove.
+	 * @param index `The index of the corresponding item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param name The name of the item to remove.
+	 * @param name `The name of the item to remove.`
 	 */
 	removeItemByName(name: str): void;
 
@@ -3384,7 +3580,7 @@ class UISelect {
 
 	/**
 	 * GetItem
-	 * @param index The index of the item.
+	 * @param index `The index of the item.`
 	 */
 	getItem(index: num): void;
 
@@ -3403,20 +3599,20 @@ class UISelect {
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the corresponding item in the select menu.
+	 * @param index `The index of the corresponding item in the select menu.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the menu item.
+	 * @param name `The name of the menu item.`
 	 * @param value Value can be `true` or `false`
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The name of the menu item.
+	 * @param name `The name of the menu item.`
 	 */
 	getEnabledByName(name: str): bin;
 
@@ -3428,15 +3624,31 @@ class UISelect {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3463,53 +3675,53 @@ class UISelect {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3525,7 +3737,7 @@ class UISelect {
 }
 
 
-class UISlider {
+declare class UISlider {
 
 	/** SetOnChange */
 	setOnChange(callback: (value: num) => void): void;
@@ -3535,10 +3747,10 @@ class UISlider {
 
 	/**
 	 * SetRange
-	 * @param min Minimum value of the slider.
-	 * @param max Maximum value of the slider.
+	 * @param min `Minimum value of the slider.`
+	 * @param max `Maximum value of the slider.`
 	 */
-	setRange(min: num, max: num): void;
+	setRange(min?: num, max?: num): void;
 
 	/**
 	 * SetMarks
@@ -3557,15 +3769,31 @@ class UISlider {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3592,53 +3820,53 @@ class UISlider {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3654,7 +3882,7 @@ class UISlider {
 }
 
 
-class UIStepper {
+declare class UIStepper {
 
 	/** SetOnComplete */
 	setOnComplete(callback: () => void): void;
@@ -3670,9 +3898,9 @@ class UIStepper {
 
 	/**
 	 * GetLayout
-	 * @param index The index of the corresponing stepper layout
+	 * @param index `The index of the corresponing stepper layout`
 	 */
-	getLayout(index: num): Layout;
+	getLayout(index: num): UILayout;
 
 	/**
 	 * GetLayoutIndex
@@ -3682,14 +3910,14 @@ class UIStepper {
 
 	/**
 	 * RemoveStep
-	 * @param index The index of the step to remove.
+	 * @param index `The index of the step to remove.`
 	 */
 	removeStep(index: num): void;
 
 	/**
 	 * SetTitleText
-	 * @param index The index of the Stepper.
-	 * @param title The new title text.
+	 * @param index `The index of the Stepper.`
+	 * @param title `The new title text.`
 	 */
 	setTitleText(index: num, title: str): void;
 
@@ -3701,15 +3929,31 @@ class UIStepper {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3736,53 +3980,53 @@ class UIStepper {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3798,7 +4042,7 @@ class UIStepper {
 }
 
 
-class UISwitch {
+declare class UISwitch {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (check: bin) => void): void;
@@ -3808,15 +4052,31 @@ class UISwitch {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -3843,53 +4103,53 @@ class UISwitch {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -3905,7 +4165,7 @@ class UISwitch {
 }
 
 
-class UISwitchGroup {
+declare class UISwitchGroup {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (value: bin, text: str, index: num, event: obj) => void): void;
@@ -3915,14 +4175,14 @@ class UISwitchGroup {
 
 	/**
 	 * SetValueByIndex
-	 * @param index The index of the corresponding item.
+	 * @param index `The index of the corresponding item.`
 	 * @param val A Values can be `true` or `false`
 	 */
 	setValueByIndex(index: num, val: bin): void;
 
 	/**
 	 * GetValueByIndex
-	 * @param index The index of the corresponding item.
+	 * @param index `The index of the corresponding item.`
 	 */
 	getValueByIndex(index: num): bin;
 
@@ -3934,22 +4194,22 @@ class UISwitchGroup {
 
 	/**
 	 * AddItem
-	 * @param title The title text.
-	 * @param icon Material icon font.
-	 * @param value The value of the item.
-	 * @param index The index in which to insert the item. Default is at the bottom of the list.
+	 * @param title `The title text.`
+	 * @param icon `Material icon font.`
+	 * @param value `The value of the item.`
+	 * @param index `The index in which to insert the item. Default is at the bottom of the list.`
 	 */
 	addItem(title: str, icon: str, value: bin, index: num): void;
 
 	/**
 	 * RemoveItemByIndex
-	 * @param index The index of the corresponding item to remove.
+	 * @param index `The index of the corresponding item to remove.`
 	 */
 	removeItemByIndex(index: num): void;
 
 	/**
 	 * RemoveItemByName
-	 * @param title The title text of the SwitchGroup item.
+	 * @param title `The title text of the SwitchGroup item.`
 	 */
 	removeItemByName(title: str): void;
 
@@ -3968,7 +4228,7 @@ class UISwitchGroup {
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the corresponding item in the switch group.
+	 * @param index `The index of the corresponding item in the switch group.`
 	 */
 	getEnabled(index: num): bin;
 
@@ -3977,25 +4237,41 @@ class UISwitchGroup {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4022,43 +4298,43 @@ class UISwitchGroup {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -4074,13 +4350,13 @@ class UISwitchGroup {
 }
 
 
-class UITabs {
+declare class UITabs {
 
 	/** SetOnChange */
 	setOnChange(callback: (name: str, index: num) => void): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (name: str, The: num) => void): void;
+	setOnTouch(callback: (name: str, index: num) => void): void;
 
 	/**
 	 * SetTabs
@@ -4090,54 +4366,53 @@ class UITabs {
 
 	/**
 	 * AddTab
-	 * @param name The name of the tab.
-	 * @param icon Material icon font.
-	 * @param index The index in which to insert the tab.
+	 * @param name `The name of the tab.`
+	 * @param icon `Material icon font.`
+	 * @param index `The index in which to insert the tab.`
 	 */
 	addTab(name: str, icon: str, index: num): void;
 
 	/**
 	 * SetTitleText
-	 * @param index Index of the tab.
-	 * @param title The new title.
+	 * @param index `Index of the tab.`
+	 * @param title `The new title.`
 	 */
 	setTitleText(index: num, title: str): void;
 
 	/**
 	 * SetIcon
-	 * @param index The index of the tab.
-	 * @param icon Material icon font.
+	 * @param index `The index of the tab.`
+	 * @param icon `Material icon font.`
 	 */
 	setIcon(index: num, icon: str): void;
 
 	/**
 	 * RemoveTabByIndex
-	 * @param index The index of the corresponding tab to remove.
+	 * @param index `The index of the corresponding tab to remove.`
 	 */
 	removeTabByIndex(index: num): void;
 
 	/**
 	 * RemoveTabByName
-	 * @param name The name of the corresponding tab to remove.
+	 * @param name `The name of the corresponding tab to remove.`
 	 */
 	removeTabByName(name: str): void;
 
 	/**
 	 * GetLayout
-	 * @param name The name of the tab. You can also pass the index of the tab.
-	 * @return Layout Component
+	 * @param name `The name of the tab. You can also pass the index of the tab.`
 	 */
-	getLayout(name: str): obj;
+	getLayout(name: str): UILayout;
 
 	/**
 	 * ShowTab
-	 * @param name The name of the tab to be shown.
+	 * @param name `The name of the tab to be shown.`
 	 */
 	showTab(name: str): void;
 
 	/**
 	 * ShowTabByIndex
-	 * @param index The index of the tab to be shown.
+	 * @param index `The index of the tab to be shown.`
 	 */
 	showTabByIndex(index: num): void;
 
@@ -4150,26 +4425,30 @@ class UITabs {
 
 	/**
 	 * GetEnabled
-	 * @param index The index of the corresponding tab.
+	 * @param index `The index of the corresponding tab.`
 	 */
 	getEnabled(index: num): bin;
 
 	/**
 	 * SetEnabledByName
-	 * @param name The name of the tab.
+	 * @param name `The name of the tab.`
 	 * @param value Values can be `true` or `false`.
 	 */
 	setEnabledByName(name: str, value: bin): void;
 
 	/**
 	 * GetEnabledByName
-	 * @param name The name of the tab.
+	 * @param name `The name of the tab.`
 	 */
 	getEnabledByName(name: str): bin;
 
 	/**
 	 * ShowScrollButton
-	 * @param mode Values can be \n `auto` : will only present them when not all the items are visible \n `desktop` : will only present them on medium and larger viewports \n `on` : will always present them \n `off` : will never present them.
+	 * @param mode Values can be 
+ `auto` : will only present them when not all the items are visible 
+ `desktop` : will only present them on medium and larger viewports 
+ `on` : will always present them 
+ `off` : will never present them.
 	 */
 	showScrollButton(mode: str): void;
 
@@ -4184,44 +4463,60 @@ class UITabs {
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-left corner radius.
-	 * @param tr Top-right corner radius.
-	 * @param bl Bottom-left corner radius.
-	 * @param br Bottom-right corner radius.
+	 * @param tl `Top-left corner radius.`
+	 * @param tr `Top-right corner radius.`
+	 * @param bl `Bottom-left corner radius.`
+	 * @param br `Bottom-right corner radius.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * SetIndicatorStyle
 	 * @param width Fraction of the tab item width. This works only on `fullWidth` tab.
-	 * @param thickness Thickness in pixels.
+	 * @param thickness `Thickness in pixels.`
 	 * @param color Hexadecimal color of the form `#rrggbb`.
-	 * @param radius The corner radius in pixels.
+	 * @param radius `The corner radius in pixels.`
 	 */
 	setIndicatorStyle(width: num, thickness: num, color: str, radius: num): void;
 
 	/**
 	 * SetTabPadding
-	 * @param left The tab-item left padding.
-	 * @param top The tab-item top padding.
-	 * @param right The tab-item right padding.
-	 * @param bottom The tab-item bottom padding.
+	 * @param left `The tab-item left padding.`
+	 * @param top `The tab-item top padding.`
+	 * @param right `The tab-item right padding.`
+	 * @param bottom `The tab-item bottom padding.`
 	 * @param mode Unit of measurement. Default is `px`. You can pass `%` `rem` `vw`.
 	 */
-	setTabPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setTabPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4248,43 +4543,43 @@ class UITabs {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * BringForward
@@ -4300,11 +4595,11 @@ class UITabs {
 }
 
 
-class UIText {
+declare class UIText {
 
 	/**
 	 * SetHtml
-	 * @param html An html string
+	 * @param html `An html string`
 	 */
 	setHtml(html: str): void;
 
@@ -4313,9 +4608,9 @@ class UIText {
 
 	/**
 	 * SetTextShadow
-	 * @param radius The radius in pixels
-	 * @param dx X-offset of the shadow
-	 * @param dy Y-offset of the shadow
+	 * @param radius `The radius in pixels`
+	 * @param dx `X-offset of the shadow`
+	 * @param dy `Y-offset of the shadow`
 	 * @param color A hexadecimal color e.g. `#aarrggbb`
 	 */
 	setTextShadow(radius: num, dx: num, dy: num, color: obj): void;
@@ -4328,15 +4623,31 @@ class UIText {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4363,53 +4674,53 @@ class UIText {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -4425,7 +4736,7 @@ class UIText {
 }
 
 
-class UITextField {
+declare class UITextField {
 
 	/** SetOnEnter */
 	setOnEnter(callback: (text: str) => void): void;
@@ -4438,17 +4749,19 @@ class UITextField {
 
 	/**
 	 * SetRows
-	 * @param min The minimum number of rows.
-	 * @param max The maximum number of rows.
+	 * @param min `The minimum number of rows.`
+	 * @param max `The maximum number of rows.`
 	 */
-	setRows(min: num, max: num): void;
+	setRows(min?: num, max?: num): void;
 
 	/**
 	 * SetStartAdornment
-	 * @param text Text or material icon font.
-	 * @param type A comma separated options for start adornment control. Options can be \n `Icon` : If the adornment is an icon. \n `Touchable` : If the adornment is touchable.
+	 * @param text `Text or material icon font.`
+	 * @param type A comma separated options for start adornment control. Options can be 
+ `Icon` : If the adornment is an icon. 
+ `Touchable` : If the adornment is touchable.
 	 */
-	setStartAdornment(text: str, type: str): void;
+	setStartAdornment(text: str, type?: str): void;
 
 	/** SetStartAdornmentOnTouch */
 	setStartAdornmentOnTouch(callback: () => void): void;
@@ -4458,10 +4771,12 @@ class UITextField {
 
 	/**
 	 * SetEndAdornment
-	 * @param text Text or material icon font.
-	 * @param type A comma separated options for end adornment control. Options can be \n `Icon` : If the adornment is an icon. \n `Touchable` : If the adornment is touchable.
+	 * @param text `Text or material icon font.`
+	 * @param type A comma separated options for end adornment control. Options can be 
+ `Icon` : If the adornment is an icon. 
+ `Touchable` : If the adornment is touchable.
 	 */
-	setEndAdornment(text: str, type: str): void;
+	setEndAdornment(text: str, type?: str): void;
 
 	/** SetEndAdornmentOnTouch */
 	setEndAdornmentOnTouch(callback: () => void): void;
@@ -4477,15 +4792,31 @@ class UITextField {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4512,53 +4843,53 @@ class UITextField {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -4574,17 +4905,28 @@ class UITextField {
 }
 
 
-class UITimePicker {
+declare class UITimePicker {
 
 	/**
 	 * Show
-	 * @param format A time format. Can be of the form \n Hour formats \n `H` : 0 1 ... 22 23 \n `HH` : 	00 01 ... 22 23 \n `h` : 1 2 ... 11 12 \n `hh` : 	01 02 ... 11 12 \n Minute formats \n `m` : 	0 1 ... 58 59 \n `mm` : 00 01 ... 58 59 \n AM/PM \n `A` : AM or PM \n `a` : am pm
+	 * @param format A time format. Can be of the form 
+ Hour formats 
+ `H` : 0 1 ... 22 23 
+ `HH` : 	00 01 ... 22 23 
+ `h` : 1 2 ... 11 12 
+ `hh` : 	01 02 ... 11 12 
+ Minute formats 
+ `m` : 	0 1 ... 58 59 
+ `mm` : 00 01 ... 58 59 
+ AM/PM 
+ `A` : AM or PM 
+ `a` : am pm
 	 */
 	show(callback: (value: str) => void, format: str): bin;
 }
 
 
-class UITreeView {
+declare class UITreeView {
 
 	/** SetOnTouch */
 	setOnTouch(callback: (value: str, path: str) => void): void;
@@ -4597,14 +4939,14 @@ class UITreeView {
 
 	/**
 	 * AddItem
-	 * @param name The label text for the new item.
+	 * @param name `The label text for the new item.`
 	 * @param obj See list object for more info.
 	 */
 	addItem(name: str, obj: obj): void;
 
 	/**
 	 * GetItem
-	 * @param name The parent name of the tree items.
+	 * @param name `The parent name of the tree items.`
 	 */
 	getItem(name: str): obj;
 
@@ -4613,15 +4955,31 @@ class UITreeView {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4648,53 +5006,53 @@ class UITreeView {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -4710,7 +5068,7 @@ class UITreeView {
 }
 
 
-class UIWebView {
+declare class UIWebView {
 
 	/** SetOnLoad */
 	setOnLoad(callback: () => void): void;
@@ -4723,15 +5081,31 @@ class UIWebView {
 
 	/**
 	 * Animate
-	 * @param anim The type of animation. Here are the available values \n `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` \n `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` \n `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` \n `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` \n `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` \n `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` \n `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` \n `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` \n `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` \n `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` \n `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` \n `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` \n `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` \n `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` \n `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` \n `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
-	 * @param duration The time in milliseconds.
+	 * @param anim The type of animation. Here are the available values 
+ `bounce` `flash` `pulse` `rubberBand` `shakeX` `shakeY` `headShake` `swing` `tada` `wobble` `jello` `heartBeat` 
+ `Back Entrances `backInDown` `backInLeft` `backInRight` `backInUp` 
+ `Back Exits `backOutDown` `backOutLeft` `backOutRight` `backOutUp` 
+ `Bouncing Entrances `bounceIn` `bounceInDown` `bounceInLeft` `bounceInRight` `bounceInUp` 
+ `Bouncing exits `bounceOut` `bounceOutDown` `bounceOutLeft` `bounceOutRight` `bounceOutUp` 
+ `Fading entrances `fadeIn` `fadeInDown` `fadeInDownBig` `fadeInLeft` `fadeInLeftBig` `fadeInRight` `fadeInRightBig` `fadeInUp` `fadeInUpBig` `fadeInTopLeft` `fadeInTopRight` `fadeInBottomLeft` `fadeInBottomRight` 
+ `Fading exits `fadeOut` `fadeOutDown` `fadeOutDownBig` `fadeOutLeft` `fadeOutLeftBig` `fadeOutRight` `fadeOutRightBig` `fadeOutUp` `fadeOutUpBig` `fadeOutTopLeft` `fadeOutTopRight` `fadeOutBottomRight` `fadeOutBottomLeft` 
+ `Flippers `flip` `flipInX` `flipInY` `flipOutX` `flipOutY` 
+ `Lightspeed `lightSpeedInRight` `lightSpeedInLeft` `lightSpeedOutRight` `lightSpeedOutLeft` 
+ `Rotating Entrances `rotateIn` `rotateInDownLeft` `rotateInDownRight` `rotateInUpLeft` `rotateInUpRight` 
+ `Rotating Exits `rotateOut` `rotateOutDownLeft` `rotateOutDownRight` `rotateOutUpLeft` `rotateOutUpRight` 
+ `Specials `hinge` `jackInTheBox` `rollIn` `rollOut` 
+ `Zooming Entrances `zoomIn` `zoomInDown` `zoomInLeft` `zoomInRight` `zoomInUp` 
+ `Zooming Exits `zoomOut` `zoomOutDown` `zoomOutLeft` `zoomOutRight` `zoomOutUp` 
+ `Sliding Entrances `slideInDown` `slideInLeft` `slideInRight` `slideInUp` 
+ `Sliding Exits `slideOutDown` `slideOutLeft` `slideOutRight` `slideOutUp`.
+	 * @param duration `The time in milliseconds.`
 	 */
-	animate(anim: str, duration: num): void;
+	animate(anim: str, duration?: num): void;
 
 	/**
 	 * SetSize
-	 * @param width Fraction of the parent width. [0-1]
-	 * @param height Fraction of the parent height. [0-1]
+	 * @param width `Fraction of the parent width. [0-1]`
+	 * @param height `Fraction of the parent height. [0-1]`
 	 */
 	setSize(width: num, height: num): void;
 
@@ -4758,53 +5132,53 @@ class UIWebView {
 	 * GetPosition
 	 * @param options The mode of the measurements. Values can be `px` or `%`
 	 */
-	getPosition(options: str): obj;
+	getPosition(options?: str): obj;
 
 	/**
 	 * SetMargins
-	 * @param left Fraction of the parent width.
-	 * @param top Fraction of the parent height.
-	 * @param right Fraction of the parent width.
-	 * @param bottom Fraction of the parent height.
+	 * @param left `Fraction of the parent width.`
+	 * @param top `Fraction of the parent height.`
+	 * @param right `Fraction of the parent width.`
+	 * @param bottom `Fraction of the parent height.`
 	 * @param mode `px` or `%`
 	 */
-	setMargins(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setMargins(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPadding
-	 * @param left Fraction of the component width.
-	 * @param top Fraction of the component height. [0-1]
-	 * @param right Fraction of the component width. [0-1]
-	 * @param bottom Fraction of the component height. [0-1]
+	 * @param left `Fraction of the component width.`
+	 * @param top `Fraction of the component height. [0-1]`
+	 * @param right `Fraction of the component width. [0-1]`
+	 * @param bottom `Fraction of the component height. [0-1]`
 	 * @param mode The size thickness mode. Can be `px`
 	 */
-	setPadding(left: num, top: num, right: num, bottom: num, mode: str): void;
+	setPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
 	/**
 	 * SetPosition
-	 * @param left Fraction of the parent width. [0-1]
-	 * @param top Fraction of the screen height. [0-1]
+	 * @param left `Fraction of the parent width. [0-1]`
+	 * @param top `Fraction of the screen height. [0-1]`
 	 * @param mode Unit of measurement. Can be `px` or `%` or any css unit of measurement.
 	 */
-	setPosition(left: num, top: num, mode: str): void;
+	setPosition(left?: num, top?: num, mode?: str): void;
 
 	/**
 	 * SetBorder
-	 * @param width Border-left thickness in pixels.
+	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
 	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
 	 */
-	setBorder(width: num, clr: str, style: str): void;
+	setBorder(width?: num, clr?: str, style?: str): void;
 
 	/**
 	 * SetCornerRadius
-	 * @param tl Top-Left border radius in pixels.
-	 * @param tr Top-Right border radius in pixels.
-	 * @param bl Bottom-Left border radius in pixels.
-	 * @param br Bottom-Right border radius in pixels.
+	 * @param tl `Top-Left border radius in pixels.`
+	 * @param tr `Top-Right border radius in pixels.`
+	 * @param bl `Bottom-Left border radius in pixels.`
+	 * @param br `Bottom-Right border radius in pixels.`
 	 * @param mode Unit. Values are `px` `rem` or `%`.
 	 */
-	setCornerRadius(tl: num, tr: num, bl: num, br: num, mode: str): void;
+	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/**
 	 * BringForward
@@ -4820,21 +5194,21 @@ class UIWebView {
 }
 
 
-class UIshowColorPicker {
+declare class UIColorPicker {
 
 	/** GetValue */
 	getValue(): str;
 }
 
 
-class UIshowDateTimePicker {
+declare class UIDateTimePicker {
 
 	/** SetOnSelect */
 	setOnSelect(callback: (value: str) => void): void;
 }
 
 
-class UIshowPopup {
+declare class UIPopup {
 
 	/** SetOnClose */
 	setOnClose(callback: () => void): void;
@@ -4853,14 +5227,14 @@ class UIshowPopup {
 	 * @param vertical Vertical alignment. Values can be `Top` `Bottom`
 	 * @param horizontal Horizontal alignment. Values can be `Left` `Center` and `Right`
 	 */
-	setPosition(vertical: str, horizontal: str): void;
+	setPosition(vertical?: str, horizontal?: str): void;
 
 	/** GetPosition */
 	getPosition(): obj;
 }
 
 
-class UIshowProgressDialog {
+declare class UIProgressDialog {
 
 	/** Show */
 	show(): void;

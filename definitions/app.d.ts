@@ -1,145 +1,16 @@
-/** all types */
-declare type all = any;
-/** Boolean */
-declare type bin = boolean;
+declare var app: DsApp;
+declare type AppObject = DsAudioRecorder | DsBluetoothList | DsBluetoothSerial | DsButton | DsCameraView | DsCheckBox | DsCloudStore | DsCodeEdit | DsCrypt | DsDialog | DsDownloader | DsEmail | DsFile | DsGameView | DsGLView | DsImage | DsLayout | DsList | DsListDialog | DsLocator | DsMediaPlayer | DsMediaStore | DsNetClient | DsNode | DsNotification | DsNxt | DsOverlay | DsPhoneState | DsPlayStore | DsScroller | DsSeekBar | DsSensor | DsService | DsSMS | DsSpeechRec | DsSpinner | DsSwitch | DsSynth | DsSysProc | DsTabs | DsText | DsTextEdit | DsTheme | DsToggle | DsUSBSerial | DsVideoView | DsWebServer | DsWebSocket | DsWebView | DsWizard | DsYesNoDialog | DsZipUtil | DsDatabase | DsCheckList;
 /** app object */
 declare type dso = AppObject;
-/** game object */
-declare type gvo = GameObject;
-/** smartwatch object */
-declare type swo = SmartWatchObject;
-/** JavaScript object */
-declare type jso = JSObject;
-/** Function */
-declare type fnc = Function;
-/** List */
-declare type lst = any[];
-/** Number */
-declare type num = number;
-/** Object */
-declare type obj = object;
-/** String */
-declare type str = string;
-/** ui object */
-declare type uio = UIObject;
-/** of objects */
-declare type lst_obj = any[];
-/** of numbers */
-declare type lst_num = number[];
-/** bytes */
-declare type num_byt = number;
-/** hexadecimal 0xrrggbb */
-declare type num_col = number;
-/** datetime in milliseconds (from JS Date object) */
-declare type num_dat = number;
-/** angle in degrees (0..360) */
-declare type num_deg = number;
-/** 0-255 */
-declare type num_dhx = number;
-/** factor */
-declare type num_fac = number;
-/** float */
-declare type num_flt = number;
-/** frames per second */
-declare type num_fps = number;
-/** fraction (0..1) */
-declare type num_frc = number;
-/** gigabytes */
-declare type num_gbt = number;
-/** hertz */
-declare type num_hrz = number;
-/** integer */
-declare type num_int = number;
-/** meters */
-declare type num_met = number;
-/** milliseconds */
-declare type num_mls = number;
-/** maximum transmission unit */
-declare type num_mtu = number;
-/** percent */
-declare type num_prc = number;
-/** pixel */
-declare type num_pxl = number;
-/** angle in radient (0..2*π) */
-declare type num_rad = number;
-/** seconds */
-declare type num_sec = number;
-/** account Email */
-declare type str_acc = string;
-/** base64 encoded */
-declare type str_b64 = string;
-/** <br>&nbsp;&nbsp;hexadecimal: “#rrggbb”, “#aarrggbb”<br>&nbsp;&nbsp;colourName: “red”, “green”, ... */
-declare type str_col = string;
-/** comma “,” separated */
-declare type str_com = string|string[];
-/** comma separated email addresses or names */
-declare type str_eml = string;
-/** float */
-declare type str_flt = string;
-/** format */
-declare type str_fmt = string;
-/** html code */
-declare type str_htm = string;
-/** hexadecimal “00”..“FF” */
-declare type str_hex = string;
-/** integer */
-declare type str_int = string;
-/** javascript code */
-declare type str_jsc = string;
-/** JSON object */
-declare type str_jsn = string;
-/** separated */
-declare type str_lst = string;
-/** mimetype */
-declare type str_mim = string;
-/** mode */
-declare type str_mod = string;
-/** number */
-declare type str_num = string;
-/** object id “#id” */
-declare type str_oid = string;
-/** “Default”, “Portrait”, “Landscape” */
-declare type str_ort = string;
-/** pipe “|” separated */
-declare type str_pip = string;
-/** file path or content:// uri */
-declare type str_ptc = string;
-/** path to file or folder ( “/absolute/...” or “relative/...” ) */
-declare type str_pth = string;
-/** path to file ( “/absolute/...” or “relative/...” ) */
-declare type str_ptf = string;
-/** path to folder ( “/absolute/...” or “relative/...” ) */
-declare type str_ptd = string;
-/** “/absolute/...” path to a file */
-declare type str_pfa = string;
-/** “relative/...” path to a file */
-declare type str_pfr = string;
-/** “/absolute/...” path to a folder */
-declare type str_pda = string;
-/** “relative/...” path to a folder */
-declare type str_pdr = string;
-/** integer in pixels */
-declare type str_pxl = string;
-/** semicolon “;” separated */
-declare type str_smc = string;
-/** sql code */
-declare type str_sql = string;
-/** style */
-declare type str_sty = string;
-/** URI encoded */
-declare type str_uri = string;
-/** url path */
-declare type str_url = string;
 
-
-class DsApp {
+declare class DsApp {
 
 	/** Create and add Button to Layout */
-	AddButton(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
+	AddButton(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
 
 	/**
 	 * Create and add CameraView to Layout
-	 * @param options 
+	 * @param options `Front`, `UseBitmap`, `UseABGR`, `NoRotate`, `<resolution>`\
  	 * &emsp; `<resolution>` - CIF: 352x288\
  	 * &emsp; QQVGA: 160x120\
  	 * &emsp; QVGA: 320x240\
@@ -148,11 +19,11 @@ class DsApp {
  	 * &emsp; XGA: 1024x768\
  	 * &emsp; UXGA: 1600x1200
 	 */
-	AddCameraView(layout: DsLayout, width: num_frc, height: num_frc, options: string | ("Front"|"UseBitmap"|"UseABGR"|"NoRotate"|"&lt;resolution&gt;")[]): DsCameraView;
+	AddCameraView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: str_com): DsCameraView;
 
 	/**
 	 * Create and add Button to Layout
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `fix` - image with fixed resolution\
  	 * &emsp; `px` - use pixel values for size\
  	 * &emsp; `Button` - causes image to depress like a button when touched\
@@ -160,67 +31,67 @@ class DsApp {
  	 * &emsp; `Icon` - allows loading of app icons\
  	 * &emsp; `NoPlay` - prevent gifs from playing automatically
 	 */
-	AddCanvas(layout: DsLayout, file: str_ptc, width: num, height: num, options: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw: num_pxl, pxh: num_pxl): DsImage;
+	AddCanvas(layout: DsLayout, file: str_ptc, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
 	/** Create and add CheckBox to Layout */
-	AddCheckBox(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
+	AddCheckBox(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
 
 	/** Create and add CodeEdit to Layout */
-	AddCodeEdit(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("FillX/Y")[]): DsCodeEdit;
+	AddCodeEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsCodeEdit;
 
 	/** Adds a slide-able layout on given side */
-	AddDrawer(layout: DsLayout, side: "left"|"right", width: num_frc, grabWidth: num_frc): void;
+	AddDrawer(layout: DsLayout, side: "left"|"right", width?: num_frc, grabWidth?: num_frc): void;
 
 	/**
 	 * Create and add Image to Layout
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `px` - use pixel values for size\
  	 * &emsp; `Button` - causes image to depress like a button when touched\
  	 * &emsp; `async` - loads the image asynchronously\
  	 * &emsp; `Icon` - allows loading of app icons\
  	 * &emsp; `NoPlay` - prevent gifs from playing automatically
 	 */
-	AddImage(layout: DsLayout, file: str_ptf, width: num, height: num, options: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw: num_pxl, pxh: num_pxl): DsImage;
+	AddImage(layout: DsLayout, file: str_ptf, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
 	/**
 	 * Adds a layout to the app
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `TouchThrough` - forwards touch events to underlying children\
  	 * &emsp; `TouchSpy` - spies for touch events on all children
 	 */
-	AddLayout(layout: DsLayout, type: "Linear"|"Absolute"|"Frame"|"Card", options: "TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y"): void;
+	AddLayout(layout: DsLayout, type?: "Linear"|"Absolute"|"Frame"|"Card", options?: "TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y"): void;
 
 	/**
 	 * Create and add List to Layout
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `bold` - bold item titles\
  	 * &emsp; `Expand` - Expand list to full height inside scrollers\
  	 * &emsp; `Menu` - applies various settings to make the list appear like an in-app menu\
  	 * &emsp; `Horiz` - makes title and body text flow horizontally
 	 */
-	AddList(layout: DsLayout, list: str_lst, width: num_frc, height: num_frc, options: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim: str): DsList;
+	AddList(layout: DsLayout, list: str_lst, width?: num_frc, height?: num_frc, options?: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim?: str): DsList;
 
 	/** Create and add Scroller to Layout */
-	AddScroller(layout: DsLayout, width: num_frc, height: num_frc, options: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
+	AddScroller(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
 
 	/** Create and add SeekBar to Layout */
-	AddSeekBar(layout: DsLayout, width: num_frc, height: num_frc, options: string | ("FillX/Y")[]): DsSeekBar;
+	AddSeekBar(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsSeekBar;
 
 	/** Create and add Spinner to Layout */
-	AddSpinner(layout: DsLayout, list: str_com, width: num_frc, height: num_frc, options: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
+	AddSpinner(layout: DsLayout, list: str_com, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
 
 	/** Create and add Switch toggle to Layout */
-	AddSwitch(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
+	AddSwitch(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
 
 	/** Returns a new Tabs object */
-	AddTabs(list: str_com, width: num_frc, height: num_frc, options: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
+	AddTabs(list: str_com, width?: num_frc, height?: num_frc, options?: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
 
 	/** Create and add Text to Layout */
-	AddText(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Html"|"Bold"|"Monospace"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
+	AddText(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Html"|"Bold"|"Monospace"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
 
 	/**
 	 * Create and add TextEdit to Layout
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AutoSelect` - Select all Text if user enter the Textedit\
  	 * &emsp; `AutoSize` - Expand or shrink the control automatically so the text fits in the Textedit\
  	 * &emsp; `Bold` - Write bold text\
@@ -234,17 +105,17 @@ class DsApp {
  	 * &emsp; `SingleLine` - Dont break text for long lines and change 'Enter' key to 'Done'\
  	 * &emsp; `Password` - displays characters as dots
 	 */
-	AddTextEdit(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
+	AddTextEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
 
 	/** Create and add Toggle to Layout */
-	AddToggle(layout: DsLayout, text: str, width: num_frc, height: num_frc, options: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
+	AddToggle(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
 
 	/** Create and add VideoView to Layout */
-	AddVideoView(layout: DsLayout, width: num_frc, height: num_frc, options: str_com): DsVideoView;
+	AddVideoView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: str_com): DsVideoView;
 
 	/**
 	 * Create and add WebView to Layout
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoAccel` - for OrangePi support\
@@ -259,25 +130,25 @@ class DsApp {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	AddWebView(layout: DsLayout, width: num_frc, height: num_frc, options: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[], zoom: num_prc): DsWebView;
+	AddWebView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[], zoom?: num_prc): DsWebView;
 
 	/**
 	 * Shows a popup message with an 'OK' button to exit
-	 * @param hue -180..180
+	 * @param hue `-180..180`
 	 */
-	Alert(message: str, title: str, options: string | ("NoDim"|"NoFocus")[], hue: num_int): void;
+	Alert(message: str, title: str, options?: string | ("NoDim"|"NoFocus")[], hue?: num_int): void;
 
 	/** Similar to setInterval */
-	Animate(callback: (time: num_mls, dtime: num_mls) => void, fps: num_fps): void;
+	Animate(callback?: (time: num_mls, dtime: num_mls) => void, fps?: num_fps): void;
 
 	/** Used for broadcasting messages between DroidScript apps */
 	Broadcast(type: "Exec", message: str): void;
 
 	/**
 	 * Send broadcast intent
-	 * @param action android action
+	 * @param action `android action`
 	 */
-	BroadcastIntent(action: str, category: str, data: str, type: str, extras: str, options: str_com): void;
+	BroadcastIntent(action: str, category: str, data: str, type: str, extras: str, options?: str_com): void;
 
 	/** Calls a phone number */
 	Call(number: "number"): void;
@@ -287,7 +158,7 @@ class DsApp {
 
 	/**
 	 * Checks if app is licensed with Google Play
-	 * @param key GPlay license key
+	 * @param key `GPlay license key`
 	 */
 	CheckLicense(key: str_b64): void;
 
@@ -302,58 +173,56 @@ class DsApp {
 
 	/**
 	 * Let the user choose a file
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `persist` - keep file permission after reboot\
  	 * &emsp; `nodownload` - prevents file downloads
 	 */
-	ChooseFile(message: str, type: "mimetype", callback: (path: str_pth|str_uri, name: str) => void, fldr: str_pth, options: "persist"|"nodownload"): void;
+	ChooseFile(message: str, type: "mimetype", callback: (path: str_pth|str_uri, name: str) => void, fldr?: str_pth, options?: "persist"|"nodownload"): void;
 
 	/** Let the user choose an image */
 	ChooseImage(options: string | (""|"internal"|"external")[], callback: (path: str_pth) => void): void;
 
 	/** Let the user choose a WiFi network */
-	ChooseWifi(title1: str, title2: str, callback: (ssid: str) => void, options: string | ("force"|"large")[], extra: "ssids"): void;
+	ChooseWifi(title1: str, title2: str, callback: (ssid: str) => void, options?: string | ("force"|"large")[], extra?: "ssids"): void;
 
 	/** Clears saved web cookies */
 	ClearCookies(): void;
 
 	/** Deletes app.Save*() storage */
-	ClearData(file: str_ptf): void;
+	ClearData(file?: str_ptf): void;
 
 	/** Deletes a variable saved via app.Save*() */
-	ClearValue(name: str, file: str_ptf): void;
+	ClearValue(name: str, file?: str_ptf): void;
 
-	/** Closes the drawer layout on the given side with slide animation.
-	 * 
-	 * See Also: OpenDrawer */
+	/** Closes the drawer layout on the given side with slide animation */
 	CloseDrawer(side: "left"|"right"): void;
 
 	/** Copies a file to a given destination */
 	CopyFile(source: str_pth, destination: str_pth): void;
 
 	/** Copies a folder to a given destination */
-	CopyFolder(source: str_pth, destination: str_pth, overwrite: bin, filter: "pattern"): void;
+	CopyFolder(source: str_pth, destination: str_pth, overwrite?: bin, filter?: "pattern"): void;
 
 	/** Returns an AudioRecorder object */
 	CreateAudioRecorder(): DsAudioRecorder;
 
 	/** Returns a new BluetoothList object with selectable list of paired and discovered Bluetooth devices */
-	CreateBluetoothList(filter: str): DsBluetoothList;
+	CreateBluetoothList(filter?: str): DsBluetoothList;
 
 	/** Communicate with other Bluetooth devices */
-	CreateBluetoothSerial(mode: "Text"|"Int"|"Hex"): DsBluetoothSerial;
+	CreateBluetoothSerial(mode?: "Text"|"Int"|"Hex"): DsBluetoothSerial;
 
 	/**
 	 * Creates a button control
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AutoShrink` - Auto-shrinks text to fit\
  	 * &emsp; `AutoSize` - Auto-sizes text to fit
 	 */
-	CreateButton(text: str, width: num_frc, height: num_frc, options: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"AutoShrink"|"AutoSize"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
+	CreateButton(text: str, width?: num_frc, height?: num_frc, options?: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"AutoShrink"|"AutoSize"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
 
 	/**
 	 * Returns a new CameraView object to access the device camera
-	 * @param options 
+	 * @param options `Front`, `UseBitmap`, `UseABGR`, `NoRotate`, `<id>`, `<resolution>`\
  	 * &emsp; `<id>` - “front,back,cam0,cam1,cam2,cam3”\
  	 * &emsp; `<resolution>` - CIF: 352x288\
  	 * &emsp; QQVGA: 160x120\
@@ -363,11 +232,11 @@ class DsApp {
  	 * &emsp; XGA: 1024x768\
  	 * &emsp; UXGA: 1600x1200
 	 */
-	CreateCameraView(width: num_frc, height: num_frc, options: string | ("Front"|"UseBitmap"|"UseABGR"|"NoRotate"|"&lt;id&gt;"|"&lt;resolution&gt;")[]): DsCameraView;
+	CreateCameraView(width?: num_frc, height?: num_frc, options?: str_com): DsCameraView;
 
 	/**
 	 * Create a blank white Image object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `fix` - image with fixed resolution\
  	 * &emsp; `px` - use pixel values for size\
  	 * &emsp; `Button` - causes image to depress like a button when touched\
@@ -375,41 +244,40 @@ class DsApp {
  	 * &emsp; `Icon` - allows loading of app icons\
  	 * &emsp; `NoPlay` - prevent gifs from playing automatically
 	 */
-	CreateCanvas(file: str_ptc, width: num, height: num, options: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw: num_pxl, pxh: num_pxl): DsImage;
+	CreateCanvas(file: str_ptc, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
 	/** Returns a new CheckBox object */
-	CreateCheckBox(text: str, width: num_frc, height: num_frc, options: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
+	CreateCheckBox(text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
 
 	/** Returns a new CloudStore object */
 	CreateCloudStore(apiKey: str): DsCloudStore;
 
 	/** Returns a new CodeEdit object */
-	CreateCodeEdit(text: str, width: num_frc, height: num_frc, options: string | ("FillX/Y")[]): DsCodeEdit;
+	CreateCodeEdit(text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsCodeEdit;
 
 	/** Returns a new Crypt object to encrypt or decrypt a string with a given key or create a hash of it */
-	CreateCrypt(options: str_com): DsCrypt;
+	CreateCrypt(options?: str_com): DsCrypt;
 
-	/** Creates a CustomTab control.
-	 * See the ../Plugins page for details */
+	/** Creates a CustomTab control */
 	CreateCustomTabs(): void;
 
 	/**
 	 * Shows a debug log overlay
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `dialog` - Show the debug log as black overlay dialog\
  	 * &emsp; `clear` - Clear content before showing
 	 */
-	CreateDebug(options: "dialog"|"clear"): void;
+	CreateDebug(options?: "dialog"|"clear"): void;
 
 	/**
 	 * Returns a new Dialog object to display messages
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Old` - apply old list style affecting title style and unrounded corners
 	 */
-	CreateDialog(title: str, options: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"Fillscreen"|"Fullscreen"|"TouchModal"|"NoTouch"|"Modal"|"Kiosk"|"Old")[]): DsDialog;
+	CreateDialog(title: str, options?: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"Fillscreen"|"Fullscreen"|"TouchModal"|"NoTouch"|"Modal"|"Kiosk"|"Old")[]): DsDialog;
 
 	/** Returns a new Downloader object */
-	CreateDownloader(options: string | ("NoDialog"|"Light")[]): DsDownloader;
+	CreateDownloader(options?: string | ("NoDialog"|"Light")[]): DsDownloader;
 
 	/** Returns an Email object for user to send emails */
 	CreateEmail(account: "email", password: "password"): DsEmail;
@@ -417,21 +285,21 @@ class DsApp {
 	/** Returns a new File object */
 	CreateFile(file: str_ptf, mode: "r"|"w"|"rw"): DsFile;
 
-	/** #CreateGame.md */
-	CreateGame(file: str_ptf, orient: "Portrait"|"Landscape"): void;
-
-	/** #CreateGameView.md */
-	CreateGameView(width: num_frc, height: num_frc, options: str_com): void;
-
 	/**
-	 * Returns a GLView object
-	 * @param options fast2d
+	 * CreateGame automatically turns your app in game mode and adds a [GameView](CreateGameView.htm) control to it which loads the referenced script
+	 * @return \{ game, lay}
 	 */
-	CreateGLView(width: num_frc, height: num_frc, options: str): DsGLView;
+	CreateGame(file: str_ptf, orient?: "Portrait"|"Landscape"): { game: DsGameView, lay: DsLayout};
+
+	/** The GameView is a blindingly fast container for game development with a physics engine and PIXI as underlying sprite container which uses the GPU to render graphics */
+	CreateGameView(width: num_frc, height: num_frc, options?: str_com): DsGameView;
+
+	/** Returns a GLView object */
+	CreateGLView(width: num_frc, height: num_frc, options?: "fast2d"): DsGLView;
 
 	/**
 	 * Returns a new Image object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `fix` - image with fixed resolution\
  	 * &emsp; `px` - use pixel values for size\
  	 * &emsp; `Button` - causes image to depress like a button when touched\
@@ -439,32 +307,32 @@ class DsApp {
  	 * &emsp; `Icon` - allows loading of app icons\
  	 * &emsp; `NoPlay` - prevent gifs from playing automatically
 	 */
-	CreateImage(file: str_ptc, width: num, height: num, options: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw: num_pxl, pxh: num_pxl): DsImage;
+	CreateImage(file?: str_ptc, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
 	/**
 	 * Returns a new Layout object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AutoSize` - Resizes itself and child controls after device rotation\
  	 * &emsp; `TouchThrough` - forwards touch events to underlying children\
  	 * &emsp; `TouchSpy` - spies for touch events on all children
 	 */
-	CreateLayout(type: "Linear"|"Absolute"|"Frame"|"Card", options: string | ("AutoSize"|"TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y")[]): DsLayout;
+	CreateLayout(type: "Linear"|"Absolute"|"Frame"|"Card", options?: string | ("AutoSize"|"TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y")[]): DsLayout;
 
 	/**
 	 * Returns a new List object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `bold` - bold item titles\
  	 * &emsp; `Expand` - Expand list to full height inside scrollers\
  	 * &emsp; `Menu` - applies various settings to make the list appear like an in-app menu\
  	 * &emsp; `Horiz` - makes title and body text flow horizontally
 	 */
-	CreateList(list: str_lst, width: num_frc, height: num_frc, options: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim: str): DsList;
+	CreateList(list: str_lst, width?: num_frc, height?: num_frc, options?: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim?: str): DsList;
 
 	/** Returns a new ListDialog object */
-	CreateListDialog(title: str, list: str, options: "Multi"): DsListDialog;
+	CreateListDialog(title: str, list: str, options?: "Multi"): DsListDialog;
 
 	/** Returns a new Locator object */
-	CreateLocator(type: string | ("GPS"|"Network")[], options: str_com): DsLocator;
+	CreateLocator(type: string | ("GPS"|"Network")[], options?: str_com): DsLocator;
 
 	/** Returns a new MediaPlayer object */
 	CreateMediaPlayer(): DsMediaPlayer;
@@ -472,12 +340,12 @@ class DsApp {
 	/** Returns a new MediaStore object */
 	CreateMediaStore(): DsMediaStore;
 
-	/** Add music to your app. See the ../Music/Music.html page for more details */
-	CreateMusic(): DsMusic;
+	/** Add music to your app */
+	CreateMusic(): obj;
 
 	/**
 	 * Returns a new NetClient object
-	 * @param type 
+	 * @param type <br>
  	 * &emsp; `UDP` - fast but does not guarantee data correctness\
  	 * &emsp; `TCP` - slow but guarantees data correctness\
  	 * &emsp; `Raw` - drop 4 Byte header before every message
@@ -485,28 +353,28 @@ class DsApp {
 	CreateNetClient(type: "UDP"|"TCP"|"Raw"): DsNetClient;
 
 	/**
-	 * #CreateNode.md
-	 * @param paths NODE_PATH env variable
-	 * @param options 
+	 * Creates a NodeJS background process with all the functionality of common node.js
+	 * @param paths `NODE_PATH env variable`
+	 * @param options <br>
  	 * &emsp; `extended` - allow app methods in default main instance\
  	 * &emsp; `legacy` - dont use named pipes for messaging\
  	 * &emsp; `nostart` - disable auto start\
  	 * &emsp; `esm` - use EcmaScript-Modules
 	 */
-	CreateNode(paths: str_pth, options: "extended"|"legacy"|"nostart"|"esm"): void;
+	CreateNode(paths?: str_pth, options?: "extended"|"legacy"|"nostart"|"esm"): DsNode;
 
 	/**
 	 * Returns a new Notification object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Low` - priority
 	 */
-	CreateNotification(options: string | ("Ongoing"|"AutoCancel"|"FullScreen"|"NoVibrate"|"Low")[]): DsNotification;
+	CreateNotification(options?: string | ("Ongoing"|"AutoCancel"|"FullScreen"|"NoVibrate"|"Low")[]): DsNotification;
 
 	/** Returns a new Nxt object */
 	CreateNxt(): DsNxt;
 
 	/** Returns a new Overlay object */
-	CreateOverlay(options: string | ("ShowWhenLocked"|"TurnScreenOn"|"KeepScreenOn")[]): void;
+	CreateOverlay(options?: string | ("ShowWhenLocked"|"TurnScreenOn"|"KeepScreenOn")[]): DsOverlay;
 
 	/** Returns a new PhoneState object */
 	CreatePhoneState(types: "CellLocation"|"DataConnection"|"DataActivity"|"CallState"|"ServiceState"|"SignalStrength"|"CallForwarding"|"MessageWaiting"): DsPhoneState;
@@ -515,66 +383,68 @@ class DsApp {
 	CreatePlayStore(): DsPlayStore;
 
 	/** Returns a new Scroller object */
-	CreateScroller(width: num_frc, height: num_frc, options: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
+	CreateScroller(width?: num_frc, height?: num_frc, options?: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
 
 	/** Returns a new SeekBar object */
-	CreateSeekBar(width: num_frc, height: num_frc, options: string | ("FillX/Y")[]): DsSeekBar;
+	CreateSeekBar(width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsSeekBar;
 
 	/** Returns a new Sensor object */
-	CreateSensor(type: "Accelerometer"|"MagneticField"|"Orientation"|"Light"|"Proximity"|"Temperature"|"GameRotation"|"GeomagneticRotation"|"Gravity"|"Gyroscope"|"HeartRate"|"Acceleration"|"Pressure"|"Humidity"|"RotationMotion"|"StepCounter"|"StepDetector", options: string | ("Slow"|"Medium"|"Fast"|"Fastest")[]): DsSensor;
+	CreateSensor(type: "Accelerometer"|"MagneticField"|"Orientation"|"Light"|"Proximity"|"Temperature"|"GameRotation"|"GeomagneticRotation"|"Gravity"|"Gyroscope"|"HeartRate"|"Acceleration"|"Pressure"|"Humidity"|"RotationMotion"|"StepCounter"|"StepDetector", options?: string | ("Slow"|"Medium"|"Fast"|"Fastest")[]): DsSensor;
 
 	/**
 	 * Returns a new Service object
-	 * @param options 
+	 * @param packageName `this`, `<package>`
+	 * @param className `this`, `<class>`
+	 * @param options <br>
  	 * &emsp; `Persist` - attempts to force restart if service killed
 	 */
-	CreateService(packageName: "this"|"&lt;package&gt;", className: "this"|"&lt;class&gt;", callback: () => void, options: string | ("Persist")[]): DsService;
+	CreateService(packageName: str, className: str, callback?: () => void, options?: string | ("Persist")[]): DsService;
 
 	/**
 	 * Creates a Home-Screen shortcut to an app
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Debug` - start app in debug mode\
  	 * &emsp; `Game` - runs in GameView mode
 	 */
-	CreateShortcut(name: str, iconFile: str_ptf, file: str_ptf, options: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[]): void;
+	CreateShortcut(name: str, iconFile: str_ptf, file: str_ptf, options?: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[]): void;
 
-	/** Returns a new SMS object to send and retreive SMS messages.
-	 * @xfeature  */
+	/** Returns a new SMS object to send and retreive SMS messages */
 	CreateSMS(): DsSMS;
 
 	/** Returns a new SpeechRec object */
-	CreateSpeechRec(options: string | ("NoBeep"|"Partial")[]): DsSpeechRec;
+	CreateSpeechRec(options?: string | ("NoBeep"|"Partial")[]): DsSpeechRec;
 
 	/** Returns a new Spinner object */
-	CreateSpinner(list: str_com, width: num_frc, height: num_frc, options: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
+	CreateSpinner(list: str_com, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
 
 	/** Creates a switch control */
-	CreateSwitch(text: str, width: num_frc, height: num_frc, options: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
+	CreateSwitch(text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
 
 	/** Returns a new Synth object */
-	CreateSynth(type: "Signal"|"VCA"|"VCF"): DsSynth;
+	CreateSynth(type?: "Signal"|"VCA"|"VCF"): DsSynth;
 
 	/**
 	 * Returns a new SysProc object
-	 * @param options 
+	 * @param cmd program name
+	 * @param options <br>
  	 * &emsp; `combine` - combines stdout and stderr\
  	 * &emsp; `builder` - force use of proc builder
 	 */
-	CreateSysProc(cmd: "sh"|"su"|"busybox", env: str, dir: str_ptd, options: string | ("combine"|"builder")[]): DsSysProc;
+	CreateSysProc(cmd: "sh"|"su"|"busybox", env: str, dir: str_ptd, options?: string | ("combine"|"builder")[]): DsSysProc;
 
 	/** Returns a new Tabs object */
-	CreateTabs(list: str_com, width: num_frc, height: num_frc, options: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
+	CreateTabs(list: str_com, width?: num_frc, height?: num_frc, options?: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
 
 	/**
 	 * Returns a new Text object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AutoShrink` - Auto-shrinks text to fit
 	 */
-	CreateText(text: str, width: num_frc, height: num_frc, options: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Bottom"|"VCenter"|"Html"|"Bold"|"Monospace"|"AutoShrink"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
+	CreateText(text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Bottom"|"VCenter"|"Html"|"Bold"|"Monospace"|"AutoShrink"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
 
 	/**
 	 * Returns a new TextEdit object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AutoSelect` - Select all Text if user enter the Textedit\
  	 * &emsp; `AutoSize` - Expand or shrink the control automatically so the text fits in the Textedit\
  	 * &emsp; `Bold` - Write bold text\
@@ -588,46 +458,46 @@ class DsApp {
  	 * &emsp; `SingleLine` - Dont break text for long lines and change 'Enter' key to 'Done'\
  	 * &emsp; `Password` - displays characters as dots
 	 */
-	CreateTextEdit(text: str, width: num_frc, height: num_frc, options: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
+	CreateTextEdit(text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
 
 	/** Returns a new Theme object */
 	CreateTheme(baseTheme: "Dark"|"Light"): DsTheme;
 
 	/** Returns a new Toggle object */
-	CreateToggle(text: str, width: num_frc, height: num_frc, options: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
+	CreateToggle(text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
 
 	/**
 	 * Returns a new USBSerial object
-	 * @param parity 
+	 * @param parity <br>
  	 * &emsp; `0` - none\
  	 * &emsp; `1` - odd\
  	 * &emsp; `2` - even\
  	 * &emsp; `3` - mark\
  	 * &emsp; `4` - space
-	 * @param device Product ID from Device Magager > Hardware IDs
+	 * @param device `Product ID from Device Magager > Hardware IDs`
 	 */
-	CreateUSBSerial(baudRate: 300|600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600, dataBits: 5|6|7|8, stopBits: 1|2|15, parity: 0|1|2|3|4, device: num): DsUSBSerial;
+	CreateUSBSerial(baudRate?: 300|600|1200|2400|4800|9600|19200|38400|57600|115200|230400|460800|921600, dataBits?: 5|6|7|8, stopBits?: 1|2|15, parity?: 0|1|2|3|4, device?: num): DsUSBSerial;
 
 	/** Returns a new VideoView object */
-	CreateVideoView(width: num_frc, height: num_frc, options: str_com): DsVideoView;
+	CreateVideoView(width?: num_frc, height?: num_frc, options?: str_com): DsVideoView;
 
 	/**
 	 * Returns a new WebServer object
-	 * @param options 
+	 * @param options `ListDir`, `Upload`, `NoWelcome`, `Reflect`, `<BUFSIZE>`\
  	 * &emsp; `ListDir` - Show files in folder\
  	 * &emsp; `Upload` - Allow file uploads\
  	 * &emsp; `NoWelcome` - Ignore index.html\
  	 * &emsp; `Reflect` - Reflect web socket messages back to all clients\
  	 * &emsp; `<BUFSIZE>` - “ws_64k, ws_128k, ws_512k, ws_1M, ws_5M, ws_10M”
 	 */
-	CreateWebServer(port: num_int, options: string | ("ListDir"|"Upload"|"NoWelcome"|"Reflect"|"&lt;BUFSIZE&gt;")[]): DsWebServer;
+	CreateWebServer(port: num_int, options?: str_com): DsWebServer;
 
 	/** Returns a new WebSocket object */
-	CreateWebSocket(ip: str, id: str, retry: num_int, options: str): DsWebSocket;
+	CreateWebSocket(ip: str, id?: str, retry?: num_int, options?: str): DsWebSocket;
 
 	/**
 	 * Returns a new WebView object
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `ClearCookies` - Clear all webview cookies at startup\
  	 * &emsp; `Local` - loads URLs starting with / from /Storage/[AppName\]/ instead\
@@ -645,13 +515,13 @@ class DsApp {
  	 * &emsp; `UseBrowser` - Open links in external browser\
  	 * &emsp; `Wide` - force page using “wide” viewport
 	 */
-	CreateWebView(width: num_frc, height: num_frc, options: string | ("AllowZoom"|"AutoZoom"|"ClearCookies"|"FillX/Y"|"Local"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Persist"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser"|"Wide")[], zoom: num_prc): DsWebView;
+	CreateWebView(width?: num_frc, height?: num_frc, options?: string | ("AllowZoom"|"AutoZoom"|"ClearCookies"|"FillX/Y"|"Local"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Persist"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser"|"Wide")[], zoom?: num_prc): DsWebView;
 
-	/** #CreateWizard.md */
-	CreateWizard(title: str, width: num_frc, height: num_frc, callback: (layout: DsLayout, page: num_int) => void, options: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"TouchModal"|"NoTouch")[]): void;
+	/** The wizard is supposed to simplify a configuration progress which requires several inputs and decisions by the user */
+	CreateWizard(title: str, width?: num_frc, height?: num_frc, callback?: (layout: DsLayout, page: num_int) => void, options?: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"TouchModal"|"NoTouch")[]): DsWizard;
 
 	/** Returns a new YesNoDialog object */
-	CreateYesNoDialog(message: str, options: string | ("NoDim"|"NoFocus"|"TouchModal")[]): DsYesNoDialog;
+	CreateYesNoDialog(message: str, options?: string | ("NoDim"|"NoFocus"|"TouchModal")[]): DsYesNoDialog;
 
 	/** Returns a new ZipUtil object */
 	CreateZipUtil(mode: str): DsZipUtil;
@@ -671,23 +541,26 @@ class DsApp {
 	/** Destroy a layout */
 	DestroyLayout(layout: DsLayout): void;
 
-	/** Disable specific device keys */
-	DisableKeys(keyList: string | ("VOLUME_DOWN"|"VOLUME_UP"|"FORWARD"|"BACK"|"MENU"|"ENTER"|"...")[]): void;
+	/**
+	 * Disable specific device keys
+	 * @param keyList `VOLUME_DOWN`, `VOLUME_UP`, `FORWARD`, `BACK`, `MENU`, `ENTER`, `...`
+	 */
+	DisableKeys(keyList: str_com): void;
 
 	/** Suppress all touch events */
 	DisableTouch(disable: bin): void;
 
 	/** Search for nearby bluetooth devices */
-	DiscoverBtDevices(filter: str, onFound: (name: str, address: str) => void, onComplete: () => void): void;
+	DiscoverBtDevices(filter: str, onFound?: (name: str, address: str) => void, onComplete?: () => void): void;
 
 	/** Download a file with Androids download manager */
-	DownloadFile(source: str, destination: str_pth, title: str, description: str, options: "NoDialog"): void;
+	DownloadFile(source: str, destination: str_pth, title?: str, description?: str, options?: "NoDialog"): void;
 
-	/** #EnableBackKey.md */
+	/** Allows to en- or disable the devices back key */
 	EnableBackKey(enable: bin): void;
 
 	/** Show an error message */
-	Error(message: str, line: num_int, file: str_ptf, quit: bin): void;
+	Error(message: str, line: num_int, file: str_ptf, quit?: bin): void;
 
 	/** Execute js code from your app or a WebWiew */
 	Execute(js: str_jsc): void;
@@ -696,15 +569,15 @@ class DsApp {
 	Exit(kill: bin): void;
 
 	/** Execute a bash script using Termux */
-	ExtExec(name: "termux", file: str_ptf, args: str, options: "hide"): void;
+	ExtExec(name: "termux", file: str_ptf, args?: str, options?: "hide"): void;
 
 	/**
 	 * Extract app assets to a local directory
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `DoEvents` - extract in background\
  	 * &emsp; `shallow` - extract top level
 	 */
-	ExtractAssets(source: str_pth, destination: str_pth, overwrite: bin, options: "DoEvents"|"shallow"): void;
+	ExtractAssets(source: str_pth, destination: str_pth, overwrite?: bin, options?: "DoEvents"|"shallow"): void;
 
 	/** Forcefully update your plugins */
 	ExtractPlugins(): void;
@@ -719,17 +592,18 @@ class DsApp {
 	Func(name: str, ...args: all): void;
 
 	/** Google Analytics */
-	GA(command: "create"|"send"|"set"|"require"|"provide"|"remove", ...fields?: str, options: obj): void;
+	GA(command: "create"|"send"|"set"|"require"|"provide"|"remove", fields: str_com, options?: obj): void;
 
-	/** Get accesibility feature availability */
+	/**
+	 * Get accesibility feature availability
+	 * @return \{ enabled, exploreByTouch, screenReader }
+	 */
 	GetAccessibility(): { enabled: bin, exploreByTouch: bin, screenReader: bin };
 
-	/** Returns a string of all known account names on the device separated with comma ','.
-	 * 
-	 * See Also: ChooseAccount */
+	/** Returns a string of all known account names on the device separated with comma ',' */
 	GetAccounts(): str_com;
 
-	/** #GetActivities.md */
+	/** GetActivities returns a list of object of currently running activities */
 	GetActivities(): { label: str, packageName: str, className: str }[];
 
 	/** Convert language name to its code or get current language code */
@@ -798,8 +672,11 @@ class DsApp {
 	/** Get current DS version */
 	GetDSVersion(): num_flt;
 
-	/** Get environment variable */
-	GetEnv(name: "PATH"|"..."): str;
+	/**
+	 * Get environment variable
+	 * @param name `PATH`, `...`
+	 */
+	GetEnv(name: str): str;
 
 	/** Get external sdcard folder */
 	GetExternalFolder(): str_pth;
@@ -808,7 +685,7 @@ class DsApp {
 	 * Get last modified date of a file or folder
 	 * @return Date
 	 */
-	GetFileDate(file: str_ptf): jso;
+	GetFileDate(file: str_ptf): Date;
 
 	/** Get the size of a file or folder */
 	GetFileSize(file: str_ptf): num_flt;
@@ -819,7 +696,10 @@ class DsApp {
 	/** Get data about installed apps */
 	GetInstalledApps(): { packageName: str, className: str, uid: num_int, targetSdkVersion: num_int, dataDir: str_pth, sourceDir: str_pth, publicSourceDir: str_pth, nativeLibraryDir: str_pth }[];
 
-	/** Get received intent data */
+	/**
+	 * Get received intent data
+	 * @return \{ action, type, data, flags, extras: { app_intent, app_file, app_options } }
+	 */
 	GetIntent(): { action: str, type: str, data: str, flags: num_int, extras: { app_intent: str, app_file: str_pth, app_options: str } };
 
 	/** Get internal storage path */
@@ -828,15 +708,19 @@ class DsApp {
 	/** Get network IP address */
 	GetIPAddress(): str;
 
-	/** Returns the name of a conected joystick.
-	 * 
-	 * See Also: GetJoystickState */
+	/** Returns the name of a conected joystick */
 	GetJoystickName(id: num_int): str;
 
-	/** #GetJoystickState.md */
-	GetJoystickState(id: num_int, key: "A"|"B"|"C"|"X"|"Y"|"Z"|"R1"|"L1"|"Left"|"Right"|"Up"|"Down"|"Start"|"ThumbLeft"|"ThumbRight"|"axis-0..9"|"btn-1..12"): num;
+	/**
+	 * Returns the state of a connected joystick
+	 * @param key `A`, `B`, `C`, `X`, `Y`, `Z`, `R1`, `L1`, `Left`, `Right`, `Up`, `Down`, `Start`, `ThumbLeft`, `ThumbRight`, `axis-0..9`, `btn-1..12`
+	 */
+	GetJoystickState(id: num_int, key: str): num;
 
-	/** Get joystick key states object */
+	/**
+	 * Get joystick key states object
+	 * @return \{ key: value }
+	 */
 	GetJoystickStates(id: num_int): {[key: str]: num};
 
 	/** Get current keyboard height */
@@ -851,16 +735,20 @@ class DsApp {
 	/** Get devices MAC address */
 	GetMacAddress(): str;
 
-	/** Get a path to an unambiguous media file */
+	/**
+	 * Get a path to an unambiguous media file
+	 * @param folder `app name`
+	 */
 	GetMediaFile(folder: str, ext: str): str_pth;
 
-	/** Get RAM memory information */
+	/**
+	 * Get RAM memory information
+	 * @return \{ avail, low, threshold, total }
+	 */
 	GetMemoryInfo(): { avail: num_byt, low: bin, threshold: num_byt, total: num_byt };
 
-	/** Returns a string list of metadata values contained in an audio file.
-	 * 
-	 * See Also: CreateMediaPlayer */
-	GetMetadata(file: str_ptf, keys: string | ("album"|"artist"|"genre"|"title"|"composer"|"author"|"duration"|"bitrate"|"width"|"height")[]): str_com;
+	/** Returns a string list of metadata values contained in an audio file */
+	GetMetadata(file: str_ptf, keys?: string | ("album"|"artist"|"genre"|"title"|"composer"|"author"|"duration"|"bitrate"|"width"|"height")[]): str_com;
 
 	/** Get device model name */
 	GetModel(): str;
@@ -893,17 +781,16 @@ class DsApp {
 	GetPath(): str_pth;
 
 	/**
-	 * #GetPermission.md
-	 * @param type 
- 	 * &emsp; `pid`
+	 * GetPermission accepts a list of 'dangerus' classified permissions and returns a list of ungranted permissions in the **callback** function, or in case of only “ExtSDCard” the path URI of the user-selected folder
+	 * @param type `Camera`, `ExtSDcard`, `External`, `Internal`, `Network`, `Notify`, `Storage`, `Overlay`, `SMS`, `Location`, `Calendar`, `Body`, `Contacts`, `Record`, `Phone`, `Biometric`, `Accounts`, `License`, `android.permission.*`, `usb:<pid>`
 	 */
-	GetPermission(type: string | ("Camera"|"ExtSDcard"|"External"|"Internal"|"Network"|"Notify"|"Storage"|"Overlay"|"SMS"|"Location"|"Calendar"|"Body"|"Contacts"|"Record"|"Phone"|"Biometric"|"Accounts"|"License"|"android.permission.*"|"usb:<pid>")[], callback: (ungranted: str_com|str_uri) => void): void;
+	GetPermission(type: str_com, callback?: (ungranted: str_com|str_uri) => void): void;
 
 	/** Get path to a private folder */
-	GetPrivateFolder(name: str, options: "external"): str_pth;
+	GetPrivateFolder(name: str, options?: "external"): str_pth;
 
 	/** Get ID of a resource */
-	GetResourceId(name: str, options: "android"): str;
+	GetResourceId(name: str, options?: "android"): str;
 
 	/** Get current device ringer mode */
 	GetRingerMode(): "Normal"|"Vibrate"|"Silent";
@@ -911,29 +798,32 @@ class DsApp {
 	/** Get device rotation */
 	GetRotation(): 0|90|180|270;
 
-	/** Returns the routers ip address. (Its typically your own IP but ending with a .1, ie. 192.168.178.1) */
+	/**
+	 * Returns the routers ip address
+	 * @return `ip address`
+	 */
 	GetRouterAddress(): str;
 
 	/**
 	 * Get RSSI in dBm
-	 * @return -127..-30
+	 * @return `-127..-30`
 	 */
 	GetRSSI(): num_int;
 
 	/** Get list of running apps */
-	GetRunningApps(): { user: num_int, pid: num_bin, name: str, foreground: bin }[];
+	GetRunningApps(): { user: num_int, pid: num_int, name: str, foreground: bin }[];
 
 	/** Get list of running services */
-	GetRunningServices(): { user: num_int, pid: num_bin, name: str }[];
+	GetRunningServices(): { user: num_int, pid: num_int, name: str }[];
 
 	/** Get the screen density */
 	GetScreenDensity(): num_int;
 
 	/** Get width of device screen */
-	GetScreenHeight(options: "Real"): num_pxl;
+	GetScreenHeight(options?: "Real"): num_pxl;
 
 	/** Get height of device screen */
-	GetScreenWidth(options: "Real"): num_pxl;
+	GetScreenWidth(options?: "Real"): num_pxl;
 
 	/** Get list of shared files */
 	GetSharedFiles(): str_pth[];
@@ -944,9 +834,7 @@ class DsApp {
 	/** Get associated app shortcuts */
 	GetShortcuts(): lst;
 
-	/** Checks if the speaker is enabled for phone calls. Returns false if no call is active.
-	 * 
-	 * See also: SetSpeakerPhone */
+	/** Checks if the speaker is enabled for phone calls */
 	GetSpeakerPhone(): bin;
 
 	/** Get full path to a special media folder */
@@ -958,17 +846,23 @@ class DsApp {
 	/** Get WiFi network SSID (name) */
 	GetSSID(): str;
 
-	/** Calculates text bounds */
-	GetTextBounds(txt: str, size: num, width: num_frc, obj: dso): { width: num_frc, height: num_frc };
+	/**
+	 * Calculates text bounds
+	 * @return \{ width, height }
+	 */
+	GetTextBounds(txt: str, size?: num, width?: num_frc, obj?: dso): { width: num_frc, height: num_frc };
 
-	/** Get theme configuration */
+	/**
+	 * Get theme configuration
+	 * @return \{ baseTheme, holo, dark, titleHeight, backColor, dialogColor, btnColor, dialogBtnColor, textColor1, textColor2,btnTextColor, highlightColor }
+	 */
 	GetThemeInfo(): { baseTheme: str, holo: bin, dark: bin, titleHeight: num_frc, backColor: str_col, dialogColor: str_col, btnColor: str_col, dialogBtnColor: str_col, textColor1: str_col, textColor2: str_col,btnTextColor: str_col, highlightColor: str_col };
 
 	/** Create downscaled copy of an image */
-	GetThumbnail(source: str_pth, destination: str_pth, width: num_pxl, height: num_pxl): void;
+	GetThumbnail(source: str_pth, destination: str_pth, width?: num_pxl, height?: num_pxl): void;
 
 	/** Returns the upper border distance from the app display to the device screen as height relative float or in pixels with the **px** option */
-	GetTop(options: "px"): num_frc;
+	GetTop(options?: "px"): num_frc;
 
 	/** Returns the object class name */
 	GetType(): "App";
@@ -1002,7 +896,7 @@ class DsApp {
 
 	/**
 	 * Send Http request
-	 * @param type 
+	 * @param type <br>
  	 * &emsp; `GET` - retrieve data\
  	 * &emsp; `POST` - submit data\
  	 * &emsp; `JSON` - post json data\
@@ -1010,13 +904,13 @@ class DsApp {
  	 * &emsp; `DELETE` - deletes the resource\
  	 * &emsp; `HEAD` - omit body
 	 */
-	HttpRequest(type: "GET"|"POST"|"JSON"|"PUT"|"DELETE"|"HEAD", baseUrl: str_url, path: str, params: str, callback: (error: bin, reply: str, status: num_int) => void, headers: str): void;
+	HttpRequest(type: "GET"|"POST"|"JSON"|"PUT"|"DELETE"|"HEAD", baseUrl: str_url, path?: str, params?: str, callback?: (error: bin, reply: str, status: num_int) => void, headers?: str): void;
 
 	/** In ide */
 	InIDE(): bin;
 
 	/** Start apk installation process */
-	InstallApp(apkFile: str_ptf, callback: (packageName: str, status: str) => void, options: str): bin;
+	InstallApp(apkFile: str_ptf, callback?: (packageName: str, status: str) => void, options?: str): bin;
 
 	/** Returns true if ran from apk */
 	IsAPK(): bin;
@@ -1096,13 +990,16 @@ class DsApp {
 	/** Kill an app by its pid */
 	KillApp(pid: num_int): void;
 
-	/** Launch or search an app */
-	LaunchApp(packageName: str, noPlay: bin): void;
+	/**
+	 * Launch or search an app
+	 * @param noPlay `dont search`
+	 */
+	LaunchApp(packageName: str, noPlay?: bin): void;
 
 	/**
 	 * Get a list of files ans folders contained in a specific folder
-	 * @param path must not have a trailing slash
-	 * @param options 
+	 * @param path `must not have a trailing slash`
+	 * @param options <br>
  	 * &emsp; `Alphasort` - sorts the paths in alphabetical order\
  	 * &emsp; `FullPath` - returns absolute paths to the listed items\
  	 * &emsp; `RegEx` - accepts regexp patterns\
@@ -1111,7 +1008,7 @@ class DsApp {
  	 * &emsp; `NoEmpty` - hide empty folders\
  	 * &emsp; `project` - Shows DS project folders only
 	 */
-	ListFolder(path: str_pth, filter: str, limit: num_int, options: string | ("Alphasort"|"FullPath"|"RegEx"|"Folders"|"Files"|"NoEmpty"|"project")[]): str_pth[];
+	ListFolder(path: str_pth, filter?: str, limit?: num_int, options?: string | ("Alphasort"|"FullPath"|"RegEx"|"Folders"|"Files"|"NoEmpty"|"project")[]): str_pth[];
 
 	/** Returns a list of granted permissions
 	 * 
@@ -1119,24 +1016,22 @@ class DsApp {
 	ListPermissions(type: "Camera"|"Storage"|"ExtSDcard"|"Network"|"Notify"|"Location"|"SMS"|"Calendar"|"Body"|"Contacts"|"Record"|"Biometric"|"Phone"|"Accounts"|"License"): str_uri[];
 
 	/** Load saved boolean value */
-	LoadBoolean(name: str, dflt: bin, file: str_ptf): bin;
+	LoadBoolean(name: str, dflt?: bin, file?: str_ptf): bin;
 
 	/** Load saved json object */
-	LoadJson(name: str, dflt: obj, file: str_ptf): obj;
+	LoadJson(name: str, dflt?: obj, file?: str_ptf): obj;
 
 	/** Load saved boolean value */
-	LoadNumber(name: str, dflt: num, file: str_ptf): num;
+	LoadNumber(name: str, dflt?: num, file?: str_ptf): num;
 
 	/** Load an installed plugin to your app */
 	LoadPlugin(url: str_url): void;
 
 	/** Asynchronously import a .js file */
-	LoadScript(path: str_pth, callback: (info: { isTrusted: bin }) => void): void;
+	LoadScript(path: str_pth, callback?: (info: { isTrusted: bin }) => void): void;
 
-	/** Load saved text value to remember varibale values between multiple app starts.
-	 * 
-	 * See also: SaveText */
-	LoadText(name: str, dflt: str, file: str_ptf): void;
+	/** Load saved text value to remember varibale values between multiple app starts */
+	LoadText(name: str, dflt?: str, file?: str_ptf): void;
 
 	/** Lock the device */
 	Lock(): void;
@@ -1150,25 +1045,21 @@ class DsApp {
 	/** OpenDatabase creates or opens a local database in which large amounts of data can be stored that can still be queried in a reasonable amount of time */
 	OpenDatabase(name: str): DsDatabase;
 
-	/** Opens the drawer layout on the given side with slide animation.
-	 * 
-	 * See Also: AddDrawer */
+	/** Opens the drawer layout on the given side with slide animation */
 	OpenDrawer(side: "left"|"right"): void;
 
 	/** Allow user to open a file with an external app */
-	OpenFile(file: str_ptf, type: str_mim, choose: str): void;
+	OpenFile(file: str_ptf, type?: str_mim, choose?: str): void;
 
 	/** Allow user to open an url with an external app */
-	OpenUrl(url: str_url, type: str_mim, choose: str): void;
+	OpenUrl(url: str_url, type?: str_mim, choose?: str): void;
 
-	/** Pairs a bluetooth device with yours.
-	 * 
-	 * See Also: GetPairedBtDevices, IsBtDevicePaired, DiscoverBtDevices */
-	PairBtDevice(address: str, callback: () => void): void;
+	/** Pairs a bluetooth device with yours */
+	PairBtDevice(address: str, callback?: () => void): void;
 
 	/**
 	 * Convert file path to content uri
-	 * @return content://[uri]
+	 * @return `content://[uri]`
 	 */
 	Path2Uri(path: str_pth): str_ptc;
 
@@ -1183,7 +1074,7 @@ class DsApp {
 
 	/**
 	 * Prevent screen from locking after some time
-	 * @param mode 
+	 * @param mode <br>
  	 * &emsp; `Full` - Device can sleep,Screen and Keyboard on\
  	 * &emsp; `Partial` - CPU always on,Screen and Keyboard off
 	 */
@@ -1194,23 +1085,23 @@ class DsApp {
 
 	/**
 	 * Queries content from the android content model
-	 * @param sort 
+	 * @param sort <br>
  	 * &emsp; `coloumn` - a coloumn specified in 'coloumns'
 	 */
-	QueryContent(uri: str_uri, columns: str_com, select: str_sql, args: lst, sort: "coloumn"): void;
+	QueryContent(uri: str_uri, columns: str_com, select?: str_sql, args?: lst, sort?: "coloumn"): void;
 
 	/** Quit the app with showing a dialog and exit after closing */
-	Quit(msg: str, title: str, options: string | ("NoDim"|"NoFocus")[]): void;
+	Quit(msg: str, title?: str, options?: string | ("NoDim"|"NoFocus")[]): void;
 
 	/**
 	 * Read the content of a local file
-	 * @param encoding 
+	 * @param encoding <br>
  	 * &emsp; `ISO-8859-1` - Latin-1
 	 */
-	ReadFile(file: str_ptc, encoding: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"|"base64"): void;
+	ReadFile(file: str_ptc, encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"|"base64"): void;
 
 	/** Read local file content data */
-	ReadFileData(file: str_pfa, mode: "base64"|"hex"|"int"|"ascii"): void;
+	ReadFileData(file: str_pfa, mode?: "base64"|"hex"|"int"|"ascii"): void;
 
 	/** Convert short to full path */
 	RealPath(path: str_pth): void;
@@ -1221,9 +1112,7 @@ class DsApp {
 	/** Remove drawer layout from a given side */
 	RemoveDrawer(side: "left"|"right"): void;
 
-	/** Removes a layout added to the app.
-	 * 
-	 * See also: AddLayout */
+	/** Removes a layout added to the app */
 	RemoveLayout(layout: DsLayout): void;
 
 	/** Removes a granted permission
@@ -1238,22 +1127,22 @@ class DsApp {
 	RenameFolder(source: str_pth, destination: str_pth): void;
 
 	/** Replace text in a local file */
-	ReplaceInFile(file: str_ptf, txt: str, rep: str, options: str_com): void;
+	ReplaceInFile(file: str_ptf, txt: str, rep: str, options?: str_com): void;
 
 	/** Save a boolean value across multiple starts */
-	SaveBoolean(name: str, value: bin, file: str_ptf): void;
+	SaveBoolean(name: str, value: bin, file?: str_ptf): void;
 
 	/** Save web cookies */
 	SaveCookies(): void;
 
 	/** Save a json object across multiple starts */
-	SaveJson(name: str, value: obj, file: str_ptf): void;
+	SaveJson(name: str, value: obj, file?: str_ptf): void;
 
 	/** Save a number value across multiple starts */
-	SaveNumber(name: str, value: num, file: str_ptf): void;
+	SaveNumber(name: str, value: num, file?: str_ptf): void;
 
 	/** Save a text value across multiple starts */
-	SaveText(name: str, value: str, file: str_ptf): void;
+	SaveText(name: str, value: str, file?: str_ptf): void;
 
 	/** Adds media files to phone gallery */
 	ScanFile(file: str_ptf): void;
@@ -1261,52 +1150,51 @@ class DsApp {
 	/** Schedules background jobs defined in a Job.js file
 	 * 
 	 * See Also: CancelJob */
-	ScheduleJob(delay: num_mls, options: str): void;
+	ScheduleJob(delay: num_mls, options?: str): void;
 
 	/** Take a screen shot of your app */
-	ScreenShot(fileName: str_ptf, quality: num_prc): void;
-
-	/** Import an external JavaScript file */
-	Script(file: str_ptf, noDefer: bin): void;
-
-	/** Send a file to a remote target */
-	SendFile(file: str_pfa, subject: str, text: str, choose: str): void;
-
-	/** Send an image to a remote target */
-	SendImage(file: str_pfa, choose: str): void;
+	ScreenShot(fileName: str_ptf, quality?: num_prc): void;
 
 	/**
-	 * #SendIntent.md
+	 * Import an external JavaScript file
+	 * @param noDefer `load script inline`
+	 */
+	Script(file: str_ptf, noDefer?: bin): void;
+
+	/** Send a file to a remote target */
+	SendFile(file: str_pfa, subject?: str, text?: str, choose?: str): void;
+
+	/** Send an image to a remote target */
+	SendImage(file: str_pfa, choose?: str): void;
+
+	/**
+	 * Intens can be used to perform an operation between different applications or activities
 	 * @param action android.intent.action.*
 	 * @param category android.intent.category.*
-	 * @param extras 
- 	 * &emsp; `name`\
- 	 * &emsp; `type`\
- 	 * &emsp; `value`
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Result` - expect a result to be passed to the callback function
 	 */
-	SendIntent(packageName: str, className: str, action: str, category: str, uri: str_uri, type: str_mim, extras: { name: str, type: "string"|"float"|"int"|"long"|"bool"|"list"|"file"|"uri"|"keydown"|"keyup", value: str }[], options: string | ("Result"|"ClearTask")[], callback: (resultCode: -1|0|1, data: { action: str, type: str, data: str, flags: num_int, extras: obj }) => void): void;
+	SendIntent(packageName?: str, className?: str, action?: str, category?: str, uri?: str_uri, type?: str_mim, extras?: { name: str, type: "string"|"float"|"int"|"long"|"bool"|"list"|"file"|"uri"|"keydown"|"keyup", value: str }[], options?: string | ("Result"|"ClearTask")[], callback?: (resultCode: -1|0|1, data?: { action: str, type: str, data: str, flags: num_int, extras: obj }) => void): void;
 
 	/** Open the EMail app and autofill fields */
-	SendMail(address: str, subject: str, body: str, attach: str_pth, type: str_mim, options: "SendTo"): void;
+	SendMail(address: str, subject?: str, body?: str, attach?: str_pth, type?: str_mim, options?: "SendTo"): void;
 
 	/** Send message from Service to main app */
 	SendMessage(message: str): void;
 
 	/** Open the SMS app and autofill fields */
-	SendSMS(msg: str, number: str_num): void;
+	SendSMS(msg?: str, number?: str_num): void;
 
 	/** Share text between apps */
-	SendText(text: str, subject: str, choose: str): void;
+	SendText(text: str, subject?: str, choose?: str): void;
 
 	/**
 	 * Set alarm to open your app at a specific time
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Exact` - only works for single shot alarms\
  	 * &emsp; `App` - Opens main app if called from a service
 	 */
-	SetAlarm(type: "Set"|"Repeat"|"Cancel", id: str|num_int, callback: (id: str|num_int) => void, time: num_dat, interval: num_mls, options: string | ("ExactIdle"|"Exact"|"App")[]): void;
+	SetAlarm(type: "Set"|"Repeat"|"Cancel", id?: str|num_int, callback?: (id: str|num_int) => void, time?: num_dat, interval?: num_mls, options?: string | ("ExactIdle"|"Exact"|"App")[]): void;
 
 	/** Load the language code from lang.json */
 	SetAppLanguage(name: str): void;
@@ -1335,12 +1223,15 @@ class DsApp {
 	/** Control the debug level of the program */
 	SetDebug(switches: string | ("console"|"ds"|"adb"|"all")[]): void;
 
+	/** Control the debug level of the program */
+	SetDebugEnabled(onoff: bin): void;
+
 	/** Changes the dpi value for any control creatred afterwards */
 	SetDensity(dpi: num_int): void;
 
 	/**
 	 * Filter/ignore certain errors
-	 * @param regex regex pattern
+	 * @param regex `regex pattern`
 	 */
 	SetErrorFilter(regex: str): void;
 
@@ -1348,33 +1239,33 @@ class DsApp {
 	SetInBackground(): void;
 
 	/** Set services to run in the foreground */
-	SetInForeground(title: str, text: str, largeIcon: str_ptf, smallIcon: str_ptf, importance: "min"|"low"|"default"|"high"|"none"): void;
+	SetInForeground(title?: str, text?: str, largeIcon?: str_ptf, smallIcon?: str_ptf, importance?: "min"|"low"|"default"|"high"|"none"): void;
 
 	/**
 	 * Set options for the connected joystick
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `ForwardKeys` - allows the joystick key presses to pass onto the child controls of the main activity
 	 */
-	SetJoystickOptions(options: string | ("ForwardKeys")[]): void;
+	SetJoystickOptions(options?: string | ("ForwardKeys")[]): void;
 
 	/**
 	 * Blocks android functionality outside your app
-	 * @param mode 
+	 * @param mode <br>
  	 * &emsp; `LockTask` - COSU kiosk\
  	 * &emsp; `Pin` - task un-/pinning
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Tasks` - prevents recent tasks button working
 	 */
-	SetKioskMode(mode: string | ("Power"|"Status"|"Nav"|"NavRight"|"LockTask"|"Pin")[], enable: bin, options: string | ("Black"|"Tasks")[], packages: str): void;
+	SetKioskMode(mode: string | ("Power"|"Status"|"Nav"|"NavRight"|"LockTask"|"Pin")[], enable?: bin, options?: string | ("Black"|"Tasks")[], packages?: str): void;
 
 	/** Set default margins */
-	SetMargins(left: num, top: num, right: num, bottom: num_frc, mode: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetMargins(left?: num, top?: num, right?: num, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Set app menu */
-	SetMenu(list: str_com, iconPath: str_ptf): void;
+	SetMenu(list: str_com, iconPath?: str_ptf): void;
 
 	/** Emulate GPS location */
-	SetMockLocation(lat: num, lng: num, accuracy: num): void;
+	SetMockLocation(lat: num, lng: num, accuracy?: num): void;
 
 	/** Set NavBar color */
 	SetNavBarColor(color: str_col): void;
@@ -1389,7 +1280,7 @@ class DsApp {
 	SetOnError(callback: (error: str) => void): void;
 
 	/** Catch key events fired in your app */
-	SetOnKey(callback: (action: "DOWN"|"UP", name: "ENTER"|"VOLUME_DOWN"|"VOLUME_UP"|"BACK"|"MENU"|"...", keycode: num_int, extrakeys: "Shift"|"Ctrl"|"Alt"|"Meta") => void): void;
+	SetOnKey(callback: (action: "DOWN"|"UP", name: str, keycode: num_int, extrakeys: "Shift"|"Ctrl"|"Alt"|"Meta") => void): void;
 
 	/** Called on keyboard visibility changes */
 	SetOnShowKeyboard(callback: (shown: bin) => void): void;
@@ -1399,16 +1290,16 @@ class DsApp {
 
 	/**
 	 * Define global app options
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `NoPause` - dont pause when not in foreground
 	 */
-	SetOptions(options: string | ("UseBrowser"|"NoKeys"|"ShowKeys"|"NoPause"|"NoThemeAlerts"|"IgnoreSslErrors"|"TouchModal"|"NoCors"|"NoTouch"|"NoFocus"|"Secure"|"ShowLocked"|"WakeScreen"|"ScreenOn")[]): void;
+	SetOptions(options?: string | ("UseBrowser"|"NoKeys"|"ShowKeys"|"NoPause"|"NoThemeAlerts"|"IgnoreSslErrors"|"TouchModal"|"NoCors"|"NoTouch"|"NoFocus"|"Secure"|"ShowLocked"|"WakeScreen"|"ScreenOn")[]): void;
 
 	/** Fix display orientation */
-	SetOrientation(orient: "Default"|"Landscape"|"ReverseLandscape"|"Portrait"|"ReversePortrait", callback: () => void): void;
+	SetOrientation(orient: "Default"|"Landscape"|"ReverseLandscape"|"Portrait"|"ReversePortrait", callback?: () => void): void;
 
 	/** Change app position and size */
-	SetPosition(left: num_frc, top: num_frc, width: num_frc, height: num_frc, options: "px"): void;
+	SetPosition(left: num_frc, top: num_frc, width?: num_frc, height?: num_frc, options?: "px"): void;
 
 	/** Change GUI thread priority */
 	SetPriority(level: "Low"|"Medium"|"High"): void;
@@ -1419,7 +1310,7 @@ class DsApp {
 	/** Change screen brightness */
 	SetScreenBrightness(level: num_frc): void;
 
-	/** Changes the screen mode of your application. If null is passed, the [app menu](SetMenu.htm) will be dismissed. When called, the global OnConfig function will be called (if defined) */
+	/** Changes the screen mode of your application */
 	SetScreenMode(mode: "Default"|"Normal"|"Full"|"Game"): void;
 
 	/** Auto-Launch Project when shared data received */
@@ -1433,39 +1324,35 @@ class DsApp {
 
 	/**
 	 * Set default text size
-	 * @param mode 
+	 * @param mode <br>
  	 * &emsp; `pl` - scales text in proportion with device resolution\
  	 * &emsp; `ps` - scales text in proportion with device resolution
 	 */
-	SetTextSize(size: num, mode: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
 
-	/** Change the theme of your app to any created [Theme Object](CreateTheme.htm). The theme will only apply to objects created after the theme was set. You typically need to recreate all your controls or restart the app to apply the new theme.
-	 * 
-	 * @premium  */
+	/** Change the theme of your app to any created [Theme Object](CreateTheme.htm) */
 	SetTheme(theme: DsTheme): void;
 
 	/**
-	 * Change the user agent for html apps. For more details [ask Wikipedia](https://en.wikipedia.org/wiki/User_agent)
-	 * @param options Add-appends to default user agent
+	 * Change the user agent for html apps
+	 * @param options `Add-appends to default user agent`
 	 */
-	SetUserAgent(agent: str, options: str): void;
+	SetUserAgent(agent: str, options?: str): void;
 
 	/** Set user credentials in an html app for websites that require user login */
 	SetUserCreds(name: str, password: str): void;
 
 	/**
 	 * Change volume of a given audio type
-	 * @param stream 
+	 * @param stream <br>
  	 * &emsp; `DTMF` - Dual Tone Multi-Frequency
 	 */
-	SetVolume(stream: "Alarm"|"DTMF"|"Music"|"Notification"|"Ring"|"System"|"Voicecall", level: num_frc, options: "ShowUI"): void;
+	SetVolume(stream: "Alarm"|"DTMF"|"Music"|"Notification"|"Ring"|"System"|"Voicecall", level: num_frc, options?: "ShowUI"): void;
 
 	/** En/Disable the mobile Wifi Access Point of the device */
-	SetWifiApEnabled(enable: bin, ssid: str, key: str): void;
+	SetWifiApEnabled(enable: bin, ssid?: str, key?: str): void;
 
-	/** En/Disable Wifi on the device.
-	 * 
-	 * See Also: SetWifiEnabled, IsWifiApEnabled, WifiScan */
+	/** En/Disable Wifi on the device */
 	SetWifiEnabled(enable: bin): void;
 
 	/** Show main app layout */
@@ -1473,63 +1360,56 @@ class DsApp {
 
 	/**
 	 * Shows a CheckList
-	 * @param list title:str\:checked:bin\
- 	 * **or** 
- 	 * &emsp; `title`\
- 	 * &emsp; `check`
+	 * @param list `title:checked`
 	 * @param options sun-moon:shows sun and moon icons instead of default check boxes
 	 */
-	ShowCheckList(title: str, list: str|{ title: str, check: bin }, callback: (data: { title: str, checked: bin }) => void, width: num_frc, height: num_frc, options: str): DsCheckList;
+	ShowCheckList(title: str, list: str|{ title: str, check: bin }, callback?: (data: { title: str, checked: bin }) => void, width?: num_frc, height?: num_frc, options?: str): DsCheckList;
 
 	/**
 	 * Opens the in-app debug console as black overlay
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `dialog` - Show the debug log as black overlay dialog\
  	 * &emsp; `clear` - Clear content before showing
 	 */
-	ShowDebug(show: bin, options: "dialog"|"clear"): void;
+	ShowDebug(show: bin, options?: "dialog"|"clear"): void;
 
 	/** Show keyboard on a focussed control */
 	ShowKeyboard(obj: dso): bin;
 
-	/** Show the in-app menu. When a menu entry is touched, the _OnMenu_ event will be called.
-	 * 
-	 * See Also: SetMenu */
+	/** Show the in-app menu */
 	ShowMenu(): void;
 
 	/** Show a popup message */
-	ShowPopup(message: str, options: string | ("Bottom"|"Short"|"Long")[]): void;
+	ShowPopup(message: str, options?: string | ("Bottom"|"Short"|"Long")[]): void;
 
 	/**
 	 * Show a progress indicator
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `NoDim` - Don't darken background\
  	 * &emsp; `NonModal` - allow background touch\
  	 * &emsp; `Solid` - shows solid background behind spinner
 	 */
-	ShowProgress(message: str, options: string | ("NoDim"|"NonModal"|"Solid")[]): void;
+	ShowProgress(message: str, options?: string | ("NoDim"|"NonModal"|"Solid")[]): void;
 
 	/** Show a progress bar dialog */
-	ShowProgressBar(title: str, percent: num_prc, options: "Light"): void;
+	ShowProgressBar(title: str, percent?: num_prc, options?: "Light"): void;
 
 	/** Show a text input dialog */
-	ShowTextDialog(title: str, dflt: str, callback: (text: str) => void): void;
+	ShowTextDialog(title: str, dflt?: str, callback?: (text: str) => void): void;
 
 	/** Shows a tooltip message on the screen */
-	ShowTip(message: str, left: num_frc, top: num_frc, timeOut: num_mls, options: "Down"): void;
+	ShowTip(message: str, left?: num_frc, top?: num_frc, timeOut?: num_mls, options?: "Down"): void;
 
 	/** Simulates a drag event on an app object in a scrollable container */
-	SimulateDrag(obj: dso, x1: num_frc, y1: num_frc, x2: num_frc, y2: num_frc, step: num, pause: num): void;
+	SimulateDrag(obj: dso, x1: num_frc, y1: num_frc, x2: num_frc, y2: num_frc, step?: num, pause?: num): void;
 
-	/** Simulates a key event on an app object.
-	 * 
-	 * You can find the complete list of key names on the [Android Developer Page](https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0) */
-	SimulateKey(obj: dso, keyName: str, modifiers: "META_META_ON"|"META_RIGHT_ON"|"NUM_LOCK_ON"|"SCROLL_LOCK_ON"|"SHIFT_LEFT_ON"|"SHIFT_MASK"|"SHIFT_ON"|"SHIFT_RIGHT_ON"|"SYM_ON", pause: num): void;
+	/** Simulates a key event on an app object */
+	SimulateKey(obj: dso, keyName: str, modifiers?: "META_META_ON"|"META_RIGHT_ON"|"NUM_LOCK_ON"|"SCROLL_LOCK_ON"|"SHIFT_LEFT_ON"|"SHIFT_MASK"|"SHIFT_ON"|"SHIFT_RIGHT_ON"|"SYM_ON", pause?: num): void;
 
 	/** Simulates a scroll event on a scrollable app object */
-	SimulateScroll(obj: dso, x: num_frc, y: num_frc, dx: num_frc, dy: num_frc, count: num, fling: num): void;
+	SimulateScroll(obj: dso, x: num_frc, y: num_frc, dx: num_frc, dy: num_frc, count?: num, fling?: num): void;
 
-	/** Simulate a touch event on a rouchable control */
+	/** Simulate a touch event on a reachable control */
 	SimulateTouch(obj: dso, x: num_frc, y: num_frc, dir: "Down"|"Move"|"Up"): void;
 
 	/** Start your DS app in an html project */
@@ -1537,12 +1417,12 @@ class DsApp {
 
 	/**
 	 * Starts an app in a new window
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Debug` - start app in debug mode\
  	 * &emsp; `Game` - runs in GameView mode
-	 * @param intent { action:str\, type:str\, data:obj\, extras:obj }
+	 * @param intent `{ action`, ` type`, ` data`, ` extras }`
 	 */
-	StartApp(file: str_ptf, options: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[], intent: str): void;
+	StartApp(file: str_ptf, options?: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[], intent?: str): void;
 
 	/** Start remote debug server */
 	StartDebugServer(): void;
@@ -1561,14 +1441,14 @@ class DsApp {
 
 	/**
 	 * Execute a shell command on the android shell
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `log` - logs output to console\
  	 * &emsp; `noread` - dont read result (just execute)
 	 */
-	SysExec(command: str, options: "log"|"noread"|"sh"|"su", maxRead: num, timeout: num_sec): str;
+	SysExec(command: str, options?: "log"|"noread"|"sh"|"su", maxRead?: num, timeout?: num_sec): str;
 
 	/** Audiolize text */
-	TextToSpeech(text: str, pitch: num, rate: num, callback: () => void, stream: "music", locale: str, engine: str): void;
+	TextToSpeech(text: str, pitch?: num, rate?: num, callback?: () => void, stream?: "music", locale?: str, engine?: str): void;
 
 	/** Put the app in the background */
 	ToBack(): void;
@@ -1579,60 +1459,56 @@ class DsApp {
 	/** Translate “Ok” and “Cancel” buttons */
 	Translate(Ok: str, Cancel: str): void;
 
-	/** Unlocks the device.
-	 * 
-	 * <red>**Requires Root**</red>
-	 * 
-	 * See Also: Lock */
+	/** Unlocks the device */
 	Unlock(): void;
 
 	/** Unlock a locked drawer */
 	UnlockDrawer(side: "left"|"right"): void;
 
 	/** Unpair a paired Bluetooth device */
-	UnpairBtDevice(address: str, callback: () => void): void;
+	UnpairBtDevice(address: str, callback?: () => void): void;
 
 	/**
 	 * Unzip a zip file
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `spk` - Extract SPK as DS project folder
 	 */
-	UnzipFile(source: str_pth, destination: str_pth, options: "spk"): void;
+	UnzipFile(source: str_pth, destination: str_pth, options?: "spk"): void;
 
 	/**
 	 * Update the ProgressBar percentage
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `doevents` - force v8 UI update
 	 */
-	UpdateProgressBar(percent: num_prc, options: "doevents"): void;
+	UpdateProgressBar(percent: num_prc, options?: "doevents"): void;
 
 	/**
 	 * Force UI refresh
-	 * @param ms Update Rate
+	 * @param ms `Update Rate`
 	 */
 	UpdateUI(ms: num_mls): void;
 
 	/** Uploads a file to a server */
-	UploadFile(url: str_url, file: str_ptf, name: str, callback: () => void): void;
+	UploadFile(url: str_url, file: str_ptf, name: str, callback?: () => void): void;
 
 	/**
 	 * Decode a URI encoded string
-	 * @param options returns DS style paths
+	 * @param options `returns DS style paths`
 	 */
-	Uri2Path(uri: str_uri, options: str): str;
+	Uri2Path(uri: str_uri, options?: str): str;
 
 	/** Vibrate device in a pattern */
 	Vibrate(pattern: str_com): void;
 
 	/** Perform a synchronous delay */
-	Wait(seconds: num_sec, doEvents: bin): void;
+	Wait(seconds: num_sec, doEvents?: bin): void;
 
 	/** Wake the screen up */
 	WakeUp(): void;
 
 	/**
 	 * Lists the contents of a folder recursively
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Alphasort` - sorts the paths in alphabetical order\
  	 * &emsp; `FullPath` - returns absolute paths to the listed items\
  	 * &emsp; `RegEx` - accepts regexp patterns\
@@ -1641,38 +1517,44 @@ class DsApp {
  	 * &emsp; `NoEmpty` - hide empty folders\
  	 * &emsp; `project` - Shows DS project folders only
 	 */
-	WalkFolder(path: str_pth, filter: str, limit: num_int, options: string | ("Alphasort"|"FullPath"|"RegEx"|"Folders"|"Files"|"NoEmpty"|"project")[]): str_pth[];
+	WalkFolder(path: str_pth, filter?: str, limit?: num_int, options?: string | ("Alphasort"|"FullPath"|"RegEx"|"Folders"|"Files"|"NoEmpty"|"project")[]): str_pth[];
 
-	/** Connect to a WiFi network by specifying the ssid and a password. See Also: WifiScan, SetOnWifiChange, SetWifiApEnabled */
+	/** Connect to a WiFi network by specifying the ssid and a password */
 	WifiConnect(ssid: str, key: str): void;
 
 	/** Scan for any available Wifi networks */
-	WifiScan(callback: (ssids: str_pip|lst) => void, options: "detail"): void;
+	WifiScan(callback: (ssids: str_pip|lst) => void, options?: "detail"): void;
 
 	/**
 	 * Write text to a local file
-	 * @param encoding 
+	 * @param encoding <br>
  	 * &emsp; `ISO-8859-1` - Latin-1
 	 */
-	WriteFile(file: str_ptf, text: str, mode: "Append"|"ASCII", encoding: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"): void;
+	WriteFile(file: str_ptf, text: str, mode?: "Append"|"ASCII", encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"): void;
 
 	/**
 	 * Compress a file to zip
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `spk` - Create SPK from File
 	 */
-	ZipFile(source: str_pth, destination: str_pth, options: "spk"): void;
+	ZipFile(source: str_pth, destination: str_pth, options?: "spk"): void;
 
 	/**
 	 * Compress a folder to zip
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `spk` - Create SPK from DS project folder
 	 */
-	ZipFolder(source: str_pth, destination: str_pth, options: "spk"): void;
+	ZipFolder(source: str_pth, destination: str_pth, options?: "spk"): void;
 
 }
 
-class DsAudioRecorder {
+declare class DsAudioRecorder {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns a new list of frequency values */
 	GetData(): num_int[];
@@ -1706,7 +1588,13 @@ class DsAudioRecorder {
 }
 
 
-class DsBluetoothList {
+declare class DsBluetoothList {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "BluetoothList";
@@ -1716,7 +1604,13 @@ class DsBluetoothList {
 }
 
 
-class DsBluetoothSerial {
+declare class DsBluetoothSerial {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Clears the Bluetooth buffer of the serial connection */
 	Clear(): void;
@@ -1742,18 +1636,24 @@ class DsBluetoothSerial {
 	/** Listen <s>or stop listening</s> for incoming messages */
 	Listen(enabled: bin): void;
 
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Ask user to enable Bluetooth */
 	RequestEnable(): void;
 
 	/**
 	 * Define data format for outgoing data
-	 * @param mode 
+	 * @param mode `Hex`, `Int`, `Text`, `<encoding>`\
  	 * &emsp; `Hex` - comma separated text value\
  	 * &emsp; `Int` - comma separated byte numbers\
  	 * &emsp; `Text` - string of text characters\
  	 * &emsp; `encoding` - UTF-16L/BE
 	 */
-	SetDataMode(mode: "Hex"|"Int"|"Text"|"&lt;encoding&gt;"): void;
+	SetDataMode(mode: str): void;
 
 	/** If the device has sent the connection request
 	 * 	name is of type boolean (true if the connection was established successful)
@@ -1765,13 +1665,13 @@ class DsBluetoothSerial {
 	SetOnConnect(callback: (name: str, address: str) => void): void;
 
 	/** Called after disconnecting from bluetooth connection */
-	SetOnDisconnect(): void;
+	SetOnDisconnect(callback: (name: str, address: str) => void): void;
 
 	/** Called after received Data via Bluetooth */
 	SetOnReceive(callback: (data: str) => void): void;
 
 	/** Specify how to split received data */
-	SetSplitMode(mode: "End"|"Start-End"|"Size", p2: str|num_int, p3: str|num_int): void;
+	SetSplitMode(mode: "End"|"Start-End"|"Size", p2: str|num_int, p3?: str|num_int): void;
 
 	/** Set idle disconnect timeout */
 	SetTimeout(milliseconds: num_mls): void;
@@ -1781,29 +1681,235 @@ class DsBluetoothSerial {
 }
 
 
-class DsButton {
+declare class DsButton {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "Button";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** Auto-crop text to fit in control */
+	SetEllipsize(mode: "start"|"middle"|"end"): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Change the used font */
+	SetFontFile(file: str_ptf): void;
+
+	/** Set current text to html-formatted text */
+	SetHtml(str: str_htm): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Define a callback function for touch events */
+	SetOnTouch(callback: () => void): void;
+
 	/** Called when the button was long pressed */
 	SetOnLongTouch(callback: () => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Customize the button looks */
-	SetStyle(color1: str_col, color2: str_col, radius: num_pxl, strokeClr: str_col, strokeWidth: num_pxl, shadow: num_frc): void;
+	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/** Define a shadow around the control */
+	SetTextShadow(radius: num_int, dx?: num_int, dy?: num_int, color?: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsCameraView {
+declare class DsCameraView {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Takes a picture if a motion was detected
 	 * @param fileName File_n#_motion
 	 */
-	AutoCapture(path: str_ptd, fileName: str, maxCount: num_int): void;
+	AutoCapture(path: str_ptd, fileName: str, maxCount?: num_int): void;
 
-	/** Find faces in the current camera view */
-	FindFaces(maxCount: num_int): { confidence: num_frc, eyeDistance: num, midPoint: {x:num, y:num}, pose: num_int };
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/**
+	 * Find faces in the current camera view
+	 * @return \{ confidence, eyeDistance, midPoint, pose }
+	 */
+	FindFaces(maxCount?: num_int): { confidence: num_frc, eyeDistance: num, midPoint: {x:num, y:num}, pose: num_int };
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Returns the device camera count */
 	GetCameraCount(): num_int;
@@ -1811,30 +1917,39 @@ class DsCameraView {
 	/** Returns a new list of available color effects */
 	GetColorEffects(): "none"|"mono"|"negative"|"solarize"|"sepia"|"posterize"|"whiteboard"|"blackboard"|"aqua"|"vage-cold"|"point-blue"|"point-red-yellow"|"emboss"|"sketch"|"neon";
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
 	/** Returns the camera height */
 	GetImageHeight(): num_frc;
 
 	/** Returns the camera width */
 	GetImageWidth(): num_frc;
 
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
 	/** Returns the hightst possible zoom value */
 	GetMaxZoom(): num;
 
 	/**
 	 * Get camera parameters
-	 * @return key1=value1;key2=value2;...
+	 * @return `key1=value1;key2=value2;...`
 	 */
 	GetParameters(): str_smc;
 
+	/** Returns the parent control object */
+	GetParent(): dso;
+
 	/**
 	 * Returns a new list of possible picture dimensions
-	 * @return w1 x h1\,w2 x h2\,...
+	 * @return `w1 x h1`, `w2 x h2`, `...`
 	 */
 	GetPictureSizes(): str_com;
 
 	/**
 	 * Returns base64 pixel data as raw bitmap, png or jpg format
-	 * @param format 
+	 * @param format `GrayScale`, `JSON`, `<resolution>`, `rawbase64`, `pngbase64`, `jpgbase64`\
  	 * &emsp; `GrayScale` - fastest\
  	 * &emsp; `JSON` - slowest: “ARGB,ARGB,...”\
  	 * &emsp; `<resolution>` - CIF: 352x288\
@@ -1845,53 +1960,121 @@ class DsCameraView {
  	 * &emsp; XGA: 1024x768\
  	 * &emsp; UXGA: 1600x1200
 	 */
-	GetPixelData(format: "GrayScale"|"JSON"|"&lt;resolution&gt;"|"rawbase64"|"pngbase64"|"jpgbase64", left: num_frc, top: num_frc, width: num_frc, height: num_frc): str_b64;
+	GetPixelData(format: str, left: num_frc, top: num_frc, width: num_frc, height: num_frc): str_b64;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "CameraView";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
 	/** Returns the curent zoom value */
 	GetZoom(): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
 
 	/** Returns if the current camera supports flashlight */
 	HasFlash(): bin;
 
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
 	/** Returns if the camera is currently recording */
 	IsRecording(): bin;
 
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Define a raster for motion detection */
-	MotionMosaic(xtiles: num_int, ytiles: num_int, sensitivity: num_pxl, minPeriod: num_mls, image: DsImage): void;
+	MotionMosaic(xtiles: num_int, ytiles: num_int, sensitivity: num_pxl, minPeriod?: num_mls, image?: DsImage): void;
 
 	/** Start recording video */
-	Record(file: str_ptf, seconds: num_sec, quality: "high"|"low"|"480p"|"720p"|"1080p"|"2k"|"4k"|"8k"|"qvga"|"vga"|"cif"): void;
+	Record(file: str_ptf, seconds?: num_sec, quality?: "high"|"low"|"480p"|"720p"|"1080p"|"2k"|"4k"|"8k"|"qvga"|"vga"|"cif"): void;
 
 	/**
 	 * Keeps tracks of the average color around a given point
-	 * @param list 
- 	 * &emsp; `x1`\
- 	 * &emsp; `y1`\
- 	 * &emsp; `x2`\
- 	 * &emsp; `y2`
+	 * @param list `x1`, `y1`, `x2`, `y2`, `...`
 	 */
-	ReportColors(list: "x1"|"y1"|"x2"|"y2"|"...", callback: (data: [num,num,num][]) => void, sampSize: num_pxl, maxRate: num_mls): void;
+	ReportColors(list: str_pip, callback: (data: [num,num,num][]) => void, sampSize?: num_pxl, maxRate?: num_mls): void;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Applies a color effect to the camera */
 	SetColorEffect(effect: "none"|"mono"|"negative"|"solarize"|"sepia"|"posterize"|"whiteboard"|"blackboard"|"aqua"|"vage-cold"|"point-blue"|"point-red-yellow"|"emboss"|"sketch"|"neon"): void;
 
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
 	/** Define two camera view duplicate targets */
 	SetDuplicateImage(image1: DsImage, image2: DsImage): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
 
 	/** En-/Disables the camera flash */
 	SetFlash(onoff: bin): void;
 
 	/**
 	 * Change focus mode
-	 * @param mode 
+	 * @param mode <br>
  	 * &emsp; `Picture` - for taking pictures\
  	 * &emsp; `Video` - for recording videos\
  	 * &emsp; `EDOF` - Extended Depth Of Field for continuous digital focusing
 	 */
 	SetFocusMode(mode: "Auto"|"Picture"|"Video"|"Macro"|"EDOF"|"Fixed"|"Infinity"): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Called when the control gets focused */
+	SetOnFocus(callback: () => void): void;
 
 	/** Called when cam.AutoCapture took a picture */
 	SetOnPicture(callback: (file: str_pth) => void): void;
@@ -1902,11 +2085,17 @@ class DsCameraView {
 	/** Rotates the camera view */
 	SetOrientation(angle: 0|90|180|270): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Change camera properties */
 	SetParameter(name: str, value: num|str): void;
 
 	/** Define a custom picture size in pixels */
 	SetPictureSize(width: num_pxl, height: num_pxl): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
 
 	/** Rotate the captured image */
 	SetPostRotation(angle: num_deg): void;
@@ -1914,14 +2103,26 @@ class DsCameraView {
 	/** Define a preview image for captured pictures */
 	SetPreviewImage(image: DsImage): void;
 
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** N-/Disables the camera sound */
 	SetSound(enabled: bin): void;
 
 	/** Define custom video recording size */
 	SetVideoSize(width: num_pxl, height: num_pxl): void;
 
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
 	/** Change the zoom value of the camera */
 	SetZoom(level: num): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
 
 	/** Start the camera preview on the display */
 	StartPreview(): void;
@@ -1937,26 +2138,193 @@ class DsCameraView {
 
 	/** Save the current camera view to a file */
 	TakePicture(file: str_ptf): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsCheckBox {
+declare class DsCheckBox {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Get current checked state */
 	GetChecked(): bin;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "CheckBox";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Changes the ckecked state */
 	SetChecked(checked: bin): void;
 
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Called when the CheckBox was touched */
 	SetOnTouch(callback: (isChecked: bin) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsCloudStore {
+declare class DsCloudStore {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "CloudStore";
@@ -1968,20 +2336,47 @@ class DsCloudStore {
 	List(filter: str, callback: (error: bin, result: {data: str_com,error: str}, status: num_int) => void): void;
 
 	/** Loads data from the cloud */
-	Load(file: str_ptf, callback: str, options: (error: bin, result: {data: all,error: str}, status: num_int) => void): void;
+	Load(file: str_ptf, callback: str, options?: (error: bin, result: {data: all,error: str}, status: num_int) => void): void;
 
 	/** Merges data in the cloud */
-	Merge(file: str_ptf, data: obj, callback: (success: bin, result: {data: str,error: str}, status: num_int) => void): void;
+	Merge(file: str_ptf, data: obj, callback?: (success: bin, result: {data: str,error: str}, status: num_int) => void): void;
 
 	/** Saves data in the cloud */
-	Save(file: str_ptf, data: all, callback: (success: bin, result: {data: str,error: str}, status: num_int) => void, options: str): void;
+	Save(file: str_ptf, data: all, callback?: (success: bin, result: {data: str,error: str}, status: num_int) => void, options?: str): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
 
 	/** Upload a file to the cloud */
-	Upload(data: str, name: str, type: str_mim, callback: (response: {error: str,name: str,folder: str,id: str,mimetype: str_mim,size: num}) => void, password: str): void;
+	Upload(data: str, name: str, type?: str_mim, callback?: (response: {error: str,name: str,folder: str,id: str,mimetype: str_mim,size: num}) => void, password?: str): void;
 }
 
 
-class DsCodeEdit {
+declare class DsCodeEdit {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
 
 	/** Clears the undo/redo history */
 	ClearHistory(): void;
@@ -1992,14 +2387,38 @@ class DsCodeEdit {
 	/** Cut selected text to the clipboard */
 	Cut(): void;
 
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
 	/** Get the current cursor line index */
 	GetCursorLine(): num_int;
 
 	/** Get the cursor position in the text */
 	GetCursorPos(): num_int;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
 	/** Get the start character index of a line */
 	GetLineStart(line: num_int): num_int;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
 
 	/** Get the selected text */
 	GetSelectedText(): str;
@@ -2013,14 +2432,47 @@ class DsCodeEdit {
 	/** Get current selection state */
 	GetSelectMode(): bin;
 
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "CodeEdit";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
 
 	/** Underlines a certain line in the text */
 	HighlightLine(line: num_int): void;
 
 	/** Insert text at the cursor */
 	InsertText(text: str): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Paste clipboard to the current cursor position */
 	Paste(): void;
@@ -2032,16 +2484,40 @@ class DsCodeEdit {
 	Replace(text: str): void;
 
 	/** Replace all occurances of a string in the text */
-	ReplaceAll(text: str, newText: str, matchCase: bin, wholeWord: bin): void;
+	ReplaceAll(text: str, newText: str, matchCase?: bin, wholeWord?: bin): void;
 
 	/** Replace a range of the text with a string */
 	ReplaceText(text: str, start: num_int, end: num_int): void;
 
 	/** Search and select a string in the text */
-	Search(text: str, direction: "Up"|"Down", matchCase: bin, wholeWord: bin): void;
+	Search(text: str, direction?: "Up"|"Down", matchCase?: bin, wholeWord?: bin): void;
 
 	/** Select the whole text */
 	SelectAll(): void;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
 
 	/** Changes the color scheme of the CodeEdit */
 	SetColorScheme(scheme: "Dark"|"Light"): void;
@@ -2049,11 +2525,26 @@ class DsCodeEdit {
 	/** Change the current cursor position */
 	SetCursorPos(position: num_int): void;
 
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Set current text to html-formatted text */
+	SetHtml(str: str_htm): void;
+
 	/** Change the highlighted language syntax */
 	SetLanguage(ext: ".js"|".java"|".php"|".c"|".cpp"|".cs"|".rb"|".m"|".py"|".txt"): void;
 
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Select between Yoyo or Touch mode */
 	SetNavigationMethod(method: "Yoyo"|"Touch"): void;
+
+	/** Called when content was changed by the user */
+	SetOnChange(callback: () => void): void;
 
 	/** Define a Yoyo double-tap callback function */
 	SetOnDoubleTap(callback: () => void): void;
@@ -2061,21 +2552,65 @@ class DsCodeEdit {
 	/** Define a key-event callback function */
 	SetOnKey(callback: (action: "Down"|"Move"|"Up", keyname: "VOLUME_DOWN"|"VOLUME_UP"|"BACK"|"MENU", keycode: num_int, extra: "Shift"|"Ctrl"|"Alt"|"Meta") => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
 	/** Selects part of the text in a given range */
 	SetSelection(start: num_int, stop: num_int): void;
 
 	/** En/Disable cursor selection mode */
 	SetSelectMode(onOff: bin): void;
 
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
 	/** En/Disable device keyboard */
 	SetUseKeyboard(onOff: bin): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 
 	/** Undo an action */
 	Undo(): void;
 }
 
 
-class DsCrypt {
+declare class DsCrypt {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Decrypt text with a key */
 	Decrypt(text: str, password: str): str;
@@ -2087,29 +2622,137 @@ class DsCrypt {
 	GetType(): "Crypt";
 
 	/** Get a hash from a string */
-	Hash(text: str, mode: "MD5"|"SHA"|"SHA-1"|"SHA-224"|"SHA-256"|"SHA-384"|"SHA-512", options: "Wrap"): void;
+	Hash(text: str, mode: "MD5"|"SHA"|"SHA-1"|"SHA-224"|"SHA-256"|"SHA-384"|"SHA-512", options?: "Wrap"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
 }
 
 
-class DsDialog {
+declare class DsDialog {
 
 	/** Add content layout */
 	AddLayout(layout: DsLayout): void;
 
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Hides the control and removes it from the screen */
+	Dismiss(): void;
+
 	/** En/Disables hiding via presing the back key */
 	EnableBackKey(enable: bin): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
 
 	/** Get title bar height */
 	GetTitleHeight(): num_pxl;
 
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Dialog";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Removes a content layout */
 	RemoveLayout(layout: DsLayout): void;
 
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
 	/** Change the background color */
 	SetBackColor(color: str_col, radius: num_pxl): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when back button was pressed while the dialog was shown */
 	SetOnBack(callback: () => void): void;
@@ -2117,35 +2760,66 @@ class DsDialog {
 	/** Called when the dialog is cancelled */
 	SetOnCancel(callback: () => void): void;
 
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Changes the dialog title */
 	SetTitle(title: str): void;
 
-	/** Changes the color of the dialog title. Only works with "Old" option */
+	/** Changes the color of the dialog title */
 	SetTitleColor(clr: str_col): void;
 
 	/** Changes the title divider height for "Old" dialogs */
 	SetTitleDividerColor(color: str_col): void;
 
 	/** Change height of the title divider for "Old" dialogs */
-	SetTitleDividerHeight(height: num_pxl, options: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetTitleDividerHeight(height: num_pxl, options?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Change height of the title bar for "Old" dialogs */
-	SetTitleHeight(height: num_pxl, options: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetTitleHeight(height: num_pxl, options?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
 
 	/** Changes the title text size for "Old" dialogs */
-	SetTitleTextSize(size: num, options: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetTitleTextSize(size: num, options?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsDownloader {
+declare class DsDownloader {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/**
 	 * Download file(s)
-	 * @param url 
- 	 * &emsp; `urls`
-	 * @param fldr must not have a trailing slash
+	 * @param fldr `must not have a trailing slash`
 	 */
-	Download(url: str_url|str_url[], fldr: str_pth, name: str, headers: str): void;
+	Download(url: str_url|str_url[], fldr: str_pth, name?: str, headers?: str): void;
 
 	/** Get current download progress */
 	GetProgress(): num_frc;
@@ -2158,6 +2832,12 @@ class DsDownloader {
 
 	/** Get download completed state */
 	IsComplete(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Called when download is cancelled */
 	SetOnCancel(callback: (file: str_pth) => void): void;
@@ -2173,32 +2853,38 @@ class DsDownloader {
 }
 
 
-class DsEmail {
+declare class DsEmail {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "Email";
 
 	/** Start receiving emails from a given folder */
-	Receive(folder: str, maxCount: num_int, filter: str): void;
+	Receive(folder: str, maxCount: num_int, filter?: str): void;
 
 	/**
 	 * Send an email to someone
-	 * @param sender email address
-	 * @param recipients email address
+	 * @param sender `email address`
+	 * @param recipients `email address`
 	 */
-	Send(subject: str, body: str, sender: str, recipients: str, attach: str_pth): void;
+	Send(subject: str, body: str, sender: str, recipients: str, attach?: str_pth): void;
 
 	/**
 	 * Set IMAP settings for receiving messages
-	 * @param server 
+	 * @param server <br>
  	 * &emsp; `pop.gmail.com` - google\
  	 * &emsp; `pop.mail.yahoo.com` - yahoo\
  	 * &emsp; `pop.gmx.net` - gmx
-	 * @param port 
+	 * @param port <br>
  	 * &emsp; `993` - imap\
  	 * &emsp; `995` - pop
 	 */
-	SetIMAP(server: "imap/pop.gmail.com"|"imap/pop.mail.yahoo.com"|"imap/pop.gmx.net", port: 993|995): void;
+	SetIMAP(server: "imap/pop.gmail.com"|"imap/pop.mail.yahoo.com"|"imap/pop.gmx.net", port?: 993|995): void;
 
 	/** Called when a message is received */
 	SetOnMessage(callback: (data: { from: str_eml, to: str_eml, cc: str_eml, subject: str, body: str }) => void): void;
@@ -2208,11 +2894,11 @@ class DsEmail {
 
 	/**
 	 * Set SMTP settings for sending messages
-	 * @param server 
+	 * @param server <br>
  	 * &emsp; `smtp.gmail.com` - google\
  	 * &emsp; `smtp.mail.yahoo.com` - yahoo\
  	 * &emsp; `mail.gmx.net` - gmx
-	 * @param port 
+	 * @param port <br>
  	 * &emsp; `465` - SSL\
  	 * &emsp; `578` - TLS (gmail, yahoo)\
  	 * &emsp; `587` - gmx
@@ -2221,7 +2907,13 @@ class DsEmail {
 }
 
 
-class DsFile {
+declare class DsFile {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Close File */
 	Close(): void;
@@ -2236,14 +2928,14 @@ class DsFile {
 	GetType(): "File";
 
 	/** Read data from file */
-	ReadData(len: num_int, mode: "Int"|"Text"|"Hex"): void;
+	ReadData(len: num_int, mode?: "Int"|"Text"|"Hex"): void;
 
 	/** Read numeric data from file */
 	ReadNumber(type: "Byte"|"UByte"|"Bool"|"Float"|"FloatLE"|"Long"|"LongLE"|"Short"|"UShort"|"ShortLE"|"UShortLE"|"Int"|"UInt"|"IntLE"): num;
 
 	/**
 	 * Read data as text
-	 * @param type 
+	 * @param type <br>
  	 * &emsp; `UTF` - read UTF-8 string with 2 byte header\
  	 * &emsp; `Line` - read one line terminated by \\n, \\r or \\r\\n\
  	 * &emsp; `Char` - read big-endian 16-bit character
@@ -2252,7 +2944,7 @@ class DsFile {
 
 	/**
 	 * Asynchronously read data as text
-	 * @param type 
+	 * @param type <br>
  	 * &emsp; `Line` - read one line terminated by \\n, \\r or \\r\\n\
  	 * &emsp; `Char` - read big-endian 16-bit character
 	 */
@@ -2269,87 +2961,339 @@ class DsFile {
 
 	/**
 	 * Write data to the file
-	 * @param data 
+	 * @param data <br>
  	 * &emsp; `abc46` - low order 8-bit bytes
 	 */
-	WriteData(data: "FA"|"FB"|"FC"|"250"|"251"|"252"|"abc46", mode: "Hex"|"Int"|"Text"): void;
+	WriteData(data: "FA"|"FB"|"FC"|"250"|"251"|"252"|"abc46", mode?: "Hex"|"Int"|"Text"): void;
 
 	/** Write number to the file */
-	WriteNumber(data: num, type: "Byte"|"UByte"|"Bool"|"Float"|"FloatLE"|"Long"|"LongLE"|"Short"|"UShort"|"ShortLE"|"UShortLE"|"Int"|"UInt"|"IntLE"): void;
+	WriteNumber(data: num, type?: "Byte"|"UByte"|"Bool"|"Float"|"FloatLE"|"Long"|"LongLE"|"Short"|"UShort"|"ShortLE"|"UShortLE"|"Int"|"UInt"|"IntLE"): void;
 
 	/**
 	 * Writes text to file
-	 * @param data 
- 	 * &emsp; `bytes`
-	 * @param type 
+	 * @param type <br>
  	 * &emsp; `UTF` - write UTF-8 encoded text\
  	 * &emsp; `Bytes` - 8-bit bytes\
  	 * &emsp; `Char` - Write big-endian 16-bit characters
 	 */
-	WriteText(data: str|num_int[], type: "UTF"|"Bytes"|"Char"): void;
+	WriteText(data: str|num_int[], type?: "UTF"|"Bytes"|"Char"): void;
 }
 
 
-class DsGame {
+declare class DsGameView {
 
-	/** Game */
-	game: DsGame;
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
 
-	/** Lay */
-	lay: DsLayout;
-}
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
-
-class DsGameView {
+	/** Removes the focus of the control */
+	ClearFocus(): void;
 
 	/** Execute code inside the GameView */
 	Execute(js: str_jsc): void;
 
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): void;
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
 
 	/** Define the game source file */
 	SetFile(file: str_ptf): void;
 
 	/** Change the target framerate */
 	SetFrameRate(fps: num_fps): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsGLView {
+declare class DsGLView {
 
 	/** Width/height relation */
 	aspect: num_flt;
 
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
 	/** [HTMLDivElement] */
 	canvas: obj;
 
-	/** Create a sprite object which can be drawn on the GLView */
-	CreateImage(file: str_ptf, callback: () => void): img;
+	/** Removes the focus of the control */
+	ClearFocus(): void;
 
-	/** Draw image to canvas */
-	DrawImage(image: GLV_img, x: num_frc, y: num_frc, w: num_frc, h: num_frc, angle: num_deg): void;
+	/**
+	 * Create a sprite object which can be drawn on the GLView
+	 * @return \img
+	 */
+	CreateImage(file: str_ptf, callback?: () => void): GLV_img;
 
-	/** Draw part of a sprite to the canvas */
+	/**
+	 * Draw image to canvas
+	 * @param image \img
+	 */
+	DrawImage(image: GLV_img, x: num_frc, y: num_frc, w?: num_frc, h?: num_frc, angle?: num_deg): void;
+
+	/**
+	 * Draw part of a sprite to the canvas
+	 * @param sheet \img
+	 */
 	DrawSprite(sheet: GLV_img, sx: num_pxl, sy: num_pxl, sw: num_pxl, sh: num_pxl, dx: num_frc, dy: num_frc, dw: num_frc, dh: num_frc, angle: num_deg): void;
 
-	/** Returns the glv context */
-	GetContext(): ctx;
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/**
+	 * Returns the glv context
+	 * @return \ctx
+	 */
+	GetContext(): GLV_ctx;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "GLView";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
 	/** Height */
 	height: num_int;
 
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Render draw commands */
 	Render(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user starts touching the control */
+	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user drags a finger over the screen */
+	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user finger leaves te screen */
+	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** En/Disables touch events to be fired on the control */
+	SetTouchable(touchable: bin): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 
 	/** Width */
 	width: num_int;
 }
 
-class GLV_img {
+declare class GLV_img {
 
 	/** Width of the image */
 	width: num_int;
@@ -2357,15 +3301,21 @@ class GLV_img {
 	/** Height of the image */
 	height: num_int;
 }
-class GLV_ctx {
+declare class GLV_ctx {
 
-	/** Captures the canvas to a png image */
-	capture(x: num_pxl, y: num_pxl, w: num_pxl, h: num_pxl, fileName: str, successCallback: fnc, errorCallback: fnc): void;
+	/**
+	 * Captures the canvas to a png image
+	 * @param fileName `path relative to “/sdcard”`
+	 */
+	capture(x: num_pxl, y: num_pxl, w: num_pxl, h: num_pxl, fileName: str, successCallback?: fnc, errorCallback?: fnc): void;
 
-	/** @deprecated  does nothing. ctx is automatically cleared after render() */
-	clearRect(x: num_pxl, y: num_pxl, width: num_pxl, height: num_pxl): void;
+	/** <deprecated does nothing */
+	clearRect(x: num_pxl, y: num_pxl, width?: num_pxl, height?: num_pxl): void;
 
-	/** Draws part of a sprite to the context */
+	/**
+	 * Draws part of a sprite to the context
+	 * @param image \img
+	 */
 	drawImage(image: GLV_img, sx: num_pxl, sy: num_pxl, sw: num_pxl, sh: num_pxl, dx: num_pxl, dy: num_pxl, dw: num_pxl, dh: num_pxl): void;
 
 	/** Render draw commands */
@@ -2396,34 +3346,57 @@ class GLV_ctx {
 	translate(tx: num_pxl, ty: num_pxl): void;
 }
 
-class DsImage {
+declare class DsImage {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Clears the image content */
 	Clear(): void;
 
-	/** Draws an elliptical arc by specifying the corners of the surrounding rectangle and the angle range of the arc to be drawn */
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/**
+	 * Draws an elliptical arc by specifying the corners of the surrounding rectangle and the angle range of the arc to be drawn
+	 * @param x1 `corner 1`
+	 * @param y1 `corner 1`
+	 * @param x2 `corner 2`
+	 * @param y2 `corner 2`
+	 */
 	DrawArc(x1: num, y1: num, x2: num, y2: num, start: num_deg, sweep: num_deg): void;
 
-	/** Draws a Circle */
+	/**
+	 * Draws a Circle
+	 * @param radius `width relative`
+	 */
 	DrawCircle(x: num, y: num, radius: num): void;
 
 	/** Draw gif frame on a specific time */
 	DrawFrame(ms: num_mls): void;
 
-	/** Draws an Image:dso-CreateImage.
-	 * See [Android Developers](https://developer.android.com/reference/android/graphics/PorterDuff.Mode#enum-values_1) for 'mode' info */
-	DrawImage(image: DsImage, x: num, y: num, w: num, h: num, angle: num_deg, mode: "ADD"|"CLEAR"|"DARKEN"|"DST"|"DST_ATOP"|"DST_IN"|"DST_OUT"|"DST_OVER"|"LIGHTEN"|"MULTIPLY"|"OVERLAY"|"SCREEN"|"SRC"|"SRC_ATOP"|"SRC_IN"|"SRC_OUT"|"SRC_OVER"|"XOR"): void;
+	/** Draws an Image:dso-CreateImage */
+	DrawImage(image: DsImage, x: num, y: num, w?: num, h?: num, angle?: num_deg, mode?: "ADD"|"CLEAR"|"DARKEN"|"DST"|"DST_ATOP"|"DST_IN"|"DST_OUT"|"DST_OVER"|"LIGHTEN"|"MULTIPLY"|"OVERLAY"|"SCREEN"|"SRC"|"SRC_ATOP"|"SRC_IN"|"SRC_OUT"|"SRC_OVER"|"XOR"): void;
 
-	/**
-	 * Draws an image with a 2d transformation matrix
-	 * @param matrix 
- 	 * &emsp; `a`\
- 	 * &emsp; `b`\
- 	 * &emsp; `c`\
- 	 * &emsp; `d`\
- 	 * &emsp; `tx`\
- 	 * &emsp; `ty`
-	 */
+	/** Draws an image with a 2d transformation matrix */
 	DrawImageMtx(image: DsImage, matrix: [num, num, num, num, num, num]): void;
 
 	/** Draws a line */
@@ -2435,11 +3408,7 @@ class DsImage {
 	/** Draws a rectangle */
 	DrawRectangle(x1: num, y1: num, x2: num, y2: num): void;
 
-	/**
-	 * Draws a vertically centered sample graph
-	 * @param data 
- 	 * &emsp; `data`
-	 */
+	/** Draws a vertically centered sample graph */
 	DrawSamples(data: num_int[], range: num): void;
 
 	/** Draws a text */
@@ -2448,20 +3417,77 @@ class DsImage {
 	/** Applies modifications to the image data */
 	Flatten(): void;
 
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
 	/** Returns the name set via SetName */
 	GetName(): str;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
 
 	/** Returns color values of a pixel */
 	GetPixelColor(x: num, y: num): [ num_dhx, num_dhx, num_dhx ];
 
 	/** Returns base64 encoded image data */
-	GetPixelData(format: "rawbase64"|"pngbase64"|"jpgbase64", left: num_int, top: num_int, width: num_int, height: num_int): str_b64;
+	GetPixelData(format: "rawbase64"|"pngbase64"|"jpgbase64", left?: num_int, top?: num_int, width?: num_int, height?: num_int): str_b64;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "Image";
 
-	/** Measures the size of a given text */
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Measures the size of a given text
+	 * @return \{ width, height }
+	 */
 	MeasureText(txt: str): { width: num_frc, height: num_frc };
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Moves the image content */
 	Move(x: num, y: num): void;
@@ -2470,13 +3496,13 @@ class DsImage {
 	Reset(): void;
 
 	/** Rotates the content */
-	Rotate(angle: num_deg, pivotX: num, pivotY: num): void;
+	Rotate(angle: num_deg, pivotX?: num, pivotY?: num): void;
 
 	/**
 	 * Saves the image to a file on the local filesystem
-	 * @param quality for jpg files
+	 * @param quality `for jpg files`
 	 */
-	Save(fileName: str_ptf, quality: num_prc): void;
+	Save(fileName: str_ptf, quality?: num_prc): void;
 
 	/** Scales the content by the given factors */
 	Scale(x: num_fac, y: num_fac): void;
@@ -2487,14 +3513,50 @@ class DsImage {
 	/** En/Disables automatic view updates */
 	SetAutoUpdate(onoff: bin): void;
 
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
 	/** Fills the image with a color */
 	SetColor(color: str_col): void;
 
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Change the used font */
+	SetFontFile(file: str_ptf): void;
+
 	/** Change the content to an other image */
-	SetImage(image: str_pth|DsImage, width: num_frc, height: num_frc, options: "rescale"): void;
+	SetImage(image: str_pth|DsImage, width?: num_frc, height?: num_frc, options?: "rescale"): void;
 
 	/** Change the stroke width */
 	SetLineWidth(width: num_pxl): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Set a minimum OnTouchMove call timeout */
 	SetMaxRate(milliseconds: num_mls): void;
@@ -2505,6 +3567,24 @@ class DsImage {
 	/** Called when image has loaded asynchronously */
 	SetOnLoad(callback: (img: DsImage) => void): void;
 
+	/** Called when the control was pressed for eons */
+	SetOnLongTouch(callback: (src: dso) => void): void;
+
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user starts touching the control */
+	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user drags a finger over the screen */
+	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user finger leaves te screen */
+	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Change the paint color */
 	SetPaintColor(color: str_col): void;
 
@@ -2513,16 +3593,35 @@ class DsImage {
 
 	/**
 	 * Set base64 encoded pixel data
-	 * @param options 
+	 * @param data `<rawbase64>`, `data:image/jpg;base64,<jpgbase64>`, `data:image/png;base64,<pngbase64>`
+	 * @param options <br>
  	 * &emsp; `fix` - set bitmap size
 	 */
-	SetPixelData(data: "&lt;rawbase64&gt;"|"data&colon;image/jpg;base64&comma;&lt;jpgbase64&gt;"|"data&colon;image/png;base64&comma;&lt;pngbase64&gt;", width: num, height: num, options: "px"|"icon"|"resize"|"rescale"|"square"|"fix"): void;
+	SetPixelData(data: str_b64, width?: num, height?: num, options?: "px"|"icon"|"resize"|"rescale"|"square"|"fix"): void;
 
 	/** Change the pixel mode for drawing methods */
 	SetPixelMode(onoff: bin): void;
 
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Change the drawn text size */
 	SetTextSize(size: num): void;
+
+	/** En/Disables touch events to be fired on the control */
+	SetTouchable(touchable: bin): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
 
 	/** Skews the content */
 	Skew(x: num, y: num): void;
@@ -2530,41 +3629,149 @@ class DsImage {
 	/** Applies a transformation matrix to the content */
 	Transform(matrix: lst): void;
 
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+
 	/** Update the view in disabled AutoUpdate mode */
 	Update(): void;
 }
 
 
-class DsLayout {
+declare class DsLayout {
 
 	/** Add a control to the layout */
-	AddChild(child: dso, order: num_int): void;
+	AddChild(child: dso, order?: num_int): void;
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Moves a child to the layout front */
 	ChildToFront(child: dso): void;
 
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
 	/** Destroys and removes a child from the layout */
 	DestroyChild(child: dso): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Returns the z order of a child */
 	GetChildOrder(child: dso): num_int;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Layout";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Remove a child from the layout */
 	RemoveChild(child: dso): void;
 
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
 	/** Set margins of top-level children */
-	SetChildMargins(left: num, top: num, right: num, bottom: num_frc, mode: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetChildMargins(left?: num, top?: num, right?: num, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/**
 	 * Change text size of top-level children
-	 * @param mode 
+	 * @param mode <br>
  	 * &emsp; `pl` - scales text in proportion with device resolution\
  	 * &emsp; `ps` - scales text in proportion with device resolution
 	 */
-	SetChildTextSize(size: num, mode: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+	SetChildTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
 
 	/** Apply corner radius to card layouts's */
 	SetCornerRadius(radius: num_pxl): void;
@@ -2572,48 +3779,186 @@ class DsLayout {
 	/** Apply shadow to card layouts's */
 	SetElevation(elevation: num_pxl): void;
 
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
 	/** Adjust the placing of contained children */
 	SetGravity(gravity: "Left"|"Top"|"Right"|"Bottom"|"VCenter"|"HCenter"|"FillX"|"FillY"|"FillXY"): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the user changed a control content */
 	SetOnChildChange(callback: (src: dso) => void): void;
 
+	/** Called when the control was pressed for eons */
+	SetOnLongTouch(callback: (src: dso) => void): void;
+
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user starts touching the control */
+	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user drags a finger over the screen */
+	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user finger leaves te screen */
+	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
 	/** Change the children orientation */
 	SetOrientation(orient: "Horizontal"|"Vertical"): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** En/Disables touch events to be fired on the control */
+	SetTouchable(touchable: bin): void;
+
 	/** Enable touch event forwarding */
 	SetTouchThrough(through: bin): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsList {
+declare class DsList {
 
 	/** Adds an entry to the list */
-	AddItem(title: str, body: str, image: str|str_ptf): void;
+	AddItem(title: str, body?: str, image?: str|str_ptf): void;
 
-	/** ? */
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Expand the list to the full height inside scrollers */
 	Expand(): void;
 
-	/** Returns item data by a title */
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/**
+	 * Returns item data by a title
+	 * @return \{ title, body, image }
+	 */
 	GetItem(title: str): { title: str, body: str, image: str_pth };
 
-	/** Returns item data by an index */
+	/**
+	 * Returns item data by an index
+	 * @return \{ title, body, image }
+	 */
 	GetItemByIndex(index: num_int): { title: str, body: str, image: str_pth };
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
 
 	/** Returns the list length */
 	GetLength(): num_int;
 
 	/**
 	 * Returns the whole list as object
-	 * @return * **or** title1[DELIM]title2[DELIM]...
+	 * @return `title1[DELIM]title2[DELIM]...`
 	 */
 	GetList(delim: str): { title: str, body: str, image: str_pth }[]|str;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "List";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
 	/** Inserts an item into the list */
-	InsertItem(index: num_int, title: str, body: str, image: str|str_ptf): void;
+	InsertItem(index: num_int, title: str, body?: str, image?: str|str_ptf): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Clears the list */
 	RemoveAll(): void;
@@ -2625,28 +3970,64 @@ class DsList {
 	RemoveItemByIndex(index: num_int): void;
 
 	/** Scrolls to an item by its title */
-	ScrollToItem(title: str, body: str): void;
+	ScrollToItem(title: str, body?: str): void;
 
 	/** Scrolls the list to a specific index */
 	ScrollToItemByIndex(index: num_int): void;
 
 	/** Highlight an item by its title and body */
-	SelectItem(title: str, body: str, scroll: bin): void;
+	SelectItem(title: str, body?: str, scroll?: bin): void;
 
 	/** Highlight an item by its index */
-	SelectItemByIndex(index: num_int, scroll: bin): void;
+	SelectItemByIndex(index: num_int, scroll?: bin): void;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
 
 	/** Change coloumn widths */
-	SetColumnWidths(icon: num_frc, title: num_frc, body: num_frc, mode: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetColumnWidths(icon: num_frc, title: num_frc, body?: num_frc, mode?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
 
 	/** Changes the divider style */
-	SetDivider(height: num_frc, color: str_col): void;
+	SetDivider(height: num_frc, color?: str_col): void;
+
+	/** Auto-crop text to fit in control */
+	SetEllipsize(mode: "start"|"middle"|"end"): void;
 
 	/** Auto-crop titles to fit in control */
 	SetEllipsize1(mode: "start"|"middle"|"end"): void;
 
 	/** Auto-crop bodys to fit in control */
 	SetEllipsize2(mode: "start"|"middle"|"end"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Change the used font */
+	SetFontFile(file: str_ptf): void;
 
 	/** Change selected title highlight color */
 	SetHiTextColor1(color: str_col): void;
@@ -2655,31 +4036,49 @@ class DsList {
 	SetHiTextColor2(color: str_col): void;
 
 	/** Change icon margins */
-	SetIconMargins(left: num_frc, top: num_frc, right: num_frc, bottom: num_frc, mode: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetIconMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
 
 	/** Change the icon size */
-	SetIconSize(size: num, mode: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetIconSize(size: num, mode?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
 
 	/** Change the content of an element by its title */
-	SetItem(title: str, newTitle: str, newBody: str, newImage: str_ptf): void;
+	SetItem(title: str, newTitle: str, newBody?: str, newImage?: str_ptf): void;
 
 	/** Change the content of an element by its index */
-	SetItemByIndex(index: num_int, newTitle: str, newBody: str, newImage: str_ptf): void;
+	SetItemByIndex(index: num_int, newTitle: str, newBody?: str, newImage?: str_ptf): void;
 
 	/** Set item color */
-	SetItemColor(name: str, textClr: str_col, backClr: str_col): void;
+	SetItemColor(name: str, textClr: str_col, backClr?: str_col): void;
 
 	/** Set item color by index */
-	SetItemColorByIndex(index: num_int, textClr: str_col, backClr: str_col): void;
+	SetItemColorByIndex(index: num_int, textClr: str_col, backClr?: str_col): void;
 
 	/** Set the content of the whole list */
-	SetList(list: "title"|"title&colon;icon"|"title&colon;body&colon;icon", delim: str): void;
+	SetList(list: "title"|"title&colon;icon"|"title&colon;body&colon;icon", delim?: str): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Define a callback function for touch events */
-	SetOnLongTouch(callback: (title: str, body: str, icon: str, index: num_int) => void): void;
+	SetOnLongTouch(callback: (title: str, body?: str, icon?: str, index?: num_int) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: (title: str, body: str, icon: str, index: num_int) => void): void;
+	SetOnTouch(callback: (title: str, body?: str, icon?: str, index?: num_int) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
 
 	/** Change the default text color of titles */
 	SetTextColor1(color: str_col): void;
@@ -2689,40 +4088,111 @@ class DsList {
 
 	/**
 	 * Define distances to other controls
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `inner` - around each individual title and body\
  	 * &emsp; `outer` - around both title and body together
 	 */
-	SetTextMargins(left: num, top: num, right: num, bottom: num_frc, mode: "px"|"sp"|"dip"|"mm"|"pt", options: "inner"|"outer"): void;
+	SetTextMargins(left?: num, top?: num, right?: num, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt", options?: "inner"|"outer"): void;
+
+	/** Define a shadow around the control */
+	SetTextShadow(radius: num_int, dx?: num_int, dy?: num_int, color?: str_col): void;
 
 	/** Apply shadow to titles */
-	SetTextShadow1(radius: num_deg, dx: num_int, dy: num_int, color: str_col): void;
+	SetTextShadow1(radius: num_deg, dx?: num_int, dy?: num_int, color?: str_col): void;
 
 	/** Apply shadow to bodies */
-	SetTextShadow2(radius: num_deg, dx: num_int, dy: num_int, color: str_col): void;
+	SetTextShadow2(radius: num_deg, dx?: num_int, dy?: num_int, color?: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
 
 	/** Set title text size */
-	SetTextSize1(size: num, mode: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetTextSize1(size: num, mode?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
 
 	/** Set body text size */
-	SetTextSize2(size: num, mode: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+	SetTextSize2(size: num, mode?: string | ("px"|"sp"|"dip"|"mm"|"pt")[]): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsListDialog {
+declare class DsListDialog {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Hides the control and removes it from the screen */
+	Dismiss(): void;
 
 	/** Returns the control class name */
 	GetType(): "ListDialog";
 
+	/** Hides the control visually */
+	Hide(): void;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: (title: str, checked: bin) => void): void;
+	SetOnTouch(callback: (title: str, checked?: bin) => void): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
 
 	/** Change the dialog title */
 	SetTitle(title: str): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
 }
 
 
-class DsLocator {
+declare class DsLocator {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Calculate bearing between current and given position */
 	GetBearingTo(latitude: num, longitude: num): num;
@@ -2747,7 +4217,13 @@ class DsLocator {
 }
 
 
-class DsMediaPlayer {
+declare class DsMediaPlayer {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Close the media player */
 	Close(): void;
@@ -2808,25 +4284,40 @@ class DsMediaPlayer {
 }
 
 
-class DsMediaStore {
+declare class DsMediaStore {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Load the album art to an image */
-	GetAlbumArt(image: DsImage, id: num_int, options: "internal"|"external"): bin;
+	GetAlbumArt(image: DsImage, id: num_int, options?: "internal"|"external"): bin;
 
 	/** Load the song art to an image */
-	GetSongArt(image: DsImage, id: num_int, options: "internal"|"external"): bin;
+	GetSongArt(image: DsImage, id: num_int, options?: "internal"|"external"): bin;
 
 	/** Returns the control class name */
 	GetType(): "MediaStore";
 
-	/** Search for media albums */
-	QueryAlbums(filter: str_sql, sort: "album"|"_id"|"albumArt"|"artist"|"numSongs"|"firstYear"|"lastYear", options: "internal"|"external"): void;
+	/**
+	 * Search for media albums
+	 * @param sort coloumns
+	 */
+	QueryAlbums(filter?: str_sql, sort?: "album"|"_id"|"albumArt"|"artist"|"numSongs"|"firstYear"|"lastYear", options?: "internal"|"external"): void;
 
-	/** Search for media artists */
-	QueryArtists(filter: str_sql, sort: "_id"|"artist"|"numAlbums"|"numTracks", options: "internal"|"external"): void;
+	/**
+	 * Search for media artists
+	 * @param sort coloumns
+	 */
+	QueryArtists(filter?: str_sql, sort?: "_id"|"artist"|"numAlbums"|"numTracks", options?: "internal"|"external"): void;
 
-	/** Search for media */
-	QueryMedia(filter: str_sql, sort: "title"|"_id"|"duration"|"size"|"uri"|"album"|"albumID"|"artist"|"artistId", options: "internal"|"external"): void;
+	/**
+	 * Search for media
+	 * @param sort coloumns
+	 */
+	QueryMedia(filter?: str_sql, sort?: "title"|"_id"|"duration"|"size"|"uri"|"album"|"albumID"|"artist"|"artistId", options?: "internal"|"external"): void;
 
 	/** Called when album query has finished */
 	SetOnAlbumsResult(callback: (result: { album: str, id: num_int, albumArt: str_pth, artist: str, numSongs: num_int, firstYear: str, lastYear: str }[]) => void): void;
@@ -2839,16 +4330,22 @@ class DsMediaStore {
 }
 
 
-class DsNetClient {
+declare class DsNetClient {
 
 	/** Calls the OnReceive callback for incoming TCP data */
-	AutoReceive(server: str_url, port: num_int, mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): void;
+	AutoReceive(server: str_url, port?: num_int, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Closes the NetClient socket */
 	Close(): void;
 
 	/** Connect to a server */
-	Connect(address: str_url, port: num_int): void;
+	Connect(address: str_url, port?: num_int): void;
 
 	/** Disconnect from server */
 	Disconnect(): void;
@@ -2865,57 +4362,60 @@ class DsNetClient {
 	/** Get NetClient connected state */
 	IsConnected(): void;
 
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
 	/** Receive data as bytes */
 	ReceiveBytes(mode: "Int"|"Hex"): num_byt[];
 
 	/**
 	 * Receive an UDP Datagram
-	 * @param options &lt;BUFSIZ:"“1k,2k,4k,8k,16k,32k,64k”"&gt;
+	 * @param options `<BUFSIZ>`\
+ 	 * &emsp; `BUFSIZ` - “1k,2k,4k,8k,16k,32k,64k”
 	 */
-	ReceiveDatagram(mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", port: num_int, timeout: num, options: str): str;
+	ReceiveDatagram(mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", port?: num_int, timeout?: num, options?: str): str;
 
 	/**
 	 * Receive UDP datagrams
-	 * @param options &lt;BUFSIZ:"“1k,2k,4k,8k,16k,32k,64k”"&gt;
+	 * @param options `<BUFSIZ>`\
+ 	 * &emsp; `BUFSIZ` - “1k,2k,4k,8k,16k,32k,64k”
 	 */
-	ReceiveDatagrams(port: num_int, mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", options: str): void;
+	ReceiveDatagrams(port?: num_int, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", options?: str): void;
 
 	/** Receive a file via TCP from the server */
-	ReceiveFile(file: str, wait: num): str;
+	ReceiveFile(file: str, wait?: num): str;
 
 	/** Receive text over TCP */
-	ReceiveText(mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): str;
+	ReceiveText(mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): str;
 
 	/** Receive video over UDP */
 	ReceiveVideoStream(port: num, img: DsImage): str;
 
 	/**
 	 * Send bytes over TCP connection
-	 * @param data 
- 	 * &emsp; `bytes`\
- 	 * **or** 
+	 * @param data <br>
  	 * &emsp; `bytes` - hexadecimal 00..FF
 	 */
-	SendBytes(data: num_byt[]|string | ("bytes")[], mode: "Int"|"Hex"): void;
+	SendBytes(data: num_byt[]|string | ("bytes")[], mode?: "Int"|"Hex"): void;
 
 	/** Send an UDP Datagram */
-	SendDatagram(data: str, mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", address: str_url, port: num_int, options: "Text"|"Hex"|"Bytes"): void;
+	SendDatagram(data: str, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", address?: str_url, port?: num_int, options?: "Text"|"Hex"|"Bytes"): void;
 
 	/**
 	 * Define data format for outgoing data
-	 * @param mode 
+	 * @param mode `Hex`, `Int`, `Text`, `<encoding>`\
  	 * &emsp; `Hex` - comma separated text value\
  	 * &emsp; `Int` - comma separated byte numbers\
  	 * &emsp; `Text` - string of text characters\
  	 * &emsp; `encoding` - UTF-16L/BE
 	 */
-	SetDataMode(mode: "Hex"|"Int"|"Text"|"&lt;encoding&gt;"): void;
+	SetDataMode(mode?: str): void;
 
 	/** Specify how to split received data */
-	SetSplitMode(mode: "End"|"Start-End"|"Size", p2: str|num_int, p3: str|num_int): void;
+	SetSplitMode(mode: "End"|"Start-End"|"Size", p2?: str|num_int, p3?: str|num_int): void;
 
 	/** Sends text over TCP connection */
-	SendText(text: str, mode: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): void;
+	SendText(text: str, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): void;
 
 	/** Called when TCP connected or failed to connect to a server */
 	SetOnConnect(callback: (connected: bin) => void): void;
@@ -2930,11 +4430,11 @@ class DsNetClient {
 	SetTimeout(seconds: num_sec): void;
 
 	/** Wake up devices if they are configured to */
-	WakeOnLan(ip: str, mac: str): void;
+	WakeOnLan(ip: str, mac?: str): void;
 }
 
 
-class DsNode {
+declare class DsNode {
 
 	/** Returns the plugin version */
 	GetVersion(): num;
@@ -2943,7 +4443,7 @@ class DsNode {
 	 * Start the main Node process
 	 * @param args argument array
 	 */
-	Start(args: lst, paths: lst): void;
+	Start(args?: lst, paths?: lst): void;
 
 	/** Define a callback function which is called when the Node component is ready for use */
 	SetOnReady(cb: () => void): void;
@@ -2973,9 +4473,9 @@ class DsNode {
 	CloseMsgPipe(isCmd: bin): void;
 
 	/** Send a message over the message pipe */
-	SendPipeMsg(msg: str, isCmd: bin): void;
+	SendPipeMsg(msg: str, isCmd?: bin): void;
 
-	/** Send a message to the running node process. Calls cb of parent.SetOnMessage */
+	/** Send a message to the running node process */
 	SendMessage(msg: str): void;
 
 	/** Returns if the Node component is ready for use */
@@ -2984,18 +4484,33 @@ class DsNode {
 	/** Returns if the node process exited */
 	IsDone(): bin;
 
-	/** Run a NodeJS source file. Use id to run in a new context */
-	Run(file: str_pth, id: str, newPaths: str_lst): void;
+	/**
+	 * Run a NodeJS source file
+	 * @param id `Context ID`
+	 */
+	Run(file: str_pth, id?: str, newPaths?: str_lst): void;
 
-	/** Execute a line of code in the node process */
-	Execute(js: str_jsc, id: str): void;
+	/**
+	 * Execute a line of code in the node process
+	 * @param id `Context ID`
+	 */
+	Execute(js: str_jsc, id?: str): void;
 
-	/** Install a node module from npmjs.org */
-	AddModule(name: "name"|"name^ver", dir: str): void;
+	/**
+	 * Install a node module from npmjs.org
+	 * @param dir `optional target directory`
+	 */
+	AddModule(name: "name"|"name^ver", dir?: str): void;
 }
 
 
-class DsNotification {
+declare class DsNotification {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Cancel a notification with a specific id */
 	Cancel(id: "id"|"*"): void;
@@ -3004,7 +4519,7 @@ class DsNotification {
 	GetType(): "Notification";
 
 	/** Listen for any notifications */
-	Listen(options: "CheckPerms"): void;
+	Listen(options?: "CheckPerms"): void;
 
 	/** Send the notification to the user */
 	Notify(id: str): void;
@@ -3013,13 +4528,13 @@ class DsNotification {
 	SetLargeImage(image: str_ptf): void;
 
 	/** Activate device notification LEDs */
-	SetLights(color: str_col, onMs: num_mls, offMs: num_mls): void;
+	SetLights(color: str_col, onMs?: num_mls, offMs?: num_mls): void;
 
 	/**
 	 * Set notification texts
-	 * @param extra Add multiline text in your notification.
+	 * @param extra `Add multiline text in your notification.`
 	 */
-	SetMessage(ticker: str, title: str, text: str, extra: str): void;
+	SetMessage(ticker: str, title?: str, text?: str, extra?: str): void;
 
 	/** Called when notification intercepted */
 	SetOnNotify(callback: (source: str, title: str, message: str, extra: str, type: "Normal") => void): void;
@@ -3029,10 +4544,16 @@ class DsNotification {
 }
 
 
-class DsNxt {
+declare class DsNxt {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Play frequency tone */
-	Beep(frequency: num_hrz, duration: num_mls): void;
+	Beep(frequency: num_hrz, duration?: num_mls): void;
 
 	/** Brakes motors smoothly */
 	Brake(motors: "A"|"B"|"C"|"ABC"): void;
@@ -3048,9 +4569,9 @@ class DsNxt {
 
 	/**
 	 * Commands NXT to drive motors
-	 * @param rotations -100..100
+	 * @param rotations `-100..100`
 	 */
-	Drive(motors: "A"|"B"|"C"|"ABC", power: num_prc, rotations: num_prc, options: 0|rotations): void;
+	Drive(motors: "A"|"B"|"C"|"ABC", power: num_prc, rotations?: num_prc, options?: str): void;
 
 	/** Find first program file */
 	FileFindFirst(pattern: str): str;
@@ -3088,51 +4609,46 @@ class DsNxt {
 	/** Checks if the device is paired with an other */
 	IsPaired(name: str): bin;
 
-	/** Play a sound file for a given amount of times */
-	PlaySoundFile(file: str_ptf, repeat: num_int): void;
+	/** Play a sound file a certain amount of times */
+	PlaySoundFile(file: str_ptf, repeat?: num_int): void;
 
 	/**
-	 * Read a color sensor value on the input where the sensor is plugged into.
-	 * 
-	 * In “ColorDetect” mode this function returns a value between 1 and 6 which represent the colors “black”, “blue”, “green”, “yellow”, “red”, or “white”.
-	 * You can use the ToColorName function to convert from these six values to a color name.
-	 * All other modes return a value between 0 and 1023
-	 * @param input 1
-	 * @return 1..6 or 0..1023
+	 * Read a color sensor value on the input where the sensor is plugged into
+	 * @return `1..6 or 0..1023`
 	 */
-	ReadColorSensor(input: num_int, mode: "ColorDetect"|"LightSense"|"RedSense"|"GreenSense"|"BlueSense"): num_int;
+	ReadColorSensor(input: 1, mode?: "ColorDetect"|"LightSense"|"RedSense"|"GreenSense"|"BlueSense"): num_int;
 
 	/**
 	 * Get measured ultrasinic distance in cm
-	 * @param input 1..4
+	 * @param input `1..4`
 	 */
 	ReadDistanceSensor(input: num_int): num_flt;
 
 	/**
 	 * Measures the light intensity
-	 * @param input 1..4
-	 * @return 0..100
+	 * @param input `1..4`
+	 * @return `0..100`
 	 */
-	ReadLightSensor(input: num_int, active: bin): num_int;
+	ReadLightSensor(input: num_int, active?: bin): num_int;
 
 	/**
-	 * Reads a message from the NXT brick's mail box. This message can be written using a normal NXT-G program running on the brick. This allows you to read values from NXT-G programs with your phone or tablet
-	 * @param mailbox 1..10
+	 * Reads a message from the NXT brick's mail box
+	 * @param mailbox `1..10`
 	 */
-	ReadMail(mailbox: num_int, type: "Text"|"Number"|"Logic", remove: bin): str;
+	ReadMail(mailbox: num_int, type?: "Text"|"Number"|"Logic", remove?: bin): str;
 
 	/**
 	 * Measure the sound pressure level
-	 * @param input 1..4
-	 * @param mode 
+	 * @param input `1..4`
+	 * @param mode <br>
  	 * &emsp; `DB` - Decibels\
  	 * &emsp; `DbA` - A-weighted Decibels
 	 */
-	ReadSoundSensor(input: num_int, mode: "DB"|"DbA"): num_flt;
+	ReadSoundSensor(input: num_int, mode?: "DB"|"DbA"): num_flt;
 
 	/**
 	 * Check if the touch sensor is pressed
-	 * @param input 1..4
+	 * @param input `1..4`
 	 */
 	ReadTouchSensor(input: num_int): bin;
 
@@ -3144,16 +4660,16 @@ class DsNxt {
 
 	/**
 	 * Sends a message to the NXT brick's mail box
-	 * @param mailbox 1..10
+	 * @param mailbox `1..10`
 	 */
-	SendMail(mailbox: num_int, type: "Text"|"Number"|"Logic", message: str|num_int): void;
+	SendMail(mailbox: num_int, type?: "Text"|"Number"|"Logic", message?: str|num_int): void;
 
 	/** Inverts the direction of motor commands */
 	SetInvert(invert: bin): void;
 
 	/**
 	 * Change sensor LED color
-	 * @param input 1..4
+	 * @param input `1..4`
 	 */
 	SetLampColor(input: num_int, color: "White"|"Red"|"Green"|"Blue"|"Off"): void;
 
@@ -3177,16 +4693,25 @@ class DsNxt {
 
 	/**
 	 * Convert color number to its name
-	 * @param val 1..6
+	 * @param val `1..6`
 	 */
 	ToColorName(val: num_int): "black"|"blue"|"green"|"yellow"|"red"|"white";
 }
 
 
-class DsOverlay {
+declare class DsOverlay {
 
 	/** Adds layout to overlay */
-	AddLayout(layout: DsLayout, left: num_frc, top: num_frc, options: "px"): void;
+	AddLayout(layout: DsLayout, left?: num_frc, top?: num_frc, options?: "px"): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
 
 	/** Returns the control class name */
 	GetType(): void;
@@ -3195,11 +4720,17 @@ class DsOverlay {
 	RemoveLayout(layout: DsLayout): void;
 
 	/** Changes a child layout position */
-	SetPosition(layout: DsLayout, left: num_frc, top: num_frc, options: "px"): void;
+	SetPosition(layout: DsLayout, left?: num_frc, top?: num_frc, options?: "px"): void;
 }
 
 
-class DsPhoneState {
+declare class DsPhoneState {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "PhoneState";
@@ -3215,34 +4746,88 @@ class DsPhoneState {
 }
 
 
-class DsPlayStore {
+declare class DsPlayStore {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/**
 	 * Get product info from Google Play
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `IAP` - In-App purchases\
  	 * &emsp; `SUBS` - subscriptions
 	 */
-	GetBillingInfo(prodIDs: str, callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options: "IAP"|"SUBS"): void;
+	GetBillingInfo(prodIDs: str, callback?: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "IAP"|"SUBS"): void;
 
 	/** Get purchased items from Google Play */
-	GetPurchases(callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options: "SUBS"): void;
+	GetPurchases(callback?: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "SUBS"): void;
 
 	/** Returns the control class name */
 	GetType(): "PlayStore";
 
 	/** Purchase an item on Google Play */
-	Purchase(prodID: str, token: str, callback: (prodId: str, orderId: str, purchToken: str, devToken: str, packageName: str) => void, options: "SUBS"): void;
+	Purchase(prodID: str, token: str, callback?: (prodId: str, orderId: str, purchToken: str, devToken: str, packageName: str) => void, options?: "SUBS"): void;
 }
 
 
-class DsScroller {
+declare class DsScroller {
 
 	/** Add a layout control */
 	AddChild(layout: DsLayout): void;
 
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
 	/** Devil rises and takes a child with him to hell */
 	DestroyChild(layout: DsLayout): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
 
 	/** Get horizontal scroll bar position */
 	GetScrollX(): num_frc;
@@ -3250,8 +4835,38 @@ class DsScroller {
 	/** Get vertical scroll bar position */
 	GetScrollY(): num_frc;
 
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Scroller";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Remove a scroller layout */
 	RemoveChild(child: dso): void;
@@ -3261,10 +4876,118 @@ class DsScroller {
 
 	/** Scrolls to a given position */
 	ScrollTo(x: num_frc, y: num_frc): void;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsSeekBar {
+declare class DsSeekBar {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "SeekBar";
@@ -3272,8 +4995,65 @@ class DsSeekBar {
 	/** Get current value */
 	GetValue(): num;
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
 	/** Adjust the visual color effect with different BlendModes */
-	SetColorFilter(color: str_col, mode: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over", options: str): void;
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over", options?: str): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Set rate of OnChange calls */
 	SetMaxRate(rate: num_mls): void;
@@ -3281,15 +5061,48 @@ class DsSeekBar {
 	/** Called when content was changed by the user */
 	SetOnChange(callback: (value: num) => void): void;
 
+	/** Called when content was changed by the user */
+	SetOnTouch(callback: (value: num) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
 	/** Set value range */
 	SetRange(range: num): void;
 
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Set current seekbar value */
 	SetValue(val: num): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsSensor {
+declare class DsSensor {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Get first value of a sensor */
 	GetAzimuth(): num;
@@ -3309,6 +5122,12 @@ class DsSensor {
 	/** Get all values from sensor */
 	GetValues(): [ num_mls, num, num, num ];
 
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Set maximum OnChange rate */
 	SetMaxRate(rate: num_mls): void;
 
@@ -3326,7 +5145,13 @@ class DsSensor {
 }
 
 
-class DsService {
+declare class DsService {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "Service";
@@ -3338,7 +5163,7 @@ class DsService {
 	SetInBackground(): void;
 
 	/** Run service in foreground */
-	SetInForeground(title: str, text: str, largeIcon: str_ptf, smallIcon: str_ptf, importance: "none"|"min"|"low"|"high"): void;
+	SetInForeground(title: str, text?: str, largeIcon?: str_ptf, smallIcon?: str_ptf, importance?: "none"|"min"|"low"|"high"): void;
 
 	/** Called when service sent a message */
 	SetOnMessage(callback: (message: str) => void): void;
@@ -3348,17 +5173,23 @@ class DsService {
 }
 
 
-class DsSMS {
+declare class DsSMS {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "SMS";
 
 	/**
 	 * Send SMS message
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `MultiPart` - multi-part SMS messaging
 	 */
-	Send(number: str, message: str, options: "MultiPart"): void;
+	Send(number: str, message: str, options?: "MultiPart"): void;
 
 	/** Called when user received a SMS */
 	SetOnMessage(callback: (message: str) => void): void;
@@ -3368,7 +5199,13 @@ class DsSMS {
 }
 
 
-class DsSpeechRec {
+declare class DsSpeechRec {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Stop recognition */
 	Cancel(): void;
@@ -3381,6 +5218,12 @@ class DsSpeechRec {
 
 	/** Check whether SpeechRec is listening */
 	IsListening(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Start speech recognition */
 	Recognize(): void;
@@ -3399,16 +5242,133 @@ class DsSpeechRec {
 }
 
 
-class DsSpinner {
+declare class DsSpinner {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "Spinner";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Change current shown item */
 	SelectItem(item: str): void;
 
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
 	/** Change spinner list */
-	SetList(list: str_com, delim: str): void;
+	SetList(list: str_com, delim?: str): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when value changed by the user */
 	SetOnChange(callback: (item: str, index: num_int) => void): void;
@@ -3416,48 +5376,247 @@ class DsSpinner {
 	/** Define a callback function for touch events */
 	SetOnTouch(callback: () => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Change current shown item */
 	SetText(item: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsSwitch {
+declare class DsSwitch {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Checks if switch is activated */
 	GetChecked(): bin;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Switch";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Change the checked state */
 	SetChecked(checked: bin): void;
 
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Called when user touched the control */
 	SetOnTouch(callback: (value: bin) => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Customize the button looks */
-	SetStyle(color1: str_col, color2: str_col, radius: num_pxl, strokeClr: str_col, strokeWidth: num_pxl, shadow: num_frc): void;
+	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsSynth {
+declare class DsSynth {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "Synth";
 
 	/**
 	 * Play a sequence of notes
-	 * @param tune note1&colon;duration1&comma;note2&colon;duration2&comma;...
+	 * @param tune `note1:duration1,note2:duration2,...`
 	 */
 	PlayMidiTune(tune: str_com): void;
 
 	/**
 	 * Play a single note
-	 * @param note 0..125
+	 * @param note `0..125`
 	 */
 	PlayNote(note: num_int): void;
 
-	/** Plays a frequency tone */
+	/**
+	 * Plays a frequency tone
+	 * @param frequency frequency
+	 */
 	PlayTone(frequency: num, duration: num_mls): void;
 
 	/** Change delay effect difference */
@@ -3505,19 +5664,28 @@ class DsSynth {
 	/** En/Disables VCA effect */
 	SetVcaEnabled(enable: bin): void;
 
-	/** Set a time of minimum volume */
+	/**
+	 * Set a time of minimum volume
+	 * @param release mls
+	 */
 	SetVcaRelease(release: num): void;
 
 	/** Set a basis volume */
 	SetVcaSustain(sustain: num_frc): void;
 
-	/** Initialize the VCF effect */
+	/**
+	 * Initialize the VCF effect
+	 * @param cuttoff frequency
+	 */
 	SetVcf(attack: num_mls, decay: num_mls, sustain: num_frc, release: num_mls, cuttoff: num, resonance: num_frc, depth: num_frc): void;
 
 	/** Set a time of maximum frequencies */
 	SetVcfAttack(attack: num_mls): void;
 
-	/** Set a maximum frequency which will never be exceeded */
+	/**
+	 * Set a maximum frequency which will never be exceeded
+	 * @param cuttoff frequency
+	 */
 	SetVcfCutoff(cuttoff: num): void;
 
 	/** Controls time when frequency is lowered to sustain */
@@ -3552,24 +5720,36 @@ class DsSynth {
 }
 
 
-class DsSysProc {
+declare class DsSysProc {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/**
 	 * Read from stderr
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `nowait` - dont wait for input
 	 */
-	Err(maxLines: num_int, options: string | ("nowait")[]): void;
+	Err(maxLines: num_int, options?: string | ("nowait")[]): void;
 
 	/** Returns the control class name */
 	GetType(): "SysProc";
 
 	/**
 	 * Read from stdin
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `nowait` - dont wait for input
 	 */
-	In(maxLines: num_int, options: string | ("nowait")[]): void;
+	In(maxLines: num_int, options?: string | ("nowait")[]): void;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Write to stdout */
 	Out(command: str): void;
@@ -3588,19 +5768,130 @@ class DsSysProc {
 }
 
 
-class DsTabs {
+declare class DsTabs {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Get current tab name */
 	GetCurrentTabName(): str;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
 	/** Get tab content layout */
 	GetLayout(name: str): DsLayout;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "Tabs";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
 	/** Apply corner radius to card layouts's */
 	SetCornerRadius(radius: num_pxl): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when current tab changed */
 	SetOnChange(callback: (name: str) => void): void;
@@ -3608,14 +5899,47 @@ class DsTabs {
 	/** Called when the user changed a control content */
 	SetOnChildChange(callback: (src: dso) => void): void;
 
+	/** Called when the control was pressed for eons */
+	SetOnLongTouch(callback: (src: dso) => void): void;
+
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Set text size */
-	SetTextSize(size: num, mode: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetTextSize(size: num, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** En/Disables touch events to be fired on the control */
+	SetTouchable(touchable: bin): void;
 
 	/** Enable touch event forwarding */
 	SetTouchThrough(through: bin): void;
 
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
 	/** Switch current tab */
 	ShowTab(name: str): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 
 	parent: {
 		/** Add a new tab */
@@ -3624,10 +5948,49 @@ class DsTabs {
 }
 
 
-class DsText {
+declare class DsText {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
 
 	/** Return html formatted text */
 	GetHtml(): str_htm;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
 
 	/** Get amount of text lines */
 	GetLineCount(): num_int;
@@ -3641,25 +6004,204 @@ class DsText {
 	/** Get amount of lines fitting in the control */
 	GetMaxLines(): num_int;
 
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Text";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
 	/**
 	 * Append line to the text
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `Clear` - Clears the log before writing
 	 */
-	Log(message: str, options: string | ("Clear"|"Red"|"Green"|"Blue")[]): void;
+	Log(message: str, options?: string | ("Clear"|"Red"|"Green"|"Blue")[]): void;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Auto-crop text to fit in control */
+	SetEllipsize(mode: "start"|"middle"|"end"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Change the used font */
+	SetFontFile(file: str_ptf): void;
+
+	/** Set current text to html-formatted text */
+	SetHtml(str: str_htm): void;
 
 	/** Set maximum log length */
 	SetLog(maxLines: num_int): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Called when the control was pressed for eons */
+	SetOnLongTouch(callback: (src: dso) => void): void;
+
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user starts touching the control */
+	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user drags a finger over the screen */
+	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Called when the user finger leaves te screen */
+	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/** Define a shadow around the control */
+	SetTextShadow(radius: num_int, dx?: num_int, dy?: num_int, color?: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** En/Disables touch events to be fired on the control */
+	SetTouchable(touchable: bin): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsTextEdit {
+declare class DsTextEdit {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
 
 	/** Clear undo/redo history */
 	ClearHistory(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Get the current cursor line index */
 	GetCursorLine(): num_int;
@@ -3667,8 +6209,14 @@ class DsTextEdit {
 	/** Get the cursor position in the text */
 	GetCursorPos(): num_int;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
 	/** Return html formatted text */
 	GetHtml(): str_htm;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
 
 	/** Get amount of text lines */
 	GetLineCount(): num_int;
@@ -3681,6 +6229,15 @@ class DsTextEdit {
 
 	/** Get amount of lines fitting in the control */
 	GetMaxLines(): num_int;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
 
 	/** Get the selected text */
 	GetSelectedText(): str;
@@ -3691,11 +6248,47 @@ class DsTextEdit {
 	/** Get selection start position */
 	GetSelectionStart(): num_int;
 
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "TextEdit";
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
 	/** Insert text at a given position */
 	InsertText(text: str, start: num_int): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Redo an undone action */
 	Redo(): void;
@@ -3703,17 +6296,59 @@ class DsTextEdit {
 	/** Replace a range of the text with a string */
 	ReplaceText(text: str, start: num_int, end: num_int): void;
 
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
 	/** Change cursor color */
 	SetCursorColor(color: str_col): void;
 
 	/** Change the current cursor position */
 	SetCursorPos(position: num_int): void;
 
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
 	/** Shows a grey default text */
 	SetHint(text: str): void;
 
+	/** Set current text to html-formatted text */
+	SetHtml(str: str_htm): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Called when content was changed by the user */
+	SetOnChange(callback: () => void): void;
+
 	/** Called when user pressed 'Done' or 'Enter' */
 	SetOnEnter(callback: () => void): void;
+
+	/** Called when the control gets focused */
+	SetOnFocus(callback: () => void): void;
 
 	/** Set selection color */
 	SetSelectColor(col: str_col): void;
@@ -3721,30 +6356,86 @@ class DsTextEdit {
 	/** Select text in a given range */
 	SetSelection(start: num_int, stop: num_int): void;
 
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+
 	/** Undo an action */
 	Undo(): void;
 }
 
 
-class DsTheme {
+declare class DsTheme {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Returns the control class name */
 	GetType(): "Theme";
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Define button text color */
 	SetBtnTextColor(color: str_col): void;
 
 	/** Define button options */
-	SetButtonOptions(options: string | ("FontAwesome"|"Html"|"Monospace"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"Normal"|"Aluminium"|"Gray"|"Lego")[]): void;
+	SetButtonOptions(options?: string | ("FontAwesome"|"Html"|"Monospace"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"Normal"|"Aluminium"|"Gray"|"Lego")[]): void;
 
 	/** Define button paddings */
-	SetButtonPadding(left: num, top: num, right: num, bottom: num_frc, mode: "px"|"sp"|"dip"|"mm"|"pt"): void;
+	SetButtonPadding(left?: num, top?: num, right?: num, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Define button style */
-	SetButtonStyle(color1: str_col, color2: str_col, radius: num_pxl, strokeClr: str_col, strokeWidth: num_pxl, shadow: num_frc, checkClr: str_col): void;
+	SetButtonStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc, checkClr?: str_col): void;
 
 	/** Define check box options */
-	SetCheckBoxOptions(options: string | ("FillX/Y")[]): void;
+	SetCheckBoxOptions(options?: string | ("FillX/Y")[]): void;
 
 	/** Define dialog button colors */
 	SetDialogBtnColor(color: str_col): void;
@@ -3771,10 +6462,10 @@ class DsTheme {
 	SetProgressBackColor(color: str_col): void;
 
 	/** Define progress options */
-	SetProgressOptions(options: string | ("NoDim"|"NonModal"|"Solid")[]): void;
+	SetProgressOptions(options?: string | ("NoDim"|"NonModal"|"Solid")[]): void;
 
 	/** Define progress bar options */
-	SetProgressBarOptions(options: "Light"): void;
+	SetProgressBarOptions(options?: "Light"): void;
 
 	/** Define progress text color */
 	SetProgressTextColor(color: str_col): void;
@@ -3783,7 +6474,7 @@ class DsTheme {
 	SetTextColor(color1: str_col, color2: str_col): void;
 
 	/** Define text edit options */
-	SetTextEditOptions(options: "underline"): void;
+	SetTextEditOptions(options?: "underline"): void;
 
 	/** Define title colors */
 	SetTitleColor(color: str_col): void;
@@ -3792,36 +6483,197 @@ class DsTheme {
 	SetTitleDividerColor(color: str_col): void;
 
 	/** Define title divider height */
-	SetTitleDividerHeight(height: num_pxl): void;
+	SetTitleDividerHeight(height?: num_pxl): void;
 
 	/** Define title height */
-	SetTitleHeight(height: num_pxl, options: string | ("px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps")[]): void;
+	SetTitleHeight(height?: num_pxl, options?: string | ("px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps")[]): void;
 
 	/** Define title text size */
-	SetTitleTextSize(size: num, options: string | ("px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps")[]): void;
+	SetTitleTextSize(size: num, options?: string | ("px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps")[]): void;
 }
 
 
-class DsToggle {
+declare class DsToggle {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Checks if toggle is activated */
 	GetChecked(): bin;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Returns the currently contained text */
+	GetText(): str;
+
+	/** Returns the current text size */
+	GetTextSize(mode: "px"): num;
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "Toggle";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Change the checked state */
 	SetChecked(checked: bin): void;
 
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
 	/** Called when user touched the control */
 	SetOnTouch(callback: (value: bin) => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Customize the button looks */
-	SetStyle(color1: str_col, color2: str_col, radius: num_pxl, strokeClr: str_col, strokeWidth: num_pxl, shadow: num_frc): void;
+	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc, checkClr?: str_col): void;
+
+	/** Change displayed text */
+	SetText(text: str): void;
+
+	/** Change the text color */
+	SetTextColor(color: str_col): void;
+
+	/**
+	 * Change the text size
+	 * @param mode <br>
+ 	 * &emsp; `pl` - scales text in proportion with device resolution\
+ 	 * &emsp; `ps` - scales text in proportion with device resolution
+	 */
+	SetTextSize(size: num, mode?: "px"|"dip"|"sp"|"mm"|"pt"|"pl"|"ps"): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsUSBSerial {
+declare class DsUSBSerial {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Get the 'Data Terminal Ready' state */
 	GetDTR(): void;
@@ -3839,14 +6691,20 @@ class DsUSBSerial {
 	IsConnected(): bin;
 
 	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
+	/**
 	 * Define data format for outgoing data
-	 * @param mode 
+	 * @param mode `Hex`, `Int`, `Text`, `<encoding>`\
  	 * &emsp; `Hex` - comma separated text value\
  	 * &emsp; `Int` - comma separated byte numbers\
  	 * &emsp; `Text` - string of text characters\
  	 * &emsp; `encoding` - UTF-16L/BE
 	 */
-	SetDataMode(mode: "Hex"|"Int"|"Text"|"&lt;encoding&gt;"): void;
+	SetDataMode(mode: str): void;
 
 	/** Raises the Data Terminal Ready state */
 	SetDTR(onOff: bin): void;
@@ -3864,7 +6722,7 @@ class DsUSBSerial {
 	SetRTS(onOff: bin): void;
 
 	/** Specify how to split received data */
-	SetSplitMode(mode: "End"|"Start-End"|"Size", p2: str|num_int, p3: str|num_int): void;
+	SetSplitMode(mode: "End"|"Start-End"|"Size", p2?: str|num_int, p3?: str|num_int): void;
 
 	/** Set timeout */
 	SetTimeout(ms: num_mls): void;
@@ -3876,23 +6734,95 @@ class DsUSBSerial {
 	Stop(): void;
 
 	/** Send data to connected device */
-	Write(text: str, encoding: "US-ASCII"|"UTF16L/BE"): void;
+	Write(text: str, encoding?: "US-ASCII"|"UTF16L/BE"): void;
 }
 
 
-class DsVideoView {
+declare class DsVideoView {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
 
 	/** Get video duration in seconds */
 	GetDuration(): num_flt;
 
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
+
 	/** Returns the control class name */
 	GetType(): "VideoView";
+
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
 
 	/** Checks if the view is currently playing */
 	IsPlaying(): bin;
 
 	/** Check if the video is ready for playback */
 	IsReady(): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Pause the video */
 	Pause(): void;
@@ -3904,10 +6834,43 @@ class DsVideoView {
 	SeekTo(seconds: num_int): void;
 
 	/**
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
+	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
+
+	/**
 	 * Set video source
-	 * @param file http(s)://url
+	 * @param file `http(s)://url`
 	 */
 	SetFile(file: str_pth|str_url): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when playback finished */
 	SetOnComplete(callback: () => void): void;
@@ -3921,33 +6884,72 @@ class DsVideoView {
 	/** Called when subtitle text changed */
 	SetOnSubtitle(callback: () => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
 	/** Set a subtitle source */
 	SetSubtitles(file: str_ptf): void;
+
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
 
 	/** Change the playback volume */
 	SetVolume(left: num_prc, right: num_prc): void;
 
+	/** Set the visibility to “Show” */
+	Show(): void;
+
 	/** Stop video playback */
 	Stop(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsWebServer {
+declare class DsWebServer {
 
 	/** Redirect urls */
 	AddRedirect(pattern: str_url, location: str_url): void;
 
-	/** Called when servlet received a message */
-	AddServlet(path: "/name", callback: (args: { parameter: argument }, info: { remoteAddress: str }) => void): void;
+	/**
+	 * Called when servlet received a message
+	 * @param path url path
+	 */
+	AddServlet(path: "/name", callback: (args: {[parameter: str]: str}, info: { remoteAddress: str }) => void): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Disconnect Client from WebServer */
-	Disconnect(ip: str, id: num_int): void;
+	Disconnect(ip: str, id?: num_int): void;
 
 	/** Returns the control class name */
 	GetType(): "WebServer";
 
 	/** Get connected clients */
 	GetWebSockClients(): { remoteAddress: str, id: num_int }[];
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Send message to client(s) */
 	SendText(txt: str, ip: str, id: num_int): void;
@@ -3975,7 +6977,13 @@ class DsWebServer {
 }
 
 
-class DsWebSocket {
+declare class DsWebSocket {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Close web socket */
 	Close(): void;
@@ -3984,7 +6992,7 @@ class DsWebSocket {
 	 * Get js Socket instance
 	 * @return WebSocket
 	 */
-	GetSocket(): jso;
+	GetSocket(): WebSocket;
 
 	/** Check if WebSocket is open */
 	IsOpen(): bin;
@@ -4003,10 +7011,31 @@ class DsWebSocket {
 }
 
 
-class DsWebView {
+declare class DsWebView {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Animates a control
+	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
+	 */
+	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
 
 	/** Load previous page */
 	Back(): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Check if history contains a previous page */
 	CanGoBack(): bin;
@@ -4020,17 +7049,47 @@ class DsWebView {
 	/** Clear all cookies */
 	ClearCookies(): void;
 
+	/** Removes the focus of the control */
+	ClearFocus(): void;
+
 	/** Clears the page history for Back() and Forward() */
 	ClearHistory(): void;
 
 	/** Execute JS code inside the WebView */
-	Execute(code: str_jsc, callback: (result: all) => void): void;
+	Execute(code: str_jsc, callback?: (result: all) => void): void;
+
+	/** Set the focus to the control for immediate access */
+	Focus(): void;
 
 	/** Load following page */
 	Forward(): void;
 
 	/** Call functions defined inside a webview */
 	Func(name: str, ...args: all): void;
+
+	/** Get the control height in pixels */
+	GetAbsHeight(): num_int;
+
+	/** Get the control width in pixels */
+	GetAbsWidth(): num_int;
+
+	/** Get the height of the control */
+	GetHeight(options: "px"): num;
+
+	/** Get distance to the left parent border */
+	GetLeft(options: "px"): num;
+
+	/** Returns the parent control object */
+	GetParent(): dso;
+
+	/**
+	 * Returns data about position and size
+	 * @return \{ left, top, width, height }
+	 */
+	GetPosition(options: "screen"|"px"): { left: num, top: num, width: num, height: num };
+
+	/** Get distance to the upper parent border */
+	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
 	GetType(): "WebView";
@@ -4041,12 +7100,33 @@ class DsWebView {
 	/** Get starting url */
 	GetHomeUrl(): str_url;
 
+	/** Returns the current visibility state */
+	GetVisibility(): "Show"|"Hide"|"Gone";
+
+	/** Get the width of the control */
+	GetWidth(options: "px"): num;
+
+	/** Make it gone. It was never there! */
+	Gone(): void;
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is useable */
+	IsEnabled(): bin;
+
+	/** Checks if the control overlaps with another */
+	IsOverlap(obj: dso, depth?: num_frc): bin;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
 	/** Returns if the page failed to load */
 	LoadFailed(): bin;
 
 	/**
 	 * Load html to WebView
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoActionBar` - prevents copy/paste popup\
@@ -4060,11 +7140,11 @@ class DsWebView {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	LoadHtml(html: str_htm, baseFolder: str_ptd, options: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
+	LoadHtml(html: str_htm, baseFolder?: str_ptd, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
 
 	/**
 	 * Load url to WebView
-	 * @param options 
+	 * @param options <br>
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoActionBar` - prevents copy/paste popup\
@@ -4078,7 +7158,13 @@ class DsWebView {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	LoadUrl(url: str_url, options: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
+	LoadUrl(url: str_url, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Print webpage via anddroid printer dialog */
 	Print(): void;
@@ -4087,24 +7173,53 @@ class DsWebView {
 	Reload(): void;
 
 	/**
-	 * Block urls from loading
-	 * @param urls 
- 	 * &emsp; `urls`
+	 * Set the background transparency by alpha value
+	 * @param alpha `0..0.99`, `1..256`
 	 */
+	SetBackAlpha(alpha: num): void;
+
+	/** Resize a control after device rotation */
+	Resize(): void;
+
+	/** Change the background color */
+	SetBackColor(color: str_col): void;
+
+	/** Define the background color of the control with a gradient */
+	SetBackGradient(color1: str_col, color2?: str_col, color3?: all, options?: "left-right"|"right-left"|"top-bottom"|"bottom-top"|"bl-tr"|"br-tl"|"tl-br"|"tr-bl"): void;
+
+	/** Define a radial background color gradient */
+	SetBackGradientRadial(x: num_frc, y: num_frc, radius?: num_frc, color1?: str_col, color2?: str_col, color3?: all, options?: str_com): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
+
+	/** Block urls from loading */
 	SetBlockedUrls(urls: str[]|"urls"): void;
 
 	/**
 	 * Define context menus to listen for
-	 * @param links Copy URL\,Open URL
-	 * @param images Download Image
+	 * @param links `Copy URL`, `Open URL`
+	 * @param images `Download Image`
 	 */
-	SetContextMenus(links: str, images: str): void;
+	SetContextMenus(links?: str, images?: str): void;
+
+	/** Adjust the visual color effect with different BlendModes */
+	SetColorFilter(color: str_col, mode?: "Add"|"Multiply"|"clear"|"darken"|"lighten"|"overlay"|"screen"|"xor"|"color"|"color_burn"|"color_dodge"|"difference"|"exclusion"|"hard_light"|"hue"|"luminosity"|"modulate"|"saturation"|"soft_light"|"src"|"dst"|"src_in"|"src_out"|"src_atop"|"src_over"|"dst_in"|"dst_out"|"dst_atop"|"dst_over"): void;
+
+	/** Set accesibility description */
+	SetDescription(desc: str): void;
+
+	/** En/Disable the control */
+	SetEnabled(enable: bin): void;
 
 	/** Define error page */
 	SetErrorPage(url: str_url): void;
 
 	/** Inject scripts on page load */
 	SetInject(file: str_pth): void;
+
+	/** Define distances to other controls */
+	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Scales the html text by a given factor */
 	SetTextZoom(zoom: num_frc): void;
@@ -4124,11 +7239,26 @@ class DsWebView {
 	/** Traps HTTP Requests */
 	SetOnRequest(callback: (url: str, method: str, isMain: bin, isRedirect: bin) => void): void;
 
+	/** Called when user touched the control */
+	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+
 	/** Called when link klicked */
 	SetOnUrl(callback: (url: str_url) => void): void;
 
+	/** Define distances to contained elements */
+	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
+
+	/** Defines position and size on absolute layouts */
+	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
+
 	/** Add url redirection rule */
 	SetRedirect(urlFrom: str_url, urlTo: str_url): void;
+
+	/** Scale the control by the given factors */
+	SetScale(x: num_fac, y: num_fac): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** En/Disable touchmode on the control */
 	SetTouchMode(mode: bin): void;
@@ -4138,22 +7268,43 @@ class DsWebView {
 
 	/**
 	 * Set/Add custom user agent
-	 * @param options Add-appends to default user agent
+	 * @param options `Add-appends to default user agent`
 	 */
-	SetUserAgent(agent: str, options: str): void;
+	SetUserAgent(agent: str, options?: str): void;
 
 	/** Set authentication/login data */
 	SetUserCreds(name: str, password: str): void;
 
+	/** Change the visibility mode */
+	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
+
 	/** Simulate key event */
-	SimulateKey(keyName: str, modifiers: "META_META_ON"|"META_RIGHT_ON"|"NUM_LOCK_ON"|"SCROLL_LOCK_ON"|"SHIFT_LEFT_ON"|"SHIFT_MASK"|"SHIFT_ON"|"SHIFT_RIGHT_ON"|"SYM_ON", pause: num): void;
+	SimulateKey(keyName: str, modifiers?: "META_META_ON"|"META_RIGHT_ON"|"NUM_LOCK_ON"|"SCROLL_LOCK_ON"|"SHIFT_LEFT_ON"|"SHIFT_MASK"|"SHIFT_ON"|"SHIFT_RIGHT_ON"|"SYM_ON", pause?: num): void;
 
 	/** Stop loading processes */
 	Stop(): void;
+
+	/**
+	 * Animates the control
+	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 */
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
 }
 
 
-class DsWizard {
+declare class DsWizard {
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Hides the control and removes it from the screen */
+	Dismiss(): void;
 
 	/** Indicate that wizard finished */
 	Finish(): void;
@@ -4169,32 +7320,89 @@ class DsWizard {
 
 	/** Returns the control class name */
 	GetType(): "Wizard";
+
+	/** Hides the control visually */
+	Hide(): void;
+
+	/** Checks if the control is currently visible */
+	IsVisible(): bin;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
 }
 
 
-class DsYesNoDialog {
+declare class DsYesNoDialog {
+
+	/**
+	 * Adjust the visual color effect of the control
+	 * @param hue `-180..180`
+	 * @param saturation `-100..100`
+	 * @param brightness `-100..100`
+	 * @param contrast `0..100`
+	 */
+	AdjustColor(hue: num, saturation?: num, brightness?: num, contrast?: num): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/** Hides the control and removes it from the screen */
+	Dismiss(): void;
 
 	/** Returns the control class name */
 	GetType(): "YesNoDialog";
 
+	/** Hides the control visually */
+	Hide(): void;
+
+	/**
+	 * Access Java object methods via reflection
+	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
+	 */
+	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
+
 	/** Change the background color */
-	SetBackColor(color: str_col, radius: num_pxl): void;
+	SetBackColor(color: str_col, radius?: num_pxl): void;
+
+	/** Change the background to an image */
+	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Change Yes/No button text */
 	SetButtonText(yes: str, no: str): void;
 
 	/** Called when user selects Yes or No */
 	SetOnTouch(callback: (result: "Yes"|"No") => void): void;
+
+	/** Change the size of the control */
+	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+
+	/** Set the visibility to “Show” */
+	Show(): void;
 }
 
 
-class DsZipUtil {
+declare class DsZipUtil {
 
-	/** Add file to zip */
+	/**
+	 * Add file to zip
+	 * @param name `zip path`
+	 */
 	AddFile(name: str, file: str_ptf): void;
 
-	/** Add text to the zip */
+	/**
+	 * Add text to the zip
+	 * @param name `zip path`
+	 */
 	AddText(name: str, text: str): void;
+
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
 
 	/** Close ZipUtil */
 	Close(): void;
@@ -4214,7 +7422,10 @@ class DsZipUtil {
 	 */
 	CreateKey(file: str_ptf, password: str, name: str, organization: str): void;
 
-	/** Extract file from zip */
+	/**
+	 * Extract file from zip
+	 * @param name `zip path`
+	 */
 	Extract(name: str, file: str_ptf): void;
 
 	/** Returns the control class name */
@@ -4230,18 +7441,21 @@ class DsZipUtil {
 	Sign(fileIn: str_ptf, fileOut: str_ptf, keyStore: str_pth, password: str): bin;
 
 	/** Update zip manifest */
-	UpdateManifest(fileIn: str_ptf, fileOut: str_ptf, packageName: str, appName: str, permissions: str_com, options: string | ("Launch"|"Debug")[]): void;
+	UpdateManifest(fileIn: str_ptf, fileOut: str_ptf, packageName: str, appName: str, permissions?: str_com, options?: string | ("Launch"|"Debug")[]): void;
 }
 
 
-class DsDatabase {
+declare class DsDatabase {
 
-	/** AddTransaction
-	 * @deprecated  Use ExecuteSQL instead */
+	/**
+	 * AddTransaction
+	 * @deprecated  Use ExecuteSQL instead
+	 * @param transaction JS SQLitePluginTransaction
+	 */
 	addTransaction(transaction: obj): void;
 
 	/** Close the database */
-	close(success: (msg: str) => void, error: (msg: str) => void): void;
+	close(success?: (msg: str) => void, error?: (msg: str) => void): void;
 
 	/** Close the database */
 	Close(): void;
@@ -4250,10 +7464,10 @@ class DsDatabase {
 	Delete(): void;
 
 	/** Execute SQL query */
-	executeSql(statement: str_sql, params: lst, success: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error: (t: ?, err: { message: str }) => void): void;
+	executeSql(statement: str_sql, params?: lst, success?: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (t: all, err: { message: str }) => void): void;
 
 	/** Execute SQL query */
-	ExecuteSql(sql: str_sql, params: lst, success: (res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error: (err: str) => void): void;
+	ExecuteSql(sql: str_sql, params?: lst, success?: (res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (err: str) => void): void;
 
 	/** Get database name */
 	GetName(): str;
@@ -4265,11 +7479,11 @@ class DsDatabase {
 	name: str;
 
 	/** Open database */
-	open(success: () => void, error: (msg: str) => void): void;
+	open(success?: () => void, error?: (msg: str) => void): void;
 
 	/** ReadTransaction
 	 * @deprecated  Use ExecuteSql instead */
-	readTransaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error: (err: str) => void, success: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
+	readTransaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (err: str) => void, success?: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
 
 	/** StartNextTransaction
 	 * @deprecated  Use ExecuteSql instead */
@@ -4277,7 +7491,20 @@ class DsDatabase {
 
 	/** Transaction
 	 * @deprecated  Use ExecuteSql instead */
-	transaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error: (err: str) => void, success: (fnc: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
+	transaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (err: str) => void, success?: (fnc: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
+}
+
+
+declare class DsCheckList {
+
+	/** Show the check list */
+	Show(): void;
+
+	/**
+	 * Set list
+	 * @param data `title:checked`
+	 */
+	SetList(data: str|{ title: str, check: bin }): void;
 }
 
 

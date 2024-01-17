@@ -8,7 +8,7 @@
     "include": [
         "**/*.js",
         "**/*.d.ts",
-        "${DEFINITIONS}"
+        "${DEFINITIONS}/ts/*"
     ],
     "exclude": [
         "node_modules"

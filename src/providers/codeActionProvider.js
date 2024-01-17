@@ -9,7 +9,7 @@ function register() {
             if (!line.text.includes("=")) return;
             if (!line.text.match(/(var\s+|let\s+|const\s+)?\b\w+\s*=[^=]/)) return;
 
-            const wordReg = /(var\s+|let\s+|const\s+)?\b(\w+)/;
+            const wordReg = /\b(var\s+|let\s+|const\s+)?\b(\w+)/;
             const wordRange = doc.getWordRangeAtPosition(range.start, wordReg);
             const word = doc.getText(wordRange);
             if (!wordRange) return;

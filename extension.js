@@ -89,8 +89,8 @@ async function activate(context) {
     // projects
     subscribe("play", play);
     subscribe("stop", stop);
-    subscribe("runApp", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => {
-        play(treeItem.title)
+    subscribe("runApp", (/** @type {ProjectsTreeData.ProjItem?} */ treeItem) => {
+        play(treeItem?.title || PROJECT)
     });
     subscribe("openApp", openProject);
     subscribe("openAppInNewWindow", openProject);
@@ -607,8 +607,9 @@ async function declareVars(file) {
     const editor = await vscode.window.showTextDocument(doc);
     editor.edit(edt => {
         for (let i = 0; i < text.length; i++) {
-            const m = text[i].match(/(?<!(var|let|const) )\w+\s*=[^=]/);
-            if (m?.index) edt.insert(new vscode.Position(i, m.index), "var ");
+            if (!text[i].match(/(?<!(var\s+|let\s+|const\s+))\b\w+\s*=[^=]/)) continue;
+            const m = text[i].match(/\w+\s*=\s*/);
+            if (m?.index !== undefined) edt.insert(new vscode.Position(i, m.index), "var ");
         }
     });
 }

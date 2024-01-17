@@ -18,6 +18,18 @@
   ],
   "main": "./extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "droidscript-code.runApp",
+        "key": "alt+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "droidscript-code.stop",
+        "key": "alt+s",
+        "when": "editorTextFocus"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -63,6 +75,10 @@
       {
         "command": "droidscript-code.runApp",
         "title": "Run"
+      },
+      {
+        "command": "droidscript-code.stop",
+        "title": "Stop"
       },
       {
         "command": "droidscript-code.addNewApp",

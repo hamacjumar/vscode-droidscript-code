@@ -106,6 +106,10 @@
         "title": "Format On Save"
       },
       {
+        "command": "droidscript-code.declareVars",
+        "title": "Declare Variables"
+      },
+      {
         "command": "droidscript-code.openSample",
         "title": "Open"
       },
@@ -115,6 +119,13 @@
       }
     ],
     "menus": {
+      "editor/title/context": [
+        {
+          "command": "droidscript-code.declareVars",
+          "when": "resourceLangId == javascript",
+          "group": "4_configure"
+        }
+      ],
       "view/title": [
         {
           "command": "droidscript-code.addNewApp",
@@ -175,6 +186,11 @@
         },
         {
           "command": "droidscript-code.autoFormat",
+          "when": "view == droidscript-projects",
+          "group": "4_configure"
+        },
+        {
+          "command": "droidscript-code.declareVars",
           "when": "view == droidscript-projects",
           "group": "4_configure"
         },

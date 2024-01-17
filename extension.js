@@ -15,7 +15,7 @@ const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
 const SamplesTreeData = require("./src/SamplesTreeView");
 const CONSTANTS = require("./src/CONSTANTS");
-const { homePath } = require("./src/util");
+const { homePath, excludeFile } = require("./src/util");
 
 const completionItemProvider = require("./src/providers/completionItemProvider");
 const hoverProvider = require("./src/providers/hoverProvider");
@@ -40,7 +40,6 @@ let GlobalContext;
 let connectionStatusBarItem;
 /** @type {vscode.StatusBarItem?} */
 let projectName;
-let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
 /** @type {DocsTreeData.TreeDataProvider} */
 let docsTreeDataProvider;
@@ -275,15 +274,18 @@ async function getAllFiles(folder, proc) {
     for (var i = 0; i < data.list.length; i++) {
         fileName = data.list[i], path = folder + "/" + fileName;
         filePath = path.replace(PROJECT + "/", "");
-        proc.report({ message: filePath });
-        if (!fileName.startsWith("~") && fileName.includes(".")) {
-            let response = await ext.loadFile(path).catch(catchError);
 
-            if (response && response.status == "ok") {
+        if (fileName.startsWith("~")) continue;
+        proc.report({ message: filePath });
+
+        if (fileName.indexOf(".") > 0) {
+            // assume its a file
+            let response = await ext.loadFile(path).catch(catchError);
+            if (response && response.status == "ok")
                 await writeFile(filePath, response.data).catch(catchError);
-            }
         }
-        else if (dsFolders.includes(fileName) || !fileName.includes(".")) {
+        else {
+            // assume its a folder
             var created = await createFolder(filePath);
             if (created) await getAllFiles(path, proc);
             else vscode.window.showErrorMessage("Error creating " + fileName + " folder");
@@ -329,8 +331,12 @@ function getProjectPath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
     if (!proj) return null;
 
-    const fileDs = path.relative(proj.path, filePath);
-    return proj.PROJECT + "/" + fileDs.replace(/\\/g, '/');
+    const dsFile = path.relative(proj.path, filePath);
+    if (excludeFile(proj, dsFile)) {
+        console.log("ignored " + dsFile);
+        return null;
+    }
+    return proj.PROJECT + "/" + dsFile.replace(/\\/g, '/');
 }
 
 // Called when the document is save

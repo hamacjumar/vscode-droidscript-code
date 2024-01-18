@@ -9,7 +9,7 @@ const debugServer = require('./src/websocket');
 const localData = require("./src/local-data");
 const connectToDroidScript = require("./src/commands/connect-to-droidscript");
 const CONSTANTS = require("./src/CONSTANTS");
-const { homePath, excludeFile } = require("./src/util");
+const { homePath, excludeFile, batchPromises } = require("./src/util");
 
 const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
@@ -25,10 +25,6 @@ const completionItemProvider = require("./src/providers/completionItemProvider")
 const hoverProvider = require("./src/providers/hoverProvider");
 const signatureHelpProvider = require("./src/providers/signatureHelperProvider");
 const codeActionProvider = require("./src/providers/codeActionProvider");
-
-// global constants
-const VERSION = 0.28;
-const DEBUG = !false;
 
 // global variables
 let PROJECT = "";
@@ -157,11 +153,11 @@ async function activate(context) {
     prepareWorkspace();
 
     // Version 0.2.6 and above...
-    if (VERSION > DSCONFIG.VERSION || DEBUG) {
+    if (CONSTANTS.VERSION > DSCONFIG.VERSION || CONSTANTS.DEBUG) {
         // extract assets
         extractAssets();
         // set the version
-        DSCONFIG.VERSION = VERSION;
+        DSCONFIG.VERSION = CONSTANTS.VERSION;
         localData.save(DSCONFIG);
     }
 
@@ -222,13 +218,13 @@ async function prepareWorkspace() {
     if (proj.reload) {
         proj.reload = false;
         localData.save(DSCONFIG);
-        vscode.commands.executeCommand("droidscript-code.connect");
     }
     else {
         const selection = await vscode.window.showInformationMessage(proj.PROJECT + " is a DroidScript app.\nConnect to DroidScript?", "Proceed")
         if (selection !== "Proceed") return;
-        vscode.commands.executeCommand("droidscript-code.connect");
     }
+
+    vscode.commands.executeCommand("droidscript-code.connect");
 }
 
 /** @param {vscode.Uri} filePath */
@@ -260,42 +256,58 @@ async function loadFiles() {
     }
 }
 
-/** 
- * @param {string} folder
- * @param {vscode.Progress<{message?:string, increment?:number}>} proc
- */
-async function getAllFiles(folder, proc) {
+/**
+ *  @param {string} folder
+* @param {vscode.Progress<{message?:string, increment?:number}>} [proc]
+*/
+async function indexFolder(folder, proc) {
     folder = folder || PROJECT;
-    let data = await ext.listFolder(folder).catch(catchError);
-    proc.report({ increment: 0 });
+    let data = await ext.listFolder(folder);
+    proc?.report({ message: "indexing " + folder });
 
-    if (data.status !== "ok") return data.error;
-    if (!data.list.length) return "";
+    if (data.status !== "ok") throw Error(data.error);
+    if (!data.list.length) return [];
 
     IS_DROIDSCRIPT = true;
 
-    let fileName = "", path = "", filePath = "";
+    /** @type {{src:string, dest:string}[]} */
+    const files = [];
     for (var i = 0; i < data.list.length; i++) {
-        fileName = data.list[i], path = folder + "/" + fileName;
-        filePath = path.replace(PROJECT + "/", "");
-
+        let fileName = data.list[i], path = folder + "/" + fileName;
+        let filePath = path.replace(PROJECT + "/", "");
         if (fileName.startsWith("~")) continue;
-        proc.report({ message: filePath });
 
         if (fileName.indexOf(".") > 0) {
             // assume its a file
-            let response = await ext.loadFile(path).catch(catchError);
-            if (response && response.status == "ok")
-                await writeFile(filePath, response.data).catch(catchError);
+            files.push({ src: path, dest: filePath });
         }
         else {
             // assume its a folder
-            var created = await createFolder(filePath);
-            if (created) await getAllFiles(path, proc);
+            var created = createFolder(filePath);
+            if (created) {
+                const childFiles = await indexFolder(path, proc);
+                files.push(...childFiles);
+            }
             else vscode.window.showErrorMessage("Error creating " + fileName + " folder");
         }
-        proc.report({ increment: 100 * (i + 1) / data.list.length });
     }
+    return files;
+}
+
+/** 
+* @param {string} folder
+* @param {vscode.Progress<{message?:string, increment?:number}>} proc
+*/
+async function getAllFiles(folder, proc) {
+    const files = await indexFolder(folder).catch(e => (catchError(e), []));
+    if (!files.length) return;
+
+    await batchPromises(files, async (file) => {
+        proc.report({ message: file.src, increment: 100 / files.length });
+        let response = await ext.loadFile(file.src).catch(catchError);
+        if (response && response.status === "ok")
+            await writeFile(file.dest, response.data).catch(catchError);
+    });
 }
 
 async function showReloadPopup() {
@@ -310,12 +322,13 @@ async function showReloadPopup() {
  */
 async function writeFile(fileName, content) {
     if (!FOLDER_NAME) return;
-    await fs.writeFile(path.join(folderPath.fsPath, fileName), content, { flag: 'w' }).catch(catchError);
+    const filePath = path.join(folderPath.fsPath, fileName);
+    await fs.writeFile(filePath, content, { flag: 'w' }).catch(catchError);
 }
 
 // Create a folder in the workspace
 /** @param {string} path */
-async function createFolder(path) {
+function createFolder(path) {
     if (!vscode.workspace.workspaceFolders) return;
     const workspacePath = vscode.workspace.workspaceFolders[0].uri;
     const fileUri = vscode.Uri.joinPath(workspacePath, path);
@@ -380,7 +393,7 @@ async function onDeleteFile(e) {
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
 const catchError = (error) => {
-    console.error(error);
+    console.error(error.stack || error.message || error);
     vscode.window.showErrorMessage(error.message || error);
     return { status: "bad", error };
 }

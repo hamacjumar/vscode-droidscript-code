@@ -3,12 +3,13 @@ const vscode = require('vscode');
 /** @param {vscode.Uri} uri */
 module.exports = async function (uri) {
     const doc = await vscode.workspace.openTextDocument(uri);
+    const editor = await vscode.window.showTextDocument(doc);
+
     const text = doc.getText();
     const globals = findGlobalVars(text);
-
     const lines = text.split("\n");
-    const editor = await vscode.window.showTextDocument(doc);
-    const funcPos = text.match(/(\/\/.*\n)*function/)?.index || 0;
+
+    const funcPos = text.match(/(\/\/.*\n)*\n\s*function/)?.index || 0;
     const globPos = doc.positionAt(funcPos);
 
     const regConPrefix = /^(Create|Open|Add|show)(?=\w+)/i;
@@ -23,29 +24,34 @@ module.exports = async function (uri) {
 
     editor.edit(edt => {
         for (let i = 0; i < lines.length; i++) {
-            const match = lines[i].match(/(?<!(var\s+|let\s+|const\s+))\b(\w+)\s*=[^=]/);
-            if (!match || globals.has(match[2])) continue;
+            // find undeclared assignments
+            const match = lines[i].match(/(?<=^|\n|^\s+for\s*\()\s*(?<!(var\s+|let\s+|const\s+))\b(\w+)\s*=[^=]/);
+            if (!match || globals.has(match[2]) || text.match(`(var|let|const)\\b[^\n(]+\\b${match[2]}\\s*[=,;\\n]`)) continue;
+            // insert var to assignment
             const m = lines[i].match(`\\b${match[2]}\\s*=[^=]`);
             if (m?.index !== undefined) edt.insert(new vscode.Position(i, m.index), "var ");
         }
-        if (globals.size) {
-            let globDefs = "";
+        if (!globals.size) return;
 
-            for (const v of globals) {
-                const typeMatch = text.match(`${v}\\s*=\\s*((app|gfx|ui|mui)\\.(\\w+)|([^=;\n()]+))`);
-                let type = "";
-                if (typeMatch && typeMatch[3]) {
-                    if (typeMatch[3].match(regConPrefix)) type = objPfx[typeMatch[2]] + typeMatch[3].replace(regConPrefix, '');
-                    else if (typeMatch[3].match(/^(is|has)/i)) type = "boolean";
-                } else if (typeMatch && typeMatch[4]) {
-                    if (typeObj[typeMatch[4][0]]) type = typeObj[typeMatch[4][0]];
-                    else if (typeMatch[4].match(/^(true|false)$/)) type = "boolean";
-                    else if (type.match(/^[0-9.]+/)) type = "number";
-                }
-                globDefs += `/** @type {${type}} */\nvar ${v};\n`;
+        let globDefs = "";
+        for (const v of globals) {
+            // skip already declared
+            if (text.match(`\\b(var|let|const)\\b[^\n(]+${v}\\s*[=,;\\n]`)) continue;
+
+            // try to infer type
+            let type = "";
+            const typeMatch = text.match(`${v}\\s*=\\s*((app|gfx|ui|mui)\\.(\\w+)|([^=;()]+))`);
+            if (typeMatch && typeMatch[3]) {
+                if (typeMatch[3].match(regConPrefix)) type = objPfx[typeMatch[2]] + typeMatch[3].replace(regConPrefix, '');
+                else if (typeMatch[3].match(/^(is|has)/i)) type = "boolean";
+            } else if (typeMatch && typeMatch[4]) {
+                if (typeObj[typeMatch[4][0]]) type = typeObj[typeMatch[4][0]];
+                else if (typeMatch[4].match(/^(true|false)$/)) type = "boolean";
+                else if (type.match(/^[0-9.]+/)) type = "number";
             }
-            edt.insert(globPos, `\n${globDefs}\n`);
+            globDefs += `/** @type {${type}} */\nvar ${v};\n`;
         }
+        edt.insert(globPos, `\n${globDefs}\n`);
     });
 }
 

@@ -10,7 +10,8 @@ const HOMEPATH = os.homedir();
 module.exports = {
     homePath,
     HOMEPATH,
-    excludeFile
+    excludeFile,
+    batchPromises
 }
 
 /** @param {string[]} paths */
@@ -36,4 +37,18 @@ function excludeFile(proj, filePath) {
     for (const glob of exclude)
         if (minimatch(filePath, glob)) return true;
     return false;
+}
+
+/** @type {<T>(data:T[], handler:(o:T, i:number, l:T[]) => Promise<any>, batchSize?:number) => Promise<void>} */
+async function batchPromises(data, handler, batchSize = 10) {
+    /** @type {Promise<[Promise<any>]>[]} */
+    let promises = [], i = 0;
+    while (i < data.length) {
+        while (promises.length < batchSize && i < data.length) {
+            let promise = handler(data[i], i++, data);
+            promises.push(promise = promise.then(res => [promise]));
+        }
+        const p = await Promise.race(promises);
+        promises.splice(promises.indexOf(p[0]), 1);
+    }
 }

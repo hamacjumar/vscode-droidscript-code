@@ -17,10 +17,13 @@ let DSCONFIG = localData.load();
 const axios = {
     /** @type {<T>(url: string, res:T) => T} */
     intercept: (url, res) => {
+        if (!CONSTANTS.DEBUG) return res;
+
         // @ts-ignore
-        if (typeof res.data !== "string") console.log(url, res.data);
+        let display = res.data instanceof Buffer ? res.data.toString() : res.data;
         // @ts-ignore
-        else console.log(url, JSON.stringify(res.data.slice(0, 100)));
+        display = typeof res.data === "string" ? res.data.slice(0, 256) : res.data;
+        console.log(url, display);
         return res;
     },
 
@@ -33,7 +36,7 @@ const axios = {
 
 /** @type {(error: any) => {status: undefined, data: DSServerResponse<{status:"bad"}>}} */
 const catchError = (error) => {
-    console.error(error);
+    console.error(error.stack || error.message || error);
     return { status: undefined, data: { status: "bad", error } };
 }
 

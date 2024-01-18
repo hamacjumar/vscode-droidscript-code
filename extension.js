@@ -3,25 +3,28 @@ const vscode = require('vscode');
 const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
+
 const ext = require('./src/extension');
 const debugServer = require('./src/websocket');
+const localData = require("./src/local-data");
+const connectToDroidScript = require("./src/commands/connect-to-droidscript");
+const CONSTANTS = require("./src/CONSTANTS");
+const { homePath, excludeFile } = require("./src/util");
+
+const DocsTreeData = require("./src/DocsTreeView");
+const ProjectsTreeData = require("./src/ProjectsTreeView");
+const SamplesTreeData = require("./src/SamplesTreeView");
+
 const createNewApp = require("./src/commands/create-app");
 const deleteApp = require("./src/commands/delete-app");
 const revealExplorer = require("./src/commands/revealExplorer");
 const renameApp = require("./src/commands/rename-app");
-const localData = require("./src/local-data");
-const connectToDroidScript = require("./src/commands/connect-to-droidscript");
-const DocsTreeData = require("./src/DocsTreeView");
-const ProjectsTreeData = require("./src/ProjectsTreeView");
-const SamplesTreeData = require("./src/SamplesTreeView");
-const CONSTANTS = require("./src/CONSTANTS");
-const { homePath, excludeFile, findGlobalVars } = require("./src/util");
+const smartDeclare = require('./src/commands/smartDeclare');
 
 const completionItemProvider = require("./src/providers/completionItemProvider");
 const hoverProvider = require("./src/providers/hoverProvider");
 const signatureHelpProvider = require("./src/providers/signatureHelperProvider");
 const codeActionProvider = require("./src/providers/codeActionProvider");
-const { smartDeclare } = require('src/commands/smartDeclare');
 
 // global constants
 const VERSION = 0.28;
@@ -203,14 +206,14 @@ async function createAssetFolder(paths) {
 }
 
 async function prepareWorkspace() {
+    const uris = (vscode.workspace.workspaceFolders || []).map(ws => ws.uri)
+        .concat(vscode.window.visibleTextEditors.map(te => te.document.uri))
+    if (!uris.length) return;
 
-    const VSFOLDERS = vscode.workspace.workspaceFolders || [];
-    if (!VSFOLDERS || !VSFOLDERS.length) return;
-
-    /** @type {vscode.WorkspaceFolder | undefined} */
+    /** @type {vscode.Uri | undefined} */
     let folder;
     const proj = DSCONFIG.localProjects.find(p =>
-        folder = VSFOLDERS.find(ws => ws.uri.fsPath === p.path))
+        folder = uris.find(uri => uri.fsPath.startsWith(p.path)))
     if (!proj || !folder) return;
 
     setProjectName(proj.PROJECT);
@@ -624,9 +627,12 @@ async function onRenameApp(appName, newAppName) {
 }
 
 async function downloadDefinitions() {
-    const defPath = ".edit/docs/definitions/ts/";
-    const res = await ext.listFolder(defPath);
-    if (res.status !== "ok") return;
+    let defPath, res;
+    for (defPath of CONSTANTS.defPaths) {
+        res = await ext.listFolder(defPath);
+        if (res.status === "ok" && res.list.length) break;
+    }
+    if (res?.status !== "ok" || !res.list.length) return;
 
     for (const file of res.list) {
         if (!file.endsWith(".d.ts")) continue;

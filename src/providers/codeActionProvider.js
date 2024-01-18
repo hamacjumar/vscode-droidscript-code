@@ -30,7 +30,7 @@ function register() {
             declareGlobalAction.edit.replace(doc.uri, wordRange, varName);
             declareGlobalAction.edit.insert(doc.uri, new vscode.Position(i, 0), `/** @type {} */\nvar ${varName};\n`);
 
-            const declareAllLocalAction = new vscode.CodeAction("DroidScript: Declare All Local", vscode.CodeActionKind.Refactor);
+            const declareAllLocalAction = new vscode.CodeAction("DroidScript: Smart Declare All Vars", vscode.CodeActionKind.Refactor);
             declareAllLocalAction.command = {
                 title: "Declare Variables",
                 command: "droidscript-code.declareVars",

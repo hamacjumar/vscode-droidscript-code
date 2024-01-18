@@ -123,7 +123,7 @@
       },
       {
         "command": "droidscript-code.declareVars",
-        "title": "Declare Variables"
+        "title": "Smart Declare All Variables"
       },
       {
         "command": "droidscript-code.openSample",

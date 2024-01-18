@@ -15,12 +15,13 @@ const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
 const SamplesTreeData = require("./src/SamplesTreeView");
 const CONSTANTS = require("./src/CONSTANTS");
-const { homePath, excludeFile } = require("./src/util");
+const { homePath, excludeFile, findGlobalVars } = require("./src/util");
 
 const completionItemProvider = require("./src/providers/completionItemProvider");
 const hoverProvider = require("./src/providers/hoverProvider");
 const signatureHelpProvider = require("./src/providers/signatureHelperProvider");
 const codeActionProvider = require("./src/providers/codeActionProvider");
+const { smartDeclare } = require('src/commands/smartDeclare');
 
 // global constants
 const VERSION = 0.28;
@@ -105,7 +106,7 @@ async function activate(context) {
     });
     subscribe("addTypes", addTypes);
     subscribe("autoFormat", autoFormat);
-    subscribe("declareVars", declareVars);
+    subscribe("declareVars", smartDeclareVars);
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
@@ -592,7 +593,7 @@ async function autoFormat(item) {
 }
 
 /** @param {ProjectsTreeData.ProjItem | vscode.Uri} file */
-async function declareVars(file) {
+async function smartDeclareVars(file) {
     let uri = file;
     if (!(uri instanceof vscode.Uri)) {
         const info = await ext.getProjectInfo(uri.path || '', uri.title, async p => fs.existsSync(p));
@@ -601,17 +602,7 @@ async function declareVars(file) {
         uri = vscode.Uri.file(info.file);
     }
 
-    const doc = await vscode.workspace.openTextDocument(uri);
-    const text = doc.getText().split("\n");
-
-    const editor = await vscode.window.showTextDocument(doc);
-    editor.edit(edt => {
-        for (let i = 0; i < text.length; i++) {
-            if (!text[i].match(/(?<!(var\s+|let\s+|const\s+))\b\w+\s*=[^=]/)) continue;
-            const m = text[i].match(/\w+\s*=\s*/);
-            if (m?.index !== undefined) edt.insert(new vscode.Position(i, m.index), "var ");
-        }
-    });
+    await smartDeclare(uri);
 }
 
 /**
@@ -632,18 +623,38 @@ async function onRenameApp(appName, newAppName) {
     localData.save(DSCONFIG);
 }
 
+async function downloadDefinitions() {
+    const defPath = ".edit/docs/definitions/ts/";
+    const res = await ext.listFolder(defPath);
+    if (res.status !== "ok") return;
+
+    for (const file of res.list) {
+        if (!file.endsWith(".d.ts")) continue;
+
+        await createAssetFolder(CONSTANTS.DEFINITIONS).catch(catchError);
+        console.log("fetching " + defPath + file);
+        const content = await ext.loadFile(defPath + file).catch(catchError);
+        if (content.status !== "ok") continue;
+
+        const defFile = homePath(CONSTANTS.DEFINITIONS, "ts", file);
+        fs.writeFileSync(defFile, content.data);
+    }
+}
+
 async function onDebugServerStart() {
     if (documentToSave) await onDidSaveTextDocument();
     if (filesToDelete) await onDeleteFile();
     if (filesToCreate) await onCreateFile();
     if (filesToRename) await onRenameFile();
 
+    samplesTreeDataProvider.refresh();
+    // pluginsTreeDataProvider.refresh();
+
     showStatusBarItems();
+    downloadDefinitions();
+
     // Load projects
     await loadFiles();
-
-    // pluginsTreeDataProvider.refresh();
-    samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
 }
 

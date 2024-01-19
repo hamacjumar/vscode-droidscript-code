@@ -3,25 +3,32 @@ const vscode = require('vscode');
 const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
+
 const ext = require('./src/extension');
 const debugServer = require('./src/websocket');
+const localData = require("./src/local-data");
+const connectToDroidScript = require("./src/commands/connect-to-droidscript");
+const CONSTANTS = require("./src/CONSTANTS");
+const { homePath, excludeFile } = require("./src/util");
+
+const DocsTreeData = require("./src/DocsTreeView");
+const ProjectsTreeData = require("./src/ProjectsTreeView");
+const SamplesTreeData = require("./src/SamplesTreeView");
+
 const createNewApp = require("./src/commands/create-app");
 const deleteApp = require("./src/commands/delete-app");
 const revealExplorer = require("./src/commands/revealExplorer");
 const renameApp = require("./src/commands/rename-app");
-const stringHelpers = require("./src/string-helpers");
-const localData = require("./src/local-data");
-const connectToDroidScript = require("./src/commands/connect-to-droidscript");
-const DocsTreeData = require("./src/DocsTreeView");
-const ProjectsTreeData = require("./src/ProjectsTreeView");
-const SamplesTreeData = require("./src/SamplesTreeView");
-const CONSTANTS = require("./src/CONSTANTS");
-const { homePath } = require("./src/util");
+const smartDeclare = require('./src/commands/smartDeclare');
+
+const completionItemProvider = require("./src/providers/completionItemProvider");
+const hoverProvider = require("./src/providers/hoverProvider");
+const signatureHelpProvider = require("./src/providers/signatureHelperProvider");
+const codeActionProvider = require("./src/providers/codeActionProvider");
 
 // global constants
 const VERSION = 0.28;
 const DEBUG = !false;
-const scopes = ["app", "MUI", "ui"];
 
 // global variables
 let PROJECT = "";
@@ -37,7 +44,6 @@ let GlobalContext;
 let connectionStatusBarItem;
 /** @type {vscode.StatusBarItem?} */
 let projectName;
-let dsFolders = "Html,Misc,Snd,Img";
 let closeSamplePlay = false;
 /** @type {DocsTreeData.TreeDataProvider} */
 let docsTreeDataProvider;
@@ -57,49 +63,6 @@ let stopButton;
 
 /** @type {vscode.Uri} */
 let folderPath;
-
-/** @type {{[x:string]: import("./completions/app.json")}} */
-const scopesJson = {};
-scopes.forEach(m => {
-    scopesJson[m] = require("./completions/" + m + ".json");
-});
-
-// create signatures for all scopes
-/** @type {{[x:string]: vscode.SignatureHelp}} */
-const signatures = {};
-function initSignatures() {
-    scopes.forEach(m => {
-        signatures[m] = new vscode.SignatureHelp();
-        signatures[m].signatures = scopesJson[m].methods.map((/** @type {{ call: string; params: any[]; }} */ n) => {
-            const o = new vscode.SignatureInformation(n.call);
-            o.parameters = n.params.map((/** @type {{ desc: string; name: string | [number, number]; }} */ q) => {
-                let doc = new vscode.MarkdownString();
-                doc.supportHtml = true;
-                doc.value = q.desc;
-                let parInfo = new vscode.ParameterInformation(q.name);
-                parInfo.documentation = doc;
-                return parInfo;
-            });
-            return o;
-        });
-    });
-}
-
-// create completion items for all scopes
-/** @type {{[x:string]: vscode.CompletionItem[]}} */
-const completions = {};
-function initCompletion() {
-    scopes.forEach(m => {
-        completions[m] = scopesJson[m].methods.map((n) => {
-            const o = new vscode.CompletionItem(n.name);
-            const kind = /** @type {keyof typeof vscode.CompletionItemKind}*/ (n.kind);
-            o.kind = vscode.CompletionItemKind[kind];
-            o.detail = `(${n.kind.toLowerCase()}) ${m}.${n.detail}`;
-            o.documentation = new vscode.MarkdownString(n.doc + "\n" + n.param);
-            return o;
-        });
-    });
-}
 
 // subscriptions for registerCommands
 let subscribe = null;
@@ -130,8 +93,8 @@ async function activate(context) {
     // projects
     subscribe("play", play);
     subscribe("stop", stop);
-    subscribe("runApp", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => {
-        play(treeItem.title)
+    subscribe("runApp", (/** @type {ProjectsTreeData.ProjItem?} */ treeItem) => {
+        play(treeItem?.title || PROJECT)
     });
     subscribe("openApp", openProject);
     subscribe("openAppInNewWindow", openProject);
@@ -146,88 +109,27 @@ async function activate(context) {
     });
     subscribe("addTypes", addTypes);
     subscribe("autoFormat", autoFormat);
+    subscribe("declareVars", smartDeclareVars);
     // samples
     subscribe("openSample", openSample);
     subscribe("runSample", runSampleProgram);
 
-    let createFile = vscode.workspace.onDidCreateFiles(onCreateFile);
-    let deleteFile = vscode.workspace.onDidDeleteFiles(onDeleteFile);
-    let onSave = vscode.workspace.onDidSaveTextDocument(onDidSaveTextDocument);
-    let onRename = vscode.workspace.onDidRenameFiles(onRenameFile);
+    const createFile = vscode.workspace.onDidCreateFiles(onCreateFile);
+    const deleteFile = vscode.workspace.onDidDeleteFiles(onDeleteFile);
+    const onSave = vscode.workspace.onDidSaveTextDocument(onDidSaveTextDocument);
+    const onRename = vscode.workspace.onDidRenameFiles(onRenameFile);
 
     // autocompletion and intellisense
-    let completionItemProvider = vscode.languages.registerCompletionItemProvider("javascript", {
-        provideCompletionItems(doc, pos) {
-            const ln = doc.lineAt(pos.line).text;
-            const s = ln.substring(0, pos.character - 1).trim().split(" ").pop();
-            if (s && completions[s]) return completions[s];
-            return [];
-        }
-    }, ".");
-
-    let hoverProvider = vscode.languages.registerHoverProvider("javascript", {
-        provideHover(doc, pos) {
-            const range = doc.getWordRangeAtPosition(pos);
-            if (!range) {
-                return undefined;
-            }
-            const word = doc.getText(range);
-            const ln = doc.lineAt(pos.line).text;
-            let n1 = ln.substring(0, ln.indexOf(word)).trim();
-            let n = n1.replace(/(\s{2,}|\.{2,})/g, ' ')
-                .replace(/\. +|\.+/g, ' ').trim()
-                .split(/[ .{}*\\+\-]/);
-            const scope = n.pop();
-            if (scope && scopesJson[scope]) {
-                let i = scopesJson[scope].methods.findIndex((/** @type {{ name: string; }} */ m) => m.name == word);
-                if (i >= 0) {
-                    var m = scopesJson[scope].methods[i];
-                    const hc = [
-                        new vscode.MarkdownString('```javascript\n' + m.detail + '\n' + '```'),
-                        m.doc
-                    ];
-                    return new vscode.Hover(hc);
-                }
-            }
-            return undefined;
-        }
-    }
-    );
-
-    let signatureHelpProvider = vscode.languages.registerSignatureHelpProvider("javascript", {
-        provideSignatureHelp(doc, pos) {
-            const ln = doc.lineAt(pos.line).text;
-            let s = stringHelpers.getFncCall(ln, pos.character) || '';
-            let n1 = ln.substring(0, pos.character - s.length).trim();
-            let n = n1.replace(/(\s{2,}|\.{2,})/g, ' ')
-                .replace(/\. +|\.+/g, ' ')
-                .split(/[ .{}*\\+\-]/);
-            let w = n.pop(), scope = null, json = null;
-            if (n.length >= 1) {
-                scope = n.pop();
-                if (!scope || !scopes.includes(scope)) return null;
-                json = scopesJson[scope];
-            }
-            if (!json || !scope) return null;
-
-            let i = json.methods.findIndex((/** @type {{ name: any; }} */ m) => m.name == w);
-            if (i < 0) return null;
-
-            signatures[scope].activeSignature = i;
-            signatures[scope].activeParameter = stringHelpers.countCommas(s);
-
-            return signatures[scope];
-        }
-    }, ["(", ",", " "]);
 
     context.subscriptions.push(
         onSave,
         createFile,
         deleteFile,
         onRename,
-        completionItemProvider,
-        hoverProvider,
-        signatureHelpProvider
+        completionItemProvider.register(),
+        codeActionProvider.register(),
+        hoverProvider.register(),
+        signatureHelpProvider.register()
     );
 
     GlobalContext = context;
@@ -263,10 +165,8 @@ async function activate(context) {
         localData.save(DSCONFIG);
     }
 
-    // initialize signatures
-    initSignatures();
-    // initialize completions
-    initCompletion();
+    signatureHelpProvider.init();
+    completionItemProvider.init();
 
     displayConnectionStatus();
 }
@@ -294,8 +194,7 @@ async function extractAssets() {
         await createAssetFolder(CONSTANTS.DEFINITIONS);
 
         const defFolder = path.join(__dirname, "definitions");
-        for (const file of fs.readdirSync(defFolder))
-            fs.copyFileSync(path.join(defFolder, file), homePath(CONSTANTS.DEFINITIONS, file));
+        fs.copy(defFolder, homePath(CONSTANTS.DEFINITIONS));
     } catch (e) {
         catchError(e);
     }
@@ -307,14 +206,14 @@ async function createAssetFolder(paths) {
 }
 
 async function prepareWorkspace() {
+    const uris = (vscode.workspace.workspaceFolders || []).map(ws => ws.uri)
+        .concat(vscode.window.visibleTextEditors.map(te => te.document.uri))
+    if (!uris.length) return;
 
-    const VSFOLDERS = vscode.workspace.workspaceFolders || [];
-    if (!VSFOLDERS || !VSFOLDERS.length) return;
-
-    /** @type {vscode.WorkspaceFolder | undefined} */
+    /** @type {vscode.Uri | undefined} */
     let folder;
     const proj = DSCONFIG.localProjects.find(p =>
-        folder = VSFOLDERS.find(ws => ws.uri.fsPath === p.path))
+        folder = uris.find(uri => uri.fsPath.startsWith(p.path)))
     if (!proj || !folder) return;
 
     setProjectName(proj.PROJECT);
@@ -379,15 +278,18 @@ async function getAllFiles(folder, proc) {
     for (var i = 0; i < data.list.length; i++) {
         fileName = data.list[i], path = folder + "/" + fileName;
         filePath = path.replace(PROJECT + "/", "");
-        proc.report({ message: filePath });
-        if (!fileName.startsWith("~") && fileName.includes(".")) {
-            let response = await ext.loadFile(path).catch(catchError);
 
-            if (response && response.status == "ok") {
+        if (fileName.startsWith("~")) continue;
+        proc.report({ message: filePath });
+
+        if (fileName.indexOf(".") > 0) {
+            // assume its a file
+            let response = await ext.loadFile(path).catch(catchError);
+            if (response && response.status == "ok")
                 await writeFile(filePath, response.data).catch(catchError);
-            }
         }
-        else if (dsFolders.includes(fileName) || !fileName.includes(".")) {
+        else {
+            // assume its a folder
             var created = await createFolder(filePath);
             if (created) await getAllFiles(path, proc);
             else vscode.window.showErrorMessage("Error creating " + fileName + " folder");
@@ -433,8 +335,12 @@ function getProjectPath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
     if (!proj) return null;
 
-    const fileDs = path.relative(proj.path, filePath);
-    return proj.PROJECT + "/" + fileDs.replace(/\\/g, '/');
+    const dsFile = path.relative(proj.path, filePath);
+    if (excludeFile(proj, dsFile)) {
+        console.log("ignored " + dsFile);
+        return null;
+    }
+    return proj.PROJECT + "/" + dsFile.replace(/\\/g, '/');
 }
 
 // Called when the document is save
@@ -689,6 +595,19 @@ async function autoFormat(item) {
     }
 }
 
+/** @param {ProjectsTreeData.ProjItem | vscode.Uri} file */
+async function smartDeclareVars(file) {
+    let uri = file;
+    if (!(uri instanceof vscode.Uri)) {
+        const info = await ext.getProjectInfo(uri.path || '', uri.title, async p => fs.existsSync(p));
+        if (!info) return vscode.window.showWarningMessage("No local project '" + uri.title + "' available.");
+        if (info.ext !== "js") return vscode.window.showWarningMessage(uri.title + " is not a JavaScript project.");
+        uri = vscode.Uri.file(info.file);
+    }
+
+    await smartDeclare(uri);
+}
+
 /**
  * @param {string} appName
  * @param {string} newAppName
@@ -707,18 +626,41 @@ async function onRenameApp(appName, newAppName) {
     localData.save(DSCONFIG);
 }
 
+async function downloadDefinitions() {
+    let defPath, res;
+    for (defPath of CONSTANTS.defPaths) {
+        res = await ext.listFolder(defPath);
+        if (res.status === "ok" && res.list.length) break;
+    }
+    if (res?.status !== "ok" || !res.list.length) return;
+
+    for (const file of res.list) {
+        if (!file.endsWith(".d.ts")) continue;
+
+        await createAssetFolder(CONSTANTS.DEFINITIONS).catch(catchError);
+        console.log("fetching " + defPath + file);
+        const content = await ext.loadFile(defPath + file).catch(catchError);
+        if (content.status !== "ok") continue;
+
+        const defFile = homePath(CONSTANTS.DEFINITIONS, "ts", file);
+        fs.writeFileSync(defFile, content.data);
+    }
+}
+
 async function onDebugServerStart() {
     if (documentToSave) await onDidSaveTextDocument();
     if (filesToDelete) await onDeleteFile();
     if (filesToCreate) await onCreateFile();
     if (filesToRename) await onRenameFile();
 
+    samplesTreeDataProvider.refresh();
+    // pluginsTreeDataProvider.refresh();
+
     showStatusBarItems();
+    downloadDefinitions();
+
     // Load projects
     await loadFiles();
-
-    // pluginsTreeDataProvider.refresh();
-    samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
 }
 

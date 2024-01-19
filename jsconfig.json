@@ -23,7 +23,7 @@
 		"isolatedModules": true
 	},
 	"include": [
-		"*.js",
+		"**/*.js",
 		"**/*.d.ts"
 	],
 	"exclude": [

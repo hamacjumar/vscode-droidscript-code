@@ -162,8 +162,11 @@ declare class DsApp {
 	 */
 	CheckLicense(key: str_b64): void;
 
-	/** Checks if permission was granted */
-	CheckPermission(type: "Camera"|"Storage"|"ExtSDcard"|"Network"|"Notify"|"Location"|"SMS"|"Calendar"|"Body"|"Contacts"|"Record"|"Biometric"|"Phone"|"Accounts"|"License"|"android.permission.*"): str[];
+	/**
+	 * Checks if permission was granted
+	 * @param type `Camera`, `Storage`, `ExtSDcard`, `Network`, `Notify`, `Location`, `SMS`, `Calendar`, `Body`, `Contacts`, `Record`, `Biometric`, `Phone`, `Accounts`, `License`, `android.permission.*`
+	 */
+	CheckPermission(type: str): str[];
 
 	/** Let the user choose an google account */
 	ChooseAccount(callback: (account: "email") => void): void;
@@ -259,7 +262,7 @@ declare class DsApp {
 	CreateCrypt(options?: str_com): DsCrypt;
 
 	/** Creates a CustomTab control */
-	CreateCustomTabs(): void;
+	CreateCustomTabs(): obj;
 
 	/**
 	 * Shows a debug log overlay
@@ -406,7 +409,7 @@ declare class DsApp {
  	 * &emsp; `Debug` - start app in debug mode\
  	 * &emsp; `Game` - runs in GameView mode
 	 */
-	CreateShortcut(name: str, iconFile: str_ptf, file: str_ptf, options?: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[]): void;
+	CreateShortcut(name: str, iconFile: str_ptf, file: str_ptf, options?: string | ("Portrait"|"Landscape"|"Transparent"|"Debug"|"Game"|"remote")[]): nil;
 
 	/** Returns a new SMS object to send and retreive SMS messages */
 	CreateSMS(): DsSMS;
@@ -784,7 +787,7 @@ declare class DsApp {
 	 * GetPermission accepts a list of 'dangerus' classified permissions and returns a list of ungranted permissions in the **callback** function, or in case of only “ExtSDCard” the path URI of the user-selected folder
 	 * @param type `Camera`, `ExtSDcard`, `External`, `Internal`, `Network`, `Notify`, `Storage`, `Overlay`, `SMS`, `Location`, `Calendar`, `Body`, `Contacts`, `Record`, `Phone`, `Biometric`, `Accounts`, `License`, `android.permission.*`, `usb:<pid>`
 	 */
-	GetPermission(type: str_com, callback?: (ungranted: str_com|str_uri) => void): void;
+	GetPermission(type: str_com, callback: (ungranted: str_com|str_uri) => void): void;
 
 	/** Get path to a private folder */
 	GetPrivateFolder(name: str, options?: "external"): str_pth;
@@ -859,7 +862,7 @@ declare class DsApp {
 	GetThemeInfo(): { baseTheme: str, holo: bin, dark: bin, titleHeight: num_frc, backColor: str_col, dialogColor: str_col, btnColor: str_col, dialogBtnColor: str_col, textColor1: str_col, textColor2: str_col,btnTextColor: str_col, highlightColor: str_col };
 
 	/** Create downscaled copy of an image */
-	GetThumbnail(source: str_pth, destination: str_pth, width?: num_pxl, height?: num_pxl): void;
+	GetThumbnail(source: str_pth, destination: str_pth, width?: num_pxl, height?: num_pxl): nil;
 
 	/** Returns the upper border distance from the app display to the device screen as height relative float or in pixels with the **px** option */
 	GetTop(options?: "px"): num_frc;
@@ -1031,7 +1034,7 @@ declare class DsApp {
 	LoadScript(path: str_pth, callback?: (info: { isTrusted: bin }) => void): void;
 
 	/** Load saved text value to remember varibale values between multiple app starts */
-	LoadText(name: str, dflt?: str, file?: str_ptf): void;
+	LoadText(name: str, dflt?: str, file?: str_ptf): str;
 
 	/** Lock the device */
 	Lock(): void;
@@ -1098,10 +1101,10 @@ declare class DsApp {
 	 * @param encoding <br>
  	 * &emsp; `ISO-8859-1` - Latin-1
 	 */
-	ReadFile(file: str_ptc, encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"|"base64"): void;
+	ReadFile(file: str_ptc, encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"|"base64"): str;
 
 	/** Read local file content data */
-	ReadFileData(file: str_pfa, mode?: "base64"|"hex"|"int"|"ascii"): void;
+	ReadFileData(file: str_pfa, mode?: "base64"|"hex"|"int"|"ascii"): lst;
 
 	/** Convert short to full path */
 	RealPath(path: str_pth): void;
@@ -1169,8 +1172,8 @@ declare class DsApp {
 
 	/**
 	 * Intens can be used to perform an operation between different applications or activities
-	 * @param action android.intent.action.*
-	 * @param category android.intent.category.*
+	 * @param action `android.intent.action.*`
+	 * @param category `android.intent.category.*`
 	 * @param options <br>
  	 * &emsp; `Result` - expect a result to be passed to the callback function
 	 */
@@ -1530,7 +1533,7 @@ declare class DsApp {
 	 * @param encoding <br>
  	 * &emsp; `ISO-8859-1` - Latin-1
 	 */
-	WriteFile(file: str_ptf, text: str, mode?: "Append"|"ASCII", encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"): void;
+	WriteFile(file: str_ptf, text: str, mode?: "Append"|"ASCII"|"Base64", encoding?: "US-ASCII"|"UTF-8"|"UTF-16"|"UTF-16BE"|"UTF-16LE"|"windows-1252"|"ISO-8859-1"): void;
 
 	/**
 	 * Compress a file to zip
@@ -2922,7 +2925,7 @@ declare class DsFile {
 	GetLength(): num_byt;
 
 	/** Get pointer position */
-	GetPointer(): void;
+	GetPointer(): num_int;
 
 	/** Returns the control class name */
 	GetType(): "File";
@@ -3031,7 +3034,7 @@ declare class DsGameView {
 	GetTop(options: "px"): num;
 
 	/** Returns the control class name */
-	GetType(): void;
+	GetType(): "GameView";
 
 	/** Returns the current visibility state */
 	GetVisibility(): "Show"|"Hide"|"Gone";
@@ -3144,19 +3147,19 @@ declare class DsGLView {
 
 	/**
 	 * Create a sprite object which can be drawn on the GLView
-	 * @return \img
+	 * @return img
 	 */
 	CreateImage(file: str_ptf, callback?: () => void): GLV_img;
 
 	/**
 	 * Draw image to canvas
-	 * @param image \img
+	 * @param image img
 	 */
 	DrawImage(image: GLV_img, x: num_frc, y: num_frc, w?: num_frc, h?: num_frc, angle?: num_deg): void;
 
 	/**
 	 * Draw part of a sprite to the canvas
-	 * @param sheet \img
+	 * @param sheet img
 	 */
 	DrawSprite(sheet: GLV_img, sx: num_pxl, sy: num_pxl, sw: num_pxl, sh: num_pxl, dx: num_frc, dy: num_frc, dw: num_frc, dh: num_frc, angle: num_deg): void;
 
@@ -3171,7 +3174,7 @@ declare class DsGLView {
 
 	/**
 	 * Returns the glv context
-	 * @return \ctx
+	 * @return ctx
 	 */
 	GetContext(): GLV_ctx;
 
@@ -3314,7 +3317,7 @@ declare class GLV_ctx {
 
 	/**
 	 * Draws part of a sprite to the context
-	 * @param image \img
+	 * @param image img
 	 */
 	drawImage(image: GLV_img, sx: num_pxl, sy: num_pxl, sw: num_pxl, sh: num_pxl, dx: num_pxl, dy: num_pxl, dw: num_pxl, dh: num_pxl): void;
 
@@ -4238,13 +4241,13 @@ declare class DsMediaPlayer {
 	GetType(): "MediaPlayer";
 
 	/** Returns if the player is looping */
-	IsLooping(): void;
+	IsLooping(): bin;
 
 	/** Get current playing state */
-	IsPlaying(): void;
+	IsPlaying(): bin;
 
 	/** Returns if player is useable yet */
-	IsReady(): void;
+	IsReady(): bin;
 
 	/** Pause the current playing song */
 	Pause(): void;
@@ -4360,7 +4363,7 @@ declare class DsNetClient {
 	GetType(): "NetClient";
 
 	/** Get NetClient connected state */
-	IsConnected(): void;
+	IsConnected(): bin;
 
 	/** Checks if the control is useable */
 	IsEnabled(): bin;
@@ -4512,8 +4515,11 @@ declare class DsNotification {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
-	/** Cancel a notification with a specific id */
-	Cancel(id: "id"|"*"): void;
+	/**
+	 * Cancel a notification with a specific id
+	 * @param id `id`, `*`
+	 */
+	Cancel(id: str): void;
 
 	/** Returns the control class name */
 	GetType(): "Notification";
@@ -4604,7 +4610,7 @@ declare class DsNxt {
 	IsEnabled(): bin;
 
 	/** Check if a motor is powered */
-	IsMotorIdle(motor: "A"|"B"|"C"|"ABC"): void;
+	IsMotorIdle(motor: "A"|"B"|"C"|"ABC"): bin;
 
 	/** Checks if the device is paired with an other */
 	IsPaired(name: str): bin;
@@ -4714,7 +4720,7 @@ declare class DsOverlay {
 	GetParent(): dso;
 
 	/** Returns the control class name */
-	GetType(): void;
+	GetType(): "Overlay";
 
 	/** Remove layout from overlay */
 	RemoveLayout(layout: DsLayout): void;
@@ -4760,10 +4766,10 @@ declare class DsPlayStore {
  	 * &emsp; `IAP` - In-App purchases\
  	 * &emsp; `SUBS` - subscriptions
 	 */
-	GetBillingInfo(prodIDs: str, callback?: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "IAP"|"SUBS"): void;
+	GetBillingInfo(prodIDs: str, callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "IAP"|"SUBS"): void;
 
 	/** Get purchased items from Google Play */
-	GetPurchases(callback?: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "SUBS"): void;
+	GetPurchases(callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "SUBS"): void;
 
 	/** Returns the control class name */
 	GetType(): "PlayStore";
@@ -6676,13 +6682,13 @@ declare class DsUSBSerial {
 	Batch(properties: {[command: str]: lst}): void;
 
 	/** Get the 'Data Terminal Ready' state */
-	GetDTR(): void;
+	GetDTR(): bin;
 
 	/** Get the 'Request To Send' state */
-	GetRTS(): void;
+	GetRTS(): bin;
 
 	/** Get the 'Carrier Detect' state */
-	GetCD(): void;
+	GetCD(): bin;
 
 	/** Returns the control class name */
 	GetType(): "USBSerial";
@@ -7408,19 +7414,19 @@ declare class DsZipUtil {
 	Close(): void;
 
 	/** Create zip file */
-	Create(file: str_ptf): void;
+	Create(file: str_ptf): nil;
 
 	/**
 	 * Create debug keystore file
 	 * @param file debug.keystore
 	 */
-	CreateDebugKey(file: str_ptf): void;
+	CreateDebugKey(file: str_ptf): nil;
 
 	/**
 	 * Create a user keystore file
 	 * @param file user.keystore
 	 */
-	CreateKey(file: str_ptf, password: str, name: str, organization: str): void;
+	CreateKey(file: str_ptf, password: str, name: str, organization: str): nil;
 
 	/**
 	 * Extract file from zip

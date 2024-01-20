@@ -5,8 +5,11 @@ declare type dso = AppObject;
 
 declare class DsApp {
 
-	/** Create and add Button to Layout */
-	AddButton(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
+	/**
+	 * Create and add Button to Layout
+	 * @param options `FontAwesome`, `Html`, `Monospace`, `Normal`, `Aluminium`, `Gray`, `Lego`, `SingleLine`, `Custom`, `NoPad`, `FillX/Y`, `NoSound`
+	 */
+	AddButton(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsButton;
 
 	/**
 	 * Create and add CameraView to Layout
@@ -31,16 +34,22 @@ declare class DsApp {
  	 * &emsp; `Icon` - allows loading of app icons\
  	 * &emsp; `NoPlay` - prevent gifs from playing automatically
 	 */
-	AddCanvas(layout: DsLayout, file: str_ptc, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
+	AddCanvas(layout: DsLayout, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
-	/** Create and add CheckBox to Layout */
-	AddCheckBox(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
+	/**
+	 * Create and add CheckBox to Layout
+	 * @param options `FillX/Y`, `NoSound`
+	 */
+	AddCheckBox(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsCheckBox;
 
-	/** Create and add CodeEdit to Layout */
-	AddCodeEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsCodeEdit;
+	/**
+	 * Create and add CodeEdit to Layout
+	 * @param options `FillX/Y`
+	 */
+	AddCodeEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsCodeEdit;
 
 	/** Adds a slide-able layout on given side */
-	AddDrawer(layout: DsLayout, side: "left"|"right", width?: num_frc, grabWidth?: num_frc): void;
+	AddDrawer(layout: DsLayout, side: "Left"|"Right", width?: num_frc, grabWidth?: num_frc): void;
 
 	/**
 	 * Create and add Image to Layout
@@ -55,11 +64,11 @@ declare class DsApp {
 
 	/**
 	 * Adds a layout to the app
-	 * @param options <br>
+	 * @param options `TouchThrough`, `TouchSpy`, `Left`, `Top`, `Right`, `Bottom`, `Center`, `H/VCenter`, `Wrap`, `Horizontal`, `Vertical`, `FillX/Y`\
  	 * &emsp; `TouchThrough` - forwards touch events to underlying children\
  	 * &emsp; `TouchSpy` - spies for touch events on all children
 	 */
-	AddLayout(layout: DsLayout, type?: "Linear"|"Absolute"|"Frame"|"Card", options?: "TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y"): void;
+	AddLayout(layout: DsLayout, type?: "Linear"|"Absolute"|"Frame"|"Card", options?: str_com): DsLayout;
 
 	/**
 	 * Create and add List to Layout
@@ -74,24 +83,36 @@ declare class DsApp {
 	/** Create and add Scroller to Layout */
 	AddScroller(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
 
-	/** Create and add SeekBar to Layout */
-	AddSeekBar(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsSeekBar;
+	/**
+	 * Create and add SeekBar to Layout
+	 * @param options `FillX/Y`
+	 */
+	AddSeekBar(layout: DsLayout, width?: num_frc, height?: num_frc, options?: str_com): DsSeekBar;
 
-	/** Create and add Spinner to Layout */
-	AddSpinner(layout: DsLayout, list: str_com, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
+	/**
+	 * Create and add Spinner to Layout
+	 * @param options `FillX/Y`, `NoSound`
+	 */
+	AddSpinner(layout: DsLayout, list: str_com, width?: num_frc, height?: num_frc, options?: str_com): DsSpinner;
 
-	/** Create and add Switch toggle to Layout */
-	AddSwitch(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
+	/**
+	 * Create and add Switch toggle to Layout
+	 * @param options `Monospace`, `Custom`, `NoPad`, `FillX/Y`, `NoSound`
+	 */
+	AddSwitch(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsSwitch;
 
 	/** Returns a new Tabs object */
-	AddTabs(list: str_com, width?: num_frc, height?: num_frc, options?: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
+	AddTabs(list: str_com, width?: num_frc, height?: num_frc, options?: string | ("Fade"|"FontAwesome"|"NoMargins"|"VCenter")[]): DsTabs;
 
-	/** Create and add Text to Layout */
-	AddText(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Html"|"Bold"|"Monospace"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
+	/**
+	 * Create and add Text to Layout
+	 * @param options `AutoScale`, `AutoSize`, `Multiline`, `Left`, `Right`, `Html`, `Bold`, `Monospace`, `NoWrap`, `Log`, `FillX/Y`
+	 */
+	AddText(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsText;
 
 	/**
 	 * Create and add TextEdit to Layout
-	 * @param options <br>
+	 * @param options `AutoSelect`, `AutoSize`, `Bold`, `Extract`, `Left`, `Center`, `Right`, `Monospace`, `NoSpell`, `NoKeyboard`, `Numbers`, `ReadOnly`, `SingleLine`, `FillX/Y`, `Password`\
  	 * &emsp; `AutoSelect` - Select all Text if user enter the Textedit\
  	 * &emsp; `AutoSize` - Expand or shrink the control automatically so the text fits in the Textedit\
  	 * &emsp; `Bold` - Write bold text\
@@ -105,17 +126,20 @@ declare class DsApp {
  	 * &emsp; `SingleLine` - Dont break text for long lines and change 'Enter' key to 'Done'\
  	 * &emsp; `Password` - displays characters as dots
 	 */
-	AddTextEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
+	AddTextEdit(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsTextEdit;
 
-	/** Create and add Toggle to Layout */
-	AddToggle(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
+	/**
+	 * Create and add Toggle to Layout
+	 * @param options `Monospace`, `Custom`, `NoPad`, `FillX/Y`, `NoSound`
+	 */
+	AddToggle(layout: DsLayout, text: str, width?: num_frc, height?: num_frc, options?: str_com): DsToggle;
 
 	/** Create and add VideoView to Layout */
 	AddVideoView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: str_com): DsVideoView;
 
 	/**
 	 * Create and add WebView to Layout
-	 * @param options <br>
+	 * @param options `AllowZoom`, `AutoZoom`, `Wide`, `FillX/Y`, `NoAccel`, `NoActionBar`, `IgnoreErrors`, `IgnoreSSLErrors`, `NoApp`, `NoCapture`, `NoCors`, `NoLocate`, `NoLongTouch`, `NoPause`, `NoScrollBars`, `Overview`, `Progress`, `ScrollFade`, `UseBasicInput`, `UseBrowser`\
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoAccel` - for OrangePi support\
@@ -130,13 +154,13 @@ declare class DsApp {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	AddWebView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[], zoom?: num_prc): DsWebView;
+	AddWebView(layout: DsLayout, width?: num_frc, height?: num_frc, options?: str_com, zoom?: num_prc): DsWebView;
 
 	/**
 	 * Shows a popup message with an 'OK' button to exit
 	 * @param hue `-180..180`
 	 */
-	Alert(message: str, title: str, options?: string | ("NoDim"|"NoFocus")[], hue?: num_int): void;
+	Alert(message: str, title?: str, options?: string | ("NoDim"|"NoFocus")[], hue?: num_int): void;
 
 	/** Similar to setInterval */
 	Animate(callback?: (time: num_mls, dtime: num_mls) => void, fps?: num_fps): void;
@@ -176,11 +200,12 @@ declare class DsApp {
 
 	/**
 	 * Let the user choose a file
+	 * @param type `file mimetype`
 	 * @param options <br>
  	 * &emsp; `persist` - keep file permission after reboot\
  	 * &emsp; `nodownload` - prevents file downloads
 	 */
-	ChooseFile(message: str, type: "mimetype", callback: (path: str_pth|str_uri, name: str) => void, fldr?: str_pth, options?: "persist"|"nodownload"): void;
+	ChooseFile(message: str, type: str, callback: (path: str_pth|str_uri, name: str) => void, fldr?: str_pth, options?: string | ("persist"|"nodownload")[]): void;
 
 	/** Let the user choose an image */
 	ChooseImage(options: string | (""|"internal"|"external")[], callback: (path: str_pth) => void): void;
@@ -198,7 +223,7 @@ declare class DsApp {
 	ClearValue(name: str, file?: str_ptf): void;
 
 	/** Closes the drawer layout on the given side with slide animation */
-	CloseDrawer(side: "left"|"right"): void;
+	CloseDrawer(side?: "Left"|"Right"): void;
 
 	/** Copies a file to a given destination */
 	CopyFile(source: str_pth, destination: str_pth): void;
@@ -217,11 +242,11 @@ declare class DsApp {
 
 	/**
 	 * Creates a button control
-	 * @param options <br>
+	 * @param options `FontAwesome`, `Html`, `Monospace`, `Normal`, `Aluminium`, `Gray`, `Lego`, `SingleLine`, `Custom`, `AutoShrink`, `AutoSize`, `NoPad`, `FillX/Y`, `NoSound`\
  	 * &emsp; `AutoShrink` - Auto-shrinks text to fit\
  	 * &emsp; `AutoSize` - Auto-sizes text to fit
 	 */
-	CreateButton(text: str, width?: num_frc, height?: num_frc, options?: string | ("FontAwesome"|"Html"|"Monospace"|"Normal"|"Aluminium"|"Gray"|"Lego"|"SingleLine"|"Custom"|"AutoShrink"|"AutoSize"|"NoPad"|"FillX/Y"|"NoSound")[]): DsButton;
+	CreateButton(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsButton;
 
 	/**
 	 * Returns a new CameraView object to access the device camera
@@ -249,14 +274,20 @@ declare class DsApp {
 	 */
 	CreateCanvas(file: str_ptc, width?: num, height?: num, options?: string | ("fix"|"alias"|"px"|"Button"|"ScaleCenter"|"async"|"FontAwesome"|"Resize"|"TouchThrough"|"Icon"|"wallpaper"|"NoPlay")[], pxw?: num_pxl, pxh?: num_pxl): DsImage;
 
-	/** Returns a new CheckBox object */
-	CreateCheckBox(text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsCheckBox;
+	/**
+	 * Returns a new CheckBox object
+	 * @param options `FillX/Y`, `NoSound`
+	 */
+	CreateCheckBox(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsCheckBox;
 
 	/** Returns a new CloudStore object */
 	CreateCloudStore(apiKey: str): DsCloudStore;
 
-	/** Returns a new CodeEdit object */
-	CreateCodeEdit(text: str, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsCodeEdit;
+	/**
+	 * Returns a new CodeEdit object
+	 * @param options `FillX/Y`
+	 */
+	CreateCodeEdit(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsCodeEdit;
 
 	/** Returns a new Crypt object to encrypt or decrypt a string with a given key or create a hash of it */
 	CreateCrypt(options?: str_com): DsCrypt;
@@ -270,7 +301,7 @@ declare class DsApp {
  	 * &emsp; `dialog` - Show the debug log as black overlay dialog\
  	 * &emsp; `clear` - Clear content before showing
 	 */
-	CreateDebug(options?: "dialog"|"clear"): void;
+	CreateDebug(options?: "dialog"|"clear"): nil;
 
 	/**
 	 * Returns a new Dialog object to display messages
@@ -282,8 +313,12 @@ declare class DsApp {
 	/** Returns a new Downloader object */
 	CreateDownloader(options?: string | ("NoDialog"|"Light")[]): DsDownloader;
 
-	/** Returns an Email object for user to send emails */
-	CreateEmail(account: "email", password: "password"): DsEmail;
+	/**
+	 * Returns an Email object for user to send emails
+	 * @param account `account email`
+	 * @param password `account password`
+	 */
+	CreateEmail(account: str, password: str): DsEmail;
 
 	/** Returns a new File object */
 	CreateFile(file: str_ptf, mode: "r"|"w"|"rw"): DsFile;
@@ -314,12 +349,12 @@ declare class DsApp {
 
 	/**
 	 * Returns a new Layout object
-	 * @param options <br>
+	 * @param options `AutoSize`, `TouchThrough`, `TouchSpy`, `Left`, `Top`, `Right`, `Bottom`, `Center`, `H/VCenter`, `Wrap`, `Horizontal`, `Vertical`, `FillX/Y`\
  	 * &emsp; `AutoSize` - Resizes itself and child controls after device rotation\
  	 * &emsp; `TouchThrough` - forwards touch events to underlying children\
  	 * &emsp; `TouchSpy` - spies for touch events on all children
 	 */
-	CreateLayout(type: "Linear"|"Absolute"|"Frame"|"Card", options?: string | ("AutoSize"|"TouchThrough"|"TouchSpy"|"Left"|"Top"|"Right"|"Bottom"|"Center"|"H/VCenter"|"Wrap"|"Horizontal"|"Vertical"|"FillX/Y")[]): DsLayout;
+	CreateLayout(type: "Linear"|"Absolute"|"Frame"|"Card", options?: str_com): DsLayout;
 
 	/**
 	 * Returns a new List object
@@ -329,10 +364,10 @@ declare class DsApp {
  	 * &emsp; `Menu` - applies various settings to make the list appear like an in-app menu\
  	 * &emsp; `Horiz` - makes title and body text flow horizontally
 	 */
-	CreateList(list: str_lst, width?: num_frc, height?: num_frc, options?: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim?: str): DsList;
+	CreateList(list: str_com, width?: num_frc, height?: num_frc, options?: string | ("bold"|"Expand"|"Menu"|"Horiz"|"html"|"FontAwesome"|"monospace"|"Normal"|"WhiteGrad"|"BlackGrad"|"AlumButton"|"GreenButton"|"OrangeButton"|"NoSound")[], delim?: str): DsList;
 
 	/** Returns a new ListDialog object */
-	CreateListDialog(title: str, list: str, options?: "Multi"): DsListDialog;
+	CreateListDialog(title: str, list: str, options?: "Multi"|"AutoCancel"): DsListDialog;
 
 	/** Returns a new Locator object */
 	CreateLocator(type: string | ("GPS"|"Network")[], options?: str_com): DsLocator;
@@ -364,7 +399,7 @@ declare class DsApp {
  	 * &emsp; `nostart` - disable auto start\
  	 * &emsp; `esm` - use EcmaScript-Modules
 	 */
-	CreateNode(paths?: str_pth, options?: "extended"|"legacy"|"nostart"|"esm"): DsNode;
+	CreateNode(paths?: str_pth, options?: string | ("extended"|"legacy"|"nostart"|"esm")[]): DsNode;
 
 	/**
 	 * Returns a new Notification object
@@ -388,8 +423,11 @@ declare class DsApp {
 	/** Returns a new Scroller object */
 	CreateScroller(width?: num_frc, height?: num_frc, options?: string | ("FillX"|"FillY"|"FillXY"|"Horizontal"|"Vertical"|"NoScrollBar"|"ScrollFade")[]): DsScroller;
 
-	/** Returns a new SeekBar object */
-	CreateSeekBar(width?: num_frc, height?: num_frc, options?: string | ("FillX/Y")[]): DsSeekBar;
+	/**
+	 * Returns a new SeekBar object
+	 * @param options `FillX/Y`
+	 */
+	CreateSeekBar(width?: num_frc, height?: num_frc, options?: str_com): DsSeekBar;
 
 	/** Returns a new Sensor object */
 	CreateSensor(type: "Accelerometer"|"MagneticField"|"Orientation"|"Light"|"Proximity"|"Temperature"|"GameRotation"|"GeomagneticRotation"|"Gravity"|"Gyroscope"|"HeartRate"|"Acceleration"|"Pressure"|"Humidity"|"RotationMotion"|"StepCounter"|"StepDetector", options?: string | ("Slow"|"Medium"|"Fast"|"Fastest")[]): DsSensor;
@@ -401,7 +439,7 @@ declare class DsApp {
 	 * @param options <br>
  	 * &emsp; `Persist` - attempts to force restart if service killed
 	 */
-	CreateService(packageName: str, className: str, callback?: () => void, options?: string | ("Persist")[]): DsService;
+	CreateService(packageName: str, className: str, callback?: (this: DsService) => void, options?: string | ("Persist")[]): DsService;
 
 	/**
 	 * Creates a Home-Screen shortcut to an app
@@ -417,14 +455,20 @@ declare class DsApp {
 	/** Returns a new SpeechRec object */
 	CreateSpeechRec(options?: string | ("NoBeep"|"Partial")[]): DsSpeechRec;
 
-	/** Returns a new Spinner object */
-	CreateSpinner(list: str_com, width?: num_frc, height?: num_frc, options?: string | ("FillX/Y"|"NoSound")[]): DsSpinner;
+	/**
+	 * Returns a new Spinner object
+	 * @param options `FillX/Y`, `NoSound`
+	 */
+	CreateSpinner(list: str_com, width?: num_frc, height?: num_frc, options?: str_com): DsSpinner;
 
-	/** Creates a switch control */
-	CreateSwitch(text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsSwitch;
+	/**
+	 * Creates a switch control
+	 * @param options `Monospace`, `Custom`, `NoPad`, `FillX/Y`, `NoSound`
+	 */
+	CreateSwitch(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsSwitch;
 
 	/** Returns a new Synth object */
-	CreateSynth(type?: "Signal"|"VCA"|"VCF"): DsSynth;
+	CreateSynth(type?: string | ("Signal"|"VCA"|"VCF")[]): DsSynth;
 
 	/**
 	 * Returns a new SysProc object
@@ -433,21 +477,21 @@ declare class DsApp {
  	 * &emsp; `combine` - combines stdout and stderr\
  	 * &emsp; `builder` - force use of proc builder
 	 */
-	CreateSysProc(cmd: "sh"|"su"|"busybox", env: str, dir: str_ptd, options?: string | ("combine"|"builder")[]): DsSysProc;
+	CreateSysProc(cmd: "sh"|"su"|"busybox", env?: str, dir?: str_ptd, options?: string | ("combine"|"builder")[]): DsSysProc;
 
 	/** Returns a new Tabs object */
-	CreateTabs(list: str_com, width?: num_frc, height?: num_frc, options?: "Fade"|"FontAwesome"|"NoMargins"|"VCenter"): DsTabs;
+	CreateTabs(list: str_com, width?: num_frc, height?: num_frc, options?: string | ("Fade"|"FontAwesome"|"NoMargins"|"VCenter")[]): DsTabs;
 
 	/**
 	 * Returns a new Text object
-	 * @param options <br>
+	 * @param options `AutoScale`, `AutoSize`, `Multiline`, `Left`, `Right`, `Bottom`, `VCenter`, `Html`, `Bold`, `Monospace`, `AutoShrink`, `NoWrap`, `Log`, `FillX/Y`\
  	 * &emsp; `AutoShrink` - Auto-shrinks text to fit
 	 */
-	CreateText(text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoScale"|"AutoSize"|"Multiline"|"Left"|"Right"|"Bottom"|"VCenter"|"Html"|"Bold"|"Monospace"|"AutoShrink"|"NoWrap"|"Log"|"FillX/Y")[]): DsText;
+	CreateText(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsText;
 
 	/**
 	 * Returns a new TextEdit object
-	 * @param options <br>
+	 * @param options `AutoSelect`, `AutoSize`, `Bold`, `Extract`, `Left`, `Center`, `Right`, `Monospace`, `NoSpell`, `NoKeyboard`, `Numbers`, `ReadOnly`, `SingleLine`, `FillX/Y`, `Password`\
  	 * &emsp; `AutoSelect` - Select all Text if user enter the Textedit\
  	 * &emsp; `AutoSize` - Expand or shrink the control automatically so the text fits in the Textedit\
  	 * &emsp; `Bold` - Write bold text\
@@ -461,13 +505,16 @@ declare class DsApp {
  	 * &emsp; `SingleLine` - Dont break text for long lines and change 'Enter' key to 'Done'\
  	 * &emsp; `Password` - displays characters as dots
 	 */
-	CreateTextEdit(text: str, width?: num_frc, height?: num_frc, options?: string | ("AutoSelect"|"AutoSize"|"Bold"|"Extract"|"Left"|"Center"|"Right"|"Monospace"|"NoSpell"|"NoKeyboard"|"Numbers"|"ReadOnly"|"SingleLine"|"FillX/Y"|"Password")[]): DsTextEdit;
+	CreateTextEdit(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsTextEdit;
 
 	/** Returns a new Theme object */
-	CreateTheme(baseTheme: "Dark"|"Light"): DsTheme;
+	CreateTheme(baseTheme: "Dark"|"Light"|"Default"): DsTheme;
 
-	/** Returns a new Toggle object */
-	CreateToggle(text: str, width?: num_frc, height?: num_frc, options?: string | ("Monospace"|"Custom"|"NoPad"|"FillX/Y"|"NoSound")[]): DsToggle;
+	/**
+	 * Returns a new Toggle object
+	 * @param options `Monospace`, `Custom`, `NoPad`, `FillX/Y`, `NoSound`
+	 */
+	CreateToggle(text: str, width?: num_frc, height?: num_frc, options?: str_com): DsToggle;
 
 	/**
 	 * Returns a new USBSerial object
@@ -500,7 +547,7 @@ declare class DsApp {
 
 	/**
 	 * Returns a new WebView object
-	 * @param options <br>
+	 * @param options `AllowZoom`, `AutoZoom`, `ClearCookies`, `FillX/Y`, `Local`, `NoAccel`, `NoActionBar`, `IgnoreErrors`, `IgnoreSSLErrors`, `NoApp`, `NoCapture`, `NoCors`, `NoLocate`, `NoLongTouch`, `NoPause`, `NoScrollBars`, `Overview`, `Persist`, `Progress`, `ScrollFade`, `UseBasicInput`, `UseBrowser`, `Wide`\
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `ClearCookies` - Clear all webview cookies at startup\
  	 * &emsp; `Local` - loads URLs starting with / from /Storage/[AppName\]/ instead\
@@ -518,10 +565,10 @@ declare class DsApp {
  	 * &emsp; `UseBrowser` - Open links in external browser\
  	 * &emsp; `Wide` - force page using “wide” viewport
 	 */
-	CreateWebView(width?: num_frc, height?: num_frc, options?: string | ("AllowZoom"|"AutoZoom"|"ClearCookies"|"FillX/Y"|"Local"|"NoAccel"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoCors"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoScrollBars"|"Overview"|"Persist"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser"|"Wide")[], zoom?: num_prc): DsWebView;
+	CreateWebView(width?: num_frc, height?: num_frc, options?: str_com, zoom?: num_prc): DsWebView;
 
 	/** The wizard is supposed to simplify a configuration progress which requires several inputs and decisions by the user */
-	CreateWizard(title: str, width?: num_frc, height?: num_frc, callback?: (layout: DsLayout, page: num_int) => void, options?: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"TouchModal"|"NoTouch")[]): DsWizard;
+	CreateWizard(title: str, width?: num_frc, height?: num_frc, callback?: (this: DsWizard, layout: DsLayout, page: num_int) => void, options?: string | ("AutoCancel"|"NoCancel"|"NoTitle"|"NoFocus"|"NoDim"|"NoKeys"|"TouchModal"|"NoTouch")[]): DsWizard;
 
 	/** Returns a new YesNoDialog object */
 	CreateYesNoDialog(message: str, options?: string | ("NoDim"|"NoFocus"|"TouchModal")[]): DsYesNoDialog;
@@ -569,7 +616,7 @@ declare class DsApp {
 	Execute(js: str_jsc): void;
 
 	/** Close and stop the app */
-	Exit(kill: bin): void;
+	Exit(kill?: bin): void;
 
 	/** Execute a bash script using Termux */
 	ExtExec(name: "termux", file: str_ptf, args?: str, options?: "hide"): void;
@@ -580,7 +627,7 @@ declare class DsApp {
  	 * &emsp; `DoEvents` - extract in background\
  	 * &emsp; `shallow` - extract top level
 	 */
-	ExtractAssets(source: str_pth, destination: str_pth, overwrite?: bin, options?: "DoEvents"|"shallow"): void;
+	ExtractAssets(source: str_pth, destination: str_pth, overwrite?: bin, options?: string | ("DoEvents"|"shallow")[]): void;
 
 	/** Forcefully update your plugins */
 	ExtractPlugins(): void;
@@ -1049,7 +1096,7 @@ declare class DsApp {
 	OpenDatabase(name: str): DsDatabase;
 
 	/** Opens the drawer layout on the given side with slide animation */
-	OpenDrawer(side: "left"|"right"): void;
+	OpenDrawer(side?: "Left"|"Right"): void;
 
 	/** Allow user to open a file with an external app */
 	OpenFile(file: str_ptf, type?: str_mim, choose?: str): void;
@@ -1091,7 +1138,7 @@ declare class DsApp {
 	 * @param sort <br>
  	 * &emsp; `coloumn` - a coloumn specified in 'coloumns'
 	 */
-	QueryContent(uri: str_uri, columns: str_com, select?: str_sql, args?: lst, sort?: "coloumn"): void;
+	QueryContent(uri: str_uri, columns: str_com, select?: str_sql, args?: str_lst, sort?: "coloumn"): any[];
 
 	/** Quit the app with showing a dialog and exit after closing */
 	Quit(msg: str, title?: str, options?: string | ("NoDim"|"NoFocus")[]): void;
@@ -1177,7 +1224,7 @@ declare class DsApp {
 	 * @param options <br>
  	 * &emsp; `Result` - expect a result to be passed to the callback function
 	 */
-	SendIntent(packageName?: str, className?: str, action?: str, category?: str, uri?: str_uri, type?: str_mim, extras?: { name: str, type: "string"|"float"|"int"|"long"|"bool"|"list"|"file"|"uri"|"keydown"|"keyup", value: str }[], options?: string | ("Result"|"ClearTask")[], callback?: (resultCode: -1|0|1, data?: { action: str, type: str, data: str, flags: num_int, extras: obj }) => void): void;
+	SendIntent(packageName?: str, className?: str, action?: str, category?: str, uri?: str_uri, type?: str_mim, extras?: str|{ name: str, type: "string"|"float"|"int"|"long"|"bool"|"list"|"file"|"uri"|"keydown"|"keyup", value: str }[], options?: string | ("Result"|"ClearTask")[], callback?: (resultCode: -1|0|1, data?: { action: str, type: str, data: str, flags: num_int, extras: obj }) => void): void;
 
 	/** Open the EMail app and autofill fields */
 	SendMail(address: str, subject?: str, body?: str, attach?: str_pth, type?: str_mim, options?: "SendTo"): void;
@@ -1366,7 +1413,7 @@ declare class DsApp {
 	 * @param list `title:checked`
 	 * @param options sun-moon:shows sun and moon icons instead of default check boxes
 	 */
-	ShowCheckList(title: str, list: str|{ title: str, check: bin }, callback?: (data: { title: str, checked: bin }) => void, width?: num_frc, height?: num_frc, options?: str): DsCheckList;
+	ShowCheckList(title: str, list: str|{ title: str, check: bin }[], callback?: (this: DsCheckList, data: { title: str, checked: bin }) => void, width?: num_frc, height?: num_frc, options?: str): DsCheckList;
 
 	/**
 	 * Opens the in-app debug console as black overlay
@@ -1392,7 +1439,7 @@ declare class DsApp {
  	 * &emsp; `NonModal` - allow background touch\
  	 * &emsp; `Solid` - shows solid background behind spinner
 	 */
-	ShowProgress(message: str, options?: string | ("NoDim"|"NonModal"|"Solid")[]): void;
+	ShowProgress(message?: str, options?: string | ("NoDim"|"NonModal"|"Solid")[]): void;
 
 	/** Show a progress bar dialog */
 	ShowProgressBar(title: str, percent?: num_prc, options?: "Light"): void;
@@ -1559,6 +1606,12 @@ declare class DsAudioRecorder {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns a new list of frequency values */
 	GetData(): num_int[];
 
@@ -1599,11 +1652,17 @@ declare class DsBluetoothList {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "BluetoothList";
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: (name: str, address: str) => void): void;
+	SetOnTouch(callback: (this: DsBluetoothList, name: str, address: str) => void): void;
 }
 
 
@@ -1615,11 +1674,17 @@ declare class DsBluetoothSerial {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Clears the Bluetooth buffer of the serial connection */
 	Clear(): void;
 
 	/** Connect a Bluetooth device */
-	Connect(name: str, channel: str): void;
+	Connect(name: str, channel?: str): void;
 
 	/** Disconnect the Bluetooth connection */
 	Disconnect(): void;
@@ -1665,16 +1730,16 @@ declare class DsBluetoothSerial {
 	 * if the device has received the connection request
 	 * 	name is a string with the clients bluetooth name
 	 * 	and address includes the bluetooth address */
-	SetOnConnect(callback: (name: str, address: str) => void): void;
+	SetOnConnect(callback: (this: DsBluetoothSerial, name: str, address: str) => void): void;
 
 	/** Called after disconnecting from bluetooth connection */
-	SetOnDisconnect(callback: (name: str, address: str) => void): void;
+	SetOnDisconnect(callback: (this: DsBluetoothSerial, name: str, address: str) => void): void;
 
 	/** Called after received Data via Bluetooth */
-	SetOnReceive(callback: (data: str) => void): void;
+	SetOnReceive(callback: (this: DsBluetoothSerial, data: str) => void): void;
 
 	/** Specify how to split received data */
-	SetSplitMode(mode: "End"|"Start-End"|"Size", p2: str|num_int, p3?: str|num_int): void;
+	SetSplitMode(mode: "End"|"Start-End"|"Size"|"Head", p2: str|num_int, p3?: str|num_int): void;
 
 	/** Set idle disconnect timeout */
 	SetTimeout(milliseconds: num_mls): void;
@@ -1699,13 +1764,19 @@ declare class DsButton {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsButton, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -1816,10 +1887,10 @@ declare class DsButton {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: DsButton) => void): void;
 
 	/** Called when the button was long pressed */
-	SetOnLongTouch(callback: () => void): void;
+	SetOnLongTouch(callback: (this: DsButton) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -1831,7 +1902,7 @@ declare class DsButton {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Customize the button looks */
 	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc): void;
@@ -1862,8 +1933,9 @@ declare class DsButton {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsButton) => void): void;
 }
 
 
@@ -1882,7 +1954,7 @@ declare class DsCameraView {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsCameraView, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Takes a picture if a motion was detected
@@ -1895,6 +1967,12 @@ declare class DsCameraView {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -2023,7 +2101,7 @@ declare class DsCameraView {
 	 * Keeps tracks of the average color around a given point
 	 * @param list `x1`, `y1`, `x2`, `y2`, `...`
 	 */
-	ReportColors(list: str_pip, callback: (data: [num,num,num][]) => void, sampSize?: num_pxl, maxRate?: num_mls): void;
+	ReportColors(list: str_pip, callback: (this: DsCameraView, data: [num,num,num][]) => void, sampSize?: num_pxl, maxRate?: num_mls): void;
 
 	/**
 	 * Set the background transparency by alpha value
@@ -2077,13 +2155,16 @@ declare class DsCameraView {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control gets focused */
-	SetOnFocus(callback: () => void): void;
+	SetOnFocus(callback: (this: DsCameraView) => void): void;
+
+	/** Called when cam.MotionMosaic detected a motion */
+	SetOnMotion(callback: (this: DsCameraView, data: lst_num) => void): void;
 
 	/** Called when cam.AutoCapture took a picture */
-	SetOnPicture(callback: (file: str_pth) => void): void;
+	SetOnPicture(callback: (this: DsCameraView, file: str_pth) => void): void;
 
 	/** Called if the camera is ready for use */
-	SetOnReady(callback: () => void): void;
+	SetOnReady(callback: (this: DsCameraView) => void): void;
 
 	/** Rotates the camera view */
 	SetOrientation(angle: 0|90|180|270): void;
@@ -2110,7 +2191,7 @@ declare class DsCameraView {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** N-/Disables the camera sound */
 	SetSound(enabled: bin): void;
@@ -2137,7 +2218,7 @@ declare class DsCameraView {
 	StopPreview(): void;
 
 	/** Streams the camera view to a local ip */
-	Stream(ip: str, port: num_int, quality: num_prc, fps: num_fps, mtu: num_mtu): void;
+	Stream(ip: str, port?: num_int, quality?: num_prc, fps?: num_fps, mtu?: num_mtu): void;
 
 	/** Save the current camera view to a file */
 	TakePicture(file: str_ptf): void;
@@ -2145,8 +2226,9 @@ declare class DsCameraView {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsCameraView) => void): void;
 }
 
 
@@ -2165,13 +2247,19 @@ declare class DsCheckBox {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsCheckBox, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -2279,7 +2367,7 @@ declare class DsCheckBox {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the CheckBox was touched */
-	SetOnTouch(callback: (isChecked: bin) => void): void;
+	SetOnTouch(callback: (this: DsCheckBox, isChecked: bin) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2291,7 +2379,7 @@ declare class DsCheckBox {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -2316,8 +2404,9 @@ declare class DsCheckBox {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsCheckBox) => void): void;
 }
 
 
@@ -2329,29 +2418,35 @@ declare class DsCloudStore {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "CloudStore";
 
 	/** Deletes a file in the cloud */
-	Delete(file: str_ptf, callback: (success: bin, result: {data: str,error: str}, status: num_int) => void): void;
+	Delete(file: str_ptf, callback: (this: DsCloudStore, success: bin, result: {data: str,error: str}, status: num_int) => void): void;
 
 	/** Lists files of the cloud */
-	List(filter: str, callback: (error: bin, result: {data: str_com,error: str}, status: num_int) => void): void;
+	List(filter: str, callback: (this: DsCloudStore, error: bin, result: {data: str_com,error: str}, status: num_int) => void): void;
 
 	/** Loads data from the cloud */
-	Load(file: str_ptf, callback: str, options?: (error: bin, result: {data: all,error: str}, status: num_int) => void): void;
+	Load(file: str_ptf, callback: str, options?: (this: DsCloudStore, error: bin, result: {data: all,error: str}, status: num_int) => void): void;
 
 	/** Merges data in the cloud */
-	Merge(file: str_ptf, data: obj, callback?: (success: bin, result: {data: str,error: str}, status: num_int) => void): void;
+	Merge(file: str_ptf, data: obj, callback?: (this: DsCloudStore, success: bin, result: {data: str,error: str}, status: num_int) => void): void;
 
 	/** Saves data in the cloud */
-	Save(file: str_ptf, data: all, callback?: (success: bin, result: {data: str,error: str}, status: num_int) => void, options?: str): void;
+	Save(file: str_ptf, data: all, callback?: (this: DsCloudStore, success: bin, result: {data: str,error: str}, status: num_int) => void, options?: str): void;
 
 	/** Set accesibility description */
 	SetDescription(desc: str): void;
 
 	/** Upload a file to the cloud */
-	Upload(data: str, name: str, type?: str_mim, callback?: (response: {error: str,name: str,folder: str,id: str,mimetype: str_mim,size: num}) => void, password?: str): void;
+	Upload(data: str, name: str, type?: str_mim, callback?: (this: DsCloudStore, response: {error: str,name: str,folder: str,id: str,mimetype: str_mim,size: num}) => void, password?: str): void;
 }
 
 
@@ -2370,13 +2465,19 @@ declare class DsCodeEdit {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsCodeEdit, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -2547,13 +2648,13 @@ declare class DsCodeEdit {
 	SetNavigationMethod(method: "Yoyo"|"Touch"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: DsCodeEdit) => void): void;
 
 	/** Define a Yoyo double-tap callback function */
-	SetOnDoubleTap(callback: () => void): void;
+	SetOnDoubleTap(callback: (this: DsCodeEdit) => void): void;
 
 	/** Define a key-event callback function */
-	SetOnKey(callback: (action: "Down"|"Move"|"Up", keyname: "VOLUME_DOWN"|"VOLUME_UP"|"BACK"|"MENU", keycode: num_int, extra: "Shift"|"Ctrl"|"Alt"|"Meta") => void): void;
+	SetOnKey(callback: (this: DsCodeEdit, action: "Down"|"Move"|"Up", keyname: "VOLUME_DOWN"|"VOLUME_UP"|"BACK"|"MENU", keycode: num_int, extra: "Shift"|"Ctrl"|"Alt"|"Meta") => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2571,7 +2672,7 @@ declare class DsCodeEdit {
 	SetSelectMode(onOff: bin): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -2599,8 +2700,9 @@ declare class DsCodeEdit {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsCodeEdit) => void): void;
 
 	/** Undo an action */
 	Undo(): void;
@@ -2615,6 +2717,12 @@ declare class DsCrypt {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Decrypt text with a key */
 	Decrypt(text: str, password: str): str;
 
@@ -2625,7 +2733,7 @@ declare class DsCrypt {
 	GetType(): "Crypt";
 
 	/** Get a hash from a string */
-	Hash(text: str, mode: "MD5"|"SHA"|"SHA-1"|"SHA-224"|"SHA-256"|"SHA-384"|"SHA-512", options?: "Wrap"): void;
+	Hash(text: str, mode: "MD5"|"SHA"|"SHA-1"|"SHA-224"|"SHA-256"|"SHA-384"|"SHA-512", options?: "Wrap"): str;
 
 	/** Set accesibility description */
 	SetDescription(desc: str): void;
@@ -2651,6 +2759,12 @@ declare class DsDialog {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -2758,13 +2872,13 @@ declare class DsDialog {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when back button was pressed while the dialog was shown */
-	SetOnBack(callback: () => void): void;
+	SetOnBack(callback: (this: DsDialog) => void): void;
 
 	/** Called when the dialog is cancelled */
-	SetOnCancel(callback: () => void): void;
+	SetOnCancel(callback: (this: DsDialog) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsDialog, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2776,7 +2890,7 @@ declare class DsDialog {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Changes the dialog title */
 	SetTitle(title: str): void;
@@ -2805,8 +2919,9 @@ declare class DsDialog {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsDialog) => void): void;
 }
 
 
@@ -2817,6 +2932,12 @@ declare class DsDownloader {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/**
 	 * Download file(s)
@@ -2843,16 +2964,16 @@ declare class DsDownloader {
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
 
 	/** Called when download is cancelled */
-	SetOnCancel(callback: (file: str_pth) => void): void;
+	SetOnCancel(callback: (this: DsDownloader, file: str_pth) => void): void;
 
 	/** Called when downloads are finished */
-	SetOnComplete(callback: () => void): void;
+	SetOnComplete(callback: (this: DsDownloader) => void): void;
 
 	/** Called when a file is downloaded */
-	SetOnDownload(callback: (path: str_pth) => void): void;
+	SetOnDownload(callback: (this: DsDownloader, path: str_pth) => void): void;
 
 	/** Called when an error occurred while downloading */
-	SetOnError(callback: (error: str) => void): void;
+	SetOnError(callback: (this: DsDownloader, error: str) => void): void;
 }
 
 
@@ -2863,6 +2984,12 @@ declare class DsEmail {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Returns the control class name */
 	GetType(): "Email";
@@ -2879,7 +3006,7 @@ declare class DsEmail {
 
 	/**
 	 * Set IMAP settings for receiving messages
-	 * @param server <br>
+	 * @param server `imap/pop.gmail.com`, `imap/pop.mail.yahoo.com`, `imap/pop.gmx.net`\
  	 * &emsp; `pop.gmail.com` - google\
  	 * &emsp; `pop.mail.yahoo.com` - yahoo\
  	 * &emsp; `pop.gmx.net` - gmx
@@ -2887,13 +3014,13 @@ declare class DsEmail {
  	 * &emsp; `993` - imap\
  	 * &emsp; `995` - pop
 	 */
-	SetIMAP(server: "imap/pop.gmail.com"|"imap/pop.mail.yahoo.com"|"imap/pop.gmx.net", port?: 993|995): void;
+	SetIMAP(server: str, port?: 993|995): void;
 
 	/** Called when a message is received */
-	SetOnMessage(callback: (data: { from: str_eml, to: str_eml, cc: str_eml, subject: str, body: str }) => void): void;
+	SetOnMessage(callback: (this: DsEmail, data: { from: str_eml, to: str_eml, cc: str_eml, subject: str, body: str }) => void): void;
 
 	/** Called when a status changed */
-	SetOnStatus(callback: (status: str) => void): void;
+	SetOnStatus(callback: (this: DsEmail, status: str) => void): void;
 
 	/**
 	 * Set SMTP settings for sending messages
@@ -2917,6 +3044,12 @@ declare class DsFile {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Close File */
 	Close(): void;
@@ -2951,7 +3084,7 @@ declare class DsFile {
  	 * &emsp; `Line` - read one line terminated by \\n, \\r or \\r\\n\
  	 * &emsp; `Char` - read big-endian 16-bit character
 	 */
-	ReadTextAsync(type: "Line"|"Char", callback: (data: str) => void): void;
+	ReadTextAsync(type: "Line"|"Char", callback: (this: DsFile, data: str) => void): void;
 
 	/** CHange pointer position to a given byte in the file */
 	Seek(offset: num_int): void;
@@ -2999,6 +3132,12 @@ declare class DsGameView {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -3112,7 +3251,7 @@ declare class DsGameView {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change the visibility mode */
 	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
@@ -3123,8 +3262,9 @@ declare class DsGameView {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsGameView) => void): void;
 }
 
 
@@ -3139,6 +3279,12 @@ declare class DsGLView {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** [HTMLDivElement] */
 	canvas: obj;
 
@@ -3149,7 +3295,7 @@ declare class DsGLView {
 	 * Create a sprite object which can be drawn on the GLView
 	 * @return img
 	 */
-	CreateImage(file: str_ptf, callback?: () => void): GLV_img;
+	CreateImage(file: str_ptf, callback?: (this: DsGLView) => void): GLV_img;
 
 	/**
 	 * Draw image to canvas
@@ -3254,16 +3400,16 @@ declare class DsGLView {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsGLView, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: DsGLView, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: DsGLView, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: DsGLView, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -3275,7 +3421,7 @@ declare class DsGLView {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** En/Disables touch events to be fired on the control */
 	SetTouchable(touchable: bin): void;
@@ -3289,8 +3435,9 @@ declare class DsGLView {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsGLView) => void): void;
 
 	/** Width */
 	width: num_int;
@@ -3364,13 +3511,19 @@ declare class DsImage {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsImage, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Clears the image content */
 	Clear(): void;
@@ -3568,22 +3721,22 @@ declare class DsImage {
 	SetName(name: str): void;
 
 	/** Called when image has loaded asynchronously */
-	SetOnLoad(callback: (img: DsImage) => void): void;
+	SetOnLoad(callback: (this: DsImage, img: DsImage) => void): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: DsImage, src: dso) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsImage, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: DsImage, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: DsImage, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: DsImage, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -3600,7 +3753,7 @@ declare class DsImage {
 	 * @param options <br>
  	 * &emsp; `fix` - set bitmap size
 	 */
-	SetPixelData(data: str_b64, width?: num, height?: num, options?: "px"|"icon"|"resize"|"rescale"|"square"|"fix"): void;
+	SetPixelData(data: str_b64, width?: num, height?: num, options?: string | ("px"|"icon"|"resize"|"rescale"|"square"|"fix")[]): void;
 
 	/** Change the pixel mode for drawing methods */
 	SetPixelMode(onoff: bin): void;
@@ -3612,7 +3765,7 @@ declare class DsImage {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change the drawn text size */
 	SetTextSize(size: num): void;
@@ -3635,8 +3788,9 @@ declare class DsImage {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsImage) => void): void;
 
 	/** Update the view in disabled AutoUpdate mode */
 	Update(): void;
@@ -3661,13 +3815,19 @@ declare class DsLayout {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsLayout, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Moves a child to the layout front */
 	ChildToFront(child: dso): void;
@@ -3795,22 +3955,22 @@ declare class DsLayout {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the user changed a control content */
-	SetOnChildChange(callback: (src: dso) => void): void;
+	SetOnChildChange(callback: (this: DsLayout, src: dso) => void): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: DsLayout, src: dso) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsLayout, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: DsLayout, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: DsLayout, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: DsLayout, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Change the children orientation */
 	SetOrientation(orient: "Horizontal"|"Vertical"): void;
@@ -3825,7 +3985,7 @@ declare class DsLayout {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** En/Disables touch events to be fired on the control */
 	SetTouchable(touchable: bin): void;
@@ -3842,8 +4002,9 @@ declare class DsLayout {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsLayout) => void): void;
 }
 
 
@@ -3865,13 +4026,19 @@ declare class DsList {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsList, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -4063,10 +4230,10 @@ declare class DsList {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Define a callback function for touch events */
-	SetOnLongTouch(callback: (title: str, body?: str, icon?: str, index?: num_int) => void): void;
+	SetOnLongTouch(callback: (this: DsList, title: str, body?: str, icon?: str, index?: num_int) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: (title: str, body?: str, icon?: str, index?: num_int) => void): void;
+	SetOnTouch(callback: (this: DsList, title: str, body?: str, icon?: str, index?: num_int) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -4078,7 +4245,7 @@ declare class DsList {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change the text color */
 	SetTextColor(color: str_col): void;
@@ -4129,8 +4296,9 @@ declare class DsList {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsList) => void): void;
 }
 
 
@@ -4150,6 +4318,12 @@ declare class DsListDialog {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Hides the control and removes it from the screen */
 	Dismiss(): void;
@@ -4173,10 +4347,10 @@ declare class DsListDialog {
 	SetBackground(file: str_ptf, options?: "repeat"): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: (title: str, checked?: bin) => void): void;
+	SetOnTouch(callback: (this: DsListDialog, title: str, checked?: bin) => void): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change the text color */
 	SetTextColor(color: str_col): void;
@@ -4197,6 +4371,12 @@ declare class DsLocator {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Calculate bearing between current and given position */
 	GetBearingTo(latitude: num, longitude: num): num;
 
@@ -4207,7 +4387,7 @@ declare class DsLocator {
 	GetType(): "Locator";
 
 	/** Called when some of the values changed */
-	SetOnChange(callback: (data: { provider: str, latitude: num, longitude: num, speed: num, bearing: num, altitude: num, accuracy: num_met }, time: num_mls) => void): void;
+	SetOnChange(callback: (this: DsLocator, data: { provider: str, latitude: num, longitude: num, speed: num, bearing: num, altitude: num, accuracy: num_met }, time: num_mls) => void): void;
 
 	/** Locator update frequency in seconds */
 	SetRate(rate: num_sec): void;
@@ -4227,6 +4407,12 @@ declare class DsMediaPlayer {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Close the media player */
 	Close(): void;
@@ -4265,13 +4451,13 @@ declare class DsMediaPlayer {
 	SetLooping(loop: bin): void;
 
 	/** Called when the player has finished playing a track */
-	SetOnComplete(callback: () => void): void;
+	SetOnComplete(callback: (this: DsMediaPlayer) => void): void;
 
 	/** Called when the player is ready for use */
-	SetOnReady(callback: () => void): void;
+	SetOnReady(callback: (this: DsMediaPlayer) => void): void;
 
 	/** Called when ply.Seek has finished */
-	SetOnSeekDone(callback: () => void): void;
+	SetOnSeekDone(callback: (this: DsMediaPlayer) => void): void;
 
 	/** Set the playback speed */
 	SetSpeed(speed: num_fac): void;
@@ -4295,6 +4481,12 @@ declare class DsMediaStore {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Load the album art to an image */
 	GetAlbumArt(image: DsImage, id: num_int, options?: "internal"|"external"): bin;
 
@@ -4314,22 +4506,22 @@ declare class DsMediaStore {
 	 * Search for media artists
 	 * @param sort coloumns
 	 */
-	QueryArtists(filter?: str_sql, sort?: "_id"|"artist"|"numAlbums"|"numTracks", options?: "internal"|"external"): void;
+	QueryArtists(filter?: str_sql, sort?: "_id"|"artist"|"numAlbums"|"numTracks"|"", options?: "internal"|"external"): void;
 
 	/**
 	 * Search for media
 	 * @param sort coloumns
 	 */
-	QueryMedia(filter?: str_sql, sort?: "title"|"_id"|"duration"|"size"|"uri"|"album"|"albumID"|"artist"|"artistId", options?: "internal"|"external"): void;
+	QueryMedia(filter?: str_sql, sort?: string | ("title"|"_id"|"duration"|"size"|"uri"|"album"|"albumID"|"artist"|"artistId")[], options?: "internal"|"external"): void;
 
 	/** Called when album query has finished */
-	SetOnAlbumsResult(callback: (result: { album: str, id: num_int, albumArt: str_pth, artist: str, numSongs: num_int, firstYear: str, lastYear: str }[]) => void): void;
+	SetOnAlbumsResult(callback: (this: DsMediaStore, result: { album: str, id: num_int, albumArt: str_pth, artist: str, numSongs: num_int, firstYear: str, lastYear: str }[]) => void): void;
 
 	/** Called when artist query has finished */
-	SetOnArtistsResult(callback: (result: { id: num_int, artist: str, numAlbums: num_int, numTracks: num_int }[]) => void): void;
+	SetOnArtistsResult(callback: (this: DsMediaStore, result: { id: num_int, artist: str, numAlbums: num_int, numTracks: num_int }[]) => void): void;
 
 	/** Called when media query has finished */
-	SetOnMediaResult(callback: (result: { title: str, id: num_int, duration: num_mls, size: num_byt, uri: str_uri, album: str, albumID: num_int, artist: str, artistId: num_int }[]) => void): void;
+	SetOnMediaResult(callback: (this: DsMediaStore, result: { title: str, id: num_int, duration: num_mls, size: num_byt, uri: str_uri, album: str, albumID: num_int, artist: str, artistId: num_int }[]) => void): void;
 }
 
 
@@ -4343,6 +4535,12 @@ declare class DsNetClient {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Closes the NetClient socket */
 	Close(): void;
@@ -4376,14 +4574,14 @@ declare class DsNetClient {
 	 * @param options `<BUFSIZ>`\
  	 * &emsp; `BUFSIZ` - “1k,2k,4k,8k,16k,32k,64k”
 	 */
-	ReceiveDatagram(mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", port?: num_int, timeout?: num, options?: str): str;
+	ReceiveDatagram(mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", port?: num_int, timeout?: num, options?: str_com): str;
 
 	/**
 	 * Receive UDP datagrams
 	 * @param options `<BUFSIZ>`\
  	 * &emsp; `BUFSIZ` - “1k,2k,4k,8k,16k,32k,64k”
 	 */
-	ReceiveDatagrams(port?: num_int, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", options?: str): void;
+	ReceiveDatagrams(port?: num_int, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16", options?: str_com): void;
 
 	/** Receive a file via TCP from the server */
 	ReceiveFile(file: str, wait?: num): str;
@@ -4421,13 +4619,13 @@ declare class DsNetClient {
 	SendText(text: str, mode?: "US-ASCII"|"UTF-8"|"UTF-16LE"|"UTF-16BE"|"UTF-16"): void;
 
 	/** Called when TCP connected or failed to connect to a server */
-	SetOnConnect(callback: (connected: bin) => void): void;
+	SetOnConnect(callback: (this: DsNetClient, connected: bin) => void): void;
 
 	/** Called when a file download has finished */
-	SetOnDownload(callback: (something: num_int) => void): void;
+	SetOnDownload(callback: (this: DsNetClient, something: num_int) => void): void;
 
 	/** Called when a TCP NetClient received some data via AutoReceive */
-	SetOnReceive(callback: (address: str) => void): void;
+	SetOnReceive(callback: (this: DsNetClient, address: str) => void): void;
 
 	/** Timeout between two receive checks */
 	SetTimeout(seconds: num_sec): void;
@@ -4449,19 +4647,19 @@ declare class DsNode {
 	Start(args?: lst, paths?: lst): void;
 
 	/** Define a callback function which is called when the Node component is ready for use */
-	SetOnReady(cb: () => void): void;
+	SetOnReady(cb: (this: DsNode) => void): void;
 
 	/** Define a callback function which is called when the node process has exited */
-	SetOnDone(cb: () => void): void;
+	SetOnDone(cb: (this: DsNode) => void): void;
 
 	/** Define a callback function which is called when the node process prints to stdout */
-	SetOnOutput(cb: (stdout: str) => void): void;
+	SetOnOutput(cb: (this: DsNode, stdout: str) => void): void;
 
 	/** Define a callback function which is called when the node process prints to stderr */
-	SetOnError(cb: (msg: str) => void): void;
+	SetOnError(cb: (this: DsNode, msg: str) => void): void;
 
 	/** Define a callback function which is called when a system/pipe message was received from the node process */
-	SetOnMessage(cb: (msg: str) => void): void;
+	SetOnMessage(cb: (this: DsNode, msg: str) => void): void;
 
 	/** Set a process environment variable */
 	SetEnv(name: str, val: str): void;
@@ -4516,10 +4714,16 @@ declare class DsNotification {
 	Batch(properties: {[command: str]: lst}): void;
 
 	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
+	/**
 	 * Cancel a notification with a specific id
 	 * @param id `id`, `*`
 	 */
-	Cancel(id: str): void;
+	Cancel(id?: str): void;
 
 	/** Returns the control class name */
 	GetType(): "Notification";
@@ -4528,7 +4732,7 @@ declare class DsNotification {
 	Listen(options?: "CheckPerms"): void;
 
 	/** Send the notification to the user */
-	Notify(id: str): void;
+	Notify(id?: str): void;
 
 	/** Set a large image in the notification */
 	SetLargeImage(image: str_ptf): void;
@@ -4543,7 +4747,7 @@ declare class DsNotification {
 	SetMessage(ticker: str, title?: str, text?: str, extra?: str): void;
 
 	/** Called when notification intercepted */
-	SetOnNotify(callback: (source: str, title: str, message: str, extra: str, type: "Normal") => void): void;
+	SetOnNotify(callback: (this: DsNotification, source: str, title: str, message: str, extra: str, type: "Normal") => void): void;
 
 	/** Set a small image icon */
 	SetSmallImage(image: str_ptf): void;
@@ -4558,11 +4762,17 @@ declare class DsNxt {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Play frequency tone */
 	Beep(frequency: num_hrz, duration?: num_mls): void;
 
 	/** Brakes motors smoothly */
-	Brake(motors: "A"|"B"|"C"|"ABC"): void;
+	Brake(motors: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC"): void;
 
 	/** Check if device is connected to NXT */
 	CheckConnection(): bin;
@@ -4577,7 +4787,7 @@ declare class DsNxt {
 	 * Commands NXT to drive motors
 	 * @param rotations `-100..100`
 	 */
-	Drive(motors: "A"|"B"|"C"|"ABC", power: num_prc, rotations?: num_prc, options?: str): void;
+	Drive(motors: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC", power: num_prc, rotations?: num_prc, options?: str): void;
 
 	/** Find first program file */
 	FileFindFirst(pattern: str): str;
@@ -4595,7 +4805,7 @@ declare class DsNxt {
 	GetCurrentProgram(): str;
 
 	/** Returns a new wheel encoder value */
-	GetRotationCount(motor: "A"|"B"|"C"|"ABC"): num_int;
+	GetRotationCount(motor: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC"): num_int;
 
 	/** Returns the control class name */
 	GetType(): "Nxt";
@@ -4610,7 +4820,7 @@ declare class DsNxt {
 	IsEnabled(): bin;
 
 	/** Check if a motor is powered */
-	IsMotorIdle(motor: "A"|"B"|"C"|"ABC"): bin;
+	IsMotorIdle(motor: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC"): bin;
 
 	/** Checks if the device is paired with an other */
 	IsPaired(name: str): bin;
@@ -4622,7 +4832,7 @@ declare class DsNxt {
 	 * Read a color sensor value on the input where the sensor is plugged into
 	 * @return `1..6 or 0..1023`
 	 */
-	ReadColorSensor(input: 1, mode?: "ColorDetect"|"LightSense"|"RedSense"|"GreenSense"|"BlueSense"): num_int;
+	ReadColorSensor(input: num_int, mode?: "ColorDetect"|"LightSense"|"RedSense"|"GreenSense"|"BlueSense"): num_int;
 
 	/**
 	 * Get measured ultrasinic distance in cm
@@ -4662,7 +4872,7 @@ declare class DsNxt {
 	RequestEnable(): void;
 
 	/** Reset wheel encoder offset to 0 */
-	Reset(motors: "A"|"B"|"C"|"ABC"): void;
+	Reset(motors: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC"): void;
 
 	/**
 	 * Sends a message to the NXT brick's mail box
@@ -4680,10 +4890,10 @@ declare class DsNxt {
 	SetLampColor(input: num_int, color: "White"|"Red"|"Green"|"Blue"|"Off"): void;
 
 	/** Called when NXT connection established or failed */
-	SetOnConnect(callback: (connected: bin) => void): void;
+	SetOnConnect(callback: (this: DsNxt, connected: bin) => void): void;
 
 	/** Called when bt connection established */
-	SetOnConnected(callback: () => void): void;
+	SetOnConnected(callback: (this: DsNxt) => void): void;
 
 	/** Shows a list of paired NXT devices to connect to */
 	ShowDevices(): void;
@@ -4692,7 +4902,7 @@ declare class DsNxt {
 	StartProgram(name: str_pth): void;
 
 	/** Stop powering some motors */
-	Stop(motors: "A"|"B"|"C"|"ABC"): void;
+	Stop(motors: "A"|"B"|"C"|"AB"|"AC"|"BC"|"ABC"): void;
 
 	/** Stops the current running program */
 	StopProgram(): void;
@@ -4716,6 +4926,12 @@ declare class DsOverlay {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the parent control object */
 	GetParent(): dso;
 
@@ -4738,11 +4954,17 @@ declare class DsPhoneState {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "PhoneState";
 
 	/** Called when a phone state has changed */
-	SetOnChange(callback: (type: "CellLocation"|"DataConnection"|"DataActivity"|"CallState"|"ServiceState"|"SignalStrength"|"CallForwarding"|"MessageWaiting", data: all) => void): void;
+	SetOnChange(callback: (this: DsPhoneState, type: "CellLocation"|"DataConnection"|"DataActivity"|"CallState"|"ServiceState"|"SignalStrength"|"CallForwarding"|"MessageWaiting", data: all) => void): void;
 
 	/** Start listening */
 	Start(): void;
@@ -4761,21 +4983,27 @@ declare class DsPlayStore {
 	Batch(properties: {[command: str]: lst}): void;
 
 	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
+	/**
 	 * Get product info from Google Play
 	 * @param options <br>
  	 * &emsp; `IAP` - In-App purchases\
  	 * &emsp; `SUBS` - subscriptions
 	 */
-	GetBillingInfo(prodIDs: str, callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "IAP"|"SUBS"): void;
+	GetBillingInfo(prodIDs: str, callback: (this: DsPlayStore, items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "IAP"|"SUBS"): void;
 
 	/** Get purchased items from Google Play */
-	GetPurchases(callback: (items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "SUBS"): void;
+	GetPurchases(callback: (this: DsPlayStore, items: { skuDetailsToken: str, productId: str, type: str, price: str, price_amount_micros: num_int, price_currency_code: str, title: str, description: str }[]) => void, options?: "SUBS"): void;
 
 	/** Returns the control class name */
 	GetType(): "PlayStore";
 
 	/** Purchase an item on Google Play */
-	Purchase(prodID: str, token: str, callback?: (prodId: str, orderId: str, purchToken: str, devToken: str, packageName: str) => void, options?: "SUBS"): void;
+	Purchase(prodID: str, token: str, callback?: (this: DsPlayStore, prodId: str, orderId: str, purchToken: str, devToken: str, packageName: str) => void, options?: "SUBS"): void;
 }
 
 
@@ -4797,13 +5025,19 @@ declare class DsScroller {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsScroller, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -4926,7 +5160,7 @@ declare class DsScroller {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change the visibility mode */
 	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
@@ -4937,8 +5171,9 @@ declare class DsScroller {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsScroller) => void): void;
 }
 
 
@@ -4957,13 +5192,19 @@ declare class DsSeekBar {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsSeekBar, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5065,10 +5306,10 @@ declare class DsSeekBar {
 	SetMaxRate(rate: num_mls): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: (value: num) => void): void;
+	SetOnChange(callback: (this: DsSeekBar, value: num) => void): void;
 
 	/** Called when content was changed by the user */
-	SetOnTouch(callback: (value: num) => void): void;
+	SetOnTouch(callback: (this: DsSeekBar, value: num) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -5083,7 +5324,7 @@ declare class DsSeekBar {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Set current seekbar value */
 	SetValue(val: num): void;
@@ -5097,8 +5338,9 @@ declare class DsSeekBar {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsSeekBar) => void): void;
 }
 
 
@@ -5109,6 +5351,12 @@ declare class DsSensor {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Get first value of a sensor */
 	GetAzimuth(): num;
@@ -5141,7 +5389,7 @@ declare class DsSensor {
 	SetMinChange(min: num): void;
 
 	/** Called when a sensor value has changed */
-	SetOnChange(callback: (first: num, second: num, third: num, time: num_mls) => void): void;
+	SetOnChange(callback: (this: DsSensor, first: num, second: num, third: num, time: num_mls) => void): void;
 
 	/** Start the sensor */
 	Start(): void;
@@ -5159,6 +5407,12 @@ declare class DsService {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "Service";
 
@@ -5172,7 +5426,7 @@ declare class DsService {
 	SetInForeground(title: str, text?: str, largeIcon?: str_ptf, smallIcon?: str_ptf, importance?: "none"|"min"|"low"|"high"): void;
 
 	/** Called when service sent a message */
-	SetOnMessage(callback: (message: str) => void): void;
+	SetOnMessage(callback: (this: DsService, message: str) => void): void;
 
 	/** Stop service */
 	Stop(): void;
@@ -5187,6 +5441,12 @@ declare class DsSMS {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "SMS";
 
@@ -5198,10 +5458,10 @@ declare class DsSMS {
 	Send(number: str, message: str, options?: "MultiPart"): void;
 
 	/** Called when user received a SMS */
-	SetOnMessage(callback: (message: str) => void): void;
+	SetOnMessage(callback: (this: DsSMS, message: str) => void): void;
 
 	/** Called when a status has changed */
-	SetOnStatus(callback: (status: str) => void): void;
+	SetOnStatus(callback: (this: DsSMS, status: str) => void): void;
 }
 
 
@@ -5212,6 +5472,12 @@ declare class DsSpeechRec {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Stop recognition */
 	Cancel(): void;
@@ -5235,13 +5501,13 @@ declare class DsSpeechRec {
 	Recognize(): void;
 
 	/** Called when an error occured */
-	SetOnError(callback: (error: str) => void): void;
+	SetOnError(callback: (this: DsSpeechRec, error: str) => void): void;
 
 	/** Called when SpeechRec is ready for use */
-	SetOnReady(callback: () => void): void;
+	SetOnReady(callback: (this: DsSpeechRec) => void): void;
 
 	/** Called when text was recognized */
-	SetOnResult(callback: (result: str) => void): void;
+	SetOnResult(callback: (this: DsSpeechRec, result: str) => void): void;
 
 	/** Stop recording and start recognition */
 	Stop(): void;
@@ -5263,13 +5529,19 @@ declare class DsSpinner {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsSpinner, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5377,10 +5649,10 @@ declare class DsSpinner {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when value changed by the user */
-	SetOnChange(callback: (item: str, index: num_int) => void): void;
+	SetOnChange(callback: (this: DsSpinner, item: str, index: num_int) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: DsSpinner) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -5392,7 +5664,7 @@ declare class DsSpinner {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change current shown item */
 	SetText(item: str): void;
@@ -5417,8 +5689,9 @@ declare class DsSpinner {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsSpinner) => void): void;
 }
 
 
@@ -5437,13 +5710,19 @@ declare class DsSwitch {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsSwitch, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5551,7 +5830,7 @@ declare class DsSwitch {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (value: bin) => void): void;
+	SetOnTouch(callback: (this: DsSwitch, value: bin) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -5563,7 +5842,7 @@ declare class DsSwitch {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Customize the button looks */
 	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc): void;
@@ -5591,8 +5870,9 @@ declare class DsSwitch {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsSwitch) => void): void;
 }
 
 
@@ -5603,6 +5883,12 @@ declare class DsSynth {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Returns the control class name */
 	GetType(): "Synth";
@@ -5683,7 +5969,7 @@ declare class DsSynth {
 	 * Initialize the VCF effect
 	 * @param cuttoff frequency
 	 */
-	SetVcf(attack: num_mls, decay: num_mls, sustain: num_frc, release: num_mls, cuttoff: num, resonance: num_frc, depth: num_frc): void;
+	SetVcf(attack: num_mls, decay: num_mls, sustain: num_frc, release: num_mls, cuttoff: num, resonance: num_frc, depth?: num_frc): void;
 
 	/** Set a time of maximum frequencies */
 	SetVcfAttack(attack: num_mls): void;
@@ -5735,6 +6021,12 @@ declare class DsSysProc {
 	Batch(properties: {[command: str]: lst}): void;
 
 	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
+	/**
 	 * Read from stderr
 	 * @param options <br>
  	 * &emsp; `nowait` - dont wait for input
@@ -5764,10 +6056,10 @@ declare class DsSysProc {
 	ReadFileAsByte(file: str_ptf): num_byt;
 
 	/** Called when stderr changed */
-	SetOnError(callback: (data: str) => void): void;
+	SetOnError(callback: (this: DsSysProc, data: str) => void): void;
 
 	/** Called when stdout changed */
-	SetOnInput(callback: (data: str) => void): void;
+	SetOnInput(callback: (this: DsSysProc, data: str) => void): void;
 
 	/** Write binary data to file */
 	WriteToFile(file: str_ptf, data: str): void;
@@ -5789,13 +6081,19 @@ declare class DsTabs {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsTabs, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5900,16 +6198,16 @@ declare class DsTabs {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when current tab changed */
-	SetOnChange(callback: (name: str) => void): void;
+	SetOnChange(callback: (this: DsTabs, name: str) => void): void;
 
 	/** Called when the user changed a control content */
-	SetOnChildChange(callback: (src: dso) => void): void;
+	SetOnChildChange(callback: (this: DsTabs, src: dso) => void): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: DsTabs, src: dso) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsTabs, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -5921,7 +6219,7 @@ declare class DsTabs {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Set text size */
 	SetTextSize(size: num, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -5944,8 +6242,9 @@ declare class DsTabs {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsTabs) => void): void;
 
 	parent: {
 		/** Add a new tab */
@@ -5969,13 +6268,19 @@ declare class DsText {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsText, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -6111,19 +6416,19 @@ declare class DsText {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: DsText, src: dso) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsText, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: DsText, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: DsText, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: DsText, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -6135,7 +6440,7 @@ declare class DsText {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -6166,8 +6471,9 @@ declare class DsText {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsText) => void): void;
 }
 
 
@@ -6186,13 +6492,19 @@ declare class DsTextEdit {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsTextEdit, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -6348,13 +6660,13 @@ declare class DsTextEdit {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: DsTextEdit) => void): void;
 
 	/** Called when user pressed 'Done' or 'Enter' */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: DsTextEdit) => void): void;
 
 	/** Called when the control gets focused */
-	SetOnFocus(callback: () => void): void;
+	SetOnFocus(callback: (this: DsTextEdit) => void): void;
 
 	/** Set selection color */
 	SetSelectColor(col: str_col): void;
@@ -6363,7 +6675,7 @@ declare class DsTextEdit {
 	SetSelection(start: num_int, stop: num_int): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -6388,8 +6700,9 @@ declare class DsTextEdit {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsTextEdit) => void): void;
 
 	/** Undo an action */
 	Undo(): void;
@@ -6413,6 +6726,12 @@ declare class DsTheme {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Returns the control class name */
 	GetType(): "Theme";
 
@@ -6431,8 +6750,11 @@ declare class DsTheme {
 	/** Define button text color */
 	SetBtnTextColor(color: str_col): void;
 
-	/** Define button options */
-	SetButtonOptions(options?: string | ("FontAwesome"|"Html"|"Monospace"|"SingleLine"|"Custom"|"NoPad"|"FillX/Y"|"Normal"|"Aluminium"|"Gray"|"Lego")[]): void;
+	/**
+	 * Define button options
+	 * @param options `FontAwesome`, `Html`, `Monospace`, `SingleLine`, `Custom`, `NoPad`, `FillX/Y`, `Normal`, `Aluminium`, `Gray`, `Lego`
+	 */
+	SetButtonOptions(options?: str_com): void;
 
 	/** Define button paddings */
 	SetButtonPadding(left?: num, top?: num, right?: num, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -6440,8 +6762,11 @@ declare class DsTheme {
 	/** Define button style */
 	SetButtonStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc, checkClr?: str_col): void;
 
-	/** Define check box options */
-	SetCheckBoxOptions(options?: string | ("FillX/Y")[]): void;
+	/**
+	 * Define check box options
+	 * @param options `FillX/Y`
+	 */
+	SetCheckBoxOptions(options?: str_com): void;
 
 	/** Define dialog button colors */
 	SetDialogBtnColor(color: str_col): void;
@@ -6477,7 +6802,7 @@ declare class DsTheme {
 	SetProgressTextColor(color: str_col): void;
 
 	/** Define control text color */
-	SetTextColor(color1: str_col, color2: str_col): void;
+	SetTextColor(color1: str_col, color2?: str_col): void;
 
 	/** Define text edit options */
 	SetTextEditOptions(options?: "underline"): void;
@@ -6514,13 +6839,19 @@ declare class DsToggle {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsToggle, type: str) => void, time?: num_mls): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -6628,7 +6959,7 @@ declare class DsToggle {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (value: bin) => void): void;
+	SetOnTouch(callback: (this: DsToggle, value: bin) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -6640,7 +6971,7 @@ declare class DsToggle {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Customize the button looks */
 	SetStyle(color1?: str_col, color2?: str_col, radius?: num_pxl, strokeClr?: str_col, strokeWidth?: num_pxl, shadow?: num_frc, checkClr?: str_col): void;
@@ -6668,8 +6999,9 @@ declare class DsToggle {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsToggle) => void): void;
 }
 
 
@@ -6680,6 +7012,12 @@ declare class DsUSBSerial {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Get the 'Data Terminal Ready' state */
 	GetDTR(): bin;
@@ -6722,7 +7060,7 @@ declare class DsUSBSerial {
 	SetMaxWrite(bytes: num_int): void;
 
 	/** Called after received Data via USB */
-	SetOnReceive(callback: (data: str) => void): void;
+	SetOnReceive(callback: (this: DsUSBSerial, data: str) => void): void;
 
 	/** Raises the Request To Send state */
 	SetRTS(onOff: bin): void;
@@ -6739,8 +7077,11 @@ declare class DsUSBSerial {
 	/** Stop listening to serial port */
 	Stop(): void;
 
-	/** Send data to connected device */
-	Write(text: str, encoding?: "US-ASCII"|"UTF16L/BE"): void;
+	/**
+	 * Send data to connected device
+	 * @param encoding `US-ASCII`, `UTF16L/BE`
+	 */
+	Write(text: str, encoding?: str): void;
 }
 
 
@@ -6760,6 +7101,12 @@ declare class DsVideoView {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -6879,16 +7226,16 @@ declare class DsVideoView {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when playback finished */
-	SetOnComplete(callback: () => void): void;
+	SetOnComplete(callback: (this: DsVideoView) => void): void;
 
 	/** Called when an error occured */
-	SetOnError(callback: () => void): void;
+	SetOnError(callback: (this: DsVideoView) => void): void;
 
 	/** Called when video is ready for playback */
-	SetOnReady(callback: () => void): void;
+	SetOnReady(callback: (this: DsVideoView) => void): void;
 
 	/** Called when subtitle text changed */
-	SetOnSubtitle(callback: () => void): void;
+	SetOnSubtitle(callback: (this: DsVideoView) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -6900,7 +7247,7 @@ declare class DsVideoView {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Set a subtitle source */
 	SetSubtitles(file: str_ptf): void;
@@ -6920,8 +7267,9 @@ declare class DsVideoView {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsVideoView) => void): void;
 }
 
 
@@ -6932,15 +7280,21 @@ declare class DsWebServer {
 
 	/**
 	 * Called when servlet received a message
-	 * @param path url path
+	 * @param path `/endpoint name`
 	 */
-	AddServlet(path: "/name", callback: (args: {[parameter: str]: str}, info: { remoteAddress: str }) => void): void;
+	AddServlet(path: str, callback: (this: DsWebServer, args: {[parameter: str]: str}, info: { remoteAddress: str }) => void): void;
 
 	/**
 	 * Batch method calls to set object properties
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Disconnect Client from WebServer */
 	Disconnect(ip: str, id?: num_int): void;
@@ -6964,10 +7318,10 @@ declare class DsWebServer {
 	SetFolder(folder: str_ptd): void;
 
 	/** Called when received client message */
-	SetOnReceive(callback: (msg: str, ip: str, id: num_int) => void): void;
+	SetOnReceive(callback: (this: DsWebServer, msg: str, ip: str, id: num_int) => void): void;
 
 	/** Called when file uploaded to server */
-	SetOnUpload(callback: (filename: str, ip: str) => void): void;
+	SetOnUpload(callback: (this: DsWebServer, filename: str, ip: str) => void): void;
 
 	/** Respond to incoming HTTP request */
 	SetResponse(text: str): void;
@@ -6991,6 +7345,12 @@ declare class DsWebSocket {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Close web socket */
 	Close(): void;
 
@@ -7007,13 +7367,13 @@ declare class DsWebSocket {
 	Send(message: str): void;
 
 	/** Called when WebSocket was closed */
-	SetOnClose(callback: () => void): void;
+	SetOnClose(callback: (this: DsWebSocket) => void): void;
 
 	/** Called when received message from server */
-	SetOnMessage(callback: (message: str) => void): void;
+	SetOnMessage(callback: (this: DsWebSocket, message: str) => void): void;
 
 	/** Called when WebSocket is open */
-	SetOnOpen(callback: () => void): void;
+	SetOnOpen(callback: (this: DsWebSocket) => void): void;
 }
 
 
@@ -7032,7 +7392,7 @@ declare class DsWebView {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: DsWebView, type: str) => void, time?: num_mls): void;
 
 	/** Load previous page */
 	Back(): void;
@@ -7042,6 +7402,12 @@ declare class DsWebView {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Check if history contains a previous page */
 	CanGoBack(): bin;
@@ -7062,7 +7428,7 @@ declare class DsWebView {
 	ClearHistory(): void;
 
 	/** Execute JS code inside the WebView */
-	Execute(code: str_jsc, callback?: (result: all) => void): void;
+	Execute(code: str_jsc, callback?: (this: DsWebView, result: all) => void): void;
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -7132,7 +7498,7 @@ declare class DsWebView {
 
 	/**
 	 * Load html to WebView
-	 * @param options <br>
+	 * @param options `AllowZoom`, `AutoZoom`, `Wide`, `FillX/Y`, `NoActionBar`, `IgnoreErrors`, `IgnoreSSLErrors`, `NoApp`, `NoCapture`, `NoLocate`, `NoLongTouch`, `NoPause`, `NoRedirect`, `NoScrollBars`, `Overview`, `Progress`, `ScrollFade`, `UseBasicInput`, `UseBrowser`\
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoActionBar` - prevents copy/paste popup\
@@ -7146,11 +7512,11 @@ declare class DsWebView {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	LoadHtml(html: str_htm, baseFolder?: str_ptd, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
+	LoadHtml(html: str_htm, baseFolder?: str_ptd, options?: str_com): void;
 
 	/**
 	 * Load url to WebView
-	 * @param options <br>
+	 * @param options `AllowZoom`, `AutoZoom`, `Wide`, `FillX/Y`, `NoActionBar`, `IgnoreErrors`, `IgnoreSSLErrors`, `NoApp`, `NoCapture`, `NoLocate`, `NoLongTouch`, `NoPause`, `NoRedirect`, `NoScrollBars`, `Overview`, `Progress`, `ScrollFade`, `UseBasicInput`, `UseBrowser`\
  	 * &emsp; `AllowZoom` - Allows the user to zoom the page\
  	 * &emsp; `Wide` - force page using “wide” viewport\
  	 * &emsp; `NoActionBar` - prevents copy/paste popup\
@@ -7164,7 +7530,7 @@ declare class DsWebView {
  	 * &emsp; `UseBasicInput` - makes softkeyboard useful for html code editors\
  	 * &emsp; `UseBrowser` - Open links in external browser
 	 */
-	LoadUrl(url: str_url, options?: string | ("AllowZoom"|"AutoZoom"|"Wide"|"FillX/Y"|"NoActionBar"|"IgnoreErrors"|"IgnoreSSLErrors"|"NoApp"|"NoCapture"|"NoLocate"|"NoLongTouch"|"NoPause"|"NoRedirect"|"NoScrollBars"|"Overview"|"Progress"|"ScrollFade"|"UseBasicInput"|"UseBrowser")[]): void;
+	LoadUrl(url: str_url, options?: str_com): void;
 
 	/**
 	 * Access Java object methods via reflection
@@ -7231,25 +7597,25 @@ declare class DsWebView {
 	SetTextZoom(zoom: num_frc): void;
 
 	/** Called when message logged to console */
-	SetOnConsole(callback: (msg: str) => void): void;
+	SetOnConsole(callback: (this: DsWebView, msg: str) => void): void;
 
 	/** Called when a context menu was used */
-	SetOnContextMenu(callback: (item: str, url: str, img: str, type: str) => void): void;
+	SetOnContextMenu(callback: (this: DsWebView, item: str, url: str, img: str, type: str) => void): void;
 
 	/** Called when an error occured */
-	SetOnError(callback: (error: str) => void): void;
+	SetOnError(callback: (this: DsWebView, error: str) => void): void;
 
 	/** Called when loading progress changed */
-	SetOnProgress(callback: (progress: num_prc) => void): void;
+	SetOnProgress(callback: (this: DsWebView, progress: num_prc) => void): void;
 
 	/** Traps HTTP Requests */
-	SetOnRequest(callback: (url: str, method: str, isMain: bin, isRedirect: bin) => void): void;
+	SetOnRequest(callback: (this: DsWebView, url: str, method: str, isMain: bin, isRedirect: bin) => void): void;
 
 	/** Called when user touched the control */
-	SetOnTouch(callback: (event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouch(callback: (this: DsWebView, event: { source: dso, action: "Down"|"Move"|"Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when link klicked */
-	SetOnUrl(callback: (url: str_url) => void): void;
+	SetOnUrl(callback: (this: DsWebView, url: str_url) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -7264,7 +7630,7 @@ declare class DsWebView {
 	SetScale(x: num_fac, y: num_fac): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** En/Disable touchmode on the control */
 	SetTouchMode(mode: bin): void;
@@ -7296,8 +7662,9 @@ declare class DsWebView {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: DsWebView) => void): void;
 }
 
 
@@ -7308,6 +7675,12 @@ declare class DsWizard {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Hides the control and removes it from the screen */
 	Dismiss(): void;
@@ -7355,6 +7728,12 @@ declare class DsYesNoDialog {
 	 */
 	Batch(properties: {[command: str]: lst}): void;
 
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
+
 	/** Hides the control and removes it from the screen */
 	Dismiss(): void;
 
@@ -7380,10 +7759,10 @@ declare class DsYesNoDialog {
 	SetButtonText(yes: str, no: str): void;
 
 	/** Called when user selects Yes or No */
-	SetOnTouch(callback: (result: "Yes"|"No") => void): void;
+	SetOnTouch(callback: (this: DsYesNoDialog, result: "Yes"|"No") => void): void;
 
 	/** Change the size of the control */
-	SetSize(width: num, height: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
+	SetSize(width?: num, height?: num, options?: "px"|"sp"|"dip"|"dp"|"mm"|"pt"): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -7409,6 +7788,12 @@ declare class DsZipUtil {
 	 * @param properties \{ command: args }
 	 */
 	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Extra properties
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Close ZipUtil */
 	Close(): void;
@@ -7461,7 +7846,7 @@ declare class DsDatabase {
 	addTransaction(transaction: obj): void;
 
 	/** Close the database */
-	close(success?: (msg: str) => void, error?: (msg: str) => void): void;
+	close(success?: (this: DsDatabase, msg: str) => void, error?: (this: DsDatabase, msg: str) => void): void;
 
 	/** Close the database */
 	Close(): void;
@@ -7470,10 +7855,10 @@ declare class DsDatabase {
 	Delete(): void;
 
 	/** Execute SQL query */
-	executeSql(statement: str_sql, params?: lst, success?: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (t: all, err: { message: str }) => void): void;
+	executeSql(statement: str_sql, params?: lst, success?: (this: DsDatabase, tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (this: DsDatabase, t: all, err: { message: str }) => void): void;
 
 	/** Execute SQL query */
-	ExecuteSql(sql: str_sql, params?: lst, success?: (res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (err: str) => void): void;
+	ExecuteSql(sql: str_sql, params?: lst, success?: (this: DsDatabase, res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void, error?: (this: DsDatabase, err: str) => void): void;
 
 	/** Get database name */
 	GetName(): str;
@@ -7485,11 +7870,11 @@ declare class DsDatabase {
 	name: str;
 
 	/** Open database */
-	open(success?: () => void, error?: (msg: str) => void): void;
+	open(success?: (this: DsDatabase) => void, error?: (this: DsDatabase, msg: str) => void): void;
 
 	/** ReadTransaction
 	 * @deprecated  Use ExecuteSql instead */
-	readTransaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (err: str) => void, success?: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
+	readTransaction(fn: (this: DsDatabase, tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (this: DsDatabase, err: str) => void, success?: (this: DsDatabase, tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }, res: { rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
 
 	/** StartNextTransaction
 	 * @deprecated  Use ExecuteSql instead */
@@ -7497,7 +7882,7 @@ declare class DsDatabase {
 
 	/** Transaction
 	 * @deprecated  Use ExecuteSql instead */
-	transaction(fn: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (err: str) => void, success?: (fnc: (tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
+	transaction(fn: (this: DsDatabase, tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, error?: (this: DsDatabase, err: str) => void, success?: (this: DsDatabase, fnc: (this: DsDatabase, tx: { db: { openargs: { name: str, dblocation: str }, dbname: str, name: str }, txlock: bin, readOnly: bin, executes: [{ success: str, qid: num_int, sql: str_sql, params: lst }] }) => void, res: { length: num_int, rowsAffected: num_int, rows: { item(i): { id: num, data: all, data_num: num } } }) => void): void;
 }
 
 

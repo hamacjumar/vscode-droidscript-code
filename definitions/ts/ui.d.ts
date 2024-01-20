@@ -1,5 +1,11 @@
 declare var ui: UI;
-declare type UIObject = UIAccordion | UIAppBar | UIBottomNavbar | UIButton | UIButtonGroup | UICheckbox | UICheckboxGroup | UIChip | UIDatePicker | UIDialog | UIDivider | UIDrawer | UIDropdown | UIFAB | UIImage | UILayout | UIList | UIMenu | UIProgress | UIRadioGroup | UISelect | UISlider | UIStepper | UISwitch | UISwitchGroup | UITabs | UIText | UITextField | UITimePicker | UITreeView | UIWebView | UIColorPicker | UIDateTimePicker | UIPopover | UIPopup | UIProgressDialog;
+declare const platform: { mobile: bin, ios: bin, android: bin, type: "mobile" | "tablet" | "desktop" };
+declare class App {
+	onStart(): void;
+	onLoad(): void;
+	onExit(): void;
+}
+declare type UIObject = UIAccordion | UIAppBar | UIBottomNavbar | UIButton | UIButtonGroup | UICheckbox | UICheckboxGroup | UIChip | UIDatePicker | UIDialog | UIDivider | UIDrawer | UIDropdown | UIFAB | UIImage | UILayout | UIList | UIMenu | UIProgress | UIRadioGroup | UISelect | UISlider | UIStepper | UISwitch | UISwitchGroup | UITabs | UIText | UITextField | UITimePicker | UITreeView | UIWebView | UIColorPicker | UIDateTimePicker | UIPopover | UIPopup | UIProgressDialog | UItheme;
 /** ui object */
 declare type uio = UIObject;
 
@@ -128,7 +134,7 @@ declare class UI {
 	/**
 	 * AddDivider
 	 * @param parent The layour where to add the divider.
-	 * @param width `Fraction of the screen width. Default is 1.`
+	 * @param width `Fraction of the screen width.`
 	 * @param options A comma separated Divider options. Values can be `Inset`
 	 */
 	addDivider(parent: obj, width?: num, options?: str): UIDivider;
@@ -136,13 +142,14 @@ declare class UI {
 	/**
 	 * AddDrawer
 	 * @param lay The drawer layout.
+	 * @param width `width of the drawer`
 	 */
-	addDrawer(lay: obj, options?: str_com): UIDrawer;
+	addDrawer(lay: obj, options?: str_com, width?: num): UIDrawer;
 
 	/**
 	 * AddDropdown
 	 * @param parent The layout where to add the dropdown.
-	 * @param list The list items to show.
+	 * @param list `The list items to show.`
 	 * @param options A comma separated Dropdown options. Can be 
  Colors: `Primary` `Secondary` `Default` 
  `Variants`: `Contained` `Outlined` `Text` 
@@ -152,7 +159,7 @@ declare class UI {
 	 * @param width `Fraction of the screen width. [0-1]`
 	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addDropdown(parent: obj, list?: lst, options?: str, width?: num, height?: num): UIDropdown;
+	addDropdown(parent: obj, list?: str_com, options?: str, width?: num, height?: num): UIDropdown;
 
 	/**
 	 * AddFAB
@@ -228,7 +235,7 @@ declare class UI {
 	/**
 	 * AddRadioGroup
 	 * @param parent The parent where to add the RadioGroup component.
-	 * @param list The list items array.
+	 * @param list `The list items array.`
 	 * @param options Radio Sizes: `Small` `Medium` 
  `Colors`: `Primary` `Secondary` 
  `Icon Position: `Left` or `Right` 
@@ -238,12 +245,12 @@ declare class UI {
 	 * @param width `Fraction of the screen width. [0-1]`
 	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addRadioGroup(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UIRadioGroup;
+	addRadioGroup(parent: obj, list?: str_com, options?: str_com, width?: num, height?: num): UIRadioGroup;
 
 	/**
 	 * AddSelect
 	 * @param parent The parent layout where to add the control
-	 * @param list The list of items for the Select options
+	 * @param list `The list of items for the Select options`
 	 * @param options Sizes: `Small` `Medium` 
  `Variant`: `Filled` `Outlined` `Standard` 
  `Margin`: `Dense` `Normal` 
@@ -251,7 +258,7 @@ declare class UI {
 	 * @param width `Fraction of the screen width. [0-1]`
 	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addSelect(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UISelect;
+	addSelect(parent: obj, list?: str_com, options?: str_com, width?: num, height?: num): UISelect;
 
 	/**
 	 * AddSlider
@@ -291,7 +298,7 @@ declare class UI {
 	/**
 	 * AddSwitchGroup
 	 * @param parent The parent layout where to add the SwitchGroup Component.
-	 * @param list The list items array whose elements can be `String` if items is text only, or `Array` of the form `[ "icon", "label" ]` if items is icon and text.
+	 * @param list The list items array whose elements can be `String` if items is text only,  or `Array` of the form `[ "icon",  "label" ]` if items is icon and text.
 	 * @param options Icon: `Icon` 
  `Color`: `Primary` or `Secondary` 
  `Container`: `Elevated` or `Outlined` 
@@ -300,12 +307,12 @@ declare class UI {
 	 * @param width `Fraction of the screen width. [0-1]`
 	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addSwitchGroup(parent: obj, list?: obj, options?: str_com, width?: num, height?: num): UISwitchGroup;
+	addSwitchGroup(parent: obj, list?: str_com, options?: str_com, width?: num, height?: num): UISwitchGroup;
 
 	/**
 	 * AddTabs
 	 * @param parent The parent layout where to add the Tabs Component.
-	 * @param list An array of tab names.
+	 * @param list `An array of tab names.`
 	 * @param options Enable swipe: `Swipeable` 
  `Colors`: `Primary` `Secondary` `Inherit` `Transparent` `Default` 
  `Variant`: `Standard` `Scrollable` `FullWidth` 
@@ -314,7 +321,7 @@ Utils: `Icon` `Center` `Paper`
 	 * @param width `Fraction of the screen width. [0-1]`
 	 * @param height `Fraction of the screen height. [0-1]`
 	 */
-	addTabs(parent: obj, list?: lst, options?: str_com, width?: num, height?: num): UITabs;
+	addTabs(parent: obj, list?: str_com, options?: str_com, width?: num, height?: num): UITabs;
 
 	/**
 	 * AddText
@@ -372,6 +379,9 @@ Format `Html` `Icon` `Italize` `Monospace` `Bold` `Underline`
 	 */
 	addWebView(parent: obj, url?: str, options?: str_com, width?: num, height?: num): UIWebView;
 
+	/** Set the current theme */
+	setTheme(theme: "dark"|"light"): void;
+
 	/**
 	 * ShowColorPicker
 	 * @param value `A hexadecimal default value for the color picker.`
@@ -390,7 +400,7 @@ Format `Html` `Icon` `Italize` `Monospace` `Bold` `Underline`
  	 * &emsp; `MM` - DD\
  	 * &emsp; `HH` - MM
 	 */
-	showDateTimePicker(callback: () => void, date?: str, time?: str, format?: str): UIDateTimePicker;
+	showDateTimePicker(callback: (this: UIDateTimePicker) => void, date?: str, time?: str, format?: str): UIDateTimePicker;
 
 	/**
 	 * ShowPopover
@@ -425,33 +435,39 @@ Format `Html` `Icon` `Italize` `Monospace` `Bold` `Underline`
 	 */
 	showProgressDialog(text?: str, options?: str_com): UIProgressDialog;
 
+	/** UI theme information */
+	theme: UItheme;
+
+	/** UI library version */
+	version: num;
+
 }
 
 declare class UIAccordion {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -481,7 +497,7 @@ declare class UIAccordion {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -490,16 +506,19 @@ declare class UIAccordion {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns whether the accordion is rounded or not */
 	rounded: bin;
@@ -631,10 +650,10 @@ declare class UIAccordion {
 	getLayoutIndex(layout: obj): num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (index: num, expand: bin) => void): void;
+	setOnTouch(callback: (this: UIAccordion, index: num, expand: bin) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (title: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIAccordion, title: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetTextColor
@@ -740,7 +759,7 @@ declare class UIAccordion {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -761,28 +780,28 @@ declare class UIAccordion {
 declare class UIAppBar {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -815,7 +834,7 @@ declare class UIAppBar {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns whether the appbar has menu button */
 	menu: bin;
@@ -827,16 +846,19 @@ declare class UIAppBar {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or return the AppBar title text */
 	text: str;
@@ -863,7 +885,7 @@ declare class UIAppBar {
 	width: num;
 
 	/** SetOnMenu */
-	setOnMenu(callback: () => void): void;
+	setOnMenu(callback: (this: UIAppBar) => void): void;
 
 	/**
 	 * AddLayout
@@ -882,10 +904,10 @@ declare class UIAppBar {
 	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIAppBar, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIAppBar, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -974,7 +996,7 @@ declare class UIAppBar {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -995,25 +1017,25 @@ declare class UIAppBar {
 declare class UIBottomNavbar {
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -1049,7 +1071,7 @@ declare class UIBottomNavbar {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -1058,16 +1080,19 @@ declare class UIBottomNavbar {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -1091,7 +1116,7 @@ declare class UIBottomNavbar {
 	width: num;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (text: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIBottomNavbar, text: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetList
@@ -1159,7 +1184,7 @@ declare class UIBottomNavbar {
 	popItem(): void;
 
 	/** SetOnChange */
-	setOnChange(callback: (text: str, index: num) => void): void;
+	setOnChange(callback: (this: UIBottomNavbar, text: str, index: num) => void): void;
 
 	/**
 	 * SetEnabled
@@ -1194,7 +1219,7 @@ declare class UIBottomNavbar {
 	hideLabels(): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIBottomNavbar, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -1283,7 +1308,7 @@ declare class UIBottomNavbar {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -1314,25 +1339,25 @@ declare class UIBottomNavbar {
 declare class UIButton {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the accepted files for an upload button */
 	acceptedFiles: str;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the badge content */
 	badge: num;
@@ -1344,7 +1369,7 @@ declare class UIButton {
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -1374,7 +1399,7 @@ declare class UIButton {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -1383,16 +1408,19 @@ declare class UIButton {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the button */
 	sizeVariant: str;
@@ -1401,7 +1429,7 @@ declare class UIButton {
 	text: str;
 
 	/** Sets or returns the text color in hexadecimal format */
-	textColor: str;
+	textColor: str_col;
 
 	/** Sets or returns the size of the text within the control */
 	textSize: num;
@@ -1428,7 +1456,7 @@ declare class UIButton {
 	width: num;
 
 	/** SetOnFileSelect */
-	setOnFileSelect(callback: (files: lst) => void): void;
+	setOnFileSelect(callback: (this: UIButton, files: lst) => void): void;
 
 	/**
 	 * SetToolTip
@@ -1468,10 +1496,10 @@ declare class UIButton {
 	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIButton, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIButton, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -1550,7 +1578,7 @@ declare class UIButton {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -1571,28 +1599,28 @@ declare class UIButton {
 declare class UIButtonGroup {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -1622,7 +1650,7 @@ declare class UIButtonGroup {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -1634,16 +1662,19 @@ declare class UIButtonGroup {
 	orientation: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant */
 	sizeVariant: str;
@@ -1676,10 +1707,10 @@ declare class UIButtonGroup {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (text: str, index: num, event: obj) => void): void;
+	setOnTouch(callback: (this: UIButtonGroup, text: str, index: num, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (text: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIButtonGroup, text: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetList
@@ -1845,7 +1876,7 @@ declare class UIButtonGroup {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -1876,28 +1907,28 @@ declare class UIButtonGroup {
 declare class UICheckbox {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -1939,7 +1970,7 @@ declare class UICheckbox {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -1948,16 +1979,19 @@ declare class UICheckbox {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the space between the checkbox icon and the label text */
 	spaceBetween: num;
@@ -1993,7 +2027,7 @@ declare class UICheckbox {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (check: bin) => void): void;
+	setOnTouch(callback: (this: UICheckbox, check: bin) => void): void;
 
 	/**
 	 * SetIcon
@@ -2006,7 +2040,7 @@ declare class UICheckbox {
 	getIcon(): obj;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UICheckbox, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -2095,7 +2129,7 @@ declare class UICheckbox {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -2126,28 +2160,28 @@ declare class UICheckbox {
 declare class UICheckboxGroup {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -2195,7 +2229,7 @@ declare class UICheckboxGroup {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -2207,16 +2241,19 @@ declare class UICheckboxGroup {
 	outlined: bin;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the Checkbox */
 	sizeVariant: str;
@@ -2225,7 +2262,7 @@ declare class UICheckboxGroup {
 	spaceBetween: num;
 
 	/** Sets or returns the text color in hexadecimal format */
-	textColor: str;
+	textColor: str_col;
 
 	/** Sets or returns the size of the checkbox icon */
 	textSize: num;
@@ -2246,10 +2283,10 @@ declare class UICheckboxGroup {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (value: bin, text: str, index: num, event: obj) => void): void;
+	setOnTouch(callback: (this: UICheckboxGroup, value: bin, text: str, index: num, event: obj) => void): void;
 
 	/** SetOnChange */
-	setOnChange(callback: (values: lst) => void): void;
+	setOnChange(callback: (this: UICheckboxGroup, values: lst) => void): void;
 
 	/**
 	 * SetIcon
@@ -2368,7 +2405,7 @@ declare class UICheckboxGroup {
 	shiftItem(): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (label: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UICheckboxGroup, label: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetCornerRadius
@@ -2467,7 +2504,7 @@ declare class UICheckboxGroup {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -2488,31 +2525,31 @@ declare class UICheckboxGroup {
 declare class UIChip {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the avatar */
 	avatar: str;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -2554,7 +2591,7 @@ declare class UIChip {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -2563,16 +2600,19 @@ declare class UIChip {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant */
 	sizeVariant: str;
@@ -2608,7 +2648,7 @@ declare class UIChip {
 	setTouchable(touchable: bin): void;
 
 	/** SetOnDelete */
-	setOnDelete(callback: () => void): void;
+	setOnDelete(callback: (this: UIChip) => void): void;
 
 	/**
 	 * SetCornerRadius
@@ -2621,10 +2661,10 @@ declare class UIChip {
 	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIChip, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIChip, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -2713,7 +2753,7 @@ declare class UIChip {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -2750,7 +2790,7 @@ declare class UIDatePicker {
 	setLimits(past?: str, future?: str): void;
 
 	/** SetOnSelect */
-	setOnSelect(callback: (date: str) => void): void;
+	setOnSelect(callback: (this: UIDatePicker, date: str) => void): void;
 
 	/**
 	 * SetFormat
@@ -2778,10 +2818,10 @@ declare class UIDialog {
 	titleText: str;
 
 	/** SetOnAction */
-	setOnAction(callback: (text: str, index: num) => void): void;
+	setOnAction(callback: (this: UIDialog, text: str, index: num) => void): void;
 
 	/** SetOnClose */
-	setOnClose(callback: () => void): void;
+	setOnClose(callback: (this: UIDialog) => void): void;
 
 	/** Show */
 	show(): void;
@@ -2794,34 +2834,34 @@ declare class UIDialog {
 declare class UIDivider {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
 
 	/** Sets or returns the color in hexadecimal format */
-	color: str;
+	color: str_col;
 
 	/** Sets or returns the corner radius in pixels */
 	cornerRadius: num;
@@ -2842,7 +2882,7 @@ declare class UIDivider {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -2851,16 +2891,19 @@ declare class UIDivider {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -2881,10 +2924,10 @@ declare class UIDivider {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIDivider, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIDivider, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -2973,7 +3016,7 @@ declare class UIDivider {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -3040,16 +3083,16 @@ declare class UIDrawer {
 	disableDiscovery(value: bin): void;
 
 	/** SetOnOpen */
-	setOnOpen(callback: () => void): void;
+	setOnOpen(callback: (this: UIDrawer) => void): void;
 
 	/** SetOnClose */
-	setOnClose(callback: () => void): void;
+	setOnClose(callback: (this: UIDrawer) => void): void;
 
 	/**
 	 * Show
-	 * @param anchor Open position. Can be `left` or `right`. Default is `left`
+	 * @param anchor Open position. Can be `left` or `right`.
 	 */
-	show(anchor: str): void;
+	show(anchor?: str): void;
 
 	/** Hide */
 	hide(): void;
@@ -3059,28 +3102,28 @@ declare class UIDrawer {
 declare class UIDropdown {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -3116,7 +3159,7 @@ declare class UIDropdown {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -3128,16 +3171,19 @@ declare class UIDropdown {
 	orientation: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the dropdown button */
 	sizeVariant: str;
@@ -3167,10 +3213,10 @@ declare class UIDropdown {
 	width: num;
 
 	/** SetOnChange */
-	setOnChange(callback: (value: obj, index: num) => void): void;
+	setOnChange(callback: (this: UIDropdown, value: obj, index: num) => void): void;
 
 	/** SetOnClose */
-	setOnClose(callback: () => void): void;
+	setOnClose(callback: (this: UIDropdown) => void): void;
 
 	/**
 	 * SetList
@@ -3253,10 +3299,10 @@ declare class UIDropdown {
 	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIDropdown, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIDropdown, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -3345,7 +3391,7 @@ declare class UIDropdown {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -3366,28 +3412,28 @@ declare class UIDropdown {
 declare class UIFAB {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -3423,7 +3469,7 @@ declare class UIFAB {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -3432,16 +3478,19 @@ declare class UIFAB {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the FAB */
 	sizeVariant: str;
@@ -3481,10 +3530,10 @@ declare class UIFAB {
 	setCornerRadius(tl?: num, tr?: num, bl?: num, br?: num, mode?: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIFAB, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIFAB, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -3573,7 +3622,7 @@ declare class UIFAB {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -3594,28 +3643,28 @@ declare class UIFAB {
 declare class UIImage {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -3660,7 +3709,7 @@ declare class UIImage {
 	lineWidth: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the maximum miter length */
 	miterLimit: num;
@@ -3672,19 +3721,22 @@ declare class UIImage {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
 	/** Returns the pixel data of the image */
 	pixelData: lst;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the current color of the line or stroke */
 	strokeColor: str;
@@ -3711,7 +3763,7 @@ declare class UIImage {
 	width: num;
 
 	/** SetOnLoad */
-	setOnLoad(callback: () => void): void;
+	setOnLoad(callback: (this: UIImage) => void): void;
 
 	/**
 	 * EnableContextMenu
@@ -3832,13 +3884,13 @@ declare class UIImage {
 	drawPoint(x: num, y: num, color?: str): void;
 
 	/** SetOnTouchMove */
-	setOnTouchMove(callback: () => void): void;
+	setOnTouchMove(callback: (this: UIImage) => void): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIImage, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIImage, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -3927,7 +3979,7 @@ declare class UIImage {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -3958,31 +4010,31 @@ declare class UIImage {
 declare class UILayout {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the horizontal alignment of the control in a Linear Layout */
 	alignment: str;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -4015,7 +4067,7 @@ declare class UILayout {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -4027,16 +4079,19 @@ declare class UILayout {
 	orientation: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -4112,10 +4167,10 @@ declare class UILayout {
 	removeChild(child: obj): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UILayout, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UILayout, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -4201,7 +4256,7 @@ declare class UILayout {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -4232,16 +4287,16 @@ declare class UILayout {
 declare class UIList {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the size of the avatar */
 	avatarSize: str;
@@ -4253,13 +4308,13 @@ declare class UIList {
 	backColor: str;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -4301,7 +4356,7 @@ declare class UIList {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -4313,16 +4368,19 @@ declare class UIList {
 	outlined: bin;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns a boolean whether the list is selectable or not */
 	selectable: bin;
@@ -4367,16 +4425,16 @@ declare class UIList {
 	addItem(title: str, body?: str, image?: str, index?: num): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (title: str, body: str, icon: str, index: num, event: obj) => void): void;
+	setOnTouch(callback: (this: UIList, title: str, body: str, icon: str, index: num, event: obj) => void): void;
 
 	/** SetOnSelect */
-	setOnSelect(callback: (title: str, index: num) => void): void;
+	setOnSelect(callback: (this: UIList, title: str, index: num) => void): void;
 
 	/** SetOnAction */
-	setOnAction(callback: (icon: str, index: num) => void): void;
+	setOnAction(callback: (this: UIList, icon: str, index: num) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (title: str, body: str, icon: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIList, title: str, body: str, icon: str, index: num, event: obj) => void): void;
 
 	/** GetSelectedItems */
 	getSelectedItems(): lst_num;
@@ -4573,7 +4631,7 @@ declare class UIList {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -4594,28 +4652,28 @@ declare class UIList {
 declare class UIMenu {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -4645,7 +4703,7 @@ declare class UIMenu {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -4654,16 +4712,19 @@ declare class UIMenu {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -4684,7 +4745,7 @@ declare class UIMenu {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (item: str, icon: str, index: num) => void): void;
+	setOnTouch(callback: (this: UIMenu, item: str, icon: str, index: num) => void): void;
 
 	/**
 	 * Show
@@ -4766,7 +4827,7 @@ declare class UIMenu {
 	getEnabledByName(name: str): bin;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIMenu, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -4841,7 +4902,7 @@ declare class UIMenu {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -4872,28 +4933,28 @@ declare class UIMenu {
 declare class UIProgress {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -4923,7 +4984,7 @@ declare class UIProgress {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -4932,16 +4993,19 @@ declare class UIProgress {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -4971,10 +5035,10 @@ declare class UIProgress {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIProgress, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIProgress, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -5063,7 +5127,7 @@ declare class UIProgress {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -5094,28 +5158,28 @@ declare class UIProgress {
 declare class UIRadioGroup {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -5160,7 +5224,7 @@ declare class UIRadioGroup {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -5172,19 +5236,25 @@ declare class UIRadioGroup {
 	outlined: bin;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the size of the radio button */
 	radioSize: str;
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
+
+	/** Sets the label of the RadioGroup */
+	setLabel(label: str): void;
 
 	/** Sets or returns the space between the radio button and the text */
 	spaceBetween: num;
@@ -5214,10 +5284,10 @@ declare class UIRadioGroup {
 	width: num;
 
 	/** SetOnChange */
-	setOnChange(callback: (index: num) => void): void;
+	setOnChange(callback: (this: UIRadioGroup, index: num) => void): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (checked: bin, label: str, index: num, event: obj) => void): void;
+	setOnTouch(callback: (this: UIRadioGroup, checked: bin, label: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetList
@@ -5291,7 +5361,7 @@ declare class UIRadioGroup {
 	getEnabledByName(name: str): bin;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (label: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIRadioGroup, label: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetCornerRadius
@@ -5390,7 +5460,7 @@ declare class UIRadioGroup {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -5411,28 +5481,28 @@ declare class UIRadioGroup {
 declare class UISelect {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -5474,7 +5544,7 @@ declare class UISelect {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the maximum height of the popup container */
 	maxHeight: num;
@@ -5486,19 +5556,22 @@ declare class UISelect {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
 	/** Sets or returns the color of the popup in hexadecimal format */
 	popupColor: str;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the Select Component */
 	sizeVariant: str;
@@ -5528,13 +5601,13 @@ declare class UISelect {
 	width: num;
 
 	/** SetOnChange */
-	setOnChange(callback: (value: str) => void): void;
+	setOnChange(callback: (this: UISelect, value: str) => void): void;
 
 	/** SetOnOpen */
-	setOnOpen(callback: () => void): void;
+	setOnOpen(callback: (this: UISelect) => void): void;
 
 	/** SetOnClose */
-	setOnClose(callback: (value: str) => void): void;
+	setOnClose(callback: (this: UISelect, value: str) => void): void;
 
 	/**
 	 * AddItem
@@ -5600,10 +5673,10 @@ declare class UISelect {
 	getEnabledByName(name: str): bin;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UISelect, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UISelect, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -5692,7 +5765,7 @@ declare class UISelect {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -5723,28 +5796,28 @@ declare class UISelect {
 declare class UISlider {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -5771,7 +5844,7 @@ declare class UISlider {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the marks on the Slider Component */
 	marks: bin;
@@ -5792,16 +5865,19 @@ declare class UISlider {
 	orientation: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the Sider Component steps */
 	step: num;
@@ -5834,10 +5910,10 @@ declare class UISlider {
 	width: num;
 
 	/** SetOnChange */
-	setOnChange(callback: (value: num) => void): void;
+	setOnChange(callback: (this: UISlider, value: num) => void): void;
 
 	/** SetOnSelect */
-	setOnSelect(callback: (value: num) => void): void;
+	setOnSelect(callback: (this: UISlider, value: num) => void): void;
 
 	/**
 	 * SetRange
@@ -5856,10 +5932,10 @@ declare class UISlider {
 	getMarks(): bin;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UISlider, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UISlider, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -5948,7 +6024,7 @@ declare class UISlider {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -5979,31 +6055,31 @@ declare class UISlider {
 declare class UIStepper {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the active step */
 	activeStep: num;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -6030,7 +6106,7 @@ declare class UIStepper {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -6042,16 +6118,19 @@ declare class UIStepper {
 	orientation: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -6072,10 +6151,10 @@ declare class UIStepper {
 	width: num;
 
 	/** SetOnComplete */
-	setOnComplete(callback: () => void): void;
+	setOnComplete(callback: (this: UIStepper) => void): void;
 
 	/** SetOnChange */
-	setOnChange(callback: (index: num) => void): void;
+	setOnChange(callback: (this: UIStepper, index: num) => void): void;
 
 	/** NextStep */
 	nextStep(): void;
@@ -6109,10 +6188,10 @@ declare class UIStepper {
 	setTitleText(index: num, title: str): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIStepper, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIStepper, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -6201,7 +6280,7 @@ declare class UIStepper {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -6232,28 +6311,28 @@ declare class UIStepper {
 declare class UISwitch {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -6292,7 +6371,7 @@ declare class UISwitch {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -6301,19 +6380,22 @@ declare class UISwitch {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns a boolean value whether this component is required or not */
 	required: bin;
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the toggle switch */
 	sizeVariant: str;
@@ -6325,7 +6407,7 @@ declare class UISwitch {
 	text: str;
 
 	/** Sets or returns the text color in hexadecimal format */
-	textColor: str;
+	textColor: str_col;
 
 	/** Sets or returns the size of the text within the control */
 	textSize: num;
@@ -6346,10 +6428,10 @@ declare class UISwitch {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (check: bin) => void): void;
+	setOnTouch(callback: (this: UISwitch, check: bin) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UISwitch, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -6438,7 +6520,7 @@ declare class UISwitch {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -6469,28 +6551,28 @@ declare class UISwitch {
 declare class UISwitchGroup {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -6544,7 +6626,7 @@ declare class UISwitchGroup {
 	list: lst;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -6556,16 +6638,19 @@ declare class UISwitchGroup {
 	outlined: bin;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the theme color <col nobox #fb8c00>primary</col> or <col nobox #fb8c00>secondary</col> */
 	textColor: str;
@@ -6585,11 +6670,14 @@ declare class UISwitchGroup {
 	/** Sets or returns the width of the control as a fraction of the parent control */
 	width: num;
 
+	/** SetLabel */
+	setLabel(label: str): void;
+
 	/** SetOnTouch */
-	setOnTouch(callback: (value: bin, text: str, index: num, event: obj) => void): void;
+	setOnTouch(callback: (this: UISwitchGroup, value: bin, text: str, index: num, event: obj) => void): void;
 
 	/** SetOnChange */
-	setOnChange(callback: (values: lst) => void): void;
+	setOnChange(callback: (this: UISwitchGroup, values: lst) => void): void;
 
 	/**
 	 * SetValueByIndex
@@ -6651,7 +6739,7 @@ declare class UISwitchGroup {
 	getEnabled(index: num): bin;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (text: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UISwitchGroup, text: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetCornerRadius
@@ -6750,7 +6838,7 @@ declare class UISwitchGroup {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -6771,28 +6859,28 @@ declare class UISwitchGroup {
 declare class UITabs {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -6843,7 +6931,7 @@ declare class UITabs {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -6852,16 +6940,19 @@ declare class UITabs {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the scroll button mode when tab items overflow the width of its container */
 	scrollButtonMode: str;
@@ -6894,10 +6985,10 @@ declare class UITabs {
 	width: num;
 
 	/** SetOnChange */
-	setOnChange(callback: (name: str, index: num) => void): void;
+	setOnChange(callback: (this: UITabs, name: str, index: num) => void): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (name: str, index: num) => void): void;
+	setOnTouch(callback: (this: UITabs, name: str, index: num) => void): void;
 
 	/**
 	 * SetTabs
@@ -7000,7 +7091,7 @@ declare class UITabs {
 	getLayoutIndex(layout: obj): num;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (text: str, index: num, event: obj) => void): void;
+	setOnContextMenu(callback: (this: UITabs, text: str, index: num, event: obj) => void): void;
 
 	/**
 	 * SetCornerRadius
@@ -7027,7 +7118,7 @@ declare class UITabs {
 	 * @param top `The tab-item top padding.`
 	 * @param right `The tab-item right padding.`
 	 * @param bottom `The tab-item bottom padding.`
-	 * @param mode Unit of measurement. Default is `px`. You can pass `%` `rem` `vw`.
+	 * @param mode Unit of measurement. You can pass `%` `rem` `vw`.
 	 */
 	setTabPadding(left?: num, top?: num, right?: num, bottom?: num, mode?: str): void;
 
@@ -7118,7 +7209,7 @@ declare class UITabs {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -7139,25 +7230,25 @@ declare class UITabs {
 declare class UIText {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns the horizontal alignment of the text */
 	alignment: str;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns whether the text is <col nobox #fb8c00>bold</col> or not */
 	bold: bin;
@@ -7166,7 +7257,7 @@ declare class UIText {
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -7199,7 +7290,7 @@ declare class UIText {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -7208,22 +7299,25 @@ declare class UIText {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the text */
 	text: str;
 
 	/** Sets or returns the text color in hexadecimal format */
-	textColor: str;
+	textColor: str_col;
 
 	/** Sets or returns the fontsize for the text */
 	textSize: num;
@@ -7271,10 +7365,10 @@ declare class UIText {
 	setTextShadow(radius: num, dx: num, dy: num, color: obj): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIText, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIText, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -7363,7 +7457,7 @@ declare class UIText {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -7394,31 +7488,31 @@ declare class UIText {
 declare class UITextField {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** Sets or returns a boolean value whethe the input is focus when rendered into the DOM */
 	autoFocus: bin;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -7466,7 +7560,7 @@ declare class UITextField {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the maximum rows for a <col nobox #fb8c00>multiline</col> textfield */
 	maxRows: num;
@@ -7484,22 +7578,25 @@ declare class UITextField {
 	outlineColor: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
 	/** Sets or returns the placeholder text */
 	placeholder: str;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns a boolean value whether the text field in required or not */
 	required: bin;
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the size variant of the textfield */
 	sizeVariant: str;
@@ -7535,13 +7632,13 @@ declare class UITextField {
 	width: num;
 
 	/** SetOnEnter */
-	setOnEnter(callback: (text: str) => void): void;
+	setOnEnter(callback: (this: UITextField, text: str) => void): void;
 
 	/** SetOnChange */
-	setOnChange(callback: (text: str) => void): void;
+	setOnChange(callback: (this: UITextField, text: str) => void): void;
 
 	/** SetOnFocus */
-	setOnFocus(callback: (focus: bin) => void): void;
+	setOnFocus(callback: (this: UITextField, focus: bin) => void): void;
 
 	/**
 	 * SetRows
@@ -7560,7 +7657,7 @@ declare class UITextField {
 	setStartAdornment(text: str, type?: str): void;
 
 	/** SetStartAdornmentOnTouch */
-	setStartAdornmentOnTouch(callback: () => void): void;
+	setStartAdornmentOnTouch(callback: (this: UITextField) => void): void;
 
 	/** GetStartAdornment */
 	getStartAdornment(): str;
@@ -7575,16 +7672,16 @@ declare class UITextField {
 	setEndAdornment(text: str, type?: str): void;
 
 	/** SetEndAdornmentOnTouch */
-	setEndAdornmentOnTouch(callback: () => void): void;
+	setEndAdornmentOnTouch(callback: (this: UITextField) => void): void;
 
 	/** GetEndAdornment */
 	getEndAdornment(): str;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UITextField, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UITextField, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -7673,7 +7770,7 @@ declare class UITextField {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -7721,35 +7818,35 @@ declare class UITimePicker {
  `A` : AM or PM 
  `a` : am pm
 	 */
-	show(callback: (value: str) => void, format: str): bin;
+	show(callback: (this: UITimePicker, value: str) => void, format: str): bin;
 }
 
 
 declare class UITreeView {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the border thickness in pixels */
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -7776,7 +7873,7 @@ declare class UITreeView {
 	list: obj;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -7785,16 +7882,19 @@ declare class UITreeView {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -7818,7 +7918,7 @@ declare class UITreeView {
 	width: num;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (value: str, path: str) => void): void;
+	setOnTouch(callback: (this: UITreeView, value: str, path: str) => void): void;
 
 	/**
 	 * SetList
@@ -7840,7 +7940,7 @@ declare class UITreeView {
 	getItem(name: str): obj;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UITreeView, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -7929,7 +8029,7 @@ declare class UITreeView {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -7960,22 +8060,22 @@ declare class UITreeView {
 declare class UIWebView {
 
 	/** Returns the absolute height of the control in pixels */
-	absHeight: num;
+	absHeight: num_pxl;
 
 	/** Returns the absolute distance of the control from the left in pixels */
-	absLeft: num;
+	absLeft: num_pxl;
 
 	/** Returns the absolute distance of the control from the top in pixels */
-	absTop: num;
+	absTop: num_pxl;
 
 	/** Returns the absolute width of the control in pixels */
-	absWidth: num;
+	absWidth: num_pxl;
 
 	/** A hexadecimal color of the form <col nobox #fb8c00>#rrggbb</col> */
-	backColor: str;
+	backColor: str_col;
 
 	/** The path to your image file */
-	backImage: str;
+	backImage: str_pth;
 
 	/** Sets or returns the list of blocked urls */
 	blockUrls: lst;
@@ -7984,7 +8084,7 @@ declare class UIWebView {
 	border: num;
 
 	/** Sets or returns the border color */
-	borderColor: str;
+	borderColor: str_col;
 
 	/** Sets or returns the border style */
 	borderStyle: str;
@@ -7997,6 +8097,9 @@ declare class UIWebView {
 
 	/** A reference to the webview`s window document object */
 	document: obj;
+
+	/** Load the current url */
+	loadUrl(url: str_url): void;
 
 	/** Sets or returns the redirect url when an error occur */
 	errorPage: str;
@@ -8017,7 +8120,7 @@ declare class UIWebView {
 	left: num;
 
 	/** Sets or returns the margin of the control */
-	margins: lst;
+	margins: num|lst_num;
 
 	/** Sets or returns the opacity of the control */
 	opacity: num;
@@ -8026,16 +8129,19 @@ declare class UIWebView {
 	options: str;
 
 	/** Sets or returns the padding of the control */
-	padding: lst;
+	padding: num|lst_num;
 
 	/** Returns the parent layout control */
-	parent: obj;
+	parent: UILayout;
 
-	/** Returns the position of the control */
-	position: obj;
+	/**
+	 * Returns the position of the control
+	 * @return \{ left, top, right, bottom }
+	 */
+	position: { left: num, top: num, right: num, bottom: num };
 
 	/** Sets or returns the angle of rotation in degrees */
-	rotation: num;
+	rotation: num_deg;
 
 	/** Sets or returns the color of the text */
 	textColor: str;
@@ -8065,13 +8171,13 @@ declare class UIWebView {
 	window: obj;
 
 	/** SetOnLoad */
-	setOnLoad(callback: () => void): void;
+	setOnLoad(callback: (this: UIWebView) => void): void;
 
 	/** SetOnTouch */
-	setOnTouch(callback: (event: obj) => void): void;
+	setOnTouch(callback: (this: UIWebView, event: obj) => void): void;
 
 	/** SetOnContextMenu */
-	setOnContextMenu(callback: (event: obj) => void): void;
+	setOnContextMenu(callback: (this: UIWebView, event: obj) => void): void;
 
 	/**
 	 * Animate
@@ -8160,7 +8266,7 @@ declare class UIWebView {
 	 * SetBorder
 	 * @param width `Border-left thickness in pixels.`
 	 * @param clr Border color in hexadecimal form `#rrggbb`
-	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`. Default is `solid`
+	 * @param style Border-styles. Values can be `dotted` `dashed` `solid` `double` `groove` `ridge` `inset` and `outset`.
 	 */
 	setBorder(width?: num, clr?: str, style?: str): void;
 
@@ -8201,7 +8307,7 @@ declare class UIColorPicker {
 declare class UIDateTimePicker {
 
 	/** SetOnSelect */
-	setOnSelect(callback: (value: str) => void): void;
+	setOnSelect(callback: (this: UIDateTimePicker, value: str) => void): void;
 }
 
 
@@ -8224,10 +8330,10 @@ declare class UIPopup {
 	text: str;
 
 	/** SetOnClose */
-	setOnClose(callback: () => void): void;
+	setOnClose(callback: (this: UIPopup) => void): void;
 
 	/** SetOnAction */
-	setOnAction(callback: () => void): void;
+	setOnAction(callback: (this: UIPopup) => void): void;
 
 	/** Show */
 	show(): void;
@@ -8259,7 +8365,20 @@ declare class UIProgressDialog {
 	hide(): void;
 
 	/** SetOnClose */
-	setOnClose(callback: () => void): void;
+	setOnClose(callback: (this: UIProgressDialog) => void): void;
+}
+
+
+declare class UItheme {
+
+	/** True if dark theme is selected, otherwise false (light theme) */
+	dark: bin;
+
+	/** Primary theme color */
+	primary: str_col;
+
+	/** Secondary theme color */
+	secondary: str_col;
 }
 
 

@@ -12,6 +12,7 @@ const curVer = Number(conf.version.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2$3"));
 const data = {
     VERSION: curVer,
     serverIP: '',
+    reload: '',
     PORT: CONSTANTS.PORT,
     localProjects: [],
     info: {}

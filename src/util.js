@@ -11,12 +11,22 @@ module.exports = {
     homePath,
     HOMEPATH,
     excludeFile,
-    batchPromises
+    batchPromises,
+    first
 }
 
 /** @param {string[]} paths */
 function homePath(...paths) {
     return path.resolve(HOMEPATH, ...paths)
+}
+
+/**@type {<S, T>(list: S[], predicate:(v:S) => T?) => T?} */
+function first(list, predicate) {
+    for (const v of list) {
+        const t = predicate(v);
+        if (t) return t;
+    }
+    return null;
 }
 
 /** @typedef {{exclude?: string[]}} ProjConfig */

@@ -60,7 +60,7 @@ async function login(password) {
     }
 }
 
-/** @type {(password: string) => Promise<DSServerResponse<{list:string[]}>>} */
+/** @type {(folder: string) => Promise<DSServerResponse<{list:string[]}>>} */
 async function listFolder(folder) {
 
     if (!CONNECTED) return { status: "bad", error: "not connected" };
@@ -84,7 +84,7 @@ async function createApp(name, type, template) {
 
 /**
  * @param {string} path
- * @return {Promise<DSServerResponse<{data:string|NodeJS.ArrayBufferView}>>}
+ * @return {Promise<DSServerResponse<{data:NodeJS.ArrayBufferView}>>}
  */
 async function loadFile(path) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(path)}`;

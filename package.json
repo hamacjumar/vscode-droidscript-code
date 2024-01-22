@@ -135,6 +135,13 @@
       }
     ],
     "menus": {
+      "explorer/context": [
+        {
+          "command": "droidscript-code.declareVars",
+          "when": "resourceLangId == javascript",
+          "group": "4_configure"
+        }
+      ],
       "editor/title/context": [
         {
           "command": "droidscript-code.declareVars",

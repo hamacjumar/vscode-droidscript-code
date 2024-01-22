@@ -404,7 +404,7 @@ function getRemotePath(filePath, proj) {
 
     const conf = loadConfig(proj);
     const dsFile = path.relative(proj.path, filePath);
-    if (!excludeFile(conf, dsFile)) return null;
+    if (excludeFile(conf, dsFile)) return null;
     return proj.PROJECT + "/" + dsFile.replace(/\\/g, '/');
 }
 

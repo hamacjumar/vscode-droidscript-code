@@ -90,7 +90,7 @@ async function loadFile(path) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(path)}`;
     const response = await axios.get(url, { responseType: 'arraybuffer' }).catch(catchError);
 
-    if (typeof response.status === "undefined") return response.data;
+    if (response.status === undefined) return response.data;
     return { status: "ok", data: response.data }
 }
 

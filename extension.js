@@ -9,7 +9,7 @@ const debugServer = require('./src/websocket');
 const localData = require("./src/local-data");
 const connectToDroidScript = require("./src/commands/connect-to-droidscript");
 const CONSTANTS = require("./src/CONSTANTS");
-const { homePath, excludeFile, batchPromises, first } = require("./src/util");
+const { homePath, excludeFile, batchPromises, first, loadConfig } = require("./src/util");
 
 const DocsTreeData = require("./src/DocsTreeView");
 const ProjectsTreeData = require("./src/ProjectsTreeView");
@@ -28,8 +28,6 @@ const codeActionProvider = require("./src/providers/codeActionProvider");
 
 // global variables
 let PROJECT = "";
-let FOLDER_NAME = "";
-let IS_DROIDSCRIPT = false;
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
 
@@ -51,8 +49,6 @@ let dbgServ;
 
 /** @type {vscode.StatusBarItem?} */
 let syncButton;
-/** @type {vscode.StatusBarItem?} */
-let loadButton;
 /** @type {vscode.StatusBarItem?} */
 let playButton;
 /** @type {vscode.StatusBarItem?} */
@@ -290,34 +286,29 @@ async function loadFiles(action) {
 
 /**
  * @param {string} folder
+ * @param {ProjConfig} conf
  * @param {vscode.Progress<{message?:string, increment?:number}>} [proc]
  */
-async function indexFolder(folder, proc, listFolder = ext.listFolder) {
+async function indexFolder(folder, conf, proc, listFolder = ext.listFolder, root = folder) {
     folder = folder || PROJECT;
+    if (!folder.startsWith('/')) root = folder += '/';
     let data = await listFolder(folder);
     proc?.report({ message: "indexing " + folder });
 
     if (data.status !== "ok") throw Error(data.error);
     if (!data.list.length) return [];
 
-    IS_DROIDSCRIPT = true;
-
     /** @type {string[]} */
     const files = [];
     for (var i = 0; i < data.list.length; i++) {
-        let fileName = data.list[i], path = folder + "/" + fileName;
-        let filePath = path.replace(PROJECT + "/", "");
-        if (fileName.startsWith("~")) continue;
+        let file = data.list[i], path = folder + file;
+        // ignore hidden files
+        if (excludeFile(conf, path.replace(root, ''))) continue;
 
-        if (fileName.indexOf(".") > 0) {
-            // assume its a file
+        if (file.indexOf('.') > 0)
             files.push(path);
-        }
-        else {
-            // assume its a folder
-            const childFiles = await indexFolder(path, proc, listFolder);
-            files.push(...childFiles);
-        }
+        else if (!excludeFile(conf, path.replace(root, '') + '/'))
+            files.push(...await indexFolder(path + '/', conf, proc, listFolder, root));
     }
     return files;
 }
@@ -328,15 +319,17 @@ async function indexFolder(folder, proc, listFolder = ext.listFolder) {
 * @param {SyncAction} action Update existing files. Default is download all
 */
 async function getAllFiles(folder, proc, action) {
-    const localPath = projectPath('');
-    if (!localPath) return;
+    if (!CONNECTED) return showReloadPopup();
+    const proj = DSCONFIG.localProjects.find(p => p.PROJECT === PROJECT);
+    if (!proj) return;
+    const conf = loadConfig(proj);
 
-    let remoteFiles = (await indexFolder(folder).catch(e => (catchError(e), [])))
+    let remoteFiles = (await indexFolder(folder, conf, proc).catch(e => (catchError(e), [])))
         .map(f => f.replace(PROJECT + '/', ''));
-    let localFiles = (await indexFolder(localPath, proc,
+    let localFiles = (await indexFolder(proj.path, conf, proc,
         async p => ({ status: 'ok', list: fs.readdirSync(p) }))
         .catch(e => (catchError(e), [])))
-        .map(f => f.replace(localPath + '/', ''));
+        .map(f => f.replace(proj.path + '/', ''));
 
     const update = action == "updLocal" || action == "updRemote";
     if (update) {
@@ -348,20 +341,18 @@ async function getAllFiles(folder, proc, action) {
     if (download) {
         const folders = new Set(remoteFiles.map(p => path.dirname(p)));
         for (const folder of folders)
-            if (folder != '.' && !createFolder(folder))
-                vscode.window.showErrorMessage("Failed creating " + folder + '/')
+            if (folder != '.') createFolder(folder);
 
         await batchPromises(remoteFiles, async (file) => {
             proc.report({ message: file, increment: 100 / remoteFiles.length });
             let response = await ext.loadFile(PROJECT + '/' + file);
-            if (response && response.status === "ok")
-                await writeFile(file, response.data);
+            if (response.status !== "ok") throw Error(`Error fetching ${file}:\n${response.error}\n${response.data || ''}`)
+            writeFile(file, response.data);
         });
     } else {
         await batchPromises(localFiles, async (file) => {
             proc.report({ message: file, increment: 100 / localFiles.length });
-            const dstDir = path.dirname(PROJECT + "/" + file);
-            await ext.uploadFile(projectPath(file) || file, dstDir, path.basename(file));
+            uploadFile(file);
         });
     }
 }
@@ -372,47 +363,48 @@ async function showReloadPopup() {
 }
 
 /** @param {string} filePath */
-function projectPath(filePath) {
-    if (!FOLDER_NAME) return;
+function getLocalPath(filePath) {
+    if (!folderPath) throw Error("Something went wrong");
     return path.resolve(folderPath.fsPath, filePath);
 }
 
-// Write the file to the workspace
-/**
+/** Write the file to the workspace
  * @param {string} fileName
  * @param {string | NodeJS.ArrayBufferView} content
  */
-async function writeFile(fileName, content) {
-    const filePath = projectPath(fileName);
-    if (filePath) await fs.writeFile(filePath, content, { flag: 'w' }).catch(catchError);
+function writeFile(fileName, content) {
+    const filePath = getLocalPath(fileName);
+    fs.writeFileSync(filePath, content, { flag: 'w' });
 }
 
-// Create a folder in the workspace
-/** @param {string} filePath */
-function createFolder(filePath) {
-    filePath = projectPath(filePath) || filePath;
-    try {
-        if (!fs.existsSync(filePath))
-            fs.mkdirSync(filePath, { recursive: true });
-        return true;
-    } catch (error) {
-        return false;
-    }
+/** Create a folder in the workspace
+ * @param {string} folderPath 
+ */
+function createFolder(folderPath) {
+    const localPath = getLocalPath(folderPath);
+    fs.mkdirSync(localPath, { recursive: true });
+}
+
+/** Write the file to remote project
+ * @param {string} file
+ */
+async function uploadFile(file) {
+    const localPath = getLocalPath(file);
+    const dstDir = path.dirname(PROJECT + '/' + file);
+    await ext.uploadFile(localPath, dstDir, path.basename(file));
 }
 
 /** 
  * @param {string} filePath
  * @param {LocalProject} [proj]
  */
-function getProjectPath(filePath, proj) {
+function getRemotePath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
-    if (!proj) return null;
+    if (!proj) throw Error("Something went wrong!");
 
+    const conf = loadConfig(proj);
     const dsFile = path.relative(proj.path, filePath);
-    if (excludeFile(proj, dsFile)) {
-        console.log("ignored " + dsFile);
-        return null;
-    }
+    if (!excludeFile(conf, dsFile)) return null;
     return proj.PROJECT + "/" + dsFile.replace(/\\/g, '/');
 }
 
@@ -421,12 +413,11 @@ function getProjectPath(filePath, proj) {
 let documentToSave = null;
 /** @param {vscode.TextDocument} [doc] */
 async function onDidSaveTextDocument(doc) {
-    if (!IS_DROIDSCRIPT) return;
     documentToSave = doc || documentToSave;
     if (!documentToSave) return;
     if (!CONNECTED) return showReloadPopup();
 
-    const dsFile = getProjectPath(documentToSave.uri.fsPath);
+    const dsFile = getRemotePath(documentToSave.uri.fsPath);
     if (!dsFile) return;
 
     await ext.uploadFile(documentToSave.uri.fsPath, path.dirname(dsFile), path.basename(dsFile));
@@ -438,13 +429,12 @@ async function onDidSaveTextDocument(doc) {
 let filesToDelete = null;
 /** @param {vscode.FileDeleteEvent} [e] */
 async function onDeleteFile(e) {
-    if (!IS_DROIDSCRIPT) return;
     filesToDelete = e || filesToDelete;
     if (!filesToDelete) return;
     if (!CONNECTED) return showReloadPopup();
 
     for (const file of filesToDelete.files) {
-        const dsFile = getProjectPath(file.fsPath);
+        const dsFile = getRemotePath(file.fsPath);
         if (!dsFile) continue;
         await ext.deleteFile(dsFile).catch(catchError);
     }
@@ -463,13 +453,12 @@ const catchError = (error) => {
 let filesToCreate = null;
 /** @param {vscode.FileCreateEvent} [e] */
 async function onCreateFile(e) {
-    if (!IS_DROIDSCRIPT) return;
     filesToCreate = e || filesToCreate;
     if (!filesToCreate) return;
     if (!CONNECTED) return showReloadPopup();
 
     for (const file of filesToCreate.files) {
-        const dsFile = getProjectPath(file.fsPath);
+        const dsFile = getRemotePath(file.fsPath);
         if (!dsFile) continue;
 
         const stats = fs.statSync(file.fsPath);
@@ -494,14 +483,13 @@ async function onCreateFile(e) {
 let filesToRename = null;
 /** @param {vscode.FileRenameEvent} [e] */
 async function onRenameFile(e) {
-    if (!IS_DROIDSCRIPT) return;
     filesToRename = e || filesToRename;
     if (!filesToRename) return;
     if (!CONNECTED) return showReloadPopup();
 
     for (const file of filesToRename.files) {
-        const oldDsFile = getProjectPath(file.oldUri.fsPath);
-        const newDsFile = getProjectPath(file.newUri.fsPath);
+        const oldDsFile = getRemotePath(file.oldUri.fsPath);
+        const newDsFile = getRemotePath(file.newUri.fsPath);
         if (!oldDsFile || !newDsFile) continue;
 
         await ext.renameFile(oldDsFile, newDsFile).catch(catchError);
@@ -521,18 +509,6 @@ function displayControlButtons() {
         GlobalContext.subscriptions.push(syncButton);
     }
 
-    if (!loadButton) {
-        loadButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-        GlobalContext.subscriptions.push(loadButton);
-    }
-    loadButton.command = {
-        command: 'droidscript-code.loadFiles',
-        title: syncActions[lastSyncAction].text,
-        arguments: [lastSyncAction]
-    };
-    loadButton.text = syncActions[lastSyncAction].icon;
-    loadButton.tooltip = syncActions[lastSyncAction].text;
-
     if (!playButton) {
         playButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         playButton.command = 'droidscript-code.play';
@@ -550,7 +526,6 @@ function displayControlButtons() {
     }
 
     syncButton.show();
-    loadButton.show();
     playButton.show();
     stopButton.show();
 }
@@ -590,7 +565,6 @@ function showStatusBarItems() {
 
 function hideStatusBarItems() {
     syncButton?.hide();
-    loadButton?.hide();
     playButton?.hide();
     stopButton?.hide();
     displayConnectionStatus();
@@ -853,7 +827,6 @@ async function openProject(item) {
  * @param {LocalProject} proj
  */
 async function openProjectFolder(proj) {
-    FOLDER_NAME = path.basename(proj.path);
     folderPath = vscode.Uri.file(proj.path);
     setProjectName(proj.PROJECT);
     showStatusBarItems();
@@ -862,7 +835,8 @@ async function openProjectFolder(proj) {
     if (isOpen) return;
 
     const n = vscode.workspace.workspaceFolders?.length || 0;
-    vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
+    const success = vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
+    if (!success) return;
 
     try {
         const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));

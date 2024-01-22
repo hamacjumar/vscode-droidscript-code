@@ -12,7 +12,8 @@ module.exports = {
     HOMEPATH,
     excludeFile,
     batchPromises,
-    first
+    first,
+    loadConfig
 }
 
 /** @param {string[]} paths */
@@ -29,22 +30,19 @@ function first(list, predicate) {
     return null;
 }
 
-/** @typedef {{exclude?: string[]}} ProjConfig */
-
-/** @type {(proj: LocalProject) => ProjConfig|null} */
+/** @type {(proj: LocalProject) => ProjConfig} */
 function loadConfig(info) {
     const jsconfigPath = path.join(info.path, "jsconfig.json");
-    if (!fs.existsSync(jsconfigPath)) return null;
+    if (!fs.existsSync(jsconfigPath)) return { ...dfltJSConfig, };
 
     const confStr = fs.readFileSync(jsconfigPath, "utf8");
     return JSON.parse(confStr);
 }
 
-/** @type {(proj: LocalProject, path:string) => boolean} */
-function excludeFile(proj, filePath) {
-    const conf = loadConfig(proj);
-    const exclude = conf?.exclude || dfltJSConfig.exclude;
-    for (const glob of exclude)
+/** @type {(conf: ProjConfig, path:string) => boolean} */
+function excludeFile(conf, filePath) {
+    if (filePath.split(/[/\\]/).find(p => p[0] === '.' || p[0] === '~')) return true;
+    for (const glob of conf.exclude || dfltJSConfig.exclude)
         if (minimatch(filePath, glob)) return true;
     return false;
 }

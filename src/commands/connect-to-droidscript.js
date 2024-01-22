@@ -46,8 +46,11 @@ async function getServerInfo() {
         let info = await ext.getServerInfo();
         if (!info || info.status !== "ok") {
             prog.report({ message: "Failed" });
-            vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Re-enter IP Address")
-                .then(res => { res !== undefined && showIpPopup() });
+            vscode.window.showErrorMessage("Make sure the DS App is running and IP Address is correct.", "Retry", "Re-enter IP Address")
+                .then(res => {
+                    if (res === "Retry") getServerInfo();
+                    else if (res === "Re-enter IP Address") showIpPopup();
+                });
             return;
         }
 
@@ -86,8 +89,9 @@ async function login(pass = '') {
     let data = await ext.login(pass);
 
     if (!data) {
-        const selection = await vscode.window.showWarningMessage("IP Address cannot be reached.", "Re-enter IP Address")
-        if (selection === "Re-enter IP Address") showIpPopup();
+        const selection = await vscode.window.showWarningMessage("IP Address cannot be reached.", "Retry", "Re-enter IP Address")
+        if (selection === "Retry") login(pass);
+        else if (selection === "Re-enter IP Address") showIpPopup();
         return false;
     }
 

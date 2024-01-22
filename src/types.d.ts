@@ -10,7 +10,12 @@ type ProjInfo = {
     title: string,
     file: string,
     ext: "js" | "html" | "py"
-}
+};
+
+type ProjConfig = {
+    exclude?: string[]
+};
+
 
 type LocalProject = {
     // The path of the local project

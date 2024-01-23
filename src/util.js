@@ -3,7 +3,7 @@ const fs = require("fs");
 const minimatch = require("minimatch");
 const os = require("os");
 const path = require("path");
-const dfltJSConfig = require("../definitions/jsconfig.json")
+const dfltJSConfig = require("../definitions/default_jsconfig.json")
 
 const HOMEPATH = os.homedir();
 

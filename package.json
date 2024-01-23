@@ -93,6 +93,11 @@
         "title": "Rename"
       },
       {
+        "command": "droidscript-code.extractAssets",
+        "title": "Extract Assets",
+        "icon": "$(sync)"
+      },
+      {
         "command": "droidscript-code.refreshProjects",
         "title": "Refresh",
         "icon": "$(sync)"

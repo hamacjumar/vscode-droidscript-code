@@ -1,7 +1,7 @@
 // path to local files and folders
 module.exports = {
     VERSION: 0.28,
-    DEBUG: !false,
+    DEBUG: false,
     LOCALFOLDER: ".droidscript",
     DSCONFIG: "dsconfig.json",
     SAMPLES: ".droidscript/samples",

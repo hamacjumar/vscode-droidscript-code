@@ -59,6 +59,7 @@ let folderPath;
 
 // subscriptions for registerCommands
 let subscribe = null;
+let startup = true;
 
 // This method is called to activate the extension
 /** @param {vscode.ExtensionContext} context */
@@ -72,6 +73,7 @@ async function activate(context) {
     }
     subscribe("connect", connectDS);
     subscribe("loadFiles", loadFiles);
+    subscribe("extractAssets", extractAssets);
     subscribe("stopApp", stop);
     subscribe("addNewApp", () => {
         if (CONNECTED) createNewApp(projectsTreeDataProvider, openProject);
@@ -235,7 +237,7 @@ async function openFile(filePath) {
     }
 }
 
-/** @typedef {"dnlAll" | "uplAll" | "updLocal" | "updRemote"} SyncAction */
+/** @typedef {"dnlAll" | "uplAll" | "updLocal" | "updRemote" | "skip"} SyncAction */
 /** @typedef {{ icon: string, text: string, desc: string }} SyncActionItem */
 /** @type {{[x in SyncAction]: SyncActionItem}} */
 const syncActions = {
@@ -243,6 +245,7 @@ const syncActions = {
     dnlAll: { icon: '$(fold-down)', text: 'Download All', desc: "downloads all files from the remote" },
     updRemote: { icon: '$(chevron-up)', text: 'Update Remote', desc: "uploads only files that already exist on the remote" },
     uplAll: { icon: '$(fold-up)', text: 'Upload All', desc: "uploads all local files to the remote" },
+    skip: { icon: '$(blocked)', text: 'Skip', desc: "Do not sync" }
 };
 /** @type {SyncAction} */
 let lastSyncAction = "updLocal";
@@ -264,7 +267,7 @@ async function loadFiles(action) {
             title: `Select sync action for \`${PROJECT}\``,
             ignoreFocusOut: true
         });
-        if (!selection) return;
+        if (!selection || selection.key == "skip") return;
 
         action = lastSyncAction = selection.key;
         displayControlButtons();
@@ -400,7 +403,7 @@ async function uploadFile(file) {
  */
 function getRemotePath(filePath, proj) {
     if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
-    if (!proj) throw Error("Something went wrong!");
+    if (!proj) return null;
 
     const conf = loadConfig(proj);
     const dsFile = path.relative(proj.path, filePath);
@@ -828,22 +831,31 @@ async function openProject(item) {
  */
 async function openProjectFolder(proj) {
     folderPath = vscode.Uri.file(proj.path);
+    const isOpen = vscode.workspace.workspaceFolders?.find(ws => ws.uri.fsPath === proj.path);
+
+    if (!isOpen) {
+        const selection = await vscode.window.showInformationMessage(`Open '${proj.PROJECT}'?`, {
+            modal: true,
+            detail: `This will add '${proj.PROJECT}' to your workspace.`
+        }, "Open");
+        if (selection !== "Open") return;
+
+        const n = vscode.workspace.workspaceFolders?.length || 0;
+        const success = vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: proj.PROJECT });
+        if (!success) return vscode.window.showWarningMessage("Something went wrong: Invalid Workspace State");
+    }
+
     setProjectName(proj.PROJECT);
     showStatusBarItems();
 
-    const isOpen = vscode.workspace.workspaceFolders?.find(ws => ws.uri.fsPath === proj.path);
-    if (isOpen) return;
-
-    const n = vscode.workspace.workspaceFolders?.length || 0;
-    const success = vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: PROJECT });
-    if (!success) return;
-
     try {
         const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
-        if (!info) return;
+        if (!info) return vscode.window.showErrorMessage("Couldn't fetch project info.");
 
+        vscode.commands.executeCommand("workbench.explorer.fileView.focus");
         await openFile(vscode.Uri.file(info.file));
-        await openDocs();
+        if (startup) await openDocs();
+        startup = false;
     } catch (e) {
         catchError(e);
     }

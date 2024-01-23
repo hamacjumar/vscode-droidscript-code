@@ -17,10 +17,13 @@ let DSCONFIG = localData.load();
 const axios = {
     /** @type {<T>(url: string, res:T) => T} */
     intercept: (url, res) => {
+        if (!CONSTANTS.DEBUG) return res;
+
         // @ts-ignore
-        if (typeof res.data !== "string") console.log(url, res.data);
+        let display = res.data instanceof Buffer ? res.data.toString() : res.data;
         // @ts-ignore
-        else console.log(url, JSON.stringify(res.data.slice(0, 100)));
+        display = typeof res.data === "string" ? res.data.slice(0, 256) : res.data;
+        console.log(url, display);
         return res;
     },
 
@@ -33,7 +36,7 @@ const axios = {
 
 /** @type {(error: any) => {status: undefined, data: DSServerResponse<{status:"bad"}>}} */
 const catchError = (error) => {
-    console.error(error);
+    console.error(error.stack || error.message || error);
     return { status: undefined, data: { status: "bad", error } };
 }
 
@@ -57,7 +60,7 @@ async function login(password) {
     }
 }
 
-/** @type {(password: string) => Promise<DSServerResponse<{list:string[]}>>} */
+/** @type {(folder: string) => Promise<DSServerResponse<{list:string[]}>>} */
 async function listFolder(folder) {
 
     if (!CONNECTED) return { status: "bad", error: "not connected" };
@@ -81,13 +84,13 @@ async function createApp(name, type, template) {
 
 /**
  * @param {string} path
- * @return {Promise<DSServerResponse<{data:string|NodeJS.ArrayBufferView}>>}
+ * @return {Promise<DSServerResponse<{data:NodeJS.ArrayBufferView}>>}
  */
 async function loadFile(path) {
     const url = `${DSCONFIG.serverIP}/${querystring.escape(path)}`;
     const response = await axios.get(url, { responseType: 'arraybuffer' }).catch(catchError);
 
-    if (typeof response.status === "undefined") return response.data;
+    if (response.status === undefined) return response.data;
     return { status: "ok", data: response.data }
 }
 

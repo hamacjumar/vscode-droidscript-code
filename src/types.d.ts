@@ -10,7 +10,12 @@ type ProjInfo = {
     title: string,
     file: string,
     ext: "js" | "html" | "py"
-}
+};
+
+type ProjConfig = {
+    exclude?: string[]
+};
+
 
 type LocalProject = {
     // The path of the local project
@@ -64,6 +69,8 @@ declare type DSCONFIG_T = {
     PORT: string;
     // Password used by DroidScript CLI
     password?: string;
+    // reload project
+    reload?: string,
     // An array of local projects
     localProjects: LocalProject[];
     // DroidScript info object

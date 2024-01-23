@@ -30,8 +30,8 @@ Unlike other development tools which take hours to install and eat up gigabytes 
 ![Open an app](./images/opening-app.gif)
 
 - If you are successfully connected, go to **DroidScript** section.
-- Expand the **"PROJECTS"** view and right-click on the project you want to open.
-- A popup message will open on the bottom right for confirmation.
+- Expand the **"PROJECTS"** view and click on the project you want to open.
+- A dialog will appear which asks where to place the local project directory.
 
 ## How to create an app?
 
@@ -59,7 +59,8 @@ Unlike other development tools which take hours to install and eat up gigabytes 
 
 ![Control Actions](./images/run-stop.gif)
 
-At the bottom of VS Code in the status bar, you can see the **`"Run"`** and **`"Stop"`** icon button.
+At the bottom of VS Code in the status bar, you can see the **`"Run"`** and **`"Stop"`** icon button.\
+Alternatively you can use the `alt+r` and `alt+s` shortcuts already known from the old web IDE.
 
 - **Play** - Run the currently opened DroidScript app.
 - **Stop** - Stop the currently running app.
@@ -83,16 +84,24 @@ At the bottom of VS Code in the status bar, you can see the **`"Run"`** and **`"
 
 ![Control Actions](./images/code-intellisense.gif)
 
-Completion items for `app`, `ui` and `MUI` scopes are provided in the extension. You can also hover to any `app`, `MUI` and `ui` methods to display a definition popup. Signature help is also provided so you can look at parameter names, types and descriptions while passing arguments to methods in each scope.
+This extension provides basic intellisense for `app`, `ui` and `MUI` scopes. You can also hover to any `app`, `MUI` and `ui` methods to display a definition popup. Signature help is also provided so you can look at parameter names, types and descriptions while passing arguments to methods in each scope.
+
+## Advanced Intellisense
+
+Since version 2.3.0 you can use the integrated VSCode intellisense to help writing better code. To enable native type checks, right-click on a project in the project tree view and click `Enable Types`. This will add a `jsconfig.json` file to your project with a basic tslint configuration.
+
+Initially you might see dozens of type errors in your source files. You can use the `Smart Declare Variables` feature by right-clicking on the project or a file in the vscode explorer, which then scans and automatically adds missing variable declarations on the fly. This should greatly reduce the remaining errors which you will have to address on your own.\
+**Note:** SmartDeclare is based on regular expressions and doesnt have a structural understanding of your code. Use at your own risk. Simply undo the changes if the resulting changes are largely undesired.
 
 ## Best Practices
 
-- Everytime you start editing your project, it is a good idea to reload the files to fetch any changes on the Project. Click the **Reload** button in the bottom of VS Code.
+- Everytime you start editing your project, it is a good idea to reload the files to fetch any changes on the Project. Click the **Reload** button in the bottom of VS Code and select your desired action from the quickpick dialog.
 - When you are working in VS Code, **DO NOT EDIT THE FILES IN THE WIFI IDE**.
 
 ## Known Issues
 
-- None so far.
+- Project doesnt automatically reload when replacing the root workspace folder
+- Bottom action buttons are not initially shown
 
 <br>
 

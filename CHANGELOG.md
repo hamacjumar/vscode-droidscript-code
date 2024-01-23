@@ -2,7 +2,26 @@
 
 Notable releases.
 
-### Version 0.2.8 - Not yet release!
+### Version 0.3.0
+- refactored project management
+- new `Sync Project` dialog options
+- associate projects with custom location
+- multiple open projects in workspace
+- Run `alt+r` and Stop `alt+s` keybinds
+- improved docs tree view
+- improved project tree view
+- docs opens github.io when not connected to DS
+- ignore hidden and custom files from jsconfig.json
+- significantly increased sync speed via parallel downloads
+- many other UX improvements
+
+**Typing**
+- Support for JSDoc typed code bases
+- Typescript definition files for the whole DroidScript API, including Hybrid, GameView and Material UI
+- `smartDeclare` feature to migrate code to using types
+- Use the strong VSCode js/ts intellisense capabilities!
+
+### Version 0.2.8
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for app scope.
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for ui scope.
 - Fixed autocompletion, signatureHelpProvider, hoverProvider and intellisense for MUI scope.

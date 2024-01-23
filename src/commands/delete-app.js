@@ -5,7 +5,7 @@ const rimraf = require("rimraf");
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
 const catchError = (error) => {
-    console.error(error);
+    console.error(error.stack || error.message || error);
     vscode.window.showErrorMessage(error.message || error);
     return { status: "bad", error };
 }

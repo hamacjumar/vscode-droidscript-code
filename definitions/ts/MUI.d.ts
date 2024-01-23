@@ -21,7 +21,7 @@ declare class DsMUI {
 	/**
 	 * Adds a simple alert with a single button
 	 * @param text `Text of the alert`
-	 * @param btnText `Button text. Default is OKAY`
+	 * @param btnText `Button text.`
 	 */
 	AddAlertSimple(text: str, btnText?: str, color?: str_col): MuiAlertSimple;
 
@@ -290,7 +290,7 @@ declare class DsMUI {
 	 * Adds a mui text control to the layout
 	 * @param options `DS text options`, `Thin`, `Light`, `Regular`, `Medium`, `Bold`, `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `secondary`, `jumbo`, `paragraph`
 	 */
-	AddText(parent: DsLayout, text: str, width?: num, height?: num, options?: str, color?: str_col): MuiText;
+	AddText(parent: DsLayout, text: str, width?: num, height?: num, options?: str_com, color?: str_col): MuiText;
 
 	/**
 	 * Adds a material filled textarea
@@ -459,7 +459,7 @@ declare class DsMUI {
 	/**
 	 * Create a simple alert with a single button
 	 * @param text `Text of the alert`
-	 * @param btnText `Button text. Default is OKAY`
+	 * @param btnText `Button text.`
 	 */
 	CreateAlertSimple(text: str, btnText?: str, color?: str_col): MuiAlertSimple;
 
@@ -521,7 +521,7 @@ declare class DsMUI {
 	CreateButtonText(text: str, width?: num_frc, height?: num_frc, options?: str): MuiButtonText;
 
 	/** Create button toggle */
-	CreateButtonToggle(text: str, width?: num_frc, height?: num_frc, value?: bin, callback?: () => void, color?: str_col, backColor?: str_col): MuiButtonToggle;
+	CreateButtonToggle(text: str, width?: num_frc, height?: num_frc, value?: bin, callback?: (this: MuiButtonToggle) => void, color?: str_col, backColor?: str_col): MuiButtonToggle;
 
 	/**
 	 * A material implementation of a card
@@ -873,7 +873,7 @@ declare class MuiAlert {
 	Hide(): void;
 
 	/** Calls a function when alert is close */
-	SetOnClose(callback: (isBtnClick: bin) => void): void;
+	SetOnClose(callback: (this: MuiAlert, isBtnClick: bin) => void): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -937,7 +937,7 @@ declare class MuiAlertSimple {
 	Hide(): void;
 
 	/** Calls a function when button is click */
-	SetOnTouch(callback: (isBtnClick: bin) => void): void;
+	SetOnTouch(callback: (this: MuiAlertSimple, isBtnClick: bin) => void): void;
 
 	/** Change displayed text */
 	SetText(text: str): void;
@@ -1019,10 +1019,10 @@ declare class MuiAppBar {
 	SetMenuIconColor(newColor: str_col): void;
 
 	/** Calls a function when the right controls are click */
-	SetOnControlTouch(callback: (btnTxt: str, index: num_int) => void): void;
+	SetOnControlTouch(callback: (this: MuiAppBar, btnTxt: str, index: num_int) => void): void;
 
 	/** Calls a function when the heading icon is click */
-	SetOnMenuTouch(callback: () => void): void;
+	SetOnMenuTouch(callback: (this: MuiAppBar) => void): void;
 
 	/**
 	 * Sets a new title
@@ -1099,8 +1099,9 @@ declare class MuiAppBar {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiAppBar) => void): void;
 }
 
 
@@ -1119,10 +1120,10 @@ declare class MuiAppBarElegant {
 	SetMenuIconColor(newColor: str_col): void;
 
 	/** Calls a function when the right controls are click */
-	SetOnControlTouch(callback: (btnTxt: str, index: num_int) => void): void;
+	SetOnControlTouch(callback: (this: MuiAppBarElegant, btnTxt: str, index: num_int) => void): void;
 
 	/** Calls a function when the heading icon is click */
-	SetOnMenuTouch(callback: () => void): void;
+	SetOnMenuTouch(callback: (this: MuiAppBarElegant) => void): void;
 
 	/**
 	 * Sets a new title
@@ -1199,8 +1200,9 @@ declare class MuiAppBarElegant {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiAppBarElegant) => void): void;
 }
 
 
@@ -1210,10 +1212,10 @@ declare class MuiAppBarModern {
 	GetHeight(options: "px"): num;
 
 	/** Calls a function when right control is touch */
-	SetOnControlTouch(callback: () => void): void;
+	SetOnControlTouch(callback: (this: MuiAppBarModern) => void): void;
 
 	/** Call a function when the menu icon is touch */
-	SetOnMenuTouch(callback: () => void): void;
+	SetOnMenuTouch(callback: (this: MuiAppBarModern) => void): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -1255,13 +1257,13 @@ declare class MuiAppBarModern {
 	SetCursorPos(position: num_int): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiAppBarModern) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard (line can still be inserted via Shift+Enter) */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiAppBarModern) => void): void;
 
 	/** Define a callback function which is called when the user focuses the control */
-	SetOnFocus(callback: () => void): void;
+	SetOnFocus(callback: (this: MuiAppBarModern) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -1277,7 +1279,7 @@ declare class MuiAppBarModern {
 declare class MuiBanner {
 
 	/** Calls a function when buttons are click (prev */
-	SetOnTouch(callback: (isOk: bin, btnText: str) => void): void;
+	SetOnTouch(callback: (this: MuiBanner, isOk: bin, btnText: str) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -1357,7 +1359,7 @@ declare class MuiBanner {
 	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
 
 	/** Called when the dialog or control has been closed */
-	SetOnClose(callback: () => void): void;
+	SetOnClose(callback: (this: MuiBanner) => void): void;
 }
 
 
@@ -1376,13 +1378,22 @@ declare class MuiButtonContained {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonContained, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -1443,6 +1454,7 @@ declare class MuiButtonContained {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -1487,10 +1499,10 @@ declare class MuiButtonContained {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonContained, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonContained) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -1533,8 +1545,9 @@ declare class MuiButtonContained {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonContained) => void): void;
 }
 
 
@@ -1553,13 +1566,22 @@ declare class MuiButtonElegant {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonElegant, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -1620,6 +1642,7 @@ declare class MuiButtonElegant {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -1664,10 +1687,10 @@ declare class MuiButtonElegant {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonElegant, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonElegant) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -1710,8 +1733,9 @@ declare class MuiButtonElegant {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonElegant) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -1733,13 +1757,22 @@ declare class MuiButtonFlat {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonFlat, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -1800,6 +1833,7 @@ declare class MuiButtonFlat {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -1844,10 +1878,10 @@ declare class MuiButtonFlat {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonFlat, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonFlat) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -1890,8 +1924,9 @@ declare class MuiButtonFlat {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonFlat) => void): void;
 }
 
 
@@ -1910,13 +1945,22 @@ declare class MuiButtonOutlined {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonOutlined, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -1977,6 +2021,7 @@ declare class MuiButtonOutlined {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2021,10 +2066,10 @@ declare class MuiButtonOutlined {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonOutlined, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonOutlined) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2067,8 +2112,9 @@ declare class MuiButtonOutlined {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonOutlined) => void): void;
 }
 
 
@@ -2087,13 +2133,22 @@ declare class MuiButtonRaised {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonRaised, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -2154,6 +2209,7 @@ declare class MuiButtonRaised {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2198,10 +2254,10 @@ declare class MuiButtonRaised {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonRaised, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonRaised) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2244,8 +2300,9 @@ declare class MuiButtonRaised {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonRaised) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -2267,13 +2324,22 @@ declare class MuiButtonRaisedO {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonRaisedO, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -2334,6 +2400,7 @@ declare class MuiButtonRaisedO {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2378,10 +2445,10 @@ declare class MuiButtonRaisedO {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonRaisedO, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonRaisedO) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2424,8 +2491,9 @@ declare class MuiButtonRaisedO {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonRaisedO) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -2447,13 +2515,22 @@ declare class MuiButtonRound {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonRound, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -2514,6 +2591,7 @@ declare class MuiButtonRound {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2558,10 +2636,10 @@ declare class MuiButtonRound {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonRound, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonRound) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2604,8 +2682,9 @@ declare class MuiButtonRound {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonRound) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -2627,13 +2706,22 @@ declare class MuiButtonRoundO {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonRoundO, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -2694,6 +2782,7 @@ declare class MuiButtonRoundO {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2738,10 +2827,10 @@ declare class MuiButtonRoundO {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonRoundO, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonRoundO) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2784,8 +2873,9 @@ declare class MuiButtonRoundO {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonRoundO) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -2807,13 +2897,22 @@ declare class MuiButtonText {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonText, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -2874,6 +2973,7 @@ declare class MuiButtonText {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -2918,10 +3018,10 @@ declare class MuiButtonText {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonText, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiButtonText) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -2964,8 +3064,9 @@ declare class MuiButtonText {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonText) => void): void;
 }
 
 
@@ -2984,13 +3085,22 @@ declare class MuiButtonToggle {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiButtonToggle, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -3051,6 +3161,7 @@ declare class MuiButtonToggle {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -3095,7 +3206,7 @@ declare class MuiButtonToggle {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiButtonToggle, src: dso) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -3138,8 +3249,9 @@ declare class MuiButtonToggle {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiButtonToggle) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -3149,16 +3261,16 @@ declare class MuiButtonToggle {
 declare class MuiCard {
 
 	/** Calls a function when buttons are click */
-	SetOnButtonTouch(callback: (btnText: str, cardName: str) => void): void;
+	SetOnButtonTouch(callback: (this: MuiCard, btnText: str, cardName: str) => void): void;
 
 	/** Calls a function when the image is click */
-	SetOnImageTouch(callback: (cardName: str) => void): void;
+	SetOnImageTouch(callback: (this: MuiCard, cardName: str) => void): void;
 
 	/** Calls a function when avatar is click */
-	SetOnAvatarTouch(callback: (cardName: str) => void): void;
+	SetOnAvatarTouch(callback: (this: MuiCard, cardName: str) => void): void;
 
 	/** Calls a function when title item is click */
-	SetOnTitleTouch(callback: (title: str, cardName: str) => void): void;
+	SetOnTitleTouch(callback: (this: MuiCard, title: str, cardName: str) => void): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -3229,15 +3341,16 @@ declare class MuiCard {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiCard) => void): void;
 }
 
 
 declare class MuiCheckbox {
 
 	/** Calls a function when the checkbox is click */
-	SetOnTouch(callback: (index: num_int, checked: bin) => void): void;
+	SetOnTouch(callback: (this: MuiCheckbox, index: num_int, checked: bin) => void): void;
 
 	/**
 	 * Get the check items in the list
@@ -3335,15 +3448,16 @@ declare class MuiCheckbox {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiCheckbox) => void): void;
 }
 
 
 declare class MuiCheckList {
 
 	/** Calls a function when the checklist is submitted */
-	SetOnSubmit(callback: (lst: lst) => void): void;
+	SetOnSubmit(callback: (this: MuiCheckList, lst: lst) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -3422,7 +3536,7 @@ declare class MuiCheckList {
 declare class MuiColorPicker {
 
 	/** Calls a function when a user click the OK button */
-	SetOnSelect(callback: (color?: str_col) => void): void;
+	SetOnSelect(callback: (this: MuiColorPicker, color?: str_col) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -3498,19 +3612,19 @@ declare class MuiDataTable {
 	RemoveRows(index: lst): void;
 
 	/** Get the selected rows */
-	GetSelectedRows(callback: (indexes: lst) => void): void;
+	GetSelectedRows(callback: (this: MuiDataTable, indexes: lst) => void): void;
 
 	/** Calls a function when the selection status of the table changes */
-	SetOnSelectionStatus(callback: (isTrue: bin) => void): void;
+	SetOnSelectionStatus(callback: (this: MuiDataTable, isTrue: bin) => void): void;
 
 	/** Calls a function when a row in the table is click */
-	SetOnTouch(callback: (row: str, index: num_int) => void): void;
+	SetOnTouch(callback: (this: MuiDataTable, row: str, index: num_int) => void): void;
 
 	/** Calls a function when the Table is ready and rendered already */
-	SetOnReady(callback: () => void): void;
+	SetOnReady(callback: (this: MuiDataTable) => void): void;
 
 	/** Calls a function when the Table is on progress */
-	SetOnProgress(callback: (value: num) => void): void;
+	SetOnProgress(callback: (this: MuiDataTable, value: num) => void): void;
 
 	/**
 	 * Set the rows of the table to a new values of data
@@ -3595,15 +3709,16 @@ declare class MuiDataTable {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiDataTable) => void): void;
 }
 
 
 declare class MuiDatePicker {
 
 	/** Calls a function when a user click the OK button */
-	SetOnSelect(callback: (date: str, yyyy: num_int, mm: num_int, dd: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiDatePicker, date: str, yyyy: num_int, mm: num_int, dd: num_int) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -3661,7 +3776,7 @@ declare class MuiDatePicker {
 declare class MuiDialog {
 
 	/** Calls a function when buttons are click (prev */
-	SetOnTouch(callback: (isOk: bin, btnText: str) => void): void;
+	SetOnTouch(callback: (this: MuiDialog, isOk: bin, btnText: str) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -3750,7 +3865,7 @@ declare class MuiDialog {
 	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
 
 	/** Called when the dialog or control has been closed */
-	SetOnClose(callback: () => void): void;
+	SetOnClose(callback: (this: MuiDialog) => void): void;
 }
 
 
@@ -3782,10 +3897,10 @@ declare class MuiDivider {
 declare class MuiFAB {
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiFAB, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiFAB) => void): void;
 
 	/**
 	 * Sets a new material icon
@@ -3806,13 +3921,22 @@ declare class MuiFAB {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiFAB, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -3883,8 +4007,9 @@ declare class MuiFAB {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiFAB) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -3897,10 +4022,10 @@ declare class MuiFAB {
 declare class MuiFABElegant {
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiFABElegant, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiFABElegant) => void): void;
 
 	/**
 	 * Sets a new material icon
@@ -3921,13 +4046,22 @@ declare class MuiFABElegant {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiFABElegant, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -3998,8 +4132,9 @@ declare class MuiFABElegant {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiFABElegant) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -4012,10 +4147,10 @@ declare class MuiFABElegant {
 declare class MuiFABOutline {
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiFABOutline, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiFABOutline) => void): void;
 
 	/**
 	 * Sets a new material icon
@@ -4036,13 +4171,22 @@ declare class MuiFABOutline {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiFABOutline, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -4113,8 +4257,9 @@ declare class MuiFABOutline {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiFABOutline) => void): void;
 
 	/** Change the color of the control */
 	SetColor(color: str_col, backColor: str_col): void;
@@ -4142,7 +4287,7 @@ declare class MuiList {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiList, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -4218,6 +4363,7 @@ declare class MuiList {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -4313,10 +4459,10 @@ declare class MuiList {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiList, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiList) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -4374,15 +4520,16 @@ declare class MuiList {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiList) => void): void;
 }
 
 
 declare class MuiListDialog {
 
 	/** Calls a function selects an item in the list */
-	SetOnSelect(callback: (name: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiListDialog, name: str, index: num_int) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -4461,19 +4608,19 @@ declare class MuiListDialog {
 declare class MuiListModern {
 
 	/** Calls a function when an item is click */
-	SetOnTouch(callback: (title: str, body: str, index: num_int) => void): void;
+	SetOnTouch(callback: (this: MuiListModern, title: str, body: str, index: num_int) => void): void;
 
 	/** Calls a function when an item in the list is select */
-	SetOnSelect(callback: (index: num_int, isSelected: bin) => void): void;
+	SetOnSelect(callback: (this: MuiListModern, index: num_int, isSelected: bin) => void): void;
 
 	/** Calls a function when an icon or avatar is click */
-	SetAvatarOnTouch(callback: (index: num_int) => void): void;
+	SetAvatarOnTouch(callback: (this: MuiListModern, index: num_int) => void): void;
 
 	/** Enable or disable selectable option */
 	SetSelectable(selectable: bin): void;
 
 	/** Calls a function when a right icon is click */
-	SetControlOnTouch(callback: (index: num_int) => void): void;
+	SetControlOnTouch(callback: (this: MuiListModern, index: num_int) => void): void;
 
 	/**
 	 * Appends an item at the bottom of the list
@@ -4625,15 +4772,16 @@ declare class MuiListModern {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiListModern) => void): void;
 }
 
 
 declare class MuiListSimple {
 
 	/** Calls a function when an item is click */
-	SetOnTouch(callback: (title: str, index: num_int, icon: str, badge: num) => void): void;
+	SetOnTouch(callback: (this: MuiListSimple, title: str, index: num_int, icon: str, badge: num) => void): void;
 
 	/**
 	 * Appends an item at the bottom of the list
@@ -4731,15 +4879,16 @@ declare class MuiListSimple {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiListSimple) => void): void;
 }
 
 
 declare class MuiMenu {
 
 	/** Calls a function when item is click */
-	SetOnSelect(callback: (title: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiMenu, title: str, index: num_int) => void): void;
 
 	/**
 	 * Set a new list of options
@@ -4812,7 +4961,7 @@ declare class MuiMenu {
 declare class MuiMenuWithIcon {
 
 	/** Calls a function when item is click */
-	SetOnSelect(callback: (text: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiMenuWithIcon, text: str, index: num_int) => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;
@@ -4879,7 +5028,7 @@ declare class MuiMenuWithIcon {
 declare class MuiModal {
 
 	/** Calls a function when control buttons are click */
-	SetOnTouch(callback: (isOkBtnClick: bin, btnText: str) => void): void;
+	SetOnTouch(callback: (this: MuiModal, isOkBtnClick: bin, btnText: str) => void): void;
 
 	/** Get the layout of the modal where you can add your controls */
 	GetLayout(): DsLayout;
@@ -4957,14 +5106,14 @@ declare class MuiModal {
 	SetVisibility(mode: "Show"|"Hide"|"Gone"): void;
 
 	/** Called when the dialog or control has been closed */
-	SetOnClose(callback: () => void): void;
+	SetOnClose(callback: (this: MuiModal) => void): void;
 }
 
 
 declare class MuiRadio {
 
 	/** Calls a function when the user selects an item in the list */
-	SetOnSelect(callback: (name: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiRadio, name: str, index: num_int) => void): void;
 
 	/** Checks a corresponding item */
 	CheckItemByIndex(index: num_int): void;
@@ -4976,7 +5125,7 @@ declare class MuiRadio {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiRadio, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5052,6 +5201,7 @@ declare class MuiRadio {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -5135,10 +5285,10 @@ declare class MuiRadio {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiRadio, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiRadio) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -5193,15 +5343,16 @@ declare class MuiRadio {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiRadio) => void): void;
 }
 
 
 declare class MuiRadioButtons {
 
 	/** Calls a function when the user selects an item in the list */
-	SetOnSelect(callback: (name: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiRadioButtons, name: str, index: num_int) => void): void;
 
 	/** Checks a corresponding item */
 	CheckItemByIndex(index: num_int): void;
@@ -5231,7 +5382,7 @@ declare class MuiRadioButtons {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiRadioButtons, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5294,7 +5445,7 @@ declare class MuiRadioButtons {
 	SetEnabled(enable: bin): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiRadioButtons, src: dso) => void): void;
 
 	/** Scale the control by the given factors */
 	SetScale(x: num_fac, y: num_fac): void;
@@ -5308,15 +5459,16 @@ declare class MuiRadioButtons {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiRadioButtons) => void): void;
 }
 
 
 declare class MuiRadioMaterial {
 
 	/** Calls a function when the user selects an item in the list */
-	SetOnSelect(callback: (name: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiRadioMaterial, name: str, index: num_int) => void): void;
 
 	/** Checks a corresponding item */
 	CheckItemByIndex(index: num_int): void;
@@ -5346,7 +5498,7 @@ declare class MuiRadioMaterial {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiRadioMaterial, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5409,7 +5561,7 @@ declare class MuiRadioMaterial {
 	SetEnabled(enable: bin): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiRadioMaterial, src: dso) => void): void;
 
 	/** Scale the control by the given factors */
 	SetScale(x: num_fac, y: num_fac): void;
@@ -5423,8 +5575,9 @@ declare class MuiRadioMaterial {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiRadioMaterial) => void): void;
 }
 
 
@@ -5440,7 +5593,7 @@ declare class MuiSeekBar {
 	SetDecimals(decimals: num_int): void;
 
 	/** Calls a function when the seekbar is touch */
-	SetOnTouch(callback: (value: num) => void): void;
+	SetOnTouch(callback: (this: MuiSeekBar, value: num) => void): void;
 
 	/**
 	 * Sets a new value to the seekbar
@@ -5452,7 +5605,7 @@ declare class MuiSeekBar {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiSeekBar, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5517,15 +5670,16 @@ declare class MuiSeekBar {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiSeekBar) => void): void;
 }
 
 
 declare class MuiSpinner {
 
 	/** Calls a function when value changes */
-	SetOnChange(callback: (value: str, index: num_int) => void): void;
+	SetOnChange(callback: (this: MuiSpinner, value: str, index: num_int) => void): void;
 
 	/**
 	 * Select an option
@@ -5628,8 +5782,9 @@ declare class MuiSpinner {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiSpinner) => void): void;
 }
 
 
@@ -5639,7 +5794,7 @@ declare class MuiSwitch {
 	GetValue(): bin;
 
 	/** Calls a function when switch is click */
-	SetOnTouch(callback: (value: bin) => void): void;
+	SetOnTouch(callback: (this: MuiSwitch, value: bin) => void): void;
 
 	/** Sets the value of the switch */
 	SetValue(value: bin): void;
@@ -5648,7 +5803,7 @@ declare class MuiSwitch {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiSwitch, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5710,8 +5865,9 @@ declare class MuiSwitch {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiSwitch) => void): void;
 }
 
 
@@ -5721,7 +5877,7 @@ declare class MuiSwitchSettings {
 	GetValue(): bin;
 
 	/** Calls a function when switch is click */
-	SetOnTouch(callback: (text: str, value: bin) => void): void;
+	SetOnTouch(callback: (this: MuiSwitchSettings, text: str, value: bin) => void): void;
 
 	/** Sets the value of the switch */
 	SetValue(value: bin): void;
@@ -5730,7 +5886,7 @@ declare class MuiSwitchSettings {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiSwitchSettings, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5792,8 +5948,9 @@ declare class MuiSwitchSettings {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiSwitchSettings) => void): void;
 }
 
 
@@ -5809,13 +5966,13 @@ declare class MuiTabFixed {
 	SetActiveTabByIndex(index: num): void;
 
 	/** Calls a function when the tab is click */
-	SetOnSelect(callback: (name: str, index: num_int) => void): void;
+	SetOnSelect(callback: (this: MuiTabFixed, name: str, index: num_int) => void): void;
 
 	/**
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTabFixed, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
@@ -5877,8 +6034,9 @@ declare class MuiTabFixed {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTabFixed) => void): void;
 }
 
 
@@ -5945,10 +6103,10 @@ declare class MuiTEFilledIconLeft {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTEFilledIconLeft) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTEFilledIconLeft) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -5960,10 +6118,10 @@ declare class MuiTEFilledIconLeft {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTEFilledIconLeft) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTEFilledIconLeft) => void): void;
 }
 
 
@@ -6030,10 +6188,10 @@ declare class MuiTEFilledIconRight {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTEFilledIconRight) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTEFilledIconRight) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6045,10 +6203,10 @@ declare class MuiTEFilledIconRight {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTEFilledIconRight) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTEFilledIconRight) => void): void;
 }
 
 
@@ -6115,10 +6273,10 @@ declare class MuiTEOutlineIconLeft {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTEOutlineIconLeft) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTEOutlineIconLeft) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6130,10 +6288,10 @@ declare class MuiTEOutlineIconLeft {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTEOutlineIconLeft) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTEOutlineIconLeft) => void): void;
 }
 
 
@@ -6200,10 +6358,10 @@ declare class MuiTEOutlineIconRight {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTEOutlineIconRight) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTEOutlineIconRight) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6215,10 +6373,10 @@ declare class MuiTEOutlineIconRight {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTEOutlineIconRight) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTEOutlineIconRight) => void): void;
 }
 
 
@@ -6285,13 +6443,13 @@ declare class MuiTESearchElegant {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTESearchElegant) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTESearchElegant) => void): void;
 
 	/** Define a callback function which is called when the user pressed the icon */
-	SetIconOnTouch(callback: () => void): void;
+	SetIconOnTouch(callback: (this: MuiTESearchElegant) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6303,10 +6461,10 @@ declare class MuiTESearchElegant {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTESearchElegant) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTESearchElegant) => void): void;
 }
 
 
@@ -6373,10 +6531,10 @@ declare class MuiTESearchUnique {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTESearchUnique) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTESearchUnique) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6388,7 +6546,7 @@ declare class MuiTESearchUnique {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTESearchUnique) => void): void;
 }
 
 
@@ -6455,10 +6613,10 @@ declare class MuiTextAreaFilled {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextAreaFilled) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextAreaFilled) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6534,10 +6692,10 @@ declare class MuiTextAreaFilledA {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextAreaFilledA) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextAreaFilledA) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6613,10 +6771,10 @@ declare class MuiTextAreaOutline {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextAreaOutline) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextAreaOutline) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6692,10 +6850,10 @@ declare class MuiTextAreaOutlineA {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextAreaOutlineA) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextAreaOutlineA) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6771,10 +6929,10 @@ declare class MuiTextEditFilled {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditFilled) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditFilled) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6786,7 +6944,7 @@ declare class MuiTextEditFilled {
 	Undo(): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextEditFilled) => void): void;
 }
 
 
@@ -6853,10 +7011,10 @@ declare class MuiTextEditFilledA {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditFilledA) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditFilledA) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6868,7 +7026,7 @@ declare class MuiTextEditFilledA {
 	Undo(): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextEditFilledA) => void): void;
 }
 
 
@@ -6935,10 +7093,10 @@ declare class MuiTextEditOutline {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditOutline) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditOutline) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -6950,7 +7108,7 @@ declare class MuiTextEditOutline {
 	Undo(): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextEditOutline) => void): void;
 }
 
 
@@ -7017,10 +7175,10 @@ declare class MuiTextEditOutlineA {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditOutlineA) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditOutlineA) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -7032,7 +7190,7 @@ declare class MuiTextEditOutlineA {
 	Undo(): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextEditOutlineA) => void): void;
 }
 
 
@@ -7099,10 +7257,10 @@ declare class MuiTextEditSearch {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditSearch) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditSearch) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -7114,7 +7272,7 @@ declare class MuiTextEditSearch {
 	Undo(): void;
 
 	/** Calls a function when icon is touch */
-	SetOnIconTouch(callback: () => void): void;
+	SetOnIconTouch(callback: (this: MuiTextEditSearch) => void): void;
 }
 
 
@@ -7181,10 +7339,10 @@ declare class MuiTextEditUnique {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when content was changed by the user */
-	SetOnChange(callback: () => void): void;
+	SetOnChange(callback: (this: MuiTextEditUnique) => void): void;
 
 	/** Define a callback function which is called when the user pressed 'Done' or 'Enter' on the keyboard */
-	SetOnEnter(callback: () => void): void;
+	SetOnEnter(callback: (this: MuiTextEditUnique) => void): void;
 
 	/** Defines position and size on absolute layouts */
 	SetPosition(left: num, top: num, width?: num, height?: num, options?: "px"): void;
@@ -7196,7 +7354,7 @@ declare class MuiTextEditUnique {
 	Undo(): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextEditUnique) => void): void;
 }
 
 
@@ -7215,13 +7373,22 @@ declare class MuiTextH1 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH1, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -7300,6 +7467,7 @@ declare class MuiTextH1 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -7347,19 +7515,19 @@ declare class MuiTextH1 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH1, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH1) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH1, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH1, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH1, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -7402,8 +7570,9 @@ declare class MuiTextH1 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH1) => void): void;
 }
 
 
@@ -7422,13 +7591,22 @@ declare class MuiTextH2 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH2, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -7507,6 +7685,7 @@ declare class MuiTextH2 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -7554,19 +7733,19 @@ declare class MuiTextH2 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH2, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH2) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH2, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH2, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH2, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -7609,8 +7788,9 @@ declare class MuiTextH2 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH2) => void): void;
 }
 
 
@@ -7629,13 +7809,22 @@ declare class MuiTextH3 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH3, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -7714,6 +7903,7 @@ declare class MuiTextH3 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -7761,19 +7951,19 @@ declare class MuiTextH3 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH3, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH3) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH3, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH3, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH3, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -7816,8 +8006,9 @@ declare class MuiTextH3 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH3) => void): void;
 }
 
 
@@ -7836,13 +8027,22 @@ declare class MuiTextH4 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH4, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -7921,6 +8121,7 @@ declare class MuiTextH4 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -7968,19 +8169,19 @@ declare class MuiTextH4 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH4, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH4) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH4, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH4, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH4, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -8023,8 +8224,9 @@ declare class MuiTextH4 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH4) => void): void;
 }
 
 
@@ -8043,13 +8245,22 @@ declare class MuiTextH5 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH5, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -8128,6 +8339,7 @@ declare class MuiTextH5 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -8175,19 +8387,19 @@ declare class MuiTextH5 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH5, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH5) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH5, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH5, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH5, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -8230,8 +8442,9 @@ declare class MuiTextH5 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH5) => void): void;
 }
 
 
@@ -8250,13 +8463,22 @@ declare class MuiTextH6 {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextH6, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -8335,6 +8557,7 @@ declare class MuiTextH6 {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -8382,19 +8605,19 @@ declare class MuiTextH6 {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextH6, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextH6) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextH6, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextH6, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextH6, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -8437,8 +8660,9 @@ declare class MuiTextH6 {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextH6) => void): void;
 }
 
 
@@ -8457,13 +8681,22 @@ declare class MuiTextJumbo {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextJumbo, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -8542,6 +8775,7 @@ declare class MuiTextJumbo {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -8589,19 +8823,19 @@ declare class MuiTextJumbo {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextJumbo, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextJumbo) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextJumbo, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextJumbo, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextJumbo, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -8644,8 +8878,9 @@ declare class MuiTextJumbo {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextJumbo) => void): void;
 }
 
 
@@ -8664,13 +8899,22 @@ declare class MuiTextParagraph {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextParagraph, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -8749,6 +8993,7 @@ declare class MuiTextParagraph {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -8796,19 +9041,19 @@ declare class MuiTextParagraph {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextParagraph, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextParagraph) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextParagraph, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextParagraph, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextParagraph, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -8851,8 +9096,9 @@ declare class MuiTextParagraph {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextParagraph) => void): void;
 }
 
 
@@ -8871,13 +9117,22 @@ declare class MuiTextSecondary {
 	 * Animates a control
 	 * @param type `NewsPaper`, `Jelly`, `Flash`, `RubberBand`, `Swing`, `TaDa`, `Bounce`, `Fall`, `FallRotate`, `<br><img width='300px' src='../animate.png'></img>`
 	 */
-	Animate(type: str, callback?: (type: str) => void, time?: num_mls): void;
+	Animate(type: str, callback?: (this: MuiTextSecondary, type: str) => void, time?: num_mls): void;
 
 	/** Removes the focus of the control */
 	ClearFocus(): void;
 
-	/** Data */
-	data: obj;
+	/**
+	 * Batch method calls to set object properties
+	 * @param properties \{ command: args }
+	 */
+	Batch(properties: {[command: str]: lst}): void;
+
+	/**
+	 * Data
+	 * @return \{ key, value }
+	 */
+	data: { key: str, value: all };
 
 	/** Set the focus to the control for immediate access */
 	Focus(): void;
@@ -8956,6 +9211,7 @@ declare class MuiTextSecondary {
 
 	/**
 	 * Access Java object methods via reflection
+	 * @premium
 	 * @param types `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`, `String`, `CharSequence`, `...`
 	 */
 	Method(name: str, types?: str_com, p1?: str, p2?: str, p3?: str, p4?: str): all;
@@ -9003,19 +9259,19 @@ declare class MuiTextSecondary {
 	SetMargins(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
 
 	/** Called when the control was pressed for eons */
-	SetOnLongTouch(callback: (src: dso) => void): void;
+	SetOnLongTouch(callback: (this: MuiTextSecondary, src: dso) => void): void;
 
 	/** Define a callback function for touch events */
-	SetOnTouch(callback: () => void): void;
+	SetOnTouch(callback: (this: MuiTextSecondary) => void): void;
 
 	/** Called when the user starts touching the control */
-	SetOnTouchDown(callback: (event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchDown(callback: (this: MuiTextSecondary, event: { source: dso, action: "Down", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user drags a finger over the screen */
-	SetOnTouchMove(callback: (event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchMove(callback: (this: MuiTextSecondary, event: { source: dso, action: "Move", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Called when the user finger leaves te screen */
-	SetOnTouchUp(callback: (event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
+	SetOnTouchUp(callback: (this: MuiTextSecondary, event: { source: dso, action: "Up", count: num_int, x: [ x1: num_frc, x2: num_frc, x3: num_frc ], y: [ y1: num_frc, y2: num_frc, y3: num_frc ] }) => void): void;
 
 	/** Define distances to contained elements */
 	SetPadding(left?: num_frc, top?: num_frc, right?: num_frc, bottom?: num_frc, mode?: "px"|"sp"|"dip"|"mm"|"pt"): void;
@@ -9058,15 +9314,16 @@ declare class MuiTextSecondary {
 	/**
 	 * Animates the control
 	 * @param target \{ x, y, w, h, sw, sh, rot }
+	 * @param type `Linear.None`, `Quadratic.In/Out`, `Cubic.In/Out`, `Quartic.In/Out`, `Quintic.In/Out`, `Sinusoidal.In/Out`, `Exponential.In/Out`, `Circular.In/Out`, `Elastic.In/Out`, `Back.In/Out`, `Bounce.In/Out`
 	 */
-	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: "Linear.None"|"Quadratic.In/Out"|"Cubic.In/Out"|"Quartic.In/Out"|"Quintic.In/Out"|"Sinusoidal.In/Out"|"Exponential.In/Out"|"Circular.In/Out"|"Elastic.In/Out"|"Back.In/Out"|"Bounce.In/Out", repeat?: num_int, yoyo?: bin, callback?: () => void): void;
+	Tween(target: { x: num_frc, y: num_frc, w: num_frc, h: num_frc, sw: num_frc, sh: num_frc, rot: num_deg }, duration?: num_mls, type?: str, repeat?: num_int, yoyo?: bin, callback?: (this: MuiTextSecondary) => void): void;
 }
 
 
 declare class MuiTimePicker {
 
 	/** Calls a function when the user selects a time */
-	SetOnSelect(callback: (time: str, hour: num_int, minute: num_int, pos: "AM"|"PM") => void): void;
+	SetOnSelect(callback: (this: MuiTimePicker, time: str, hour: num_int, minute: num_int, pos: "AM"|"PM") => void): void;
 
 	/** Set the visibility to “Show” */
 	Show(): void;

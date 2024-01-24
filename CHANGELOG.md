@@ -2,6 +2,11 @@
 
 Notable releases.
 
+### version 0.3.2
+- tracking **all** unsaved changes while disconnected, confirm dialog
+- fixed smartDeclare inferring global numbers
+- auto detect debug mode
+
 ### Version 0.3.0
 - refactored project management
 - new `Sync Project` dialog options

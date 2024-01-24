@@ -65,6 +65,8 @@ let startup = true;
 /** @param {vscode.ExtensionContext} context */
 async function activate(context) {
 
+    CONSTANTS.DEBUG = context.extensionMode == vscode.ExtensionMode.Development;
+
     DSCONFIG = localData.load();
     dbgServ = debugServer(onDebugServerStart, onDebugServerStop);
 
@@ -402,7 +404,7 @@ async function uploadFile(file) {
  * @param {LocalProject} [proj]
  */
 function getRemotePath(filePath, proj) {
-    if (!proj) proj = DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
+    if (!proj) proj = getFileProject(filePath);
     if (!proj) return null;
 
     const conf = loadConfig(proj);
@@ -411,37 +413,52 @@ function getRemotePath(filePath, proj) {
     return proj.PROJECT + "/" + dsFile.replace(/\\/g, '/');
 }
 
+/** 
+ * @param {string} filePath
+ */
+function getFileProject(filePath) {
+    return DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
+}
+
 // Called when the document is save
-/** @type {vscode.TextDocument?} */
-let documentToSave = null;
+/** @type {vscode.TextDocument[]} */
+let documentsToSave = [];
 /** @param {vscode.TextDocument} [doc] */
 async function onDidSaveTextDocument(doc) {
-    documentToSave = doc || documentToSave;
-    if (!documentToSave) return;
+    if (doc && getFileProject(doc.uri.fsPath)) documentsToSave.push(doc);
+    if (documentsToSave.length) return;
     if (!CONNECTED) return showReloadPopup();
 
-    const dsFile = getRemotePath(documentToSave.uri.fsPath);
-    if (!dsFile) return;
+    // prevent race conditions
+    const fileList = documentsToSave;
+    documentsToSave = [];
 
-    await ext.uploadFile(documentToSave.uri.fsPath, path.dirname(dsFile), path.basename(dsFile));
-    documentToSave = null;
+    await batchPromises(fileList, async doc => {
+        const dsFile = getRemotePath(doc.uri.fsPath);
+        if (!dsFile) return;
+
+        await ext.uploadFile(doc.uri.fsPath, path.dirname(dsFile), path.basename(dsFile));
+    });
 }
 
 // Delete the file on the workspace
-/** @type {vscode.FileDeleteEvent?} */
-let filesToDelete = null;
+/** @type {vscode.Uri[]} */
+let filesToDelete = [];
 /** @param {vscode.FileDeleteEvent} [e] */
 async function onDeleteFile(e) {
-    filesToDelete = e || filesToDelete;
-    if (!filesToDelete) return;
+    if (e) filesToDelete.push(...e.files.filter(f => getFileProject(f.fsPath)));
+    if (!filesToDelete.length) return;
     if (!CONNECTED) return showReloadPopup();
 
-    for (const file of filesToDelete.files) {
+    // prevent race conditions
+    const fileList = filesToDelete;
+    filesToDelete = [];
+
+    await batchPromises(fileList, async file => {
         const dsFile = getRemotePath(file.fsPath);
-        if (!dsFile) continue;
+        if (!dsFile) return;
         await ext.deleteFile(dsFile).catch(catchError);
-    }
-    filesToDelete = null;
+    });
 }
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
@@ -452,17 +469,21 @@ const catchError = (error) => {
 }
 
 // Create files and folders on the workspace
-/** @type {vscode.FileCreateEvent?} */
-let filesToCreate = null;
+/** @type {vscode.Uri[]} */
+let filesToCreate = [];
 /** @param {vscode.FileCreateEvent} [e] */
 async function onCreateFile(e) {
-    filesToCreate = e || filesToCreate;
-    if (!filesToCreate) return;
+    if (e) filesToCreate.push(...e.files.filter(f => getFileProject(f.fsPath)));
+    if (!filesToCreate.length) return;
     if (!CONNECTED) return showReloadPopup();
 
-    for (const file of filesToCreate.files) {
+    // prevent race conditions
+    const fileList = filesToCreate;
+    filesToCreate = [];
+
+    await batchPromises(fileList, async file => {
         const dsFile = getRemotePath(file.fsPath);
-        if (!dsFile) continue;
+        if (!dsFile) return;
 
         const stats = fs.statSync(file.fsPath);
 
@@ -477,27 +498,29 @@ async function onCreateFile(e) {
             // response = await ext.execute("usr", code);
             // console.log( response );
         }
-    }
-    filesToCreate = null;
+    });
 }
 
 // Rename a files in the workspace
-/** @type {vscode.FileRenameEvent?} */
-let filesToRename = null;
+/** @type {{oldUri: vscode.Uri, newUri: vscode.Uri}[]} */
+let filesToRename = [];
 /** @param {vscode.FileRenameEvent} [e] */
 async function onRenameFile(e) {
-    filesToRename = e || filesToRename;
-    if (!filesToRename) return;
+    if (e) filesToRename.push(...e.files.filter(f => getFileProject(f.oldUri.fsPath) && getFileProject(f.newUri.fsPath)));
+    if (!filesToRename.length) return;
     if (!CONNECTED) return showReloadPopup();
 
-    for (const file of filesToRename.files) {
+    // prevent race conditions
+    const fileList = filesToRename;
+    filesToRename = [];
+
+    await batchPromises(fileList, async file => {
         const oldDsFile = getRemotePath(file.oldUri.fsPath);
         const newDsFile = getRemotePath(file.newUri.fsPath);
-        if (!oldDsFile || !newDsFile) continue;
+        if (!oldDsFile || !newDsFile) return;
 
         await ext.renameFile(oldDsFile, newDsFile).catch(catchError);
-    }
-    filesToRename = null;
+    });
 }
 
 // control buttons
@@ -714,16 +737,33 @@ async function onDebugServerStart() {
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
     // pluginsTreeDataProvider.refresh();
-    if (!PROJECT) return;
 
-    if (documentToSave) await onDidSaveTextDocument();
-    if (filesToDelete) await onDeleteFile();
-    if (filesToCreate) await onCreateFile();
-    if (filesToRename) await onRenameFile();
+    checkUnsavedChanges();
+    if (!PROJECT) return;
 
     // Load projects
     await loadFiles();
     projectsTreeDataProvider.refresh();
+}
+
+async function checkUnsavedChanges() {
+    const changes = [
+        ...documentsToSave.map(f => 'save ' + getRemotePath(f.uri.fsPath)),
+        ...filesToDelete.map(f => 'delete ' + getRemotePath(f.fsPath)),
+        ...filesToCreate.map(f => 'create ' + getRemotePath(f.fsPath)),
+        ...filesToRename.map(f => `rename ${getRemotePath(f.oldUri.fsPath)} to ${getRemotePath(f.newUri.fsPath)}`),
+    ];
+    if (!changes.length) return;
+
+    const selection = await vscode.window.showWarningMessage("Apply unsaved changes to remote project?", {
+        modal: true, detail: changes.join('\n')
+    }, "Save");
+    if (selection != "Save") return;
+
+    if (documentsToSave.length) await onDidSaveTextDocument();
+    if (filesToDelete.length) await onDeleteFile();
+    if (filesToCreate.length) await onCreateFile();
+    if (filesToRename.length) await onRenameFile();
 }
 
 async function onDebugServerStop() {

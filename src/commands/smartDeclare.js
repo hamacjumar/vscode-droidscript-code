@@ -18,8 +18,7 @@ module.exports = async function (uri) {
     /** @type {{[x:string]: string}} */
     const typeObj = {
         '`': 'string', '"': 'string', "'": 'string',
-        '[': 'any[]', '{': '{[x:string]: any}',
-        '.': 'number'
+        '[': 'any[]', '{': '{[x:string]: any}'
     }
 
     editor.edit(edt => {
@@ -47,7 +46,7 @@ module.exports = async function (uri) {
             } else if (typeMatch && typeMatch[4]) {
                 if (typeObj[typeMatch[4][0]]) type = typeObj[typeMatch[4][0]];
                 else if (typeMatch[4].match(/^(true|false)$/)) type = "boolean";
-                else if (type.match(/^[0-9.]+/)) type = "number";
+                else if (typeMatch[4].match(/^.?[0-9]/)) type = "number";
             }
             globDefs += `/** @type {${type}} */\nvar ${v};\n`;
         }

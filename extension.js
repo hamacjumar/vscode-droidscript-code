@@ -422,7 +422,7 @@ let documentsToSave = [];
 /** @param {vscode.TextDocument} [doc] */
 async function onDidSaveTextDocument(doc) {
     if (doc && getFileProject(doc.uri.fsPath)) documentsToSave.push(doc);
-    if (documentsToSave.length) return;
+    if (!documentsToSave.length) return;
     if (!CONNECTED) return showReloadPopup();
 
     // prevent race conditions

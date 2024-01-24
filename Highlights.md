@@ -16,13 +16,19 @@ You can find the [Full Changelog](#full-change-log) at the bottom.
 - smartDeclare feature to migrate code to using types
 - Use the strong VSCode js/ts intellisense capabilities!
 
+![Type Error](https://imgur.com/blN1NlD.png)\
+Type Error
+
+![Inferred Types](https://imgur.com/usKhrxL.png)\
+Inferred Types
+
 ## UX Improvements
 
 Many new dialogs and features were added to the UI. This includes updated project view which displays project icons and local paths, and an updated docs tree view that is now collapsible based on lists found in the rendered document. When you are not connected to DroidScript the docs are loaded from [droidscript.github.io](https://droidscript.github.io/Docs)
 
 You may also notice a wide range of new confirmation dialogs, error messages and more that hopefully improve your experience with this extension!
 
-![Tree Views](https://media.discordapp.net/attachments/1110651795035918366/1194457038848262254/image.png)
+![Tree Views](https://imgur.com/uvHBtIi.png)
 
 ## Project Management
 
@@ -41,7 +47,7 @@ When opening a project you are offered a range of sync options.
 
 **Update** Both operations offer a update variant that only syncs files that are available both locally and in DroidScript. This is to prevent downloading large files or folders that you don't need on the other end.
 
-![Sync Options](https://media.discordapp.net/attachments/1110651795035918366/1199677787779375195/image.png)
+![Sync Options](https://imgur.com/RnHdnbo.png)
 
 ## Full Change Log
 

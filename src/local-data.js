@@ -4,13 +4,10 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 const CONSTANTS = require("./CONSTANTS");
-const conf = require("../package.json");
-
-const curVer = Number(conf.version.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2$3"));
 
 /** @type {DSCONFIG_T} */
 const data = {
-    VERSION: curVer,
+    VERSION: CONSTANTS.VERSION,
     serverIP: '',
     reload: '',
     PORT: CONSTANTS.PORT,
@@ -26,7 +23,7 @@ function load() {
         const fileData = fs.readFileSync(filePath, 'utf8');
         Object.assign(data, JSON.parse(fileData));
 
-        if (data.VERSION != curVer) console.log("version change", data.VERSION, '->', curVer);
+        if (data.VERSION != CONSTANTS.VERSION) console.log("version change", data.VERSION, '->', CONSTANTS.VERSION);
         adjust(data);
     }
 

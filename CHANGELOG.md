@@ -2,7 +2,7 @@
 
 Notable releases.
 
-### Version 0.3.2
+### Version 0.3.2 (2024-01-24)
 - Tracking **all** unsaved changes while disconnected, confirm dialog
 - Fixed smartDeclare inferring global numbers
 - Auto detect debug mode
@@ -11,8 +11,9 @@ Notable releases.
 - Fixed build excluding required source file
 - Showing Release Highlight page
 - Always show sync qickpick on project open
+- Fixed project reload logic when not in DS project
 
-### Version 0.3.0
+### Version 0.3.0 (2024-01-23)
 - Refactored project management
 - New `Sync Project` dialog options
 - Associate projects with custom location

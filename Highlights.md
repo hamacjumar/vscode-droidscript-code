@@ -65,9 +65,10 @@ Here is the full changelog since the last release:
 - Focus vscode explorer view when opening projects
 - Fixed build excluding required source file
 
-### Version 0.3.2
+### Version 0.3.2 (2024-01-24)
 - Tracking **all** unsaved changes while disconnected, confirm dialog
 - Fixed smartDeclare inferring global numbers
 - Auto detect debug mode
 - Showing Release Highlight page
 - Always show sync qickpick on project open
+- Fixed project reload logic when not in DS project

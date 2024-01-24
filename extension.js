@@ -203,12 +203,13 @@ async function prepareWorkspace() {
     if (!uris.length) return;
     displayConnectionStatus();
 
-    const reload = DSCONFIG.localProjects.find(p => p.PROJECT === DSCONFIG.reload);
-    const proj = reload || first(uris, uri => DSCONFIG.localProjects.find(p => uri.fsPath.startsWith(p.path)));
-    if (!proj) return;
+    const reloadProj = DSCONFIG.localProjects.find(p => p.PROJECT === DSCONFIG.reload);
+    const openProj = first(uris, uri => DSCONFIG.localProjects.find(p => uri.fsPath.startsWith(p.path)));
+    if (!openProj) return;
+    const proj = reloadProj || openProj;
 
     // this is from DroidScript CLI
-    if (reload || proj.reload) {
+    if (proj.reload) {
         proj.reload = false;
         delete DSCONFIG.reload;
         localData.save(DSCONFIG);
@@ -218,7 +219,7 @@ async function prepareWorkspace() {
         if (selection !== "Proceed") return;
     }
 
-    setProjectName(proj.PROJECT);
+    setProjectName((reloadProj || proj).PROJECT);
     vscode.commands.executeCommand("droidscript-code.connect");
 }
 

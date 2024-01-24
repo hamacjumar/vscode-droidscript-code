@@ -2,23 +2,28 @@
 
 Notable releases.
 
-### version 0.3.2
-- tracking **all** unsaved changes while disconnected, confirm dialog
-- fixed smartDeclare inferring global numbers
-- auto detect debug mode
+### Version 0.3.2
+- Tracking **all** unsaved changes while disconnected, confirm dialog
+- Fixed smartDeclare inferring global numbers
+- Auto detect debug mode
+- Fixed opening main file when opening projects
+- Focus vscode explorer view when opening projects
+- Fixed build excluding required source file
+- Showing Release Highlight page
+- Always show sync qickpick on project open
 
 ### Version 0.3.0
-- refactored project management
-- new `Sync Project` dialog options
-- associate projects with custom location
-- multiple open projects in workspace
+- Refactored project management
+- New `Sync Project` dialog options
+- Associate projects with custom location
+- Multiple open projects in workspace
 - Run `alt+r` and Stop `alt+s` keybinds
-- improved docs tree view
-- improved project tree view
-- docs opens github.io when not connected to DS
-- ignore hidden and custom files from jsconfig.json
-- significantly increased sync speed via parallel downloads
-- many other UX improvements
+- Improved docs tree view
+- Improved project tree view
+- Docs opens github.io when not connected to DS
+- Ignore hidden and custom files from jsconfig.json
+- Significantly increased sync speed via parallel downloads
+- Many other UX improvements
 
 **Typing**
 - Support for JSDoc typed code bases

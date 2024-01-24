@@ -73,7 +73,7 @@ async function activate(context) {
     subscribe = (/** @type {string} */ cmd, /** @type {(...args: any[]) => any} */ fnc) => {
         context.subscriptions.push(vscode.commands.registerCommand("droidscript-code." + cmd, fnc));
     }
-    subscribe("connect", connectDS);
+    subscribe("connect", () => connectToDroidScript(dbgServ.start));
     subscribe("loadFiles", loadFiles);
     subscribe("extractAssets", extractAssets);
     subscribe("stopApp", stop);
@@ -160,6 +160,7 @@ async function activate(context) {
         // set the version
         DSCONFIG.VERSION = CONSTANTS.VERSION;
         localData.save(DSCONFIG);
+        if (!CONSTANTS.DEBUG) vscode.commands.executeCommand("markdown.showPreview", vscode.Uri.file(__dirname + "/Highlights.md"));
     }
 
     signatureHelpProvider.init();
@@ -172,12 +173,6 @@ async function activate(context) {
 function deactivate() {
     dbgServ.stop();
     vscode.commands.executeCommand('livePreview.end');
-}
-
-function connectDS() {
-    const proj = DSCONFIG.localProjects.find(p => p.PROJECT === PROJECT);
-    connectToDroidScript(dbgServ.start);
-    if (proj) openProjectFolder(proj);
 }
 
 // Assets related functions
@@ -708,7 +703,7 @@ async function onRenameApp(appName, newAppName) {
     proj.reload = true;
     DSCONFIG.reload = proj.PROJECT;
     localData.save(DSCONFIG);
-    openProjectFolder(proj);
+    openProjectFolder(proj, false);
 }
 
 async function downloadDefinitions() {
@@ -739,11 +734,10 @@ async function onDebugServerStart() {
     // pluginsTreeDataProvider.refresh();
 
     checkUnsavedChanges();
-    if (!PROJECT) return;
-
-    // Load projects
-    await loadFiles();
-    projectsTreeDataProvider.refresh();
+    if (PROJECT) {
+        openProject({ title: PROJECT });
+        projectsTreeDataProvider.refresh();
+    }
 }
 
 async function checkUnsavedChanges() {
@@ -860,7 +854,7 @@ async function openProject(item) {
     DSCONFIG.localProjects.push(newProj);
     localData.save(DSCONFIG);
 
-    openProjectFolder(newProj);
+    openProjectFolder(newProj, false);
     projectsTreeDataProvider.refresh();
     await loadFiles("dnlAll");
     showStatusBarItems();
@@ -868,8 +862,9 @@ async function openProject(item) {
 
 /** 
  * @param {LocalProject} proj
+ * @param {boolean} sync
  */
-async function openProjectFolder(proj) {
+async function openProjectFolder(proj, sync = true) {
     folderPath = vscode.Uri.file(proj.path);
     const isOpen = vscode.workspace.workspaceFolders?.find(ws => ws.uri.fsPath === proj.path);
 
@@ -899,6 +894,8 @@ async function openProjectFolder(proj) {
     } catch (e) {
         catchError(e);
     }
+
+    if (sync) loadFiles();
 }
 
 /** @param {string} string */

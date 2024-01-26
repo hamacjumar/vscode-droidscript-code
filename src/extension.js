@@ -303,6 +303,18 @@ async function execute(mode, code) {
     return response;
 }
 
+
+/**
+ * @param {string} code
+ */
+async function exec(code) {
+    const url = `${DSCONFIG.serverIP}/ide?cmd=exec&code=${querystring.escape(code)}`;
+
+    const response = await axios.get(url).catch(catchError);
+    if (typeof response.status === "undefined") return null;
+    return response;
+}
+
 /**
  * @param {string} cmd
  */
@@ -331,5 +343,6 @@ module.exports = {
     getServerInfo,
     uploadFile,
     execute,
+    exec,
     executeCommand
 }

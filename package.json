@@ -74,15 +74,15 @@
     "commands": [
       {
         "command": "droidscript-code.runApp",
-        "title": "Run"
+        "title": "DroidScript: Run"
       },
       {
         "command": "droidscript-code.stop",
-        "title": "Stop"
+        "title": "DroidScript: Stop"
       },
       {
         "command": "droidscript-code.addNewApp",
-        "title": "Create new app",
+        "title": "DroidScript: Create new app",
         "icon": {
           "light": "./images/plus-dark.svg",
           "dark": "./images/plus-light.svg"
@@ -93,13 +93,17 @@
         "title": "Rename"
       },
       {
+        "command": "droidscript-code.exec",
+        "title": "DroidScript: IDE Command"
+      },
+      {
         "command": "droidscript-code.extractAssets",
-        "title": "Extract Assets",
+        "title": "DroidScript: Extract Assets",
         "icon": "$(sync)"
       },
       {
         "command": "droidscript-code.refreshProjects",
-        "title": "Refresh",
+        "title": "DroidScript: Refresh",
         "icon": "$(sync)"
       },
       {
@@ -128,7 +132,7 @@
       },
       {
         "command": "droidscript-code.declareVars",
-        "title": "Smart Declare All Variables"
+        "title": "DroidScript: Smart Declare All Variables"
       },
       {
         "command": "droidscript-code.openSample",
@@ -186,6 +190,11 @@
           "command": "droidscript-code.renameApp",
           "when": "view == droidscript-projects",
           "group": "2_workspace"
+        },
+        {
+          "command": "droidscript-code.exec",
+          "when": "view == droidscript-projects",
+          "group": "2_workspace@1"
         },
         {
           "command": "droidscript-code.addNewApp",

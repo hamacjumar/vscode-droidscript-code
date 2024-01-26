@@ -104,6 +104,7 @@ async function activate(context) {
     subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
         renameApp(args, projectsTreeDataProvider, onRenameApp);
     });
+    subscribe("exec", execCommand);
     subscribe("addTypes", addTypes);
     subscribe("autoFormat", autoFormat);
     subscribe("declareVars", smartDeclareVars);
@@ -639,6 +640,37 @@ function onDeleteApp(appName) {
 }
 
 /** @param {ProjectsTreeData.ProjItem} item */
+async function execCommand(item) {
+    const items = `
+    !savespk
+    !addpackage [url]
+    !getperms
+    !addplugin [name]
+    !remplugin [name]
+    !buildapk [pkgname] [ver] [obfus]
+    !clean
+    !reset [options]
+    !exit
+    $netstat
+    $logcat`.split(/\n\s*/);
+    const cmd = await vscode.window.showQuickPick(items, {
+        title: "Select IDE command"
+    });
+    if (!cmd) return;
+
+    /** @type {string|undefined} */
+    let params = "";
+    if (cmd.includes("[")) {
+        params = await vscode.window.showInputBox({
+            title: "Enter Params",
+            prompt: cmd
+        });
+    }
+
+    if (params !== undefined) ext.exec(cmd + " " + params);
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
 async function addTypes(item) {
     if (!item.path) return vscode.window.showWarningMessage("Types can be only enabled on local projects.");
 
@@ -675,9 +707,11 @@ async function autoFormat(item) {
     }
 }
 
-/** @param {ProjectsTreeData.ProjItem | vscode.Uri} file */
+/** @param {ProjectsTreeData.ProjItem | vscode.Uri} [file] */
 async function smartDeclareVars(file) {
-    let uri = file;
+    let uri = file || vscode.window.activeTextEditor?.document.uri;
+    if (!uri) return;
+
     if (!(uri instanceof vscode.Uri)) {
         const info = await ext.getProjectInfo(uri.path || '', uri.title, async p => fs.existsSync(p));
         if (!info) return vscode.window.showWarningMessage("No local project '" + uri.title + "' available.");

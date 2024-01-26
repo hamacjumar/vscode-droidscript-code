@@ -21,14 +21,14 @@ module.exports = async function (item, treeView, callback) {
 
     const appName = item.title;
     /** @type {("Remove"|"Delete"|"Cancel")[]} */
-    const actions = ["Remove", "Delete", "Cancel"];
+    const actions = ["Remove", "Delete"];
     if (!item.path) actions.shift();
 
     const message = item.path ?
         `Remove local ${appName} app or delete on device?` :
         `Delete ${appName} on device?`;
 
-    const selection = await vscode.window.showWarningMessage(message, ...actions)
+    const selection = await vscode.window.showWarningMessage(message, { modal: true }, ...actions)
 
     if (selection === "Delete") {
         let response = await ext.deleteFile(appName).catch(catchError);

@@ -379,10 +379,10 @@ function writeFile(fileName, content) {
 }
 
 /** Create a folder in the workspace
- * @param {string} folderPath 
+ * @param {string} dirPath 
  */
-function createFolder(folderPath) {
-    const localPath = getLocalPath(folderPath);
+function createFolder(dirPath) {
+    const localPath = getLocalPath(dirPath);
     fs.mkdirSync(localPath, { recursive: true });
 }
 
@@ -631,7 +631,7 @@ function onDeleteApp(appName) {
     }
 
     // remove the folder path in the localProjects array
-    let i = DSCONFIG.localProjects.findIndex(m => m.path == folderPath.fsPath) || -1;
+    let i = DSCONFIG.localProjects.findIndex(m => m.PROJECT == appName) || -1;
     if (i >= 0) {
         DSCONFIG.localProjects.splice(i, 1);
         localData.save(DSCONFIG);
@@ -767,6 +767,7 @@ async function onDebugServerStop() {
     // pluginsTreeDataProvider.refresh();
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
+    vscode.window.showWarningMessage("DroidScript disconnected.")
 }
 
 // documentations
@@ -855,20 +856,26 @@ async function openProject(item) {
     DSCONFIG.localProjects.push(newProj);
     localData.save(DSCONFIG);
 
-    openProjectFolder(newProj, false);
+    openProjectFolder(newProj, "dnlAll");
     projectsTreeDataProvider.refresh();
-    await loadFiles("dnlAll");
-    showStatusBarItems();
 }
 
 /** 
  * @param {LocalProject} proj
- * @param {boolean} sync
+ * @param {boolean | SyncAction} sync
  */
 async function openProjectFolder(proj, sync = true) {
-    folderPath = vscode.Uri.file(proj.path);
-    const isOpen = vscode.workspace.workspaceFolders?.find(ws => ws.uri.fsPath === proj.path);
+    let info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
+    const exists = info != null;
+    if (!exists && sync) {
+        folderPath = vscode.Uri.file(proj.path);
+        setProjectName(proj.PROJECT);
 
+        await loadFiles(sync !== true ? sync : undefined);
+        info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
+    }
+
+    const isOpen = vscode.workspace.workspaceFolders?.find(ws => ws.uri.fsPath === proj.path);
     if (!isOpen) {
         const selection = await vscode.window.showInformationMessage(`Open '${proj.PROJECT}'?`, {
             modal: true,
@@ -881,11 +888,11 @@ async function openProjectFolder(proj, sync = true) {
         if (!success) return vscode.window.showWarningMessage("Something went wrong: Invalid Workspace State");
     }
 
+    folderPath = vscode.Uri.file(proj.path);
     setProjectName(proj.PROJECT);
     showStatusBarItems();
 
     try {
-        const info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));
         if (!info) return vscode.window.showErrorMessage("Couldn't fetch project info.");
 
         vscode.commands.executeCommand("workbench.explorer.fileView.focus");
@@ -896,7 +903,7 @@ async function openProjectFolder(proj, sync = true) {
         catchError(e);
     }
 
-    if (sync) loadFiles();
+    if (exists && sync) await loadFiles(sync !== true ? sync : undefined);
 }
 
 /** @param {string} string */

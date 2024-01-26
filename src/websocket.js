@@ -88,7 +88,7 @@ async function wsOnOpen() {
 function wsOnMessage(message) {
     var msg = message.toString();
     msg = msg.replace(/%20/g, ' ');
-    if (msg.startsWith("Error:") || msg.startsWith("Script Error:")) {
+    if (msg.toLowerCase().startsWith("error:") || msg.startsWith("Script Error:")) {
         msg = '❌ ' + msg;
         highlightErrorLine(msg);
     }
@@ -121,20 +121,23 @@ function Logger(log) {
 }
 
 /** @param {string} msg */
-function highlightErrorLine(msg) {
+async function highlightErrorLine(msg) {
     const str = msg.split("|");
-    let err = str[0].split(":")[1];
-    let line = parseInt(str[1]);
-    let file = str[2].split("/").pop();
+    const err = str[0].split(":")[1];
+    const line = parseInt(str[1]) - 1;
+    const file = str[2].split("/").pop();
 
     // Search for files matching the provided pattern in the workspace
-    vscode.workspace.findFiles('**/' + file, null, 1).then((files) => {
-        if (files.length > 0) {
-            const fileUri = files[0];
-            const range = new vscode.Range(line - 1, 0, line - 1, 0);
-            const diagnostic = new vscode.Diagnostic(range, err, vscode.DiagnosticSeverity.Error);
-            // diagnosticCollection.set(editor.document.uri, [diagnostic]);
-            diagnosticCollection.set(fileUri, [diagnostic]);
-        }
-    });
+    const files = await vscode.workspace.findFiles('**/' + file, null, 1);
+    if (!files.length) return;
+
+    const fileUri = files[0];
+    const doc = await vscode.workspace.openTextDocument(fileUri);
+    const edt = vscode.window.visibleTextEditors.find(e => e.document === doc);
+
+    const range = new vscode.Range(line, 0, line, doc.lineAt(line).text.length);
+    edt?.revealRange(range);
+
+    const diagnostic = new vscode.Diagnostic(range, err, vscode.DiagnosticSeverity.Error);
+    diagnosticCollection.set(fileUri, [diagnostic]);
 }

@@ -639,31 +639,32 @@ function onDeleteApp(appName) {
     }
 }
 
-/** @param {ProjectsTreeData.ProjItem} item */
-async function execCommand(item) {
-    const items = `
-    !savespk
-    !addpackage [url]
-    !getperms
-    !addplugin [name]
-    !remplugin [name]
-    !buildapk [pkgname] [ver] [obfus]
-    !clean
-    !reset [options]
-    !exit
-    $netstat
-    $logcat`.split(/\n\s*/);
-    const cmd = await vscode.window.showQuickPick(items, {
-        title: "Select IDE command"
-    });
+async function execCommand() {
+    if (!CONNECTED) return showReloadPopup();
+    /** @type {vscode.QuickPickItem[]} */
+    const items = [
+        { label: '!savespk', description: 'Save SPK file to SPKs' },
+        { label: '!addpackage [url]', description: 'Add a package with the specified URL' },
+        { label: '!getperms', description: 'Get all detected permissions used by your app' },
+        { label: '!addplugin [name]', description: 'Add a plugin with the specified name' },
+        { label: '!addmodule [name]', description: 'Add a Node.js module with the specified name' },
+        { label: '!remplugin [name]', description: 'Remove a plugin with the specified name' },
+        { label: '!buildapk [pkgname] [ver] [obfus]', description: 'Build APK with the specified package name, version, and obfuscation options' },
+        { label: '!clean', description: 'Clean .edit folder and other extracted DroidScript assets' },
+        { label: '!reset [options]', description: 'Reset DroidScript to clean install but keeping all projects.', detail: 'Clears Plugins, Extensions and with \'full\' option even saved settings' },
+        { label: '!exit', description: 'Exit DroidScript' },
+        { label: '$netstat', description: 'Display network status from android shell' },
+        { label: '$logcat', description: 'Display logcat from android shell' }
+    ];
+    const cmd = await vscode.window.showQuickPick(items, { title: "Select IDE command" });
     if (!cmd) return;
 
     /** @type {string|undefined} */
     let params = "";
-    if (cmd.includes("[")) {
+    if (cmd.label.includes("[")) {
         params = await vscode.window.showInputBox({
             title: "Enter Params",
-            prompt: cmd
+            prompt: cmd.label
         });
     }
 

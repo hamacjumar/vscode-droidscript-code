@@ -571,7 +571,11 @@ function displayConnectionStatus() {
  * @param {string} project
  */
 function setProjectName(project = "") {
-    if (project) PROJECT = project;
+    if (project) {
+        PROJECT = project;
+        ext.exec("!setprog " + PROJECT);
+    }
+
     if (!projectName) projectName = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 
     projectName.text = "DroidScript";
@@ -654,7 +658,8 @@ async function execCommand() {
         { label: '!reset [options]', description: 'Reset DroidScript to clean install but keeping all projects.', detail: 'Clears Plugins, Extensions and with \'full\' option even saved settings' },
         { label: '!exit', description: 'Exit DroidScript' },
         { label: '$netstat', description: 'Display network status from android shell' },
-        { label: '$logcat', description: 'Display logcat from android shell' }
+        { label: '$logcat', description: 'Display logcat from android shell' },
+        { label: '[custom]', description: 'Enter a custom command' }
     ];
     const cmd = await vscode.window.showQuickPick(items, { title: "Select IDE command" });
     if (!cmd) return;
@@ -667,8 +672,12 @@ async function execCommand() {
             prompt: cmd.label
         });
     }
+    if (params === undefined) return;
 
-    if (params !== undefined) ext.exec(cmd + " " + params);
+    let command = cmd.label;
+    if (command == '[custom]') command = params;
+    else if (params) command += ' ' + params;
+    ext.exec(command);
 }
 
 /** @param {ProjectsTreeData.ProjItem} item */
@@ -918,6 +927,7 @@ async function openProjectFolder(proj, sync = true) {
         }, "Open");
         if (selection !== "Open") return;
 
+        folderPath = vscode.Uri.file(proj.path);
         const n = vscode.workspace.workspaceFolders?.length || 0;
         const success = vscode.workspace.updateWorkspaceFolders(n, 0, { uri: folderPath, name: proj.PROJECT });
         if (!success) return vscode.window.showWarningMessage("Something went wrong: Invalid Workspace State");

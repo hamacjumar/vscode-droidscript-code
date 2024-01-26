@@ -2,7 +2,7 @@
 
 Notable releases.
 
-### Version 0.3.2 (2024-01-24)
+### Version 0.3.3 (2024-01-24)
 - Tracking **all** unsaved changes while disconnected, confirm dialog
 - Fixed smartDeclare inferring global numbers
 - Auto detect debug mode
@@ -12,6 +12,11 @@ Notable releases.
 - Showing Release Highlight page
 - Always show sync qickpick on project open
 - Fixed project reload logic when not in DS project
+- Fixed project sync on initial download
+- Fixed 'Delete App'
+- Improved error highlighting
+- IDE command support
+- Enabled 'DroidScript: ' command palette
 
 ### Version 0.3.0 (2024-01-23)
 - Refactored project management

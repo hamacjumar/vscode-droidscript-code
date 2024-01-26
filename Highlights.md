@@ -78,3 +78,10 @@ Here is the full changelog since the last release:
 - Showing Release Highlight page
 - Always show sync qickpick on project open
 - Fixed project reload logic when not in DS project
+
+### Version 0.3.3 (2024-01-26)
+- Fixed project sync on initial download
+- Fixed 'Delete App'
+- Improved error highlighting
+- IDE command support
+- Enabled 'DroidScript: ' command palette

@@ -414,7 +414,7 @@ function getRemotePath(filePath, proj) {
  * @param {string} filePath
  */
 function getFileProject(filePath) {
-    return DSCONFIG.localProjects.find(p => filePath.startsWith(p.path));
+    return DSCONFIG.localProjects.find(p => filePath.startsWith(p.path + path.sep));
 }
 
 // Called when the document is save
@@ -811,7 +811,8 @@ async function onDebugServerStop() {
     // pluginsTreeDataProvider.refresh();
     samplesTreeDataProvider.refresh();
     projectsTreeDataProvider.refresh();
-    vscode.window.showWarningMessage("DroidScript disconnected.")
+    const selection = await vscode.window.showWarningMessage("DroidScript disconnected.", "Reconnect");
+    if (selection === "Reconnect") vscode.commands.executeCommand("droidscript-code.connect");
 }
 
 // documentations

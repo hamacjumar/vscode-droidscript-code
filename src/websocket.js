@@ -25,7 +25,7 @@ module.exports = function (onStart = _onOpen, onStop = _onClose) {
     _onClose = onStop;
 
     return {
-        start: startWebSocket,
+        start: () => startWebSocket(true),
         stop: () => webSocket?.close(),
         playApp,
         stopApp
@@ -63,9 +63,9 @@ const createWebSocket = function (/** @type {(this: WebSocket) => void} */ onOpe
     return socket;
 }
 
-function startWebSocket() {
-    if (!webSocket)
-        webSocket = createWebSocket(wsOnOpen, wsOnMessage, wsOnClose, wsOnError);
+function startWebSocket(reload = false) {
+    if (webSocket) reload && wsOnOpen();
+    else webSocket = createWebSocket(wsOnOpen, wsOnMessage, wsOnClose, wsOnError);
 }
 
 /** @type {NodeJS.Timer} */

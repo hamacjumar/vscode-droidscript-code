@@ -188,7 +188,7 @@ async function extractAssets() {
         await createAssetFolder(CONSTANTS.DEFINITIONS);
 
         const defFolder = path.join(__dirname, "definitions");
-        fs.copy(defFolder, homePath(CONSTANTS.DEFINITIONS));
+        fs.copySync(defFolder, homePath(CONSTANTS.DEFINITIONS), { overwrite: true });
     } catch (e) {
         catchError(e);
     }
@@ -692,7 +692,7 @@ async function addTypes(item) {
     if (res !== "Ok") return;
 
     try {
-        let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "jsconfig.json"), "utf8");
+        let jsconfig = fs.readFileSync(homePath(CONSTANTS.DEFINITIONS, "default_jsconfig.json"), "utf8");
         jsconfig = replacePaths(jsconfig, true);
         fs.writeFileSync(jsconfigPath, jsconfig);
     } catch (e) {

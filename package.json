@@ -141,6 +141,14 @@
       {
         "command": "droidscript-code.runSample",
         "title": "Run"
+      },
+      {
+        "command": "droidscript-code.connect",
+        "title": "DroidScript: Connect IDE"
+      },
+      {
+        "command": "droidscript-code.disconnect",
+        "title": "DroidScript: Disconnect IDE"
       }
     ],
     "menus": {

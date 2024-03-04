@@ -11,9 +11,15 @@ let DSCONFIG;
 let CALLBACK;
 
 /** @param {() => void} callback */
-module.exports = function (callback) {
+module.exports = async function (callback) {
     DSCONFIG = localData.load();
     CALLBACK = callback;
+
+    if (CONNECTED) {
+        const res = await vscode.window.showInformationMessage("Status: Connected", "Reload", "Disconnect");
+        if (res == "Disconnect") vscode.commands.executeCommand("droidscript-code.disconnect");
+        if (res != "Reload") return;
+    }
 
     if (!DSCONFIG.serverIP) showIpPopup();
     else getServerInfo();

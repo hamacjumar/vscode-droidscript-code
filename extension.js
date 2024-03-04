@@ -74,6 +74,7 @@ async function activate(context) {
         context.subscriptions.push(vscode.commands.registerCommand("droidscript-code." + cmd, fnc));
     }
     subscribe("connect", () => connectToDroidScript(dbgServ.start));
+    subscribe("disconnect", dbgServ.stop);
     subscribe("loadFiles", loadFiles);
     subscribe("extractAssets", extractAssets);
     subscribe("stopApp", stop);
@@ -779,6 +780,7 @@ async function onDebugServerStart() {
     // pluginsTreeDataProvider.refresh();
 
     checkUnsavedChanges();
+    showStatusBarItems();
     if (PROJECT) {
         openProject({ title: PROJECT });
         projectsTreeDataProvider.refresh();

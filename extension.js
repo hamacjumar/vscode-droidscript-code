@@ -360,9 +360,10 @@ async function getAllFiles(folder, proc, action) {
     }
 }
 
-async function showReloadPopup() {
-    const selection = await vscode.window.showInformationMessage("You are currently disconnected!", "Reconnect");
-    if (selection === "Reconnect") vscode.commands.executeCommand("droidscript-code.connect");
+async function showReloadPopup(auto = false) {
+    if (CONNECTED) return
+    const selection = auto || await vscode.window.showInformationMessage("You are currently disconnected!", "Reconnect");
+    if (auto || selection === "Reconnect") await vscode.commands.executeCommand("droidscript-code.connect");
 }
 
 /** @param {string} filePath */
@@ -599,8 +600,18 @@ function hideStatusBarItems() {
 }
 
 /** @param {string} APPNAME */
-function play(APPNAME) {
-    if (!CONNECTED) return showReloadPopup();
+async function play(APPNAME) {
+    if (!CONNECTED) return showReloadPopup(true);
+
+    const edt = vscode.window.activeTextEditor
+    await edt?.document.save()
+    if (!APPNAME && edt) {
+        const folder = path.dirname(edt.document.uri.fsPath)
+        const proj = DSCONFIG.localProjects.find(m => folder.startsWith(m.path))
+        if (proj) setProjectName(proj.PROJECT);
+    }
+
+    if (!APPNAME && !PROJECT) return vscode.window.showWarningMessage("No Project Selected");
 
     dbgServ.playApp(APPNAME || PROJECT, "app");
     ext.play(APPNAME || PROJECT);
@@ -616,14 +627,14 @@ function runSampleProgram(treeItem) {
         return vscode.window.showWarningMessage("PREMIUM FEATURE. Please subscribe to 'DroidScript Premium' to run this sample.");
     }
 
-    if (!CONNECTED) return showReloadPopup();
+    if (!CONNECTED) return showReloadPopup(true);
 
     dbgServ.playApp(title, "sample")
     ext.runSample(title, category);
 }
 
 function stop() {
-    if (!CONNECTED) return showReloadPopup();
+    if (!CONNECTED) return showReloadPopup(true);
 
     dbgServ.stopApp();
     ext.stop();

@@ -56,7 +56,7 @@ class TreeDataProvider {
         };
 
         const samples = folders.map(title => {
-            const proj = DSCONFIG.localProjects.find(e => e.PROJECT === title);
+            const proj = localData.getProject(e => e.PROJECT === title);
 
             /** @type {ProjItem} */
             const treeItem = { title };

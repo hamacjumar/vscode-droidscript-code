@@ -31,7 +31,7 @@ function load() {
 }
 
 /** @param {DSCONFIG_T} CONFIG */
-function save(CONFIG) {
+function save(CONFIG = data) {
     if (CONFIG != data) console.error("invalid data");
     const strdata = JSON.stringify(adjust(CONFIG), null, 2);
     const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
@@ -52,4 +52,22 @@ function adjust(config) {
     return config;
 }
 
-module.exports = { load, save };
+/** 
+ * @param {Parameters<LocalProject[]['find']>[0]} filter
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProject = (filter, CONFIG = data) => CONFIG.localProjects.find(filter)
+
+/** 
+ * @param {string} name
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProjectByName = (name, CONFIG = data) => CONFIG.localProjects.find(p => p.PROJECT == name)
+
+/** 
+ * @param {string} file
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProjectByFile = (file, CONFIG = data) => CONFIG.localProjects.find(p => file.startsWith(p.path + path.sep))
+
+module.exports = { load, save, getProject, getProjectByName, getProjectByFile };

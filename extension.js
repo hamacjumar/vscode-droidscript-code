@@ -155,8 +155,8 @@ async function activate(context) {
 
     prepareWorkspace();
 
-    // Version 0.2.6 and above...
-    if (CONSTANTS.VERSION > DSCONFIG.VERSION || CONSTANTS.DEBUG) {
+    const assetsExist = fs.existsSync(homePath(CONSTANTS.LOCALFOLDER))
+    if (CONSTANTS.VERSION > DSCONFIG.VERSION || !assetsExist || CONSTANTS.DEBUG) {
         // extract assets
         extractAssets();
         // set the version
@@ -205,8 +205,8 @@ async function prepareWorkspace() {
     if (!uris.length) return;
     displayConnectionStatus();
 
-    const reloadProj = DSCONFIG.localProjects.find(p => p.PROJECT === DSCONFIG.reload);
-    const openProj = first(uris, uri => DSCONFIG.localProjects.find(p => uri.fsPath.startsWith(p.path)));
+    const reloadProj = localData.getProjectByName(DSCONFIG.reload || '');
+    const openProj = first(uris, uri => localData.getProjectByFile(uri.fsPath));
     if (!openProj) return;
     const proj = reloadProj || openProj;
 
@@ -323,7 +323,7 @@ async function indexFolder(folder, conf, proc, listFolder = ext.listFolder, root
 */
 async function getAllFiles(folder, proc, action) {
     if (!CONNECTED) return showReloadPopup();
-    const proj = DSCONFIG.localProjects.find(p => p.PROJECT === PROJECT);
+    const proj = localData.getProjectByName(PROJECT);
     if (!proj) return;
     const conf = loadConfig(proj);
 
@@ -416,7 +416,7 @@ function getRemotePath(filePath, proj) {
  * @param {string} filePath
  */
 function getFileProject(filePath) {
-    return DSCONFIG.localProjects.find(p => filePath.startsWith(p.path + path.sep));
+    return localData.getProjectByFile(filePath);
 }
 
 // Called when the document is save
@@ -606,8 +606,7 @@ async function play(APPNAME) {
     const edt = vscode.window.activeTextEditor
     await edt?.document.save()
     if (!APPNAME && edt) {
-        const folder = path.dirname(edt.document.uri.fsPath)
-        const proj = DSCONFIG.localProjects.find(m => folder.startsWith(m.path))
+        const proj = localData.getProjectByFile(edt.document.uri.fsPath)
         if (proj) setProjectName(proj.PROJECT);
     }
 
@@ -749,7 +748,7 @@ async function smartDeclareVars(file) {
  * @param {string} newAppName
  */
 async function onRenameApp(appName, newAppName) {
-    let proj = DSCONFIG.localProjects.find(m => m.PROJECT === appName);
+    let proj = localData.getProjectByName(appName);
     if (!proj) return;
     const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
     if (!info) return;
@@ -865,7 +864,7 @@ async function openDocs(item) {
 async function openProject(item) {
     const SELECTED_PROJECT = item.contextValue || item.title;
 
-    let proj = DSCONFIG.localProjects.find(m => m.PROJECT == SELECTED_PROJECT) || null;
+    let proj = localData.getProjectByName(SELECTED_PROJECT) || null;
     if (proj && !fs.existsSync(proj.path)) proj = null;
 
     // open existing local project
@@ -949,6 +948,8 @@ async function openProjectFolder(proj, sync = true) {
 
     folderPath = vscode.Uri.file(proj.path);
     setProjectName(proj.PROJECT);
+    const projFile = getLocalPath('.dsproj');
+    if (!fs.existsSync(projFile)) fs.writeFileSync(projFile, '{}')
     showStatusBarItems();
 
     try {

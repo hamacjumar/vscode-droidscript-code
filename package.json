@@ -14,7 +14,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "workspaceContains:.dsproj"
   ],
   "main": "./extension.js",
   "contributes": {

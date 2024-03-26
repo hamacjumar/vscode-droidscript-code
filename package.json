@@ -2,10 +2,10 @@
   "name": "droidscript-code",
   "displayName": "DroidScript - Create Android Apps Using JavaScript",
   "description": "Create android apps using your favourite web libraries. Start android development straight from your device in seconds.",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "publisher": "droidscript",
   "homepage": "https://droidscript.org",
-  "icon": "./images/logo.png",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.76.0"
   },

@@ -2,6 +2,14 @@
 
 Notable releases.
 
+### Version 0.3.4 (2024-03-26)
+- improved IDE command palette
+- re- / disconnect commands & buttons
+- added `.dsproj` activation event
+- auto detect project on run
+- assets are now re-extracted when missing
+- fixed bug which sometimes saved files to the wrong project
+
 ### Version 0.3.3 (2024-01-24)
 - Tracking **all** unsaved changes while disconnected, confirm dialog
 - Fixed smartDeclare inferring global numbers

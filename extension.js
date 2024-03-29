@@ -78,10 +78,6 @@ async function activate(context) {
     subscribe("loadFiles", loadFiles);
     subscribe("extractAssets", extractAssets);
     subscribe("stopApp", stop);
-    subscribe("addNewApp", () => {
-        if (CONNECTED) createNewApp(projectsTreeDataProvider, openProject);
-        else showReloadPopup();
-    });
     subscribe("refreshProjects", () => {
         if (CONNECTED) projectsTreeDataProvider.refresh();
         else showReloadPopup();
@@ -99,12 +95,10 @@ async function activate(context) {
     subscribe("revealExplorer", (/** @type {ProjectsTreeData.ProjItem} */ treeItem) => {
         revealExplorer(treeItem, projectsTreeDataProvider)
     });
-    subscribe("deleteApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
-        deleteApp(args, projectsTreeDataProvider, onDeleteApp);
-    });
-    subscribe("renameApp", (/** @type {ProjectsTreeData.ProjItem} */ args) => {
-        renameApp(args, projectsTreeDataProvider, onRenameApp);
-    });
+
+    subscribe("addNewApp", createAppDialog);
+    subscribe("deleteApp", deleteAppDialog);
+    subscribe("renameApp", renameAppDialog);
     subscribe("exec", execCommand);
     subscribe("addTypes", addTypes);
     subscribe("autoFormat", autoFormat);
@@ -639,8 +633,26 @@ function stop() {
     ext.stop();
 }
 
-/** @param {string} appName */
-function onDeleteApp(appName) {
+async function createAppDialog() {
+    if (!CONNECTED) return showReloadPopup();
+
+    const info = await createNewApp();
+    if (!info) return
+
+    if (projectsTreeDataProvider) projectsTreeDataProvider.refresh();
+    if (openProject) openProject(info);
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
+async function deleteAppDialog(item) {
+    const appName = item?.title;
+    if (!appName) return vscode.window.showWarningMessage("Selec an app in DroidScript's PROJECTS section!");
+
+    const res = await deleteApp(item);
+    if (res?.status !== 'ok') return
+
+    projectsTreeDataProvider.refresh();
+
     if (appName == PROJECT) {
         dbgServ.stop();
         setProjectName();
@@ -652,6 +664,25 @@ function onDeleteApp(appName) {
         DSCONFIG.localProjects.splice(i, 1);
         localData.save(DSCONFIG);
     }
+}
+
+/** @param {ProjectsTreeData.ProjItem} item */
+async function renameAppDialog(item) {
+    const appName = item?.title;
+    const proj = localData.getProjectByName(appName);
+    if (!appName || !proj) return vscode.window.showWarningMessage("Rename an app in DroidScript section under Projects view!");
+
+    const res = await renameApp(item);
+    if (res?.status === 'error') vscode.window.showErrorMessage('Failed to rename app: ' + res.error);
+    if (res?.status !== 'ok') return
+
+    projectsTreeDataProvider.refresh();
+    vscode.window.showInformationMessage(`${appName} successfully renamed to ${res.name}.`);
+
+    proj.reload = true;
+    DSCONFIG.reload = proj.PROJECT = res.name;
+    localData.save(DSCONFIG);
+    openProjectFolder(proj, false);
 }
 
 async function execCommand() {
@@ -741,25 +772,6 @@ async function smartDeclareVars(file) {
     }
 
     await smartDeclare(uri);
-}
-
-/**
- * @param {string} appName
- * @param {string} newAppName
- */
-async function onRenameApp(appName, newAppName) {
-    let proj = localData.getProjectByName(appName);
-    if (!proj) return;
-    const info = await ext.getProjectInfo(proj.path, appName, async p => fs.existsSync(p));
-    if (!info) return;
-
-    fs.renameSync(info.file, path.join(proj.path, newAppName + "." + info.ext));
-
-    proj.PROJECT = newAppName;
-    proj.reload = true;
-    DSCONFIG.reload = proj.PROJECT;
-    localData.save(DSCONFIG);
-    openProjectFolder(proj, false);
 }
 
 async function downloadDefinitions() {

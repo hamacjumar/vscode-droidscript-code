@@ -12,14 +12,11 @@ const catchError = (error) => {
 
 /** 
  * @param {import("../ProjectsTreeView").ProjItem} item
- * @param {import("../ProjectsTreeView").TreeDataProvider} treeView
- * @param {(appName: string) => void} callback 
+ * @returns {Promise<{status:'ok'|'error'} | undefined>}
  */
-module.exports = async function (item, treeView, callback) {
-    if (!item || !item.title)
-        return vscode.window.showWarningMessage("Selec an app in DroidScript's PROJECTS section!");
-
+module.exports = async function (item) {
     const appName = item.title;
+
     /** @type {("Remove"|"Delete"|"Cancel")[]} */
     const actions = ["Remove", "Delete"];
     if (!item.path) actions.shift();
@@ -32,7 +29,10 @@ module.exports = async function (item, treeView, callback) {
 
     if (selection === "Delete") {
         let response = await ext.deleteFile(appName).catch(catchError);
-        if (response.status !== "ok") return vscode.window.showErrorMessage(`Error removing ${appName} app!`);
+        if (response.status !== "ok") {
+            vscode.window.showErrorMessage(`Error removing ${appName} app!`);
+            return
+        }
     }
 
     if (selection === "Remove" || selection === "Delete") {
@@ -44,7 +44,6 @@ module.exports = async function (item, treeView, callback) {
         catch (e) { catchError(e); }
     }
 
-    if (treeView) treeView.refresh();
-    if (callback) callback(appName);
+    return { status: "ok" }
 }
 

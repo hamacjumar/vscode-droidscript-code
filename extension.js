@@ -4,7 +4,7 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 
-const ext = require('./src/extension');
+const ext = require('./src/dsclient');
 const debugServer = require('./src/websocket');
 const localData = require("./src/local-data");
 const connectToDroidScript = require("./src/commands/connect-to-droidscript");

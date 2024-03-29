@@ -2,7 +2,7 @@
 
 const vscode = require('vscode');
 
-const ext = require("../extension");
+const ext = require("../dsclient");
 const localData = require("../local-data");
 
 /** @type {DSCONFIG_T} */

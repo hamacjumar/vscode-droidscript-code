@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const ext = require('../extension');
+const ext = require('../dsclient');
 const fs = require('fs')
 const path = require('path');
 const localData = require('../local-data');

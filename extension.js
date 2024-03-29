@@ -939,6 +939,7 @@ async function openProjectFolder(proj, sync = true) {
     if (!exists && sync) {
         folderPath = vscode.Uri.file(proj.path);
         setProjectName(proj.PROJECT);
+        localData.save(DSCONFIG);
 
         await loadFiles(sync !== true ? sync : undefined);
         info = await ext.getProjectInfo(proj.path, proj.PROJECT, async p => fs.existsSync(p));

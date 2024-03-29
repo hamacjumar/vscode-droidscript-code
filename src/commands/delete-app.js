@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const ext = require('../dsclient');
 const rimraf = require("rimraf");
-
+const fs = require('fs');
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
 const catchError = (error) => {
@@ -37,7 +37,7 @@ module.exports = async function (item) {
 
     if (selection === "Remove" || selection === "Delete") {
         try {
-            rimraf.sync(item.path);
+            if (item.path) rimraf.sync(item.path);
             const n = vscode.workspace.workspaceFolders?.findIndex(f => f.uri.fsPath == item.path);
             if (n !== undefined) vscode.workspace.updateWorkspaceFolders(n, 1);
         }

@@ -1,6 +1,6 @@
-# DroidScript-Code 0.3.2 Release Notes
+# DroidScript-Code 0.3.4 Release Notes
 
-Welcome to the 0.3.2 Release of DroidScript-Code. There are many updates in this version that we hope you'll like. Some of the key highlights include:
+Welcome to the 0.3.4 Release of DroidScript-Code. There are many updates in this version that we hope you'll like. Some of the key highlights include:
 
 - [**Type support**](#typing) - Use JSDoc together with VS Code strong JS/TS intellisense capabilities
 - [**Major UX improvements**](#ux-improvements) - Updated Docs & Project views
@@ -85,3 +85,12 @@ Here is the full changelog since the last release:
 - Improved error highlighting
 - IDE command support
 - Enabled 'DroidScript: ' command palette
+
+### Version 0.3.4 (2024-03-29)
+- improved IDE command palette
+- re- / disconnect commands & buttons
+- added `.dsproj` activation event
+- auto detect project on run
+- assets are now re-extracted when missing
+- fixed bug which sometimes saved files to the wrong project
+- fixed bug when creating files that opened two projects

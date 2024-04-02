@@ -3,7 +3,7 @@ const fs = require("fs");
 const minimatch = require("minimatch");
 const os = require("os");
 const path = require("path");
-const dfltJSConfig = require("../definitions/jsconfig.json")
+const dfltJSConfig = require("../definitions/default_jsconfig.json")
 
 const HOMEPATH = os.homedir();
 
@@ -41,7 +41,7 @@ function loadConfig(info) {
 
 /** @type {(conf: ProjConfig, path:string) => boolean} */
 function excludeFile(conf, filePath) {
-    if (filePath.split(/[/\\]/).find(p => p[0] === '.' || p[0] === '~')) return true;
+    if (filePath.split(/[/\\]/).find(p => '~.'.includes(p[0]))) return true;
     for (const glob of conf.exclude || dfltJSConfig.exclude)
         if (minimatch(filePath, glob)) return true;
     return false;

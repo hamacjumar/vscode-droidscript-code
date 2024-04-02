@@ -31,7 +31,7 @@ const axios = {
     get: async (url, config) => axios.intercept(url, await _axios.get(url, config)),
 
     /** @type {typeof _axios.post} */
-    post: async (url, data, config) => await _axios.post(url, data, config),
+    post: async (url, data, config) => axios.intercept(url, await _axios.post(url, data, config)),
 }
 
 /** @type {(error: any) => {status: undefined, data: DSServerResponse<{status:"bad"}>}} */
@@ -303,6 +303,18 @@ async function execute(mode, code) {
     return response;
 }
 
+
+/**
+ * @param {string} code
+ */
+async function exec(code) {
+    const url = `${DSCONFIG.serverIP}/ide?cmd=exec&code=${querystring.escape(code)}`;
+
+    const response = await axios.get(url).catch(catchError);
+    if (typeof response.status === "undefined") return null;
+    return response;
+}
+
 /**
  * @param {string} cmd
  */
@@ -331,5 +343,6 @@ module.exports = {
     getServerInfo,
     uploadFile,
     execute,
+    exec,
     executeCommand
 }

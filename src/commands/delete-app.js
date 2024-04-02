@@ -1,7 +1,7 @@
 const vscode = require('vscode');
-const ext = require('../extension');
+const ext = require('../dsclient');
 const rimraf = require("rimraf");
-
+const fs = require('fs');
 
 /** @type {(error: any) => DSServerResponse<{status:"bad"}>} */
 const catchError = (error) => {
@@ -12,39 +12,38 @@ const catchError = (error) => {
 
 /** 
  * @param {import("../ProjectsTreeView").ProjItem} item
- * @param {import("../ProjectsTreeView").TreeDataProvider} treeView
- * @param {(appName: string) => void} callback 
+ * @returns {Promise<{status:'ok'|'error'} | undefined>}
  */
-module.exports = async function (item, treeView, callback) {
-    if (!item || !item.title)
-        return vscode.window.showWarningMessage("Selec an app in DroidScript's PROJECTS section!");
-
+module.exports = async function (item) {
     const appName = item.title;
+
     /** @type {("Remove"|"Delete"|"Cancel")[]} */
-    const actions = ["Remove", "Delete", "Cancel"];
+    const actions = ["Remove", "Delete"];
     if (!item.path) actions.shift();
 
     const message = item.path ?
         `Remove local ${appName} app or delete on device?` :
         `Delete ${appName} on device?`;
 
-    const selection = await vscode.window.showWarningMessage(message, ...actions)
+    const selection = await vscode.window.showWarningMessage(message, { modal: true }, ...actions)
 
     if (selection === "Delete") {
         let response = await ext.deleteFile(appName).catch(catchError);
-        if (response.status !== "ok") return vscode.window.showErrorMessage(`Error removing ${appName} app!`);
+        if (response.status !== "ok") {
+            vscode.window.showErrorMessage(`Error removing ${appName} app!`);
+            return
+        }
     }
 
     if (selection === "Remove" || selection === "Delete") {
         try {
-            rimraf.sync(item.path);
+            if (item.path) rimraf.sync(item.path);
             const n = vscode.workspace.workspaceFolders?.findIndex(f => f.uri.fsPath == item.path);
             if (n !== undefined) vscode.workspace.updateWorkspaceFolders(n, 1);
         }
         catch (e) { catchError(e); }
     }
 
-    if (treeView) treeView.refresh();
-    if (callback) callback(appName);
+    return { status: "ok" }
 }
 

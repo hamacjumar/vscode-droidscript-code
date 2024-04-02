@@ -4,13 +4,10 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 const CONSTANTS = require("./CONSTANTS");
-const conf = require("../package.json");
-
-const curVer = Number(conf.version.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2$3"));
 
 /** @type {DSCONFIG_T} */
 const data = {
-    VERSION: curVer,
+    VERSION: CONSTANTS.VERSION,
     serverIP: '',
     reload: '',
     PORT: CONSTANTS.PORT,
@@ -26,7 +23,7 @@ function load() {
         const fileData = fs.readFileSync(filePath, 'utf8');
         Object.assign(data, JSON.parse(fileData));
 
-        if (data.VERSION != curVer) console.log("version change", data.VERSION, '->', curVer);
+        if (data.VERSION != CONSTANTS.VERSION) console.log("version change", data.VERSION, '->', CONSTANTS.VERSION);
         adjust(data);
     }
 
@@ -34,7 +31,7 @@ function load() {
 }
 
 /** @param {DSCONFIG_T} CONFIG */
-function save(CONFIG) {
+function save(CONFIG = data) {
     if (CONFIG != data) console.error("invalid data");
     const strdata = JSON.stringify(adjust(CONFIG), null, 2);
     const filePath = path.join(os.homedir(), CONSTANTS.DSCONFIG);
@@ -55,4 +52,22 @@ function adjust(config) {
     return config;
 }
 
-module.exports = { load, save };
+/** 
+ * @param {Parameters<LocalProject[]['find']>[0]} filter
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProject = (filter, CONFIG = data) => CONFIG.localProjects.find(filter)
+
+/** 
+ * @param {string} name
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProjectByName = (name, CONFIG = data) => CONFIG.localProjects.find(p => p.PROJECT == name)
+
+/** 
+ * @param {string} file
+ * @param {DSCONFIG_T} CONFIG
+ */
+const getProjectByFile = (file, CONFIG = data) => CONFIG.localProjects.find(p => file.startsWith(p.path + path.sep))
+
+module.exports = { load, save, getProject, getProjectByName, getProjectByFile };

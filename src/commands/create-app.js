@@ -1,19 +1,9 @@
 const vscode = require('vscode');
-const ext = require('../extension');
+const ext = require('../dsclient');
 const localData = require('../local-data');
-const { TreeDataProvider } = require('../ProjectsTreeView');
 
 /** @type {DSCONFIG_T} */
 let DSCONFIG;
-let appType = "";
-let appName = "";
-let appTemplate = "";
-/**
- * @type {TreeDataProvider}
- */
-let projectsTreeView;
-/** @type {(item: import("../ProjectsTreeView").ProjItem, newWindow: boolean) => void} */
-let openNewProject;
 const TYPES = [
     { label: "Native", description: 'Build android app using native controls' },
     { label: "Html", description: 'Build android app using Html, CSS and Javascript' },
@@ -30,32 +20,24 @@ const TEMPLATES = {
     python: ["Simple", "Hybrid"]
 };
 
-/** 
- * @param {import("../ProjectsTreeView").TreeDataProvider} treeView
- * @param {(item: import("../ProjectsTreeView").ProjItem, newWindow: boolean) => void} openProject 
- */
-module.exports = function (treeView, openProject) {
 
-    projectsTreeView = treeView;
-    openNewProject = openProject;
-
+module.exports = async function () {
     DSCONFIG = localData.load();
 
-    const options = {
-        placeHolder: 'Select app type',
-        ignoreFocusOut: false
-    };
-    vscode.window.showQuickPick(TYPES, options).then(item => {
-        if (item) {
-            appType = item.label.toLowerCase();
-            enterAppName();
-        }
-    });
+    const name = await enterAppName();
+    if (!name) return
+    const type = await enterAppType();
+    if (!type) return
+    const tmpl = await showTemplates(type);
+    if (!tmpl) return
+
+    const res = await ext.createApp(name, type, tmpl);
+    if (res.status !== "ok") return
+    return { title: name }
 }
 
 async function enterAppName() {
     const input = await vscode.window.showInputBox({ prompt: 'Enter app name', placeHolder: 'e.g. MyNewApp' })
-
     if (!input) return;
 
     const data = await ext.listFolder("");
@@ -65,11 +47,22 @@ async function enterAppName() {
             return enterAppName();
         }
     }
-    appName = input;
-    showTemplates();
+    return input;
 }
 
-async function showTemplates() {
+async function enterAppType() {
+    const options = {
+        placeHolder: 'Select app type',
+        ignoreFocusOut: false
+    };
+    const item = await vscode.window.showQuickPick(TYPES, options);
+
+    if (!item) return
+    return item.label.toLowerCase();
+}
+
+/** @param {string} appType */
+async function showTemplates(appType) {
     const options = {
         placeHolder: `Select ${appType} app template`,
         ignoreFocusOut: false
@@ -81,17 +74,8 @@ async function showTemplates() {
     if (item) {
         if (item.includes("♦")) {
             vscode.window.showWarningMessage(`${item} is a premium feature.`);
-            return showTemplates();
+            return showTemplates(appType);
         }
-        appTemplate = item;
-        createApp();
-    }
-}
-
-async function createApp() {
-    let response = await ext.createApp(appName, appType, appTemplate);
-    if (response.status == "ok") {
-        if (projectsTreeView) projectsTreeView.refresh();
-        if (openNewProject) openNewProject({ title: appName }, true);
+        return item;
     }
 }

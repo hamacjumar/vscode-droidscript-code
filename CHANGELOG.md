@@ -2,18 +2,43 @@
 
 Notable releases.
 
-### Version 0.3.0
-- refactored project management
-- new `Sync Project` dialog options
-- associate projects with custom location
-- multiple open projects in workspace
+### Version 0.3.4 (2024-03-29)
+- improved IDE command palette
+- re- / disconnect commands & buttons
+- added `.dsproj` activation event
+- auto detect project on run
+- assets are now re-extracted when missing
+- fixed bug which sometimes saved files to the wrong project
+- fixed bug when creating files that opened two projects
+
+### Version 0.3.3 (2024-01-24)
+- Tracking **all** unsaved changes while disconnected, confirm dialog
+- Fixed smartDeclare inferring global numbers
+- Auto detect debug mode
+- Fixed opening main file when opening projects
+- Focus vscode explorer view when opening projects
+- Fixed build excluding required source file
+- Showing Release Highlight page
+- Always show sync qickpick on project open
+- Fixed project reload logic when not in DS project
+- Fixed project sync on initial download
+- Fixed 'Delete App'
+- Improved error highlighting
+- IDE command support
+- Enabled 'DroidScript: ' command palette
+
+### Version 0.3.0 (2024-01-23)
+- Refactored project management
+- New `Sync Project` dialog options
+- Associate projects with custom location
+- Multiple open projects in workspace
 - Run `alt+r` and Stop `alt+s` keybinds
-- improved docs tree view
-- improved project tree view
-- docs opens github.io when not connected to DS
-- ignore hidden and custom files from jsconfig.json
-- significantly increased sync speed via parallel downloads
-- many other UX improvements
+- Improved docs tree view
+- Improved project tree view
+- Docs opens github.io when not connected to DS
+- Ignore hidden and custom files from jsconfig.json
+- Significantly increased sync speed via parallel downloads
+- Many other UX improvements
 
 **Typing**
 - Support for JSDoc typed code bases

@@ -2,10 +2,10 @@
   "name": "droidscript-code",
   "displayName": "DroidScript - Create Android Apps Using JavaScript",
   "description": "Create android apps using your favourite web libraries. Start android development straight from your device in seconds.",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "publisher": "droidscript",
   "homepage": "https://droidscript.org",
-  "icon": "./images/logo.png",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -14,7 +14,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "workspaceContains:.dsproj"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -74,15 +74,15 @@
     "commands": [
       {
         "command": "droidscript-code.runApp",
-        "title": "Run"
+        "title": "DroidScript: Run"
       },
       {
         "command": "droidscript-code.stop",
-        "title": "Stop"
+        "title": "DroidScript: Stop"
       },
       {
         "command": "droidscript-code.addNewApp",
-        "title": "Create new app",
+        "title": "DroidScript: Create new app",
         "icon": {
           "light": "./images/plus-dark.svg",
           "dark": "./images/plus-light.svg"
@@ -93,8 +93,17 @@
         "title": "Rename"
       },
       {
+        "command": "droidscript-code.exec",
+        "title": "DroidScript: IDE Command"
+      },
+      {
+        "command": "droidscript-code.extractAssets",
+        "title": "DroidScript: Extract Assets",
+        "icon": "$(sync)"
+      },
+      {
         "command": "droidscript-code.refreshProjects",
-        "title": "Refresh",
+        "title": "DroidScript: Refresh",
         "icon": "$(sync)"
       },
       {
@@ -123,7 +132,7 @@
       },
       {
         "command": "droidscript-code.declareVars",
-        "title": "Smart Declare All Variables"
+        "title": "DroidScript: Smart Declare All Variables"
       },
       {
         "command": "droidscript-code.openSample",
@@ -132,6 +141,14 @@
       {
         "command": "droidscript-code.runSample",
         "title": "Run"
+      },
+      {
+        "command": "droidscript-code.connect",
+        "title": "DroidScript: Connect IDE"
+      },
+      {
+        "command": "droidscript-code.disconnect",
+        "title": "DroidScript: Disconnect IDE"
       }
     ],
     "menus": {
@@ -183,6 +200,11 @@
           "group": "2_workspace"
         },
         {
+          "command": "droidscript-code.exec",
+          "when": "view == droidscript-projects",
+          "group": "2_workspace@1"
+        },
+        {
           "command": "droidscript-code.addNewApp",
           "when": "view == droidscript-projects",
           "group": "2_workspace@2"
@@ -227,6 +249,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "build": "vsce package",
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js"
   },
@@ -236,6 +259,7 @@
     "@types/node": "16.x",
     "@types/vscode": "^1.76.0",
     "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.22.0",
     "eslint": "^8.36.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",

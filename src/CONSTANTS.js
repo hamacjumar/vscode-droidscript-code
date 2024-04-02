@@ -1,7 +1,11 @@
+
+const conf = require("../package.json");
+const curVer = Number(conf.version.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2$3"));
+
 // path to local files and folders
 module.exports = {
-    VERSION: 0.28,
-    DEBUG: !false,
+    VERSION: curVer,
+    DEBUG: false,
     LOCALFOLDER: ".droidscript",
     DSCONFIG: "dsconfig.json",
     SAMPLES: ".droidscript/samples",

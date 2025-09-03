@@ -2,7 +2,12 @@
 
 Notable releases.
 
-### Version 0.3.4 (2024-03-29)
+### Version 0.3.5 Alpha (2025-09-03)
+This is an unofficial alpha - use at your own risk. Get backups!  
+See notes and track updates [here](./v0.3.5.md).
+
+### Version 0.3.4 (2024-03-29)  
+(See [Highlights](./Highlights.md))  
 - improved IDE command palette
 - re- / disconnect commands & buttons
 - added `.dsproj` activation event

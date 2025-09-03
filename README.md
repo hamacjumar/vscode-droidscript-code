@@ -17,7 +17,7 @@ Unlike other development tools which take hours to install and eat up gigabytes 
 
 > For version 0.2.7 and above, the documentation is displayed on the right panel served locally. To view docs smoothly, install the `"Live Preview"` extension [here](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).
 
-> Production version 0.2.8 does not connect to the latest VSCode versions. See notes for [v0.3.5 Alpha](.\v0.3.5.md) which is now in testing. Stability has not yet been determined.
+> Production version 0.2.8 does not connect to the latest VSCode versions. See notes for [v0.3.5 Alpha](./v0.3.5.md) which is now in testing. Stability has not yet been determined.
 
 
 ## How to connect to DroidScript?

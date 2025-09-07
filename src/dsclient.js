@@ -122,7 +122,7 @@ async function getSamples(type = "js") {
 
     if (!CONNECTED) return data;
 
-    if ((DSCONFIG.info.version || 0) < 3) {
+    if ((DSCONFIG.info.version || 2.7) < 2.7) {
         const url = `${DSCONFIG.serverIP}/ide?cmd=getsamples&type=${type}`;
 
         const response = await axios.get(url).catch(catchError);
